@@ -1,0 +1,23 @@
+{
+  "$schema": "https://hodifly.app/schema/v1.json",
+  "mode": "ruby",
+  "runtime": "ruby:3.3",
+  "persist": [],
+  "env": {
+    "required": [
+      "MYSQL_HOST",
+      "MYSQL_PORT",
+      "MYSQL_USER",
+      "MYSQL_PASSWORD",
+      "MYSQL_DATABASE",
+      "MYSQL_CACHE_DATABASE",
+      "MYSQL_QUEUE_DATABASE",
+      "MYSQL_CABLE_DATABASE",
+      "RAILS_ENV",
+      "RAILS_MASTER_KEY",
+      "WEBCUP_API_BASE_URL",
+      "WEBCUP_API_KEY",
+      "WEBCUP_POLL_INTERVAL"
+    ]
+  }
+}
