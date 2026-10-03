@@ -15,6 +15,10 @@ Rails.application.configure do
   # Enable server timing.
   config.server_timing = true
 
+  # Allow the web console to render for requests coming from the Docker host
+  # (e.g. the docker-compose development stack), not just localhost.
+  config.web_console.permissions = [ "192.168.0.0/16", "172.16.0.0/12", "10.0.0.0/8" ]
+
   # Enable/disable Action Controller caching. By default Action Controller caching is disabled.
   # Run rails dev:cache to toggle Action Controller caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?

@@ -16,7 +16,7 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips default-mysql-client && \
     ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
@@ -32,7 +32,7 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips libyaml-dev pkg-config && \
+    apt-get install --no-install-recommends -y build-essential git libvips libyaml-dev pkg-config default-libmysqlclient-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
@@ -54,8 +54,26 @@ RUN bundle exec bootsnap precompile -j 1 app/ lib/
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
+# Development stage used by docker-compose.yml for a local, live-reloading setup.
+# Build with: docker build --target development -t terra_nova-dev .
+FROM base AS development
 
+# Enable development gems and disable bundler's frozen/deployment mode.
+ENV RAILS_ENV="development" \
+    BUNDLE_DEPLOYMENT="0" \
+    BUNDLE_WITHOUT=""
 
+# Install packages needed to build gems, including the MySQL client headers.
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git libvips libyaml-dev pkg-config default-libmysqlclient-dev && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Install application gems (full bundle, including development and test).
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+EXPOSE 3000
+CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
 
 # Final stage for app image
 FROM base
