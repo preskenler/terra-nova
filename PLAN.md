@@ -4,6 +4,10 @@ Municipal platform for the city of **Nova Terra** (Rails app `TerraNova`).
 This document is the single source of truth for scope, architecture, milestones, and
 requirement traceability. It complements `README.md` (which is for setup/usage).
 
+> **Status:** milestones **M0–M8 implemented**. The external Webcup "Terra Nova" API is
+> integrated (live demand feed + triage console). 137 automated tests pass; RuboCop,
+> Brakeman, bundler-audit and importmap audit are clean. See `README.md` to run it.
+
 ---
 
 ## 1. Context

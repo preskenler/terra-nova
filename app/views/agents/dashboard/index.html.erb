@@ -3,21 +3,57 @@
 <h1 class="text-2xl font-bold"><%= t("agents.dashboard.title") %></h1>
 <p class="mt-1 text-base-content/70"><%= t("agents.dashboard.subtitle") %></p>
 
-<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-  <%= render Ui::StatComponent.new(
-        label: t("agents.dashboard.total_demands"), value: @demand_count) %>
-  <%= render Ui::StatComponent.new(
-        label: t("agents.dashboard.unseen_demands"), value: @unseen_demand_count,
-        emphasis: @unseen_demand_count.positive?) %>
-  <%= render Ui::StatComponent.new(
-        label: t("agents.dashboard.pending_demands"), value: @pending_demand_count) %>
-  <%= render Ui::StatComponent.new(
-        label: t("agents.dashboard.current_wave"),
-        value: @latest_sync&.current_wave || "—",
-        hint: @latest_sync ? t("agents.dashboard.last_sync", time: l(@latest_sync.fetched_at, format: :short)) : t("agents.dashboard.no_sync")) %>
-</div>
+<section class="mt-6" aria-labelledby="platform-activity-heading">
+  <h2 id="platform-activity-heading" class="text-lg font-semibold"><%= t("agents.dashboard.activity") %></h2>
+  <div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <%= render Ui::StatComponent.new(label: t("agents.dashboard.citizens"), value: @user_count) %>
+    <%= render Ui::StatComponent.new(label: t("agents.dashboard.requests"), value: @request_count) %>
+    <%= render Ui::StatComponent.new(
+          label: t("agents.dashboard.pending_requests"), value: @pending_request_count,
+          emphasis: @pending_request_count.positive?) %>
+    <%= render Ui::StatComponent.new(label: t("agents.dashboard.appointments"), value: @upcoming_appointment_count) %>
+  </div>
+</section>
 
-<div class="mt-6">
+<section class="mt-6" aria-labelledby="api-activity-heading">
+  <h2 id="api-activity-heading" class="text-lg font-semibold"><%= t("agents.dashboard.api_activity") %></h2>
+  <div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <%= render Ui::StatComponent.new(
+          label: t("agents.dashboard.total_demands"), value: @demand_count) %>
+    <%= render Ui::StatComponent.new(
+          label: t("agents.dashboard.unseen_demands"), value: @unseen_demand_count,
+          emphasis: @unseen_demand_count.positive?) %>
+    <%= render Ui::StatComponent.new(
+          label: t("agents.dashboard.pending_demands"), value: @pending_demand_count) %>
+    <%= render Ui::StatComponent.new(
+          label: t("agents.dashboard.current_wave"),
+          value: @latest_sync&.current_wave || "—",
+          hint: @latest_sync ? t("agents.dashboard.last_sync", time: l(@latest_sync.fetched_at, format: :short)) : t("agents.dashboard.no_sync")) %>
+  </div>
+</section>
+
+<div class="mt-6 grid gap-4 lg:grid-cols-2">
+  <%= render Ui::CardComponent.new(title: t("agents.dashboard.recent_requests")) do %>
+    <% if @recent_requests.any? %>
+      <ul class="divide-y divide-base-200">
+        <% @recent_requests.each do |request| %>
+          <li class="flex items-center justify-between gap-3 py-2">
+            <div class="min-w-0">
+              <p class="font-mono text-xs text-base-content/60"><%= request.reference %></p>
+              <p class="truncate text-sm"><%= link_to request.subject, agents_request_path(request), class: "link" %></p>
+            </div>
+            <%= render Ui::BadgeComponent.new(label: t("requests.status.#{request.status}"), variant: request_badge_variant(request.status)) %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-sm text-base-content/60"><%= t("agents.dashboard.no_requests") %></p>
+    <% end %>
+    <div class="mt-4">
+      <%= link_to t("agents.nav.requests"), agents_requests_path, class: "btn btn-primary btn-sm" %>
+    </div>
+  <% end %>
+
   <%= render Ui::CardComponent.new(title: t("agents.dashboard.recent_demands")) do %>
     <% if @recent_demands.any? %>
       <ul class="divide-y divide-base-200">
