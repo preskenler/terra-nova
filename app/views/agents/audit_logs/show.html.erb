@@ -25,7 +25,7 @@
   </dl>
 
   <section class="mt-6" aria-labelledby="changes-heading">
-    <h2 id="changes-heading" class="text-lg font-semibold"><%= t("agents.audit_logs.changes") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("agents.audit_logs.changes"), id: "changes-heading") %>
 
     <% if @changes.any? %>
       <div class="mt-2 overflow-x-auto rounded-box border border-base-300 bg-base-100">

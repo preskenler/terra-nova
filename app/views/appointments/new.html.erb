@@ -7,8 +7,7 @@
       { label: t("appointments.new") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("appointments.new") %></h1>
-<p class="mt-1 max-w-2xl text-base-content/70"><%= t("appointments.form.intro") %></p>
+<%= render Ui::PageHeaderComponent.new(title: t("appointments.new"), subtitle: t("appointments.form.intro")) %>
 
 <%= form_with url: new_appointment_path, method: :get, class: "mt-4 flex flex-wrap items-end gap-3" do %>
   <div>

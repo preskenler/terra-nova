@@ -5,8 +5,7 @@
       { label: t("feedbacks.new") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("feedbacks.new") %></h1>
-<p class="mt-1 max-w-2xl text-base-content/70"><%= t("feedbacks.intro") %></p>
+<%= render Ui::PageHeaderComponent.new(title: t("feedbacks.new"), subtitle: t("feedbacks.intro")) %>
 
 <%= form_with model: @feedback, url: feedback_path, class: "mt-6 max-w-2xl space-y-4" do |f| %>
   <% if @feedback.errors.any? %>

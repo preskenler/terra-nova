@@ -10,7 +10,7 @@
   <p class="text-base-content/80"><%= t("pages.accessibility.intro") %></p>
 
   <section aria-labelledby="a11y-features-heading">
-    <h2 id="a11y-features-heading" class="text-lg font-semibold"><%= t("pages.accessibility.features_heading") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("pages.accessibility.features_heading"), id: "a11y-features-heading") %>
     <ul class="mt-2 list-disc space-y-1 pl-5 text-base-content/80">
       <% %i[keyboard contrast text screen_reader motion].each do |feature| %>
         <li><%= t("pages.accessibility.features.#{feature}") %></li>
@@ -19,7 +19,7 @@
   </section>
 
   <section>
-    <h2 class="text-lg font-semibold"><%= t("pages.accessibility.help_heading") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("pages.accessibility.help_heading")) %>
     <p class="mt-1 text-base-content/80"><%= t("pages.accessibility.help_body") %></p>
     <%= link_to t("pages.accessibility.contact"), new_feedback_path, class: "btn btn-primary btn-sm mt-2" %>
   </section>

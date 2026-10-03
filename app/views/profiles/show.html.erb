@@ -6,7 +6,7 @@
       { label: t("profiles.title") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("profiles.title") %></h1>
+<%= render Ui::PageHeaderComponent.new(title: t("profiles.title")) %>
 
 <div class="mt-4 max-w-2xl">
   <%= render Ui::CardComponent.new do %>

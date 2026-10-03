@@ -7,7 +7,7 @@
       { label: t("agents.users.edit") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("agents.users.edit") %></h1>
+<%= render Ui::PageHeaderComponent.new(title: t("agents.users.edit")) %>
 
 <%= form_with model: @user, url: agents_user_path(@user), method: :patch, class: "mt-4 max-w-xl space-y-4" do |f| %>
   <div>

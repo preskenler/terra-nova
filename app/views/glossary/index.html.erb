@@ -5,8 +5,7 @@
       { label: t("glossary.title") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("glossary.title") %></h1>
-<p class="mt-1 max-w-2xl text-base-content/70"><%= t("glossary.intro") %></p>
+<%= render Ui::PageHeaderComponent.new(title: t("glossary.title"), subtitle: t("glossary.intro")) %>
 
 <dl class="mt-6 grid gap-4 md:grid-cols-2">
   <% @terms.each do |term| %>

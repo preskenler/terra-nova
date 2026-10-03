@@ -32,7 +32,7 @@
 
 <% if @emergency_services.any? %>
   <section aria-labelledby="emergency-heading" class="mt-6 rounded-box border-2 border-error bg-base-100 p-4">
-    <h2 id="emergency-heading" class="text-lg font-bold"><%= t("services.emergency.title") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("services.emergency.title"), id: "emergency-heading") %>
     <p class="text-sm text-base-content/80"><%= t("services.emergency.hint") %></p>
     <ul class="mt-3 grid gap-3 sm:grid-cols-2">
       <% @emergency_services.each do |service| %>
@@ -54,7 +54,7 @@
 
 <% if @query.blank? && @category.blank? && @priority_services.any? && !simple_mode? %>
   <section class="mt-6" aria-labelledby="priority-heading">
-    <h2 id="priority-heading" class="text-lg font-bold"><%= t("services.priority.title") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("services.priority.title"), id: "priority-heading") %>
     <div class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <% @priority_services.each do |service| %>
         <%= render "services/card", service: service %>
@@ -64,7 +64,7 @@
 <% end %>
 
 <section class="mt-6" aria-labelledby="all-services-heading">
-  <h2 id="all-services-heading" class="text-lg font-bold"><%= t("services.all_services") %></h2>
+  <%= render Ui::SectionHeadingComponent.new(title: t("services.all_services"), id: "all-services-heading") %>
   <% if @services.any? %>
     <div class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <% @services.each do |service| %>

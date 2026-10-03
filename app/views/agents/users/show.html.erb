@@ -39,7 +39,7 @@
       </dl>
 
       <% if @user.profile %>
-        <h2 class="mt-4 text-lg font-semibold"><%= t("profiles.title") %></h2>
+        <%= render Ui::SectionHeadingComponent.new(title: t("profiles.title")) %>
         <dl class="mt-2 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
           <div>
             <dt class="text-base-content/60"><%= t("profiles.fields.address") %></dt>

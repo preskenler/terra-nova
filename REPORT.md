@@ -928,5 +928,5 @@ change the status → the author is notified.
   and citizen ideas with support and moderation (F68).
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 229 automated tests pass (222 unit/controller/integration + 7 browser-style
+- **Quality:** 234 automated tests pass (227 unit/controller/integration + 7 browser-style
   system tests); RuboCop, Brakeman, bundler-audit and importmap audit are all clean.

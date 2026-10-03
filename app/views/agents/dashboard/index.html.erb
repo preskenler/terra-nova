@@ -1,10 +1,9 @@
 <% content_for :title, t("agents.dashboard.title") %>
 
-<h1 class="text-2xl font-bold"><%= t("agents.dashboard.title") %></h1>
-<p class="mt-1 text-base-content/70"><%= t("agents.dashboard.subtitle") %></p>
+<%= render Ui::PageHeaderComponent.new(title: t("agents.dashboard.title"), subtitle: t("agents.dashboard.subtitle")) %>
 
 <section class="mt-6" aria-labelledby="platform-activity-heading">
-  <h2 id="platform-activity-heading" class="text-lg font-semibold"><%= t("agents.dashboard.activity") %></h2>
+  <%= render Ui::SectionHeadingComponent.new(title: t("agents.dashboard.activity"), id: "platform-activity-heading") %>
   <div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
     <%= render Ui::StatComponent.new(label: t("agents.dashboard.citizens"), value: @user_count) %>
     <%= render Ui::StatComponent.new(label: t("agents.dashboard.requests"), value: @request_count) %>
@@ -16,7 +15,7 @@
 </section>
 
 <section class="mt-6" aria-labelledby="api-activity-heading">
-  <h2 id="api-activity-heading" class="text-lg font-semibold"><%= t("agents.dashboard.api_activity") %></h2>
+  <%= render Ui::SectionHeadingComponent.new(title: t("agents.dashboard.api_activity"), id: "api-activity-heading") %>
   <div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
     <%= render Ui::StatComponent.new(
           label: t("agents.dashboard.total_demands"), value: @demand_count) %>

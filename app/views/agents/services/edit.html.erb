@@ -6,7 +6,7 @@
       { label: @service.name }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("agents.services.edit") %></h1>
+<%= render Ui::PageHeaderComponent.new(title: t("agents.services.edit")) %>
 
 <%= form_with model: @service, url: agents_service_path(@service), method: :patch, class: "mt-4 max-w-2xl space-y-4" do |f| %>
   <% if @service.errors.any? %>

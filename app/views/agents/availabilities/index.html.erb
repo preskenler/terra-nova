@@ -6,12 +6,11 @@
       { label: t("agents.availabilities.title") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("agents.availabilities.title") %></h1>
-<p class="mt-1 max-w-2xl text-base-content/70"><%= t("agents.availabilities.subtitle") %></p>
+<%= render Ui::PageHeaderComponent.new(title: t("agents.availabilities.title"), subtitle: t("agents.availabilities.subtitle")) %>
 
 <div class="mt-6 grid gap-6 lg:grid-cols-2">
   <section aria-labelledby="weekly-heading" class="rounded-box border border-base-300 bg-base-100 p-4">
-    <h2 id="weekly-heading" class="text-lg font-semibold"><%= t("agents.availabilities.weekly") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("agents.availabilities.weekly"), id: "weekly-heading") %>
 
     <%= form_with model: @availability, url: agents_availabilities_path, class: "mt-3 space-y-3" do |f| %>
       <% if @availability.errors.any? %>
@@ -61,7 +60,7 @@
   </section>
 
   <section aria-labelledby="time-off-heading" class="rounded-box border border-base-300 bg-base-100 p-4">
-    <h2 id="time-off-heading" class="text-lg font-semibold"><%= t("agents.time_offs.title") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("agents.time_offs.title"), id: "time-off-heading") %>
 
     <%= form_with model: @time_off, url: agents_time_offs_path, class: "mt-3 space-y-3" do |f| %>
       <div class="grid grid-cols-2 gap-3">

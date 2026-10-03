@@ -5,8 +5,7 @@
       { label: t("transports.title") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("transports.title") %></h1>
-<p class="mt-1 text-base-content/70"><%= t("transports.subtitle") %></p>
+<%= render Ui::PageHeaderComponent.new(title: t("transports.title"), subtitle: t("transports.subtitle")) %>
 
 <div class="mt-6 grid gap-4 md:grid-cols-2">
   <% @lines.each do |line| %>

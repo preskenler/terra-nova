@@ -7,7 +7,7 @@
       { label: t("agents.appointments.reschedule") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("agents.appointments.reschedule") %></h1>
+<%= render Ui::PageHeaderComponent.new(title: t("agents.appointments.reschedule")) %>
 
 <%= form_with model: @appointment, url: agents_appointment_path(@appointment), method: :patch, class: "mt-4 max-w-xl space-y-4" do |f| %>
   <% if @appointment.errors.any? %>

@@ -41,7 +41,7 @@
 
     <% if @service.location? %>
       <section aria-labelledby="location-heading">
-        <h2 id="location-heading" class="text-lg font-semibold"><%= t("services.location.title") %></h2>
+        <%= render Ui::SectionHeadingComponent.new(title: t("services.location.title"), id: "location-heading") %>
         <% unless reduced_data? %>
           <div class="mt-2"
                data-controller="map"

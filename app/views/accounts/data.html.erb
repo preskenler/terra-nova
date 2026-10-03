@@ -17,7 +17,7 @@
 
 <% account = @data[:account] %>
 <section class="mt-6" aria-labelledby="data-account-heading">
-  <h2 id="data-account-heading" class="text-lg font-semibold"><%= t("account.data.account") %></h2>
+  <%= render Ui::SectionHeadingComponent.new(title: t("account.data.account"), id: "data-account-heading") %>
   <dl class="mt-2 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
     <div>
       <dt class="text-base-content/60"><%= t("profiles.fields.email") %></dt>
@@ -39,7 +39,7 @@
 </section>
 
 <section class="mt-6" aria-labelledby="data-activity-heading">
-  <h2 id="data-activity-heading" class="text-lg font-semibold"><%= t("account.data.activity") %></h2>
+  <%= render Ui::SectionHeadingComponent.new(title: t("account.data.activity"), id: "data-activity-heading") %>
   <div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
     <%= render Ui::StatComponent.new(label: t("requests.title"), value: @data[:requests].size) %>
     <%= render Ui::StatComponent.new(label: t("appointments.title"), value: @data[:appointments].size) %>
@@ -49,7 +49,7 @@
 </section>
 
 <section class="mt-6" aria-labelledby="data-logins-heading">
-  <h2 id="data-logins-heading" class="text-lg font-semibold"><%= t("account.devices.title") %></h2>
+  <%= render Ui::SectionHeadingComponent.new(title: t("account.devices.title"), id: "data-logins-heading") %>
   <% if @recent_logins.any? %>
     <ul class="mt-2 divide-y divide-base-200 rounded-box border border-base-300 bg-base-100">
       <% @recent_logins.each do |activity| %>

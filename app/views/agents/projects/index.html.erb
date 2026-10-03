@@ -1,12 +1,14 @@
 <% content_for :title, t("agents.projects.title") %>
 
-<div class="flex flex-wrap items-start justify-between gap-3">
-  <div>
-    <h1 class="text-2xl font-bold"><%= t("agents.projects.title") %></h1>
-    <p class="mt-1 text-base-content/70"><%= t("agents.projects.subtitle") %></p>
-  </div>
-  <%= link_to t("agents.projects.new"), new_agents_project_path, class: "btn btn-primary btn-sm" %>
-</div>
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("agents.nav.dashboard"), path: agents_root_path },
+      { label: t("agents.projects.title") }
+    ]) %>
+
+
+<%= render Ui::PageHeaderComponent.new(title: t("agents.projects.title"), subtitle: t("agents.projects.subtitle")) do %>
+    <%= link_to t("agents.projects.new"), new_agents_project_path, class: "btn btn-primary btn-sm" %>
+<% end %>
 
 <div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">
   <table class="table table-zebra">

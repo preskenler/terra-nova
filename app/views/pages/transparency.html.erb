@@ -10,17 +10,17 @@
   <p class="text-base-content/80"><%= t("pages.transparency.intro") %></p>
 
   <section>
-    <h2 class="text-lg font-semibold"><%= t("pages.transparency.how_heading") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("pages.transparency.how_heading")) %>
     <p class="mt-1 text-base-content/80"><%= t("pages.transparency.how_body") %></p>
   </section>
 
   <section>
-    <h2 class="text-lg font-semibold"><%= t("pages.transparency.rights_heading") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("pages.transparency.rights_heading")) %>
     <p class="mt-1 text-base-content/80"><%= t("pages.transparency.rights_body") %></p>
   </section>
 
   <section aria-labelledby="concern-heading">
-    <h2 id="concern-heading" class="text-lg font-semibold"><%= t("pages.transparency.concern_heading") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("pages.transparency.concern_heading"), id: "concern-heading") %>
     <p class="mt-1 text-base-content/80"><%= t("pages.transparency.concern_body") %></p>
     <%= link_to t("pages.transparency.contact"),
           new_feedback_path(kind: "data_concern"), class: "btn btn-primary btn-sm mt-2" %>

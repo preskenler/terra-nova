@@ -13,7 +13,7 @@
   </div>
   <p class="mt-2 whitespace-pre-line text-base-content/90"><%= @project.description %></p>
 
-  <h2 class="mt-6 text-lg font-semibold"><%= t("consultations.title") %></h2>
+  <%= render Ui::SectionHeadingComponent.new(title: t("consultations.title")) %>
   <% if @consultations.any? %>
     <ul class="mt-2 divide-y divide-base-200 rounded-box border border-base-300 bg-base-100">
       <% @consultations.each do |consultation| %>

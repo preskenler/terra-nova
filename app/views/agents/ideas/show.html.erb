@@ -20,7 +20,7 @@
 
     <% if @idea.idea_supports.any? %>
       <section aria-labelledby="supporters-heading">
-        <h2 id="supporters-heading" class="text-lg font-semibold"><%= t("ideas.supports_title") %></h2>
+        <%= render Ui::SectionHeadingComponent.new(title: t("ideas.supports_title"), id: "supporters-heading") %>
         <ul class="mt-2 space-y-1 text-sm">
           <% @idea.idea_supports.includes(:user).each do |support| %>
             <li><%= support.user.email %></li>

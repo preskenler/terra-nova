@@ -12,7 +12,7 @@
   </header>
 
   <section aria-labelledby="eco-metrics-heading">
-    <h2 id="eco-metrics-heading" class="text-lg font-semibold"><%= t("pages.eco.metrics_heading") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("pages.eco.metrics_heading"), id: "eco-metrics-heading") %>
     <div class="mt-3 grid gap-4 sm:grid-cols-2">
       <%= render Ui::StatComponent.new(
             label: t("pages.eco.css"),
@@ -27,7 +27,7 @@
   </section>
 
   <section aria-labelledby="eco-choices-heading">
-    <h2 id="eco-choices-heading" class="text-lg font-semibold"><%= t("pages.eco.choices_heading") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("pages.eco.choices_heading"), id: "eco-choices-heading") %>
     <ul class="mt-2 list-disc space-y-1 pl-5 text-base-content/80">
       <% %i[no_framework maps_lazy low_data no_fonts budget].each do |choice| %>
         <li><%= t("pages.eco.choices.#{choice}") %></li>
@@ -36,7 +36,7 @@
   </section>
 
   <section>
-    <h2 class="text-lg font-semibold"><%= t("pages.eco.low_data_heading") %></h2>
+    <%= render Ui::SectionHeadingComponent.new(title: t("pages.eco.low_data_heading")) %>
     <p class="mt-1 text-base-content/80"><%= t("pages.eco.low_data_body") %></p>
     <p class="mt-2 text-sm">
       <%= link_to t("a11y.controls"), "#", class: "link" %>

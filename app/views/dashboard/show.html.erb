@@ -1,7 +1,6 @@
 <% content_for :title, t("dashboard.title") %>
 
-<h1 class="text-2xl font-bold"><%= t("dashboard.welcome", name: current_user.display_name) %></h1>
-<p class="mt-1 text-base-content/70"><%= t("dashboard.subtitle") %></p>
+<%= render Ui::PageHeaderComponent.new(title: t("dashboard.welcome", name: current_user.display_name), subtitle: t("dashboard.subtitle")) %>
 
 <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
   <%= render Ui::StatComponent.new(label: t("dashboard.requests"), value: @request_count) %>

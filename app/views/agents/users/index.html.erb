@@ -1,11 +1,12 @@
 <% content_for :title, t("agents.users.title") %>
 
-<div class="flex flex-wrap items-start justify-between gap-3">
-  <div>
-    <h1 class="text-2xl font-bold"><%= t("agents.users.title") %></h1>
-    <p class="mt-1 text-base-content/70"><%= t("agents.users.subtitle") %></p>
-  </div>
-</div>
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("agents.nav.dashboard"), path: agents_root_path },
+      { label: t("agents.users.title") }
+    ]) %>
+
+
+<%= render Ui::PageHeaderComponent.new(title: t("agents.users.title"), subtitle: t("agents.users.subtitle")) %>
 
 <%= form_with url: agents_users_path, method: :get, class: "mt-4 flex flex-wrap items-end gap-3" do %>
   <div>

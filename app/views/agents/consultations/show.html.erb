@@ -16,7 +16,7 @@
     <p class="whitespace-pre-line text-base-content/90"><%= @consultation.description %></p>
 
     <section aria-labelledby="results-heading">
-      <h2 id="results-heading" class="text-lg font-semibold"><%= t("agents.consultations.results") %></h2>
+      <%= render Ui::SectionHeadingComponent.new(title: t("agents.consultations.results"), id: "results-heading") %>
       <% if @choice_counts.any? %>
         <ul class="mt-2 space-y-1 text-sm">
           <% @choice_counts.each do |choice, count| %>
@@ -30,7 +30,7 @@
 
     <% if @responses.any? %>
       <section aria-labelledby="responses-heading">
-        <h2 id="responses-heading" class="text-lg font-semibold"><%= t("agents.consultations.responses") %></h2>
+        <%= render Ui::SectionHeadingComponent.new(title: t("agents.consultations.responses"), id: "responses-heading") %>
         <ul class="mt-2 divide-y divide-base-200 rounded-box border border-base-300 bg-base-100">
           <% @responses.each do |response| %>
             <li class="p-3 text-sm">

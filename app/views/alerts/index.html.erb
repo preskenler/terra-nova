@@ -5,8 +5,7 @@
       { label: t("alerts.title") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("alerts.title") %></h1>
-<p class="mt-1 text-base-content/70"><%= t("alerts.subtitle") %></p>
+<%= render Ui::PageHeaderComponent.new(title: t("alerts.title"), subtitle: t("alerts.subtitle")) %>
 
 <% if @alerts.any? %>
   <ul class="mt-6 space-y-4">

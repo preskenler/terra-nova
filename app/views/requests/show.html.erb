@@ -40,13 +40,13 @@
     </dl>
 
     <section>
-      <h2 class="text-lg font-semibold"><%= t("requests.fields.description") %></h2>
+      <%= render Ui::SectionHeadingComponent.new(title: t("requests.fields.description")) %>
       <p class="mt-1 whitespace-pre-line text-base-content/90"><%= @request.description %></p>
     </section>
 
     <% if @request.latitude.present? && @request.longitude.present? %>
       <section aria-labelledby="request-location-heading">
-        <h2 id="request-location-heading" class="text-lg font-semibold"><%= t("services.location.title") %></h2>
+        <%= render Ui::SectionHeadingComponent.new(title: t("services.location.title"), id: "request-location-heading") %>
         <% unless reduced_data? %>
           <div class="mt-2"
                data-controller="map"

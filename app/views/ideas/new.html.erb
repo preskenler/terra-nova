@@ -6,8 +6,7 @@
       { label: t("ideas.new") }
     ]) %>
 
-<h1 class="mt-4 text-2xl font-bold"><%= t("ideas.new") %></h1>
-<p class="mt-1 max-w-2xl text-base-content/70"><%= t("ideas.form.intro") %></p>
+<%= render Ui::PageHeaderComponent.new(title: t("ideas.new"), subtitle: t("ideas.form.intro")) %>
 
 <%= form_with model: @idea, url: ideas_path, class: "mt-6 max-w-2xl space-y-4" do |f| %>
   <% if @idea.errors.any? %>

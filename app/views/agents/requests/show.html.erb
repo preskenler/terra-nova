@@ -47,13 +47,13 @@
     </dl>
 
     <section>
-      <h2 class="text-lg font-semibold"><%= t("requests.fields.description") %></h2>
+      <%= render Ui::SectionHeadingComponent.new(title: t("requests.fields.description")) %>
       <p class="mt-1 whitespace-pre-line text-base-content/90"><%= @request.description %></p>
     </section>
 
     <% if @request.latitude.present? && @request.longitude.present? %>
       <section aria-labelledby="agent-request-location-heading">
-        <h2 id="agent-request-location-heading" class="text-lg font-semibold"><%= t("services.location.title") %></h2>
+        <%= render Ui::SectionHeadingComponent.new(title: t("services.location.title"), id: "agent-request-location-heading") %>
         <% unless reduced_data? %>
           <div class="mt-2"
                data-controller="map"
@@ -72,7 +72,7 @@
     <% end %>
 
     <section aria-labelledby="agent-timeline-heading">
-      <h2 id="agent-timeline-heading" class="text-lg font-semibold"><%= t("requests.timeline.title") %></h2>
+      <%= render Ui::SectionHeadingComponent.new(title: t("requests.timeline.title"), id: "agent-timeline-heading") %>
       <div class="mt-2">
         <%= render "requests/timeline", events: @events %>
       </div>
