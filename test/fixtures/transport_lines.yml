@@ -3,7 +3,7 @@ tram:
   name_translations: { "fr": "Tram T1", "en": "Tram T1" }
   description_translations: { "fr": "Ligne de tram.", "en": "Tram line." }
   mode: tram
-  color: "#0055a4"
+  color: "#176b3a"
   active: true
 
 bus:

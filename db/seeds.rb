@@ -145,7 +145,7 @@ puts "  Services:     #{Service.count}"
 
 # --- Transport lines, schedules and disruptions (F36) ----------------------
 transport_lines = [
-  { slug: "tram-t1", mode: "tram", color: "#0055a4",
+  { slug: "tram-t1", mode: "tram", color: "#176b3a",
     name_fr: "Tram T1", name_en: "Tram T1",
     description_fr: "Gare centrale ↔ Université, toutes les 8 minutes en semaine.",
     description_en: "Central station ↔ University, every 8 minutes on weekdays." },

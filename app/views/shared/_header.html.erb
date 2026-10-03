@@ -1,43 +1,53 @@
-<header class="border-b border-base-300 bg-base-100">
-  <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
-    <%= link_to root_path, class: "flex items-center gap-2 text-lg font-bold" do %>
-      <span aria-hidden="true">&#127961;&#65039;</span>
-      <span><%= t("app.name") %></span>
+<header class="site-header">
+  <div class="mx-auto flex w-full max-w-6xl items-center gap-4 px-4 py-2">
+    <%= link_to root_path, class: "flex items-center gap-3 text-lg font-extrabold no-underline", aria: { label: t("app.name") } do %>
+      <%= image_tag "/logo.webp", class: "brand-mark", alt: "" %>
+      <span class="hidden leading-none sm:inline"><%= t("app.name") %></span>
     <% end %>
 
-    <nav aria-label="<%= t("a11y.main_nav") %>" class="flex-1">
-      <ul class="flex flex-wrap items-center gap-4">
-        <li><%= link_to t("nav.home"), root_path, class: "link link-hover" %></li>
-        <li><%= link_to t("nav.services"), services_path, class: "link link-hover" %></li>
-        <li><%= link_to t("nav.transports"), transports_path, class: "link link-hover" %></li>
-        <li><%= link_to t("nav.glossary"), glossary_path, class: "link link-hover" %></li>
-        <li><%= link_to t("nav.announcements"), announcements_path, class: "link link-hover" %></li>
-        <li><%= link_to t("nav.alerts"), alerts_path, class: "link link-hover" %></li>
-        <li><%= link_to t("nav.contact"), new_feedback_path, class: "link link-hover" %></li>
+    <nav aria-label="<%= t("a11y.main_nav") %>" class="hidden flex-1 md:block">
+      <ul class="flex items-center justify-center gap-6">
+        <li><%= link_to t("nav.services"), services_path, class: "site-nav-link" %></li>
+        <li><%= link_to t("nav.transports"), transports_path, class: "site-nav-link" %></li>
+        <li><%= link_to t("nav.announcements"), announcements_path, class: "site-nav-link" %></li>
       </ul>
     </nav>
 
-    <div class="flex flex-wrap items-center gap-2">
+    <div class="ml-auto flex items-center gap-2">
       <%= render Ui::LocaleSwitcherComponent.new(current: I18n.locale) %>
       <%= render Ui::AccessibilityControlsComponent.new(high_contrast: high_contrast?, large_text: large_text?, reduced_data: reduced_data?, simple_mode: simple_mode?) %>
 
-      <% if user_signed_in? %>
-        <%= link_to t("nav.my_space"), citizen_dashboard_path, class: "btn btn-ghost btn-sm" %>
-        <%= link_to t("nav.requests"), requests_path, class: "btn btn-ghost btn-sm" %>
-        <%= link_to notifications_path, class: "btn btn-ghost btn-sm" do %>
-          <%= t("nav.notifications") %>
-          <% unread = current_user.notifications.unread.count %>
-          <% if unread.positive? %>
-            <span class="badge badge-primary badge-sm"><%= unread %></span>
+      <details class="dropdown dropdown-end">
+        <summary class="btn btn-primary btn-sm"><%= t("nav.menu") %></summary>
+        <div class="header-menu dropdown-content z-40 mt-2">
+          <nav aria-label="<%= t("a11y.main_nav") %>">
+            <%= link_to t("nav.home"), root_path, class: "header-menu-link md:hidden" %>
+            <%= link_to t("nav.services"), services_path, class: "header-menu-link md:hidden" %>
+            <%= link_to t("nav.transports"), transports_path, class: "header-menu-link md:hidden" %>
+            <%= link_to t("nav.announcements"), announcements_path, class: "header-menu-link md:hidden" %>
+            <%= link_to t("nav.glossary"), glossary_path, class: "header-menu-link" %>
+            <%= link_to t("nav.alerts"), alerts_path, class: "header-menu-link" %>
+            <%= link_to t("nav.contact"), new_feedback_path, class: "header-menu-link" %>
+          </nav>
+
+          <div class="my-2 border-t border-base-300"></div>
+          <% if user_signed_in? %>
+            <%= link_to t("nav.my_space"), citizen_dashboard_path, class: "header-menu-link" %>
+            <%= link_to t("nav.requests"), requests_path, class: "header-menu-link" %>
+            <%= link_to notifications_path, class: "header-menu-link flex items-center justify-between" do %>
+              <%= t("nav.notifications") %>
+              <% unread = current_user.notifications.unread.count %>
+              <% if unread.positive? %><span class="badge badge-primary badge-sm"><%= unread %></span><% end %>
+            <% end %>
+            <%= button_to t("nav.sign_out"), destroy_user_session_path, method: :delete,
+                  class: "btn btn-ghost btn-sm mt-1 w-full justify-start" %>
+          <% else %>
+            <%= link_to t("nav.sign_in"), new_user_session_path, class: "header-menu-link" %>
+            <%= link_to t("magic_links.link"), users_magic_link_path, class: "header-menu-link" %>
+            <%= link_to t("nav.sign_up"), new_user_registration_path, class: "btn btn-primary btn-sm mt-2 w-full" %>
           <% end %>
-        <% end %>
-        <%= button_to t("nav.sign_out"), destroy_user_session_path, method: :delete,
-              class: "btn btn-ghost btn-sm" %>
-      <% else %>
-        <%= link_to t("nav.sign_in"), new_user_session_path, class: "btn btn-ghost btn-sm" %>
-        <%= link_to t("magic_links.link"), users_magic_link_path, class: "btn btn-ghost btn-sm" %>
-        <%= link_to t("nav.sign_up"), new_user_registration_path, class: "btn btn-primary btn-sm" %>
-      <% end %>
+        </div>
+      </details>
     </div>
   </div>
 </header>

@@ -8,6 +8,7 @@ en:
     en: "English"
 
   nav:
+    menu: "Menu"
     home: "Home"
     services: "Services"
     transports: "Transport"
@@ -342,7 +343,7 @@ en:
   home:
     hero:
       title: "Welcome to Nova Terra"
-      subtitle: "Access municipal services, follow your procedures and stay informed, all in one place."
+      subtitle: "Terra Nova is the very first city built beyond Earth. A true pioneer city, it marks the beginning of a new era for humanity. Surrounded by spectacular futuristic landscapes, Terra Nova offers a unique environment where immense luminous structures, advanced architecture and extraterrestrial horizons come together. The planet is also home to new fauna and flora, still unknown on Earth, making every exploration fascinating. Terra Nova is more than a city: it is a symbol of the future and the first step toward discovering a new world."
       welcome: "Hello, %{name}."
     highlights:
       title: "What you can do"

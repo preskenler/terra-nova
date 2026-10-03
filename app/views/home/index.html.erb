@@ -1,24 +1,46 @@
 <% content_for :title, t("app.name") %>
 
-<section class="hero rounded-box border border-base-300 bg-base-100 px-6 py-10">
-  <div class="max-w-2xl">
-    <h1 class="text-3xl font-bold sm:text-4xl"><%= t("home.hero.title") %></h1>
-    <p class="mt-3 text-lg text-base-content/80"><%= t("home.hero.subtitle") %></p>
+<section class="hero-shell <%= "hero-shell-simple" if simple_mode? %>">
+  <div class="hero-content">
+    <span class="hero-eyebrow"><%= t("app.name") %></span>
+    <h1 class="mt-4 max-w-xl text-4xl font-extrabold leading-tight sm:text-5xl"><%= t("home.hero.title") %></h1>
+    <p class="mt-4 max-w-xl text-lg leading-relaxed text-base-content/75"><%= t("home.hero.subtitle") %></p>
 
-    <div class="mt-6 flex flex-wrap gap-2">
+    <div class="mt-7 flex flex-wrap gap-3">
       <% if user_signed_in? %>
         <%= link_to t("nav.my_space"), citizen_dashboard_path, class: "btn btn-primary" %>
       <% else %>
         <%= link_to t("nav.sign_up"), new_user_registration_path, class: "btn btn-primary" %>
         <%= link_to t("nav.sign_in"), new_user_session_path, class: "btn btn-ghost" %>
       <% end %>
-      <%= link_to t("nav.services"), services_path, class: "btn btn-ghost" %>
     </div>
   </div>
+
+  <% unless simple_mode? %>
+  <nav class="home-actions" aria-label="<%= t("home.highlights.title") %>">
+    <% home_actions = {
+         discover: services_path,
+         requests: user_signed_in? ? requests_path : new_user_registration_path,
+         alerts: alerts_path
+       } %>
+    <% home_actions.each_with_index do |(key, path), index| %>
+      <%= link_to path, class: "home-action" do %>
+        <span class="home-action-number" aria-hidden="true"><%= format("%02d", index + 1) %></span>
+        <span>
+          <strong class="block text-base"><%= t("home.highlights.#{key}.title") %></strong>
+          <span class="mt-1 block text-sm opacity-70"><%= t("home.highlights.#{key}.body") %></span>
+        </span>
+        <span class="home-action-arrow" aria-hidden="true">&#8594;</span>
+      <% end %>
+    <% end %>
+  </nav>
+  <% end %>
 </section>
 
-<% if @alerts.any? %>
-  <section aria-label="<%= t("alerts.title") %>" class="mt-6 space-y-3">
+<% if @alerts.any? || @emergency_services.any? %>
+  <div class="mt-6 space-y-3">
+  <% if @alerts.any? %>
+    <section aria-label="<%= t("alerts.title") %>" class="space-y-3">
     <% @alerts.each do |alert| %>
       <div role="<%= alert.critical? ? "alert" : "status" %>"
            class="alert <%= severity_alert_class(alert.severity) %>">
@@ -31,13 +53,14 @@
         </div>
       </div>
     <% end %>
-  </section>
-<% end %>
+    </section>
+  <% end %>
 
-<% if @emergency_services.any? %>
-  <section aria-labelledby="home-emergency-heading" class="mt-6 rounded-box border-2 border-error bg-base-100 p-4">
-    <h2 id="home-emergency-heading" class="text-lg font-bold"><%= t("services.emergency.title") %></h2>
-    <ul class="mt-2 flex flex-wrap gap-4">
+  <% if @emergency_services.any? %>
+    <section aria-labelledby="home-emergency-heading" class="rounded-box border border-error bg-base-100 p-4">
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+      <h2 id="home-emergency-heading" class="text-base font-bold"><%= t("services.emergency.title") %></h2>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
       <% @emergency_services.each do |service| %>
         <li>
           <span class="font-semibold"><%= service.name %></span>
@@ -46,31 +69,22 @@
           <% end %>
         </li>
       <% end %>
-    </ul>
-  </section>
-<% end %>
-
-<% unless simple_mode? %>
-  <section class="mt-6 grid gap-4 md:grid-cols-3" aria-label="<%= t("home.highlights.title") %>">
-    <% %i[discover requests alerts].each do |key| %>
-      <article class="card border border-base-300 bg-base-100">
-        <div class="card-body">
-          <h2 class="card-title text-base"><%= t("home.highlights.#{key}.title") %></h2>
-          <p class="text-sm text-base-content/80"><%= t("home.highlights.#{key}.body") %></p>
-        </div>
-      </article>
-    <% end %>
-  </section>
+      </ul>
+      </div>
+    </section>
+  <% end %>
+  </div>
 <% end %>
 
 <% priority_services = @priority_services %>
+<div class="mt-10 grid gap-10 lg:grid-cols-3">
 <% if priority_services.any? %>
-  <section class="mt-8" aria-labelledby="home-services-heading">
-    <div class="flex items-center justify-between">
+  <section class="home-section lg:col-span-2" aria-labelledby="home-services-heading">
+    <div class="home-section-header">
       <h2 id="home-services-heading" class="text-xl font-bold"><%= t("home.services.title") %></h2>
       <%= link_to t("home.services.see_all"), services_path, class: "link text-sm" %>
     </div>
-    <div class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid gap-4 md:grid-cols-2">
       <% priority_services.each do |service| %>
         <%= render "services/card", service: service %>
       <% end %>
@@ -79,22 +93,21 @@
 <% end %>
 
 <% if @announcements.any? && !simple_mode? %>
-  <section class="mt-8" aria-labelledby="home-announcements-heading">
-    <div class="flex items-center justify-between">
+  <section class="home-section" aria-labelledby="home-announcements-heading">
+    <div class="home-section-header">
       <h2 id="home-announcements-heading" class="text-xl font-bold"><%= t("announcements.title") %></h2>
       <%= link_to t("home.announcements.see_all"), announcements_path, class: "link text-sm" %>
     </div>
-    <div class="mt-3 grid gap-4 md:grid-cols-3">
+    <div>
       <% @announcements.each do |announcement| %>
-        <article class="card border border-base-300 bg-base-100">
-          <div class="card-body gap-2">
-            <h3 class="card-title text-base">
-              <%= link_to announcement.title, announcement_path(announcement), class: "link link-hover" %>
-            </h3>
-            <p class="text-sm text-base-content/80"><%= truncate(announcement.body.to_s, length: 120) %></p>
-          </div>
+        <article class="home-news-item">
+          <h3 class="text-base font-bold leading-tight">
+            <%= link_to announcement.title, announcement_path(announcement), class: "link link-hover" %>
+          </h3>
+          <p class="mt-2 text-sm text-base-content/70"><%= truncate(announcement.body.to_s, length: 105) %></p>
         </article>
       <% end %>
     </div>
   </section>
 <% end %>
+</div>
