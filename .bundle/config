@@ -1,0 +1,8 @@
+---
+# The production host (Hodifly/cPanel, glibc 2.28) sets BUNDLE_FORCE_RUBY_PLATFORM=true
+# to source-build native gems. That also selects the pure-Ruby tailwindcss-ruby gem,
+# which ships no executable, breaking assets:precompile. Bundler's local config
+# (this file) takes precedence over that environment variable, so native gems are
+# used again. Nokogiri is the exception: it is explicitly pinned to the ruby/source
+# platform in the Gemfile because its precompiled build needs glibc >= 2.29.
+BUNDLE_FORCE_RUBY_PLATFORM: "false"

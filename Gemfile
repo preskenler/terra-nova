@@ -2,6 +2,10 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.4"
+# Build Nokogiri from source: its precompiled Linux gem needs glibc >= 2.29, which
+# the production host (glibc 2.28) does not have. Without this, Bundler's forced
+# "ruby" platform (see .bundle/config) would install a Tailwind gem with no binary.
+gem "nokogiri", force_ruby_platform: true
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Bundle and process CSS with Tailwind [https://github.com/rails/tailwindcss-rails]
