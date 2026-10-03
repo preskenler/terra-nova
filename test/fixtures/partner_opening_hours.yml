@@ -1,0 +1,10 @@
+health_monday:
+  partner: health
+  wday: 1
+  opens_at: "08:30"
+  closes_at: "18:00"
+
+health_sunday:
+  partner: health
+  wday: 0
+  closed: true

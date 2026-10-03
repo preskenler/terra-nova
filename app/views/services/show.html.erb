@@ -99,3 +99,47 @@
     <% end %>
   </aside>
 </div>
+
+<section class="mt-10" aria-labelledby="reviews-heading">
+  <%= render Ui::SectionHeadingComponent.new(title: t("service_reviews.title"), id: "reviews-heading") %>
+
+  <% if @reviews.any? %>
+    <ul class="mt-3 space-y-3">
+      <% @reviews.each do |review| %>
+        <li class="rounded-box border border-base-300 bg-base-100 p-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="font-medium"><%= review.user.display_name %></span>
+            <span class="text-sm text-base-content/70">
+              <% if review.rating.present? %>
+                <span aria-label="<%= t("service_reviews.rating_aria", count: review.rating) %>"><%= review.rating %>/5</span>
+              <% else %>
+                <span><%= t("service_reviews.no_rating") %></span>
+              <% end %>
+            </span>
+          </div>
+          <p class="mt-1 whitespace-pre-line text-sm text-base-content/80"><%= review.comment %></p>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="mt-2 text-sm text-base-content/60"><%= t("service_reviews.empty") %></p>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <div class="mt-4 max-w-2xl rounded-box border border-base-300 bg-base-100 p-4">
+      <p class="text-sm font-semibold"><%= t("service_reviews.leave") %></p>
+      <%= form_with model: @review, url: service_review_path(@service), class: "mt-2 space-y-3" do |f| %>
+        <div>
+          <%= f.label :rating, t("service_reviews.rating"), class: "mb-1 block text-sm font-medium" %>
+          <%= f.select :rating, (1..5).map { |n| [ t("service_reviews.stars", count: n), n ] },
+                { include_blank: t("service_reviews.no_rating") }, class: "select select-bordered select-sm" %>
+        </div>
+        <div>
+          <%= f.label :comment, t("service_reviews.comment"), class: "mb-1 block text-sm font-medium" %>
+          <%= f.text_area :comment, rows: 3, class: "textarea textarea-bordered w-full" %>
+        </div>
+        <%= f.submit t("service_reviews.submit"), class: "btn btn-primary btn-sm" %>
+      <% end %>
+    </div>
+  <% end %>
+</section>

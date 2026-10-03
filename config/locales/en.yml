@@ -7,6 +7,7 @@ en:
   languages:
     fr: "Français"
     en: "English"
+    es: "Español"
 
   nav:
     menu: "Menu"
@@ -208,6 +209,9 @@ en:
     idea_status:
       title: "Idea %{reference} updated"
       body: "The new status is: %{status}."
+    review:
+      title: "Review recorded — %{reference}"
+      body: "Thank you for sharing your experience."
 
   appointments:
     title: "My appointments"
@@ -318,6 +322,63 @@ en:
       intro: "Describe your idea to improve the city. It will be reviewed by the municipal services."
       submit: "Submit my idea"
 
+  guidance:
+    title: "Where to start?"
+    intro: "Tell us your situation and we will point you to the right services."
+    choose: "Your situation"
+    choose_blank: "Choose…"
+    show: "Show suggestions"
+    start_request: "Start a request"
+    results:
+      title: "Suggested for you"
+    situations:
+      moving_in: "I have just moved in"
+      waste: "A waste collection issue"
+      streetlight: "A broken streetlight"
+      health: "Health and emergencies"
+      transport: "Public transport"
+      permits: "Planning permission"
+      water: "A water issue"
+    requests:
+      waste: "Waste collection problem"
+      streetlight: "Broken streetlight"
+      water: "Water leak"
+
+  partners:
+    title: "Partner directory"
+    subtitle: "Find our partner organisations, their opening hours and where to find them."
+    empty: "No partner for now."
+    hours: "Opening hours"
+    closed: "Closed"
+    location: "Location"
+    map_label: "Map showing the location of %{name}"
+    categories:
+      sante: "Health"
+      commerce: "Shops"
+      culture: "Culture"
+      sport: "Sport"
+      social: "Social"
+      transport: "Transport"
+      loisirs: "Leisure"
+      autres: "Other"
+
+  service_reviews:
+    title: "Citizen reviews"
+    empty: "No review yet. Be the first to share your experience."
+    leave: "Used this service? Leave a comment."
+    rating: "Rating (optional)"
+    rating_aria: "%{count} out of 5"
+    no_rating: "No rating"
+    stars:
+      one: "%{count} star"
+      other: "%{count} stars"
+    comment: "Your comment"
+    submit: "Publish my review"
+    created: "Thank you, your review has been recorded (reference %{reference})."
+    status:
+      published: "Published"
+      hidden: "Hidden"
+
   severities:
     info: "Information"
     alert: "Alert"
@@ -333,6 +394,7 @@ en:
     subtitle: "Official announcements from the city of Terra Nova."
     empty: "No announcement for now."
     new: "New announcement"
+    more: "Read more"
 
   alerts:
     title: "Alerts"
@@ -521,6 +583,9 @@ en:
       projects: "Projects"
       consultations: "Consultations"
       ideas: "Ideas"
+      partners: "Partners"
+      reviews: "Reviews"
+      security: "Security"
       users: "Citizens"
     dashboard:
       title: "Dashboard"
@@ -626,6 +691,10 @@ en:
         status: "New status"
         comment: "Comment"
         visible_to_citizen: "Visible to the citizen"
+      similar: "Possible duplicates"
+      similar_hint: "Open requests that may describe the same problem."
+      link_duplicate: "Link as duplicate"
+      duplicate_linked: "The request has been linked to the duplicate."
     appointments:
       title: "Appointments"
       subtitle: "Your schedule and the appointments booked by citizens."
@@ -696,6 +765,7 @@ en:
         starts_at: "Visible from"
         ends_at: "Visible until"
         active: "Active"
+        pinned: "Pin as a site-wide banner"
     alerts:
       title: "Alerts"
       subtitle: "Broadcast urgent information (flood, heatwave, security…)."
@@ -862,9 +932,76 @@ en:
         author: "Author"
         status: "Status"
         supports: "Supports"
+    partners:
+      title: "Partners"
+      subtitle: "Manage partner organisations, their location and opening hours."
+      new: "New partner"
+      edit: "Edit partner"
+      created: "The partner has been created."
+      updated: "The partner has been updated."
+      destroyed: "The partner has been deleted."
+      hours_updated: "Opening hours have been updated."
+      confirm_destroy: "Delete this partner?"
+      actions_title: "Actions"
+      table_caption: "List of partners"
+      columns:
+        name: "Partner"
+        category: "Category"
+        published: "Published"
+      fields:
+        name_fr: "Name (FR)"
+        name_en: "Name (EN)"
+        description_fr: "Description (FR)"
+        description_en: "Description (EN)"
+        category: "Category"
+        category_none: "No category"
+        phone: "Phone"
+        website: "Website"
+        address: "Address"
+        latitude: "Latitude"
+        longitude: "Longitude"
+        published: "Published"
+    service_reviews:
+      title: "Service reviews"
+      subtitle: "Moderate the comments citizens leave after using a service."
+      updated: "The review has been updated."
+      invalid: "The review could not be updated."
+      hide: "Hide"
+      publish: "Publish"
+      table_caption: "List of service reviews"
+      columns:
+        reference: "Reference"
+        service: "Service"
+        user: "Citizen"
+        comment: "Comment"
+        status: "Status"
+        actions: "Actions"
+    security_events:
+      title: "Security events"
+      subtitle: "Monitor authentication and account security activity."
+      event: "Event"
+      all: "All"
+      table_caption: "List of security events"
+      columns:
+        date: "Date"
+        event: "Event"
+        actor: "Actor"
+        ip: "IP"
+      events:
+        sign_in: "Sign-in"
+        sign_in_failed: "Failed sign-in"
+        two_factor_enabled: "Two-factor enabled"
+        two_factor_disabled: "Two-factor disabled"
+        account_unlocked: "Account unlocked"
     users:
       title: "Citizen accounts"
       subtitle: "Search and administer the citizens of Terra Nova."
+      new: "New citizen account"
+      create: "Create the account"
+      new_hint: "Create an account for a resident, even without an email address."
+      created: "The account has been created. Share the credentials below."
+      email_hint: "Leave blank for a resident without an email address."
+      login_id_hint: "Leave blank to generate a citizen identifier automatically."
       search: "Search"
       role: "Role"
       all: "All"
@@ -888,10 +1025,19 @@ en:
         status: "Status"
         actions: "Actions"
       fields:
+        email_optional: "Email (optional)"
+        login_id: "Citizen identifier (optional)"
         sign_in_count: "Sign-ins"
         last_sign_in: "Last sign-in"
         failed_attempts: "Failed attempts"
         onboarding_completed: "Onboarding completed"
+      credentials:
+        title: "Access credentials"
+        body: "Hand these credentials to the resident. The password is shown only once."
+        email: "Email"
+        login_id: "Identifier"
+        password: "Temporary password"
+        warning: "The resident must change this password on first sign-in."
 
   demands:
     triage:

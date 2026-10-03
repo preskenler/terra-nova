@@ -80,7 +80,7 @@ module TerraNova
 
     # Internationalization: French is the default interface language, English is
     # the fallback. New locales are picked up automatically from config/locales.
-    config.i18n.available_locales = %i[fr en]
+    config.i18n.available_locales = %i[fr en es]
     config.i18n.default_locale = :fr
     config.i18n.fallbacks = [ :en ]
   end

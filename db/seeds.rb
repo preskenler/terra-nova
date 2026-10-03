@@ -302,6 +302,37 @@ if Idea.none?
 end
 puts "  Participation: #{Project.count} projects, #{Consultation.count} consultations, #{Idea.count} ideas"
 
+# --- Partners, pinned message and reviews (F73/F74/F76) --------------------
+if Partner.none?
+  partner = Partner.new(category: "sante", address: "Centre de santé partenaire, 5 rue des Soins",
+                        latitude: 48.8545, longitude: 2.3495, phone: "01 98 76 54 32",
+                        website: "https://partenaire.terra-nova.example", published: true)
+  partner.name_fr = "Centre de santé Horizon"
+  partner.name_en = "Horizon Health Centre"
+  partner.description_fr = "Consultations sans rendez-vous du lundi au samedi."
+  partner.description_en = "Walk-in consultations from Monday to Saturday."
+  partner.save!
+  [ 1, 2, 3, 4, 5 ].each do |wday|
+    partner.partner_opening_hours.create!(wday: wday, opens_at: "08:30", closes_at: "18:00")
+  end
+  partner.partner_opening_hours.create!(wday: 6, opens_at: "09:00", closes_at: "12:00")
+  partner.partner_opening_hours.create!(wday: 0, closed: true)
+end
+
+if Announcement.exists? && !Announcement.exists?(pinned: true)
+  Announcement.published.first&.update(pinned: true)
+end
+
+if ServiceReview.none?
+  service = Service.publicly_visible.first
+  reviewer = User.find_by(email: "citoyen@novaterra.fr")
+  if service && reviewer
+    service.service_reviews.create!(user: reviewer, rating: 4,
+                                    comment: "Service rapide et accueil agréable.")
+  end
+end
+puts "  Partners:     #{Partner.count} partners, #{ServiceReview.count} reviews"
+
 # --- Initial demand sync (optional) -----------------------------------------
 if TerraNova::Webcup.configured?
   result = Demands::Sync.call

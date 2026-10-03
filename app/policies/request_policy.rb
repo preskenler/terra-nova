@@ -5,6 +5,7 @@ class RequestPolicy < ApplicationPolicy
   def create? = citizen?
   def show?   = agent? || owner?
   def update? = agent?
+  def link_duplicate? = agent?
 
   class Scope < ApplicationPolicy::Scope
     def resolve

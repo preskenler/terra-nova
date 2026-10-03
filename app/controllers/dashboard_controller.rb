@@ -11,5 +11,9 @@ class DashboardController < ApplicationController
     @appointment_count = current_user.appointments.upcoming.active.count
     @unread_notification_count = current_user.notifications.unread.count
     @recent_requests = current_user.requests.recent_first.limit(3)
+
+    # "Where to start?" guidance (F72)
+    @situation = params[:situation]
+    @guidance = CitizenGuidance.call(@situation) if @situation.present?
   end
 end

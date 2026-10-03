@@ -25,7 +25,11 @@ class RequestsController < ApplicationController
   end
 
   def new
-    @request = current_user.requests.new(service_id: params[:service_id])
+    @request = current_user.requests.new(
+      service_id: params[:service_id],
+      subject: params[:subject],
+      description: params[:description]
+    )
     @services = Service.publicly_visible.ordered
   end
 

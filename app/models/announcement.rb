@@ -17,6 +17,7 @@ class Announcement < ApplicationRecord
   validates :body, presence: true
 
   scope :recent_first, -> { order(published_at: :desc, created_at: :desc) }
+  scope :pinned, -> { where(pinned: true) }
   scope :published, lambda {
     where(active: true)
       .where("starts_at IS NULL OR starts_at <= ?", Time.current)

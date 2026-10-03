@@ -42,5 +42,15 @@ module Agents
         }
       end
     end
+
+    test "an agent can link a request to the one it duplicates (F75)" do
+      sign_in agents(:agent)
+      target = requests(:streetlight)
+      duplicate = requests(:pothole)
+
+      patch link_duplicate_agents_request_url(target, duplicate_reference: duplicate.reference)
+
+      assert_equal duplicate, target.reload.duplicate_of
+    end
   end
 end

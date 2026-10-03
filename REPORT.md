@@ -910,24 +910,133 @@ change the status → the author is notified.
 
 ---
 
+## F69 · Expert · 1520 XP — Protect sensitive data; perceptible protection
+
+**What we built.** A `SecurityEvent` log records authentication and account-security
+activity (sign-in, failed sign-in, two-factor enabled/disabled, account unlocked), surfaced
+in an **administrator-only** monitoring page. This complements the existing protections
+(2FA, passwordless links, account lockout, rack-attack throttling, CSP/HSTS, filtered
+parameters).
+
+**Where to test.** `/agents/security_events` (administrator account)
+
+**How to verify.** 1) Sign in and make a failed sign-in → events appear in the list.
+2) A regular agent cannot open the page (redirected). 3) An administrator can.
+
+---
+
+## F70 · Difficult · 1140 XP — Administrative data strictly restricted
+
+**What we built.** The audit trail and the security events are now **administrator-only**
+(enforced by Pundit), and role changes remain administrator-only. Operational data stays
+available to regular agents.
+
+**Where to test.** `/agents/audit_logs` and `/agents/security_events`
+
+**How to verify.** 1) Sign in as a regular agent → access is denied (redirect + message).
+2) Sign in as an administrator → access is granted.
+
+---
+
+## F71 · Difficult · 1140 XP — Newcomers without email, in several languages
+
+**What we built.** Sign-in by **email or citizen identifier** (`TN-XXXXXX`). Agents can
+create an account **without an email address**: the system generates a placeholder email,
+a citizen identifier and a temporary password, shown once for handover. A third locale
+(Spanish) was added to demonstrate easy language extension.
+
+**Where to test.** `/agents/users/new`, then `/users/sign_in`, and the language switcher
+
+**How to verify.** 1) As an agent, create an account leaving the email blank → credentials
+are displayed. 2) Sign in with the **identifier** and the temporary password.
+3) Switch the interface to Español.
+
+---
+
+## F72 · Easy · 380 XP — A starting point without redoing registration
+
+**What we built.** A “Where to start?” helper on the personal space: pick a situation
+(moving in, waste, streetlight, health, transport, permits, water) → suggested services and
+a one-click pre-filled request. No new registration step.
+
+**Where to test.** `/espace` (guidance section)
+
+**How to verify.** 1) Choose “Health and emergencies” → suggested services appear.
+2) Choose “A broken streetlight” → “Start a request” opens a pre-filled form.
+
+---
+
+## F73 · Medium · 780 XP — Official message visible by everyone, immediately
+
+**What we built.** Announcements can be **pinned**, which renders them as a **site-wide
+banner on every page** (citizen and agent layouts), in addition to the news page.
+
+**Where to test.** `/agents/announcements` (pin) → any page
+
+**How to verify.** 1) Create or edit an announcement and tick “Pin as a site-wide banner”.
+2) Open any page (e.g. `/glossary`) → the message appears at the top.
+
+---
+
+## F74 · Easy · 390 XP — Partner opening hours and location
+
+**What we built.** A **partner directory** with a detail page showing the address, a
+Leaflet map and the seven-day opening hours, plus agent management (including a bulk
+hours editor).
+
+**Where to test.** `/partners`, `/partners/:slug` and `/agents/partners`
+
+**How to verify.** 1) `/partners` lists the partner. 2) Open it → hours table and location
+map. 3) As an agent, edit the hours and see them update.
+
+---
+
+## F75 · Difficult · 1170 XP — Spotting duplicate requests
+
+**What we built.** A similarity heuristic (`Requests::Similarity`: keyword overlap plus
+same-service/location boost) surfaces **“possible duplicates”** on the agent request page,
+with a one-click action to link the request to the one it duplicates.
+
+**Where to test.** `/agents/requests/:reference`
+
+**How to verify.** 1) Open a request → possible duplicates are listed. 2) Click “Link as
+duplicate” → the link is recorded.
+
+---
+
+## F76 · Medium · 780 XP — Comment after using a service
+
+**What we built.** Citizens can leave a **rating and comment** on a service (one per
+citizen), recorded with a reference and a confirmation notification. Reviews are displayed
+on the service page and agents can **publish/hide** them.
+
+**Where to test.** `/services/:slug` (review form) and `/agents/service_reviews`
+
+**How to verify.** 1) Sign in, open a service → leave a comment. 2) It appears on the
+service page with the reference confirmation. 3) As an agent, hide/publish it.
+
+---
+
 # Global implementation notes
 
 - **Stack:** Rails 8.1, MySQL 8.4, Hotwire (Turbo + Stimulus), ViewComponents,
   Tailwind + daisyUI (no Node toolchain).
-- **Security:** Devise (two scopes) with passwordless magic links and TOTP two-factor
-  authentication, Pundit, PaperTrail, `rack-attack`, new-device sign-in alerts, CSP with
-  nonces, HSTS and secure cookies in production, filtered parameters, password-confirmed
-  account deletion.
-- **Internationalisation:** French default with English fallback; translatable service,
-  announcement and alert content; locale resolved from parameter → profile → session →
-  cookie.
+- **Security:** Devise (two scopes) with passwordless magic links, sign-in by citizen
+  identifier, and TOTP two-factor authentication, Pundit, PaperTrail, `rack-attack`,
+  new-device sign-in alerts, a security-event log (admin-only), CSP with nonces, HSTS and
+  secure cookies in production, filtered parameters, password-confirmed account deletion.
+- **Internationalisation:** French default with English fallback and Spanish; translatable
+  service, announcement, alert and partner content; locale resolved from parameter →
+  profile → session → cookie.
 - **Accessibility:** WCAG 2.2 AA-oriented statement at `/accessibility`.
 - **Environmental:** measured weight and budgets at `/eco`, enforced by an automated
   asset-size test; low-data and simple modes, and a dynamically imported map library.
 - **Participatory democracy:** projects, consultations with recorded opinions (F65/F66),
-  and citizen ideas with support and moderation (F68).
+  citizen ideas with support and moderation (F68).
+- **Partners & feedback:** partner directory with hours and location (F74); service
+  reviews (F76); duplicate detection for agents (F75).
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 237 automated tests pass (230 unit/controller/integration + 7 browser-style
+- **Quality:** 268 automated tests pass (261 unit/controller/integration + 7 browser-style
   system tests), including a page-render smoke test; RuboCop, Brakeman, bundler-audit and
   importmap audit are all clean.

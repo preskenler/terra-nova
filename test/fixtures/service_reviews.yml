@@ -1,0 +1,15 @@
+good:
+  service: etat_civil
+  user: admin
+  rating: 4
+  comment: "Fast and friendly service."
+  reference: AVIS-2026-AAAAA
+  status: published
+
+hidden_review:
+  service: etat_civil
+  user: newcomer
+  rating: 1
+  comment: "This comment is hidden."
+  reference: AVIS-2026-BBBBB
+  status: hidden

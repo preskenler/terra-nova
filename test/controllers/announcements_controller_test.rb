@@ -13,4 +13,11 @@ class AnnouncementsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "Travaux place centrale", response.body
   end
+
+  test "a pinned announcement appears on every page (F73)" do
+    announcements(:info).update!(pinned: true)
+    get glossary_url
+    assert_response :success
+    assert_match announcements(:info).title, response.body
+  end
 end

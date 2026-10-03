@@ -132,6 +132,12 @@ No counts or waves are hard-coded: future `D…`/`F…` demands simply appear in
   in one click (`/agents/services`).
 - **Participatory democracy** — consult city projects, answer consultations with a
   traceable opinion, and propose/support citizen ideas.
+- **Partner directory** — partners with opening hours, address and map (`/partners`).
+- **Service reviews** — citizens rate and comment on services; agents moderate.
+- **Duplicate detection** — agents see likely duplicate requests and can link them.
+- **Guided start** — a “Where to start?” helper on the personal space.
+- **Security monitoring** — an admin-only security-event log; sign-in by email **or**
+  citizen identifier (accounts can be created without an email); Spanish locale added.
 
 ---
 

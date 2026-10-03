@@ -28,6 +28,17 @@ module Agents
       authorize @request
       @events = @request.request_events.chronological
       @event = @request.request_events.new(to_status: @request.status)
+      @similar_requests = Requests::Similarity.new(@request).call
+    end
+
+    # Links this request to the request it duplicates (F75).
+    def link_duplicate
+      @request = Request.find_by!(reference: params[:id])
+      authorize @request
+
+      duplicate = Request.find_by!(reference: params[:duplicate_reference])
+      @request.update!(duplicate_of: duplicate)
+      redirect_to agents_request_path(@request), notice: t("agents.requests.duplicate_linked")
     end
 
     def update

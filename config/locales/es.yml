@@ -1,0 +1,85 @@
+es:
+  app:
+    name: "Terra Nova"
+    footer_tagline: "El corazón digital de Terra Nova"
+    civic_portal: "Portal ciudadano"
+
+  languages:
+    fr: "Français"
+    en: "English"
+    es: "Español"
+
+  nav:
+    home: "Inicio"
+    services: "Servicios"
+    transports: "Transporte"
+    glossary: "Glosario"
+    announcements: "Noticias"
+    alerts: "Alertas"
+    projects: "Proyectos"
+    ideas: "Ideas"
+    contact: "Contacto"
+    menu: "Menú"
+    my_space: "Mi espacio"
+    profile: "Mi perfil"
+    requests: "Mis solicitudes"
+    notifications: "Notificaciones"
+    sign_in: "Iniciar sesión"
+    sign_up: "Crear una cuenta"
+    sign_out: "Cerrar sesión"
+
+  roles:
+    citizen: "Ciudadano"
+    admin: "Administrador"
+
+  common:
+    yes: "Sí"
+    no: "No"
+
+  actions:
+    view: "Ver"
+    edit: "Editar"
+    save: "Guardar"
+    filter: "Filtrar"
+    reset: "Restablecer"
+    back: "Volver"
+    delete: "Eliminar"
+
+  a11y:
+    skip_to_content: "Ir al contenido principal"
+    breadcrumb: "Ruta de navegación"
+    main_nav: "Navegación principal"
+    footer_nav: "Navegación del pie de página"
+    choose_language: "Elegir un idioma"
+    controls: "Accesibilidad"
+    display_settings: "Ajustes de visualización"
+    high_contrast: "Alto contraste"
+    large_text: "Texto grande"
+    reduced_data: "Modo de datos reducidos"
+    reduced_data_hint: "Omite recursos pesados como los mapas en conexiones lentas."
+    reduced_data_note: "Modo de datos reducidos: el mapa no se carga."
+    simple_mode: "Modo simple"
+    simple_mode_hint: "Muestra páginas más ligeras y rápidas, solo lo esencial."
+    apply: "Aplicar"
+
+  home:
+    hero:
+      title: "Bienvenido a Terra Nova"
+      subtitle: "Acceda a los servicios municipales, siga sus trámites y manténgase informado."
+      welcome: "Hola, %{name}."
+    highlights:
+      title: "Qué puede hacer"
+      discover:
+        title: "Descubrir servicios"
+        body: "Encuentre el servicio municipal que corresponde a su necesidad."
+      requests:
+        title: "Seguir sus solicitudes"
+        body: "Informe de un problema y siga su progreso."
+      alerts:
+        title: "Mantenerse informado"
+        body: "Consulte los anuncios oficiales y las alertas urgentes."
+    services:
+      title: "Servicios prioritarios"
+      see_all: "Ver todos los servicios"
+    announcements:
+      see_all: "Ver todas las noticias"

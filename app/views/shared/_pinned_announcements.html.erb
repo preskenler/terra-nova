@@ -1,0 +1,15 @@
+<% pinned = Announcement.published.pinned.recent_first.limit(2) %>
+<% if pinned.any? %>
+  <div class="mx-auto w-full max-w-6xl space-y-2 px-4 pt-4">
+    <% pinned.each do |announcement| %>
+      <div role="<%= announcement.severity == "critical" ? "alert" : "status" %>"
+           class="alert <%= severity_alert_class(announcement.severity) %>">
+        <div>
+          <p class="font-semibold"><%= announcement.title %></p>
+          <p class="text-sm"><%= announcement.body %></p>
+          <%= link_to t("announcements.more"), announcement_path(announcement), class: "link text-sm" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

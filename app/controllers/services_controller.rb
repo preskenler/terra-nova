@@ -20,5 +20,7 @@ class ServicesController < ApplicationController
                               .where(category: @service.category)
                               .where.not(id: @service.id)
                               .ordered.limit(3)
+    @reviews = @service.service_reviews.visible.includes(:user).recent_first.limit(20)
+    @review = ServiceReview.new
   end
 end

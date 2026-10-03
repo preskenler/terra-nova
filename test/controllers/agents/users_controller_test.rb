@@ -54,5 +54,28 @@ module Agents
       assert_redirected_to agents_user_url(target)
       assert_not target.reload.access_locked?
     end
+
+    test "an agent can create a citizen account without an email (F71)" do
+      sign_in agents(:agent)
+
+      assert_difference -> { User.count }, 1 do
+        post agents_users_url, params: { user: { locale: "fr" } }
+      end
+
+      user = User.order(:created_at).last
+      assert user.login_id.present?
+      assert_equal "citizen", user.role
+      assert_redirected_to agents_user_url(user)
+    end
+
+    test "an agent can create a citizen account with an email" do
+      sign_in agents(:agent)
+
+      assert_difference -> { User.count }, 1 do
+        post agents_users_url, params: { user: { email: "newresident@example.com", locale: "fr" } }
+      end
+
+      assert User.find_by(email: "newresident@example.com").login_id.present?
+    end
   end
 end

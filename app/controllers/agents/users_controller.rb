@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Agents
-  # Agents administer citizen accounts (F34).
+  # Agents administer citizen accounts (F34), including creating accounts for
+  # residents without an email address (F71).
   class UsersController < BaseController
     def index
       authorize User
@@ -16,6 +17,38 @@ module Agents
     def show
       @user = User.find(params[:id])
       authorize @user
+      @generated_credentials = flash[:generated_credentials]
+    end
+
+    def new
+      @user = User.new
+      authorize @user
+    end
+
+    # Creates a citizen account, even without an email address (F71).
+    def create
+      @user = User.new(citizen_params)
+      authorize @user
+
+      generated_email = @user.email.blank?
+      @user.email = "resident-#{SecureRandom.hex(4)}@terra-nova.local" if generated_email
+      @user.login_id ||= User.next_login_id
+      temporary_password = SecureRandom.alphanumeric(10)
+      @user.password = temporary_password
+      @user.password_confirmation = temporary_password
+      @user.role = :citizen
+
+      if @user.save
+        flash[:generated_credentials] = {
+          login_id: @user.login_id,
+          email: @user.email,
+          password: temporary_password,
+          generated_email: generated_email
+        }
+        redirect_to agents_user_path(@user), notice: t("agents.users.created")
+      else
+        render :new, status: :unprocessable_content
+      end
     end
 
     def edit
@@ -28,8 +61,7 @@ module Agents
       authorize @user
 
       attributes = params.require(:user).permit(:locale, :onboarding_completed)
-      # Role changes are sensitive: only administrators may perform them, and
-      # only for values known to the enum.
+      # Role changes are sensitive: administrators only, and only enum values.
       if current_agent.admin? && User.roles.key?(params.dig(:user, :role))
         attributes[:role] = params[:user][:role]
       end
@@ -47,7 +79,14 @@ module Agents
       authorize @user, :unlock?
 
       @user.unlock_access!
+      SecurityEvent.log("account_unlocked", actor: current_agent, metadata: { user_id: @user.id })
       redirect_to agents_user_path(@user), notice: t("agents.users.unlocked")
+    end
+
+    private
+
+    def citizen_params
+      params.require(:user).permit(:email, :login_id, :locale)
     end
   end
 end

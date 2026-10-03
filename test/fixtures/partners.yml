@@ -1,0 +1,16 @@
+health:
+  slug: centre-sante-horizon
+  name_translations: { "fr": "Centre Horizon", "en": "Horizon Centre" }
+  description_translations: { "fr": "Consultations sans rendez-vous.", "en": "Walk-in consultations." }
+  category: sante
+  address: "5 rue des Soins"
+  latitude: 48.8545
+  longitude: 2.3495
+  published: true
+
+draft:
+  slug: partenaire-brouillon
+  name_translations: { "fr": "Brouillon", "en": "Draft" }
+  description_translations: { "fr": "Brouillon.", "en": "Draft." }
+  category: commerce
+  published: false

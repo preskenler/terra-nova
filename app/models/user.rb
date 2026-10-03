@@ -23,8 +23,28 @@ class User < ApplicationRecord
   has_many :consultation_responses, dependent: :destroy
   has_many :ideas, dependent: :destroy
   has_many :idea_supports, dependent: :destroy
+  has_many :service_reviews, dependent: :destroy
 
   after_create :create_default_profile
+
+  # Sign-in by email OR citizen identifier, so residents without an email can
+  # still access the platform (F71).
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    login = conditions.delete(:email)&.to_s&.strip
+
+    return super if login.blank?
+
+    where(conditions.to_h).find_by("email = :login OR login_id = :login", login: login)
+  end
+
+  # Generates a unique, human-friendly citizen identifier.
+  def self.next_login_id
+    loop do
+      candidate = "TN-#{SecureRandom.random_number(999_999).to_s.rjust(6, '0')}"
+      break candidate unless exists?(login_id: candidate)
+    end
+  end
 
   # Human-friendly label used in navigation and audit logs.
   def display_name

@@ -60,7 +60,7 @@ module Agents
 
     def announcement_params
       params.require(:announcement).permit(
-        :severity, :target_audience, :published_at, :starts_at, :ends_at, :active,
+        :severity, :target_audience, :published_at, :starts_at, :ends_at, :active, :pinned,
         :title_fr, :title_en, :body_fr, :body_en
       )
     end

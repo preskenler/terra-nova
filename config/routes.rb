@@ -23,7 +23,10 @@ Rails.application.routes.draw do
   post "users/two_factor",        to: "users/two_factor#create"
 
   # Public city information
-  resources :services, only: [ :index, :show ]
+  resources :services, only: [ :index, :show ] do
+    resource :review, only: [ :create ], controller: "service_reviews"
+  end
+  resources :partners, only: [ :index, :show ]
   resources :transports, only: [ :index ]
   resources :announcements, only: [ :index, :show ]
   resources :alerts, only: [ :index ]
@@ -79,13 +82,15 @@ Rails.application.routes.draw do
         collection { post :refresh }
       end
 
-      # Citizen account administration (F34)
-      resources :users, only: [ :index, :show, :edit, :update ] do
+      # Citizen account administration (F34/F71)
+      resources :users, only: [ :index, :show, :new, :create, :edit, :update ] do
         member { patch :unlock }
       end
 
-      # Citizen requests / signalements (F22/D17)
-      resources :requests, only: [ :index, :show, :update ]
+      # Citizen requests / signalements (F22/D17/F75)
+      resources :requests, only: [ :index, :show, :update ] do
+        member { patch :link_duplicate }
+      end
 
       # Appointment scheduling (F39/F40)
       resources :appointments, only: [ :index, :show, :edit, :update ] do
@@ -116,6 +121,13 @@ Rails.application.routes.draw do
       resources :projects
       resources :consultations
       resources :ideas, only: [ :index, :show, :update ]
+
+      # Partners (F74), service reviews (F76) and security monitoring (F69/F70)
+      resources :partners do
+        member { patch :hours }
+      end
+      resources :service_reviews, only: [ :index, :update ]
+      resources :security_events, only: [ :index ]
     end
   end
 end

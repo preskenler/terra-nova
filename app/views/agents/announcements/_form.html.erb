@@ -53,6 +53,10 @@
       <%= f.check_box :active, class: "checkbox checkbox-sm" %>
       <span class="text-sm"><%= t("agents.announcements.fields.active") %></span>
     </label>
+    <label class="flex cursor-pointer items-center gap-2 pt-6">
+      <%= f.check_box :pinned, class: "checkbox checkbox-sm" %>
+      <span class="text-sm"><%= t("agents.announcements.fields.pinned") %></span>
+    </label>
   </div>
 
   <div class="flex gap-2">

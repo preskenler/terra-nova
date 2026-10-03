@@ -20,6 +20,10 @@ class Request < ApplicationRecord
   belongs_to :user
   belongs_to :service, optional: true
 
+  # Duplicate detection (F75): a request can be linked to the one it duplicates.
+  belongs_to :duplicate_of, class_name: "Request", optional: true
+  has_many :duplicates, class_name: "Request", foreign_key: :duplicate_of_id, dependent: :nullify
+
   has_many :request_events, -> { order(created_at: :asc, id: :asc) }, dependent: :destroy
   has_many :request_supports, dependent: :destroy
   has_many :supporters, through: :request_supports, source: :user

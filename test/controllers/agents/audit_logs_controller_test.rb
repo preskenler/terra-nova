@@ -20,8 +20,8 @@ module Agents
       assert version.changeset.key?("triage_status")
     end
 
-    test "an agent lists and opens audit entries" do
-      sign_in agents(:agent)
+    test "an administrator lists and opens audit entries" do
+      sign_in agents(:admin)
       patch agents_demand_url(demands(:f52)), params: { demand: { triage_status: "done" } }
 
       get agents_audit_logs_url

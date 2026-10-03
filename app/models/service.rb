@@ -23,6 +23,7 @@ class Service < ApplicationRecord
 
   has_many :requests, dependent: :nullify
   has_many :appointments, dependent: :nullify
+  has_many :service_reviews, dependent: :destroy
 
   # Priority/common services first (F28).
   scope :ordered, -> { order(priority: :desc, created_at: :asc) }

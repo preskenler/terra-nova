@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-# Agents administer citizen accounts (F34).
+# Agents administer citizen accounts (F34), including creating accounts (F71).
 class UserPolicy < ApplicationPolicy
-  def index? = agent?
-  def show? = agent?
-  def edit? = agent?
+  def index?  = agent?
+  def show?   = agent?
+  def new?    = create?
+  def create? = agent?
+  def edit?   = agent?
   def update? = agent?
   def unlock? = agent?
 

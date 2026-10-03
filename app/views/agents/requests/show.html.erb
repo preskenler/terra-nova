@@ -123,3 +123,23 @@
     <% end %>
   </aside>
 </div>
+
+<% if @similar_requests.any? %>
+  <section class="mt-8" aria-labelledby="similar-heading">
+    <%= render Ui::SectionHeadingComponent.new(title: t("agents.requests.similar"), id: "similar-heading") %>
+    <p class="text-sm text-base-content/70"><%= t("agents.requests.similar_hint") %></p>
+    <ul class="mt-3 space-y-2">
+      <% @similar_requests.each do |similar| %>
+        <li class="flex flex-wrap items-center justify-between gap-2 rounded-box border border-base-300 bg-base-100 p-3 text-sm">
+          <div class="min-w-0">
+            <p class="font-mono text-xs text-base-content/60"><%= similar.reference %></p>
+            <p class="truncate"><%= link_to similar.subject, agents_request_path(similar), class: "link" %></p>
+          </div>
+          <%= button_to t("agents.requests.link_duplicate"),
+                link_duplicate_agents_request_path(@request, duplicate_reference: similar.reference),
+                method: :patch, class: "btn btn-ghost btn-xs" %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

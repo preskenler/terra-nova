@@ -17,6 +17,7 @@ class TwoFactorSettingsController < ApplicationController
     if current_user.verify_otp(params[:code])
       current_user.enable_two_factor!
       session[:otp_verified] = true
+      SecurityEvent.log("two_factor_enabled", actor: current_user)
       redirect_to two_factor_settings_path, notice: t("two_factor.enabled")
     else
       @qr_data_uri = qr_data_uri
@@ -28,6 +29,7 @@ class TwoFactorSettingsController < ApplicationController
   def destroy
     current_user.disable_two_factor!
     session[:otp_verified] = true
+    SecurityEvent.log("two_factor_disabled", actor: current_user)
     redirect_to two_factor_settings_path, notice: t("two_factor.disabled")
   end
 

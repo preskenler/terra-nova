@@ -7,6 +7,7 @@ fr:
   languages:
     fr: "Français"
     en: "English"
+    es: "Español"
 
   nav:
     menu: "Menu"
@@ -208,6 +209,9 @@ fr:
     idea_status:
       title: "Idée %{reference} mise à jour"
       body: "Le nouvel état est : %{status}."
+    review:
+      title: "Avis enregistré — %{reference}"
+      body: "Merci d'avoir partagé votre expérience."
 
   appointments:
     title: "Mes rendez-vous"
@@ -318,6 +322,63 @@ fr:
       intro: "Décrivez votre idée pour améliorer la ville. Elle sera étudiée par les services municipaux."
       submit: "Envoyer mon idée"
 
+  guidance:
+    title: "Par où commencer ?"
+    intro: "Indiquez votre situation et nous vous orientons vers les bons services."
+    choose: "Votre situation"
+    choose_blank: "Choisir…"
+    show: "Voir les suggestions"
+    start_request: "Commencer une demande"
+    results:
+      title: "Suggestions pour vous"
+    situations:
+      moving_in: "Je viens d'emménager"
+      waste: "Un problème de collecte des déchets"
+      streetlight: "Un lampadaire cassé"
+      health: "Santé et urgences"
+      transport: "Transports en commun"
+      permits: "Autorisation d'urbanisme"
+      water: "Un problème d'eau"
+    requests:
+      waste: "Problème de collecte des déchets"
+      streetlight: "Lampadaire cassé"
+      water: "Fuite d'eau"
+
+  partners:
+    title: "Annuaire des partenaires"
+    subtitle: "Retrouvez nos organisations partenaires, leurs horaires et où les trouver."
+    empty: "Aucun partenaire pour le moment."
+    hours: "Horaires d'ouverture"
+    closed: "Fermé"
+    location: "Localisation"
+    map_label: "Carte indiquant l'emplacement de %{name}"
+    categories:
+      sante: "Santé"
+      commerce: "Commerces"
+      culture: "Culture"
+      sport: "Sport"
+      social: "Social"
+      transport: "Transports"
+      loisirs: "Loisirs"
+      autres: "Autres"
+
+  service_reviews:
+    title: "Avis des habitants"
+    empty: "Aucun avis pour le moment. Soyez le premier à partager votre expérience."
+    leave: "Vous avez utilisé ce service ? Laissez un commentaire."
+    rating: "Note (facultative)"
+    rating_aria: "%{count} sur 5"
+    no_rating: "Sans note"
+    stars:
+      one: "%{count} étoile"
+      other: "%{count} étoiles"
+    comment: "Votre commentaire"
+    submit: "Publier mon avis"
+    created: "Merci, votre avis a bien été enregistré (référence %{reference})."
+    status:
+      published: "Publié"
+      hidden: "Masqué"
+
   severities:
     info: "Information"
     alert: "Alerte"
@@ -333,6 +394,7 @@ fr:
     subtitle: "Les annonces officielles de la ville de Terra Nova."
     empty: "Aucune annonce pour le moment."
     new: "Nouvelle annonce"
+    more: "Lire la suite"
 
   alerts:
     title: "Alertes"
@@ -521,6 +583,9 @@ fr:
       projects: "Projets"
       consultations: "Consultations"
       ideas: "Idées"
+      partners: "Partenaires"
+      reviews: "Avis"
+      security: "Sécurité"
       users: "Citoyens"
     dashboard:
       title: "Tableau de bord"
@@ -626,6 +691,10 @@ fr:
         status: "Nouvel état"
         comment: "Commentaire"
         visible_to_citizen: "Visible par le citoyen"
+      similar: "Doublons possibles"
+      similar_hint: "Demandes ouvertes pouvant décrire le même problème."
+      link_duplicate: "Lier comme doublon"
+      duplicate_linked: "La demande a été liée au doublon."
     appointments:
       title: "Rendez-vous"
       subtitle: "Votre agenda et les rendez-vous pris par les habitants."
@@ -696,6 +765,7 @@ fr:
         starts_at: "Visible à partir du"
         ends_at: "Visible jusqu'au"
         active: "Active"
+        pinned: "Épingler comme bandeau global"
     alerts:
       title: "Alertes"
       subtitle: "Diffusez des informations urgentes (inondation, canicule, sécurité…)."
@@ -862,9 +932,76 @@ fr:
         author: "Auteur"
         status: "État"
         supports: "Soutiens"
+    partners:
+      title: "Partenaires"
+      subtitle: "Gérez les organisations partenaires, leur emplacement et leurs horaires."
+      new: "Nouveau partenaire"
+      edit: "Modifier le partenaire"
+      created: "Le partenaire a été créé."
+      updated: "Le partenaire a été mis à jour."
+      destroyed: "Le partenaire a été supprimé."
+      hours_updated: "Les horaires ont été mis à jour."
+      confirm_destroy: "Supprimer ce partenaire ?"
+      actions_title: "Actions"
+      table_caption: "Liste des partenaires"
+      columns:
+        name: "Partenaire"
+        category: "Catégorie"
+        published: "Publié"
+      fields:
+        name_fr: "Nom (FR)"
+        name_en: "Nom (EN)"
+        description_fr: "Description (FR)"
+        description_en: "Description (EN)"
+        category: "Catégorie"
+        category_none: "Aucune catégorie"
+        phone: "Téléphone"
+        website: "Site web"
+        address: "Adresse"
+        latitude: "Latitude"
+        longitude: "Longitude"
+        published: "Publié"
+    service_reviews:
+      title: "Avis sur les services"
+      subtitle: "Modérez les commentaires laissés par les habitants après avoir utilisé un service."
+      updated: "L'avis a été mis à jour."
+      invalid: "L'avis n'a pas pu être mis à jour."
+      hide: "Masquer"
+      publish: "Publier"
+      table_caption: "Liste des avis sur les services"
+      columns:
+        reference: "Référence"
+        service: "Service"
+        user: "Citoyen"
+        comment: "Commentaire"
+        status: "État"
+        actions: "Actions"
+    security_events:
+      title: "Événements de sécurité"
+      subtitle: "Surveillez l'authentification et l'activité de sécurité des comptes."
+      event: "Événement"
+      all: "Tous"
+      table_caption: "Liste des événements de sécurité"
+      columns:
+        date: "Date"
+        event: "Événement"
+        actor: "Acteur"
+        ip: "IP"
+      events:
+        sign_in: "Connexion"
+        sign_in_failed: "Connexion échouée"
+        two_factor_enabled: "Double authentification activée"
+        two_factor_disabled: "Double authentification désactivée"
+        account_unlocked: "Compte déverrouillé"
     users:
       title: "Comptes citoyens"
       subtitle: "Recherchez et administrez les habitants de Terra Nova."
+      new: "Nouveau compte citoyen"
+      create: "Créer le compte"
+      new_hint: "Créez un compte pour un habitant, même sans adresse e-mail."
+      created: "Le compte a été créé. Communiquez les identifiants ci-dessous."
+      email_hint: "Laissez vide pour un habitant sans adresse e-mail."
+      login_id_hint: "Laissez vide pour générer automatiquement un identifiant citoyen."
       search: "Rechercher"
       role: "Rôle"
       all: "Tous"
@@ -888,10 +1025,19 @@ fr:
         status: "État"
         actions: "Actions"
       fields:
+        email_optional: "Adresse e-mail (facultative)"
+        login_id: "Identifiant citoyen (facultatif)"
         sign_in_count: "Connexions"
         last_sign_in: "Dernière connexion"
         failed_attempts: "Tentatives échouées"
         onboarding_completed: "Parcours d'accueil terminé"
+      credentials:
+        title: "Identifiants d'accès"
+        body: "Remettez ces identifiants à l'habitant. Le mot de passe n'est affiché qu'une seule fois."
+        email: "Adresse e-mail"
+        login_id: "Identifiant"
+        password: "Mot de passe temporaire"
+        warning: "L'habitant doit changer ce mot de passe à sa première connexion."
 
   demands:
     triage:

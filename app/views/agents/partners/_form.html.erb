@@ -1,0 +1,66 @@
+<%= form_with model: partner,
+      url: partner.persisted? ? agents_partner_path(partner) : agents_partners_path,
+      class: "space-y-4" do |f| %>
+  <% if partner.errors.any? %>
+    <div role="alert" class="alert alert-error">
+      <ul class="list-disc pl-5">
+        <% partner.errors.full_messages.each do |message| %><li><%= message %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    <div>
+      <%= f.label :name_fr, t("agents.partners.fields.name_fr"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :name_fr, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :name_en, t("agents.partners.fields.name_en"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :name_en, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :description_fr, t("agents.partners.fields.description_fr"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :description_fr, rows: 3, class: "textarea textarea-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :description_en, t("agents.partners.fields.description_en"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :description_en, rows: 3, class: "textarea textarea-bordered w-full" %>
+    </div>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-3">
+    <div>
+      <%= f.label :category, t("agents.partners.fields.category"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.select :category, Partner::CATEGORIES.map { |c| [ t("partners.categories.#{c}"), c ] }, { include_blank: t("agents.partners.fields.category_none") }, class: "select select-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :phone, t("agents.partners.fields.phone"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.telephone_field :phone, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :website, t("agents.partners.fields.website"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.url_field :website, class: "input input-bordered w-full" %>
+    </div>
+    <div class="sm:col-span-3">
+      <%= f.label :address, t("agents.partners.fields.address"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :address, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :latitude, t("agents.partners.fields.latitude"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.number_field :latitude, step: "any", class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :longitude, t("agents.partners.fields.longitude"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.number_field :longitude, step: "any", class: "input input-bordered w-full" %>
+    </div>
+    <label class="flex cursor-pointer items-center gap-2 pt-6">
+      <%= f.check_box :published, class: "checkbox checkbox-sm" %>
+      <span class="text-sm"><%= t("agents.partners.fields.published") %></span>
+    </label>
+  </div>
+
+  <div class="flex gap-2">
+    <%= f.submit t("actions.save"), class: "btn btn-primary" %>
+    <%= link_to t("actions.back"), agents_partners_path, class: "btn btn-ghost" %>
+  </div>
+<% end %>

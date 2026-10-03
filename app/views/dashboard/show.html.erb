@@ -53,3 +53,42 @@
     </div>
   <% end %>
 </div>
+
+<section class="mt-8" aria-labelledby="guidance-heading">
+  <%= render Ui::SectionHeadingComponent.new(title: t("guidance.title"), id: "guidance-heading") %>
+  <p class="max-w-2xl text-sm text-base-content/70"><%= t("guidance.intro") %></p>
+
+  <%= form_with url: citizen_dashboard_path, method: :get, class: "mt-3 flex flex-wrap items-end gap-2" do %>
+    <div>
+      <label for="situation" class="mb-1 block text-sm font-medium"><%= t("guidance.choose") %></label>
+      <%= select_tag :situation,
+            options_for_select(
+              CitizenGuidance::SITUATIONS.keys.map { |key| [ t("guidance.situations.#{key}"), key ] },
+              @situation
+            ),
+            include_blank: t("guidance.choose_blank"),
+            id: "situation", class: "select select-bordered select-sm" %>
+    </div>
+    <%= submit_tag t("guidance.show"), class: "btn btn-primary btn-sm" %>
+  <% end %>
+
+  <% if @guidance %>
+    <div class="mt-4 rounded-box border border-base-300 bg-base-100 p-4">
+      <p class="text-sm font-semibold"><%= t("guidance.results.title") %></p>
+      <ul class="mt-2 space-y-1 text-sm">
+        <% @guidance[:services].each do |service| %>
+          <li>
+            <%= link_to service.name, service_path(service), class: "link" %>
+            <span class="text-base-content/60">— <%= truncate(service.description.to_s, length: 90) %></span>
+          </li>
+        <% end %>
+      </ul>
+      <% if @guidance[:request_key] %>
+        <%= link_to t("guidance.start_request"),
+              new_request_path(subject: t("guidance.requests.#{@guidance[:request_key]}"),
+                               service_id: @guidance[:services].first&.id),
+              class: "btn btn-primary btn-sm mt-3" %>
+      <% end %>
+    </div>
+  <% end %>
+</section>

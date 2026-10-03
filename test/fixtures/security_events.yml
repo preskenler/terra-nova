@@ -1,0 +1,9 @@
+sign_in:
+  event: sign_in
+  ip: "127.0.0.1"
+  user_agent: "Test browser"
+
+failed:
+  event: sign_in_failed
+  ip: "127.0.0.2"
+  user_agent: "Test browser"

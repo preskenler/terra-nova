@@ -1,0 +1,34 @@
+<% content_for :title, t("agents.partners.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("agents.nav.dashboard"), path: agents_root_path },
+      { label: t("agents.partners.title") }
+    ]) %>
+
+<%= render Ui::PageHeaderComponent.new(title: t("agents.partners.title"), subtitle: t("agents.partners.subtitle")) do %>
+  <%= link_to t("agents.partners.new"), new_agents_partner_path, class: "btn btn-primary btn-sm" %>
+<% end %>
+
+<div class="overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.partners.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.partners.columns.name") %></th>
+        <th scope="col"><%= t("agents.partners.columns.category") %></th>
+        <th scope="col"><%= t("agents.partners.columns.published") %></th>
+        <th scope="col"><span class="sr-only"><%= t("actions.view") %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @partners.each do |partner| %>
+        <tr>
+          <th scope="row"><%= link_to partner.name, agents_partner_path(partner), class: "link" %></th>
+          <td><%= partner.category.present? ? t("partners.categories.#{partner.category}") : "—" %></td>
+          <td><%= partner.published? ? t("common.yes") : t("common.no") %></td>
+          <td class="text-right"><%= link_to t("actions.view"), agents_partner_path(partner), class: "btn btn-ghost btn-xs" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -19,6 +19,11 @@
         <li><%= link_to t("agents.nav.projects"), agents_projects_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
         <li><%= link_to t("agents.nav.consultations"), agents_consultations_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
         <li><%= link_to t("agents.nav.ideas"), agents_ideas_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.partners"), agents_partners_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.reviews"), agents_service_reviews_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <% if current_agent.admin? %>
+          <li><%= link_to t("agents.nav.security"), agents_security_events_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <% end %>
         <li><%= link_to t("agents.nav.users"), agents_users_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
       </ul>
     </nav>

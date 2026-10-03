@@ -6,6 +6,21 @@
       { label: @user.email }
     ]) %>
 
+<% if @generated_credentials %>
+  <div role="status" class="alert alert-warning mt-4">
+    <div>
+      <p class="font-semibold"><%= t("agents.users.credentials.title") %></p>
+      <p class="text-sm"><%= t("agents.users.credentials.body") %></p>
+      <ul class="mt-1 list-disc pl-5 font-mono text-sm">
+        <li><%= t("agents.users.credentials.email") %>: <%= @generated_credentials[:email] %></li>
+        <li><%= t("agents.users.credentials.login_id") %>: <%= @generated_credentials[:login_id] %></li>
+        <li><%= t("agents.users.credentials.password") %>: <%= @generated_credentials[:password] %></li>
+      </ul>
+      <p class="mt-1 text-xs"><%= t("agents.users.credentials.warning") %></p>
+    </div>
+  </div>
+<% end %>
+
 <div class="mt-4 grid gap-6 lg:grid-cols-3">
   <section class="card border border-base-300 bg-base-100 lg:col-span-2">
     <div class="card-body">

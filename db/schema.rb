@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_260004) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_04_000006) do
   create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.integer "wday", null: false
@@ -88,7 +88,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_260004) do
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "pinned", default: false, null: false
     t.index ["active"], name: "index_announcements_on_active"
+    t.index ["pinned"], name: "index_announcements_on_pinned"
     t.index ["severity"], name: "index_announcements_on_severity"
   end
 
@@ -274,6 +276,35 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_260004) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "partner_opening_hours", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "partner_id", null: false
+    t.integer "wday", null: false
+    t.string "opens_at"
+    t.string "closes_at"
+    t.boolean "closed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id", "wday"], name: "index_partner_opening_hours_on_partner_id_and_wday", unique: true
+    t.index ["partner_id"], name: "index_partner_opening_hours_on_partner_id"
+  end
+
+  create_table "partners", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "slug", null: false
+    t.json "name_translations"
+    t.json "description_translations"
+    t.string "category"
+    t.string "address"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.string "phone"
+    t.string "website"
+    t.boolean "published", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_partners_on_category"
+    t.index ["slug"], name: "index_partners_on_slug", unique: true
+  end
+
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "address"
@@ -337,10 +368,41 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_260004) do
     t.string "status", default: "submitted", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "duplicate_of_id"
+    t.index ["duplicate_of_id"], name: "index_requests_on_duplicate_of_id"
     t.index ["reference"], name: "index_requests_on_reference", unique: true
     t.index ["service_id"], name: "index_requests_on_service_id"
     t.index ["status"], name: "index_requests_on_status"
     t.index ["user_id"], name: "index_requests_on_user_id"
+  end
+
+  create_table "security_events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "event", null: false
+    t.string "actor_type"
+    t.bigint "actor_id"
+    t.string "ip"
+    t.string "user_agent"
+    t.json "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_type", "actor_id"], name: "index_security_events_on_actor"
+    t.index ["created_at"], name: "index_security_events_on_created_at"
+    t.index ["event"], name: "index_security_events_on_event"
+  end
+
+  create_table "service_reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "service_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "rating"
+    t.text "comment"
+    t.string "reference", null: false
+    t.string "status", default: "published", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reference"], name: "index_service_reviews_on_reference", unique: true
+    t.index ["service_id"], name: "index_service_reviews_on_service_id"
+    t.index ["status"], name: "index_service_reviews_on_status"
+    t.index ["user_id"], name: "index_service_reviews_on_user_id"
   end
 
   create_table "services", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -430,7 +492,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_260004) do
     t.datetime "otp_confirmed_at"
     t.boolean "reduced_data", default: false, null: false
     t.boolean "simple_mode", default: false, null: false
+    t.string "login_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["login_id"], name: "index_users_on_login_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
@@ -462,12 +526,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_260004) do
   add_foreign_key "ideas", "users"
   add_foreign_key "login_activities", "users"
   add_foreign_key "notifications", "users"
+  add_foreign_key "partner_opening_hours", "partners"
   add_foreign_key "profiles", "users"
   add_foreign_key "request_events", "requests"
   add_foreign_key "request_supports", "requests"
   add_foreign_key "request_supports", "users"
+  add_foreign_key "requests", "requests", column: "duplicate_of_id"
   add_foreign_key "requests", "services"
   add_foreign_key "requests", "users"
+  add_foreign_key "service_reviews", "services"
+  add_foreign_key "service_reviews", "users"
   add_foreign_key "transport_disruptions", "transport_lines"
   add_foreign_key "transport_schedules", "transport_lines"
 end
