@@ -50,16 +50,18 @@
   </section>
 <% end %>
 
-<section class="mt-6 grid gap-4 md:grid-cols-3" aria-label="<%= t("home.highlights.title") %>">
-  <% %i[discover requests alerts].each do |key| %>
-    <article class="card border border-base-300 bg-base-100">
-      <div class="card-body">
-        <h2 class="card-title text-base"><%= t("home.highlights.#{key}.title") %></h2>
-        <p class="text-sm text-base-content/80"><%= t("home.highlights.#{key}.body") %></p>
-      </div>
-    </article>
-  <% end %>
-</section>
+<% unless simple_mode? %>
+  <section class="mt-6 grid gap-4 md:grid-cols-3" aria-label="<%= t("home.highlights.title") %>">
+    <% %i[discover requests alerts].each do |key| %>
+      <article class="card border border-base-300 bg-base-100">
+        <div class="card-body">
+          <h2 class="card-title text-base"><%= t("home.highlights.#{key}.title") %></h2>
+          <p class="text-sm text-base-content/80"><%= t("home.highlights.#{key}.body") %></p>
+        </div>
+      </article>
+    <% end %>
+  </section>
+<% end %>
 
 <% priority_services = @priority_services %>
 <% if priority_services.any? %>
@@ -76,7 +78,7 @@
   </section>
 <% end %>
 
-<% if @announcements.any? %>
+<% if @announcements.any? && !simple_mode? %>
   <section class="mt-8" aria-labelledby="home-announcements-heading">
     <div class="flex items-center justify-between">
       <h2 id="home-announcements-heading" class="text-xl font-bold"><%= t("announcements.title") %></h2>

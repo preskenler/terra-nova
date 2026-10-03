@@ -53,6 +53,8 @@ fr:
     reduced_data: "Mode économie de données"
     reduced_data_hint: "Évite les ressources lourdes comme les cartes sur les connexions lentes."
     reduced_data_note: "Mode économie de données : la carte n'est pas chargée."
+    simple_mode: "Mode simple"
+    simple_mode_hint: "Affiche des pages plus légères et plus rapides, avec l'essentiel."
     apply: "Appliquer"
 
   preferences:
@@ -83,6 +85,7 @@ fr:
       intro: "Décrivez votre demande le plus précisément possible. Nous confirmons immédiatement son envoi."
       service: "Service concerné (facultatif)"
       service_none: "Aucun service en particulier"
+      service_unavailable: "ce service est actuellement indisponible ; la mairie est informée."
       subject: "Objet"
       description: "Description"
       description_hint: "Précisez ce qui s'est passé et où, pour permettre aux agents d'agir rapidement."
@@ -369,6 +372,7 @@ fr:
       alerts: "Alertes"
       audit_logs: "Journal d'audit"
       feedbacks: "Messages"
+      services: "Services"
       users: "Citoyens"
     dashboard:
       title: "Tableau de bord"
@@ -617,6 +621,27 @@ fr:
         date: "Date"
       fields:
         notes: "Notes internes"
+    services:
+      title: "Services"
+      subtitle: "Gérez le catalogue municipal et désactivez rapidement un service défectueux."
+      table_caption: "Liste des services municipaux"
+      emergency: "Urgence"
+      edit: "Modifier le service"
+      updated: "%{name} a été mis à jour."
+      disabled: "%{name} est désormais en maintenance."
+      enabled: "%{name} est de nouveau actif."
+      confirm_disable: "Mettre %{name} en maintenance ?"
+      columns:
+        name: "Service"
+        status: "État"
+        flags: "Marqueurs"
+        actions: "Actions"
+      fields:
+        message_fr: "Message de maintenance (FR)"
+        message_en: "Message de maintenance (EN)"
+        expected_return: "Retour prévu"
+        phone: "Téléphone"
+        email: "Adresse e-mail"
     users:
       title: "Comptes citoyens"
       subtitle: "Recherchez et administrez les habitants de Nova Terra."

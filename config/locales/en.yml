@@ -53,6 +53,8 @@ en:
     reduced_data: "Low data mode"
     reduced_data_hint: "Skips heavy resources such as maps on slow connections."
     reduced_data_note: "Low data mode: the map is not loaded."
+    simple_mode: "Simple mode"
+    simple_mode_hint: "Renders lighter, faster pages with the essentials only."
     apply: "Apply"
 
   preferences:
@@ -83,6 +85,7 @@ en:
       intro: "Describe your request as precisely as possible. We will confirm its submission immediately."
       service: "Related service (optional)"
       service_none: "No specific service"
+      service_unavailable: "this service is currently unavailable; the municipality is informed."
       subject: "Subject"
       description: "Description"
       description_hint: "Explain what happened and where, so agents can act quickly."
@@ -369,6 +372,7 @@ en:
       alerts: "Alerts"
       audit_logs: "Audit log"
       feedbacks: "Messages"
+      services: "Services"
       users: "Citizens"
     dashboard:
       title: "Dashboard"
@@ -617,6 +621,27 @@ en:
         date: "Date"
       fields:
         notes: "Internal notes"
+    services:
+      title: "Services"
+      subtitle: "Manage the municipal catalog and quickly disable a faulty service."
+      table_caption: "List of municipal services"
+      emergency: "Emergency"
+      edit: "Edit service"
+      updated: "%{name} has been updated."
+      disabled: "%{name} is now under maintenance."
+      enabled: "%{name} is active again."
+      confirm_disable: "Put %{name} under maintenance?"
+      columns:
+        name: "Service"
+        status: "Status"
+        flags: "Flags"
+        actions: "Actions"
+      fields:
+        message_fr: "Maintenance message (FR)"
+        message_en: "Maintenance message (EN)"
+        expected_return: "Expected return"
+        phone: "Phone"
+        email: "Email"
     users:
       title: "Citizen accounts"
       subtitle: "Search and administer the citizens of Nova Terra."

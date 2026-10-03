@@ -17,4 +17,9 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "#main-content"
     assert_select "main#main-content"
   end
+
+  test "homepage does not preload the map library (F61)" do
+    get root_url
+    assert_no_match(/modulepreload[^>]*leaflet/, response.body)
+  end
 end

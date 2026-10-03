@@ -1,0 +1,68 @@
+<% content_for :title, t("agents.services.edit") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("agents.nav.dashboard"), path: agents_root_path },
+      { label: t("agents.services.title"), path: agents_services_path },
+      { label: @service.name }
+    ]) %>
+
+<h1 class="mt-4 text-2xl font-bold"><%= t("agents.services.edit") %></h1>
+
+<%= form_with model: @service, url: agents_service_path(@service), method: :patch, class: "mt-4 max-w-2xl space-y-4" do |f| %>
+  <% if @service.errors.any? %>
+    <div role="alert" class="alert alert-error">
+      <ul class="list-disc pl-5">
+        <% @service.errors.full_messages.each do |message| %><li><%= message %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :status, t("agents.services.columns.status"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.select :status, Service.statuses.keys.map { |s| [ t("services.status.#{s}"), s ] }, {},
+          class: "select select-bordered w-full" %>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    <div>
+      <%= f.label :maintenance_message_fr, t("agents.services.fields.message_fr"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :maintenance_message_fr, rows: 3, class: "textarea textarea-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :maintenance_message_en, t("agents.services.fields.message_en"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :maintenance_message_en, rows: 3, class: "textarea textarea-bordered w-full" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :expected_return, t("agents.services.fields.expected_return"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.text_field :expected_return, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    <div>
+      <%= f.label :contact_phone, t("agents.services.fields.phone"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.telephone_field :contact_phone, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :contact_email, t("agents.services.fields.email"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.email_field :contact_email, class: "input input-bordered w-full" %>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap gap-4">
+    <label class="flex cursor-pointer items-center gap-2">
+      <%= f.check_box :priority, class: "checkbox checkbox-sm" %>
+      <span class="text-sm"><%= t("services.priority.badge") %></span>
+    </label>
+    <label class="flex cursor-pointer items-center gap-2">
+      <%= f.check_box :emergency, class: "checkbox checkbox-sm" %>
+      <span class="text-sm"><%= t("agents.services.emergency") %></span>
+    </label>
+  </div>
+
+  <div class="flex gap-2">
+    <%= f.submit t("actions.save"), class: "btn btn-primary" %>
+    <%= link_to t("actions.back"), agents_services_path, class: "btn btn-ghost" %>
+  </div>
+<% end %>

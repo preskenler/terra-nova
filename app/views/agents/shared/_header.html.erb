@@ -15,13 +15,14 @@
         <li><%= link_to t("agents.nav.alerts"), agents_alerts_path, class: "link link-hover" %></li>
         <li><%= link_to t("agents.nav.audit_logs"), agents_audit_logs_path, class: "link link-hover" %></li>
         <li><%= link_to t("agents.nav.feedbacks"), agents_feedbacks_path, class: "link link-hover" %></li>
+        <li><%= link_to t("agents.nav.services"), agents_services_path, class: "link link-hover" %></li>
         <li><%= link_to t("agents.nav.users"), agents_users_path, class: "link link-hover" %></li>
       </ul>
     </nav>
 
     <div class="flex flex-wrap items-center gap-2">
       <%= render Ui::LocaleSwitcherComponent.new(current: I18n.locale) %>
-      <%= render Ui::AccessibilityControlsComponent.new(high_contrast: high_contrast?, large_text: large_text?, reduced_data: reduced_data?) %>
+      <%= render Ui::AccessibilityControlsComponent.new(high_contrast: high_contrast?, large_text: large_text?, reduced_data: reduced_data?, simple_mode: simple_mode?) %>
       <span class="hidden text-sm text-base-content/70 sm:inline"><%= current_agent.display_name %></span>
       <%= button_to t("nav.sign_out"), destroy_agent_session_path, method: :delete,
             class: "btn btn-ghost btn-sm" %>

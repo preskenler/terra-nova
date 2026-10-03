@@ -28,6 +28,18 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-controller='map']"
   end
 
+  test "maps load the Leaflet stylesheet only on map pages (F61)" do
+    get service_url(services(:etat_civil))
+    assert_match %r{/assets/leaflet}, response.body
+  end
+
+  test "service cards show the current status (F64)" do
+    get services_url
+    assert_response :success
+    assert_match "Ouvert", response.body
+    assert_match "En maintenance", response.body
+  end
+
   test "maintenance services expose their status" do
     get service_url(services(:water_maintenance))
     assert_response :success

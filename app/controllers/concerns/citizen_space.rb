@@ -27,5 +27,6 @@ module CitizenSpace
     user.high_contrast = params.dig(:user, :high_contrast) == "1"
     user.large_text = params.dig(:user, :large_text) == "1"
     user.reduced_data = params.dig(:user, :reduced_data) == "1"
+    user.simple_mode = params.dig(:user, :simple_mode) == "1"
   end
 end

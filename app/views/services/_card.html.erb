@@ -8,11 +8,9 @@
         <% if service.priority? %>
           <%= render Ui::BadgeComponent.new(label: t("services.priority.badge"), variant: :primary) %>
         <% end %>
-        <% unless service.active? %>
-          <%= render Ui::BadgeComponent.new(
-                label: t("services.status.#{service.status}"),
-                variant: service.maintenance? ? :warning : :neutral) %>
-        <% end %>
+        <%= render Ui::BadgeComponent.new(
+              label: t("services.status.#{service.status}"),
+              variant: service_status_variant(service)) %>
       </div>
     </div>
     <p class="text-sm text-base-content/80"><%= truncate(service.description.to_s, length: 130) %></p>

@@ -127,7 +127,9 @@ No counts or waves are hard-coded: future `D…`/`F…` demands simply appear in
 - **Security alerts** — a notification and email when a sign-in comes from a new device.
 - **Requests recap** — CSV download of a citizen's request history.
 - **Environmental impact** — measured weight report at `/eco` enforced by an automated
-  asset budget test, plus a low-data mode and a dynamically imported map library.
+  asset budget test, plus low-data and simple modes and a dynamically imported map library.
+- **Service administration** — agents manage the catalog and can disable a faulty service
+  in one click (`/agents/services`).
 
 ---
 

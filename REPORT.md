@@ -787,6 +787,73 @@ mode). The media choices and budgets are documented at `/eco`.
 
 ---
 
+## F61 · Difficult · 1080 XP — Fast even on low-powered devices
+
+**What we built.** Pages stay light by default: the Leaflet JavaScript library is no
+longer module-preloaded on every page (it is imported dynamically and fetched only where
+a map is actually rendered), and the Leaflet stylesheet was moved out of the global
+bundle so it is loaded only on map pages. Pages are server-rendered with no SPA
+framework, `prefers-reduced-motion` is respected, and an automated asset-budget test
+protects the weight from regressions.
+
+**Where to test.** `/` (no map library), a map page `/services/etat-civil`, and `/eco`
+
+**How to verify.** 1) Open `/` and check the browser Network tab → `leaflet.js` is not
+preloaded. 2) Open `/services/etat-civil` → the map library loads only there.
+3) Open `/eco` → measured weights are within budget; run
+`bin/rails test test/performance/asset_budget_test.rb` → passes.
+
+---
+
+## F62 · Medium · 720 XP — A simpler, faster version of pages
+
+**What we built.** A persisted **“Simple mode”** preference that renders lighter, faster
+versions of the key pages: the homepage drops decorative blocks, the services catalog
+drops the priority highlight, and maps are not loaded — while all essential information
+and actions remain available.
+
+**Where to test.** Accessibility menu → “Simple mode”; then `/` and `/services`
+
+**How to verify.** 1) Enable “Simple mode” from the header Accessibility menu.
+2) The homepage no longer shows the “What you can do” and news blocks.
+3) `/services` no longer shows the priority section and loads no map, but search and the
+full list remain.
+
+---
+
+## F63 · Difficult · 1080 XP — Quickly disable a faulty service
+
+**What we built.** A service management area in the agent workspace (`/agents/services`)
+with a **one-click “Disable”** that immediately puts a service under maintenance, a
+one-click “Enable” to restore it, and an edit form for the maintenance message (FR/EN),
+expected return and contacts. Changes are recorded in the audit trail.
+
+**Where to test.** `/agents/services`
+
+**How to verify.** 1) Sign in as an agent and open `/agents/services`.
+2) Click “Disable” on a service → it becomes “Under maintenance”, and the citizen side
+(`/services`) immediately shows the maintenance banner.
+3) Click “Enable” to restore it.
+
+---
+
+## F64 · Easy · 360 XP — See a service’s status before starting
+
+**What we built.** Every service card now carries a status badge (Open / Under
+maintenance / Closed), the service page shows the status prominently with the maintenance
+banner, and the request form displays a live warning when an unavailable service is
+selected — so citizens know before starting and know what to do next.
+
+**Where to test.** `/services`, a service page (e.g. `/services/eau-assainissement`), and
+`/requests/new`
+
+**How to verify.** 1) `/services` shows an Open / Under maintenance / Closed badge on each
+card. 2) Open a maintenance service → a banner with the message and expected return is
+shown. 3) In `/requests/new`, select a maintenance service → a warning appears before you
+submit.
+
+---
+
 # Global implementation notes
 
 - **Stack:** Rails 8.1, MySQL 8.4, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -800,6 +867,8 @@ mode). The media choices and budgets are documented at `/eco`.
   cookie.
 - **Accessibility:** WCAG 2.2 AA-oriented statement at `/accessibility`.
 - **Environmental:** measured weight and budgets at `/eco`, enforced by an automated
-  asset-size test; low-data mode and dynamically imported map library.
-- **Quality:** 159 automated tests pass; RuboCop, Brakeman, bundler-audit and importmap
+  asset-size test; low-data and simple modes, and a dynamically imported map library.
+- **Performance:** the map library is not preloaded on non-map pages and its stylesheet
+  loads only where a map renders.
+- **Quality:** 168 automated tests pass; RuboCop, Brakeman, bundler-audit and importmap
   audit are all clean.

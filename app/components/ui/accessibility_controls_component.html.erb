@@ -23,6 +23,12 @@
       </label>
       <p class="text-xs text-base-content/60"><%= t("a11y.reduced_data_hint") %></p>
 
+      <label class="flex cursor-pointer items-center gap-2">
+        <%= check_box_tag :simple_mode, "1", @simple_mode, class: "checkbox checkbox-sm" %>
+        <span><%= t("a11y.simple_mode") %></span>
+      </label>
+      <p class="text-xs text-base-content/60"><%= t("a11y.simple_mode_hint") %></p>
+
       <%= submit_tag t("a11y.apply"), class: "btn btn-primary btn-sm w-full" %>
     <% end %>
   </div>

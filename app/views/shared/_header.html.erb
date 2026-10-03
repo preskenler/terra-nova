@@ -19,7 +19,7 @@
 
     <div class="flex flex-wrap items-center gap-2">
       <%= render Ui::LocaleSwitcherComponent.new(current: I18n.locale) %>
-      <%= render Ui::AccessibilityControlsComponent.new(high_contrast: high_contrast?, large_text: large_text?, reduced_data: reduced_data?) %>
+      <%= render Ui::AccessibilityControlsComponent.new(high_contrast: high_contrast?, large_text: large_text?, reduced_data: reduced_data?, simple_mode: simple_mode?) %>
 
       <% if user_signed_in? %>
         <%= link_to t("nav.my_space"), citizen_dashboard_path, class: "btn btn-ghost btn-sm" %>

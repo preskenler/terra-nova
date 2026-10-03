@@ -18,4 +18,14 @@ class PreferencesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "[data-controller='map']", count: 0
   end
+
+  test "simple mode renders lighter pages (F62)" do
+    patch preferences_url, params: { simple_mode: "1" }
+
+    get root_url
+    assert_no_match "Ce que vous pouvez faire", response.body
+
+    get services_url
+    assert_no_match "Services prioritaires", response.body
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_240001) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_250000) do
   create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.integer "wday", null: false
@@ -362,6 +362,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_240001) do
     t.boolean "otp_required", default: false, null: false
     t.datetime "otp_confirmed_at"
     t.boolean "reduced_data", default: false, null: false
+    t.boolean "simple_mode", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"

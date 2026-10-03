@@ -93,6 +93,14 @@ Rails.application.routes.draw do
 
       # Citizen messages (D04/F51)
       resources :feedbacks, only: [ :index, :show, :update ]
+
+      # Service catalog administration and quick disable (F63)
+      resources :services, only: [ :index, :edit, :update ] do
+        member do
+          patch :disable
+          patch :enable
+        end
+      end
     end
   end
 end

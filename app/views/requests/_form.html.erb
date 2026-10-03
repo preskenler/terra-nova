@@ -12,11 +12,23 @@
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :service_id, t("requests.form.service"), class: "mb-1 block text-sm font-medium" %>
-    <%= f.collection_select :service_id, services, :id, :name,
-          { include_blank: t("requests.form.service_none") },
-          class: "select select-bordered w-full" %>
+  <div data-controller="service-status"
+       data-service-status-warning-value="<%= t("requests.form.service_unavailable") %>">
+    <label for="request_service_id" class="mb-1 block text-sm font-medium"><%= t("requests.form.service") %></label>
+    <%= select_tag "request[service_id]",
+          options_for_select(
+            services.map do |service|
+              [ service.name, service.id,
+                { "data-status" => service.status,
+                  "data-status-label" => t("services.status.#{service.status}") } ]
+            end,
+            request.service_id
+          ),
+          include_blank: t("requests.form.service_none"),
+          id: "request_service_id",
+          class: "select select-bordered w-full",
+          data: { service_status_target: "select", action: "change->service-status#update" } %>
+    <p data-service-status-target="message" class="mt-1 text-sm" aria-live="polite"></p>
   </div>
 
   <div>

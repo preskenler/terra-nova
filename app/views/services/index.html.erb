@@ -52,7 +52,7 @@
   </section>
 <% end %>
 
-<% if @query.blank? && @category.blank? && @priority_services.any? %>
+<% if @query.blank? && @category.blank? && @priority_services.any? && !simple_mode? %>
   <section class="mt-6" aria-labelledby="priority-heading">
     <h2 id="priority-heading" class="text-lg font-bold"><%= t("services.priority.title") %></h2>
     <div class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">

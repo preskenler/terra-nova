@@ -57,6 +57,10 @@
         <%= check_box_tag "user[reduced_data]", "1", current_user.reduced_data?, class: "checkbox checkbox-sm" %>
         <span><%= t("a11y.reduced_data") %></span>
       </label>
+      <label class="flex cursor-pointer items-center gap-2">
+        <%= check_box_tag "user[simple_mode]", "1", current_user.simple_mode?, class: "checkbox checkbox-sm" %>
+        <span><%= t("a11y.simple_mode") %></span>
+      </label>
     </div>
   </fieldset>
 

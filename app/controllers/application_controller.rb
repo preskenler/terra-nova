@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   around_action :switch_locale
 
-  helper_method :current_locale, :high_contrast?, :large_text?, :reduced_data?
+  helper_method :current_locale, :high_contrast?, :large_text?, :reduced_data?, :simple_mode?
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -78,8 +78,14 @@ class ApplicationController < ActionController::Base
   end
 
   # Low-data mode: skips heavy optional resources (map tiles) (F59).
+  # Simple mode implies low-data mode, and also renders lighter pages (F62).
   def reduced_data?
-    accessibility_preference(:reduced_data)
+    simple_mode? || accessibility_preference(:reduced_data)
+  end
+
+  # Simple mode: a lighter, faster rendering of key pages (F62).
+  def simple_mode?
+    accessibility_preference(:simple_mode)
   end
 
   def accessibility_preference(attribute)

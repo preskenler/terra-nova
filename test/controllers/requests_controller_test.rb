@@ -55,4 +55,13 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.media_type, "csv"
     assert_match "NOVA-2026-AAAAA", response.body
   end
+
+  test "the request form exposes service status before starting (F64)" do
+    sign_in users(:citizen)
+    get new_request_url
+
+    assert_response :success
+    assert_match "data-status", response.body
+    assert_match "data-service-status-warning-value", response.body
+  end
 end

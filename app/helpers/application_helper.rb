@@ -65,6 +65,13 @@ module ApplicationHelper
     end
   end
 
+  def service_status_variant(service)
+    return :success if service.active?
+    return :warning if service.maintenance?
+
+    :neutral
+  end
+
   # Resolves a PaperTrail whodunnit ("Agent:1" / "User:2") to a readable label.
   def audit_actor_label(whodunnit)
     return t("agents.audit_logs.system") if whodunnit.blank?

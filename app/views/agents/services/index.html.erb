@@ -1,0 +1,52 @@
+<% content_for :title, t("agents.services.title") %>
+
+<div>
+  <h1 class="text-2xl font-bold"><%= t("agents.services.title") %></h1>
+  <p class="mt-1 text-base-content/70"><%= t("agents.services.subtitle") %></p>
+</div>
+
+<div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.services.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.services.columns.name") %></th>
+        <th scope="col"><%= t("agents.services.columns.status") %></th>
+        <th scope="col"><%= t("agents.services.columns.flags") %></th>
+        <th scope="col"><span class="sr-only"><%= t("agents.services.columns.actions") %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @services.each do |service| %>
+        <tr>
+          <th scope="row">
+            <%= link_to service.name, service_path(service), class: "link" %>
+            <span class="block font-mono text-xs text-base-content/50"><%= service.slug %></span>
+          </th>
+          <td>
+            <%= render Ui::BadgeComponent.new(
+                  label: t("services.status.#{service.status}"),
+                  variant: service_status_variant(service)) %>
+          </td>
+          <td class="space-x-1">
+            <% if service.priority? %><%= render Ui::BadgeComponent.new(label: t("services.priority.badge"), variant: :primary) %><% end %>
+            <% if service.emergency? %><%= render Ui::BadgeComponent.new(label: t("agents.services.emergency"), variant: :error) %><% end %>
+          </td>
+          <td class="text-right">
+            <div class="flex flex-wrap justify-end gap-1">
+              <%= link_to t("actions.edit"), edit_agents_service_path(service), class: "btn btn-ghost btn-xs" %>
+              <% if service.active? %>
+                <%= button_to t("agents.services.disable"), disable_agents_service_path(service), method: :patch,
+                      class: "btn btn-warning btn-xs",
+                      data: { turbo_confirm: t("agents.services.confirm_disable", name: service.name) } %>
+              <% else %>
+                <%= button_to t("agents.services.enable"), enable_agents_service_path(service), method: :patch,
+                      class: "btn btn-success btn-xs" %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
