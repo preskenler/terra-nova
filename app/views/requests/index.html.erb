@@ -17,6 +17,27 @@
   </div>
 </div>
 
+<%= form_with url: requests_path, method: :get, class: "mt-4 flex flex-wrap items-end gap-3" do %>
+  <div>
+    <label for="request-q" class="mb-1 block text-sm font-medium"><%= t("requests.filters.search") %></label>
+    <%= text_field_tag :q, params[:q], id: "request-q", class: "input input-bordered input-sm" %>
+  </div>
+  <div>
+    <label for="request-status" class="mb-1 block text-sm font-medium"><%= t("requests.filters.status") %></label>
+    <%= select_tag :status,
+          options_for_select([ [ t("requests.filters.all"), "" ] ] + Request::STATUSES.keys.map { |s| [ t("requests.status.#{s}"), s ] }, params[:status]),
+          id: "request-status", class: "select select-bordered select-sm" %>
+  </div>
+  <div>
+    <label for="request-sort" class="mb-1 block text-sm font-medium"><%= t("requests.filters.sort") %></label>
+    <%= select_tag :sort,
+          options_for_select([ [ t("requests.filters.sort_recent"), "" ], [ t("requests.filters.sort_oldest"), "oldest" ] ], params[:sort]),
+          id: "request-sort", class: "select select-bordered select-sm" %>
+  </div>
+  <%= submit_tag t("actions.filter"), class: "btn btn-primary btn-sm" %>
+  <%= link_to t("actions.reset"), requests_path, class: "btn btn-ghost btn-sm" %>
+<% end %>
+
 <% if @requests.any? %>
   <ul class="mt-6 space-y-3">
     <% @requests.each do |request| %>
@@ -48,3 +69,5 @@
     <% end %>
   </div>
 <% end %>
+
+<%= render "shared/pagination" %>

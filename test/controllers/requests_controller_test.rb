@@ -56,6 +56,14 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     assert_match "NOVA-2026-AAAAA", response.body
   end
 
+  test "a citizen can filter and sort their requests (F79)" do
+    sign_in users(:citizen)
+    get requests_url(status: "submitted", sort: "oldest")
+
+    assert_response :success
+    assert_match "NOVA-2026-AAAAA", response.body
+  end
+
   test "the request form exposes service status before starting (F64)" do
     sign_in users(:citizen)
     get new_request_url

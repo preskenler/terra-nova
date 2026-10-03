@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 module Agents
-  # Agent handling of citizen requests (F22/D17/F49/F50).
+  # Agent handling of citizen requests (F22/D17/F49/F50/F75/F80).
   class RequestsController < BaseController
+    include Pagination
+
     def index
       authorize Request
 
-      scope = Request.includes(:user, :service).recent_first
+      scope = Request.includes(:user, :service)
       scope = scope.where(status: params[:status]) if params[:status].present?
+      scope = scope.where(priority: params[:priority]) if params[:priority].present?
       scope = scope.where(service_id: params[:service_id]) if params[:service_id].present?
 
       if params[:q].present?
@@ -17,10 +20,23 @@ module Agents
         )
       end
 
-      @requests = scope.limit(200).to_a
+      scope = params[:sort] == "priority" ? scope.priority_first : scope.recent_first
+
+      @requests = paginate(scope).to_a
       @counts = Request.group(:status).count
       @pending_count = Request.open_requests.count
+      @urgent_count = Request.urgent.open_requests.count
       @services = Service.order(:slug)
+    end
+
+    # Sets a request's priority (F80).
+    def prioritize
+      @request = Request.find_by!(reference: params[:id])
+      authorize @request, :update?
+
+      priority = params.dig(:request, :priority).presence || params[:priority]
+      @request.update(priority: priority)
+      redirect_to agents_request_path(@request), notice: t("agents.requests.priority_updated")
     end
 
     def show

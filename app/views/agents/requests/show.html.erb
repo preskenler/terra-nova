@@ -18,9 +18,14 @@
         <p class="font-mono text-sm text-base-content/60"><%= @request.reference %></p>
         <h1 class="text-2xl font-bold"><%= @request.subject %></h1>
       </div>
-      <%= render Ui::BadgeComponent.new(
-            label: t("requests.status.#{@request.status}"),
-            variant: request_badge_variant(@request.status)) %>
+      <div class="flex flex-wrap gap-2">
+        <%= render Ui::BadgeComponent.new(
+              label: t("requests.status.#{@request.status}"),
+              variant: request_badge_variant(@request.status)) %>
+        <%= render Ui::BadgeComponent.new(
+              label: t("requests.priority.#{@request.priority}"),
+              variant: request_priority_variant(@request.priority)) %>
+      </div>
     </div>
 
     <dl class="grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
@@ -121,6 +126,21 @@
         </div>
       </section>
     <% end %>
+
+    <section class="card border border-base-300 bg-base-100">
+      <div class="card-body">
+        <%= render Ui::SectionHeadingComponent.new(title: t("agents.requests.priority")) %>
+        <%= form_with url: prioritize_agents_request_path(@request), method: :patch, class: "flex flex-wrap items-end gap-2" do %>
+          <div>
+            <label for="request_priority" class="mb-1 block text-sm font-medium"><%= t("agents.requests.fields.priority") %></label>
+            <%= select_tag "request[priority]",
+                  options_for_select(Request.priorities.keys.map { |p| [ t("requests.priority.#{p}"), p ] }, @request.priority),
+                  id: "request_priority", class: "select select-bordered select-sm" %>
+          </div>
+          <%= submit_tag t("agents.requests.save_priority"), class: "btn btn-primary btn-sm" %>
+        <% end %>
+      </div>
+    </section>
   </aside>
 </div>
 

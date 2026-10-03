@@ -58,4 +58,5 @@
     </tbody>
   </table>
 </div>
-<p class="mt-2 text-sm text-base-content/60"><%= t("agents.users.count", count: @users.size) %></p>
+<p class="mt-2 text-sm text-base-content/60"><%= t("agents.users.count", count: @total || @users.size) %></p>
+<%= render "shared/pagination" %>

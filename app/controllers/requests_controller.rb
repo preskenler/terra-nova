@@ -3,15 +3,30 @@
 # Citizen requests/signalements (F25/F26/D11/D16).
 class RequestsController < ApplicationController
   include CitizenSpace
+  include Pagination
 
   def index
-    @requests = current_user.requests.recent_first
+    scope = current_user.requests
+
+    if params[:status].present?
+      scope = scope.where(status: params[:status])
+    end
+
+    if params[:q].present?
+      query = "%#{params[:q].strip}%"
+      scope = scope.where("subject LIKE :q OR description LIKE :q", q: query)
+    end
+
+    scope = params[:sort] == "oldest" ? scope.order(created_at: :asc) : scope.recent_first
+
+    @all_requests = scope
+    @requests = paginate(scope)
     @open_count = current_user.requests.open_requests.count
 
     respond_to do |format|
       format.html
       format.csv do
-        send_data Requests::Csv.call(@requests),
+        send_data Requests::Csv.call(@all_requests),
                   filename: "mes-demandes-#{Date.current}.csv",
                   type: "text/csv; charset=utf-8"
       end

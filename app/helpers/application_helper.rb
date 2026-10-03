@@ -23,6 +23,10 @@ module ApplicationHelper
     end
   end
 
+  def request_priority_variant(priority)
+    priority.to_s == "urgent" ? :error : :neutral
+  end
+
   def request_user_link(user)
     return "—" if user.blank?
 
@@ -62,6 +66,13 @@ module ApplicationHelper
     when "resolved"  then :success
     when "in_review" then :info
     else :warning
+    end
+  end
+
+  # Pinned site-wide announcements, cached briefly (F73/F77).
+  def pinned_announcements
+    @pinned_announcements ||= Rails.cache.fetch("announcements:pinned", expires_in: 5.minutes) do
+      Announcement.published.pinned.recent_first.limit(2).to_a
     end
   end
 

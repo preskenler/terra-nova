@@ -1,4 +1,4 @@
-<% pinned = Announcement.published.pinned.recent_first.limit(2) %>
+<% pinned = pinned_announcements %>
 <% if pinned.any? %>
   <div class="mx-auto w-full max-w-6xl space-y-2 px-4 pt-4">
     <% pinned.each do |announcement| %>

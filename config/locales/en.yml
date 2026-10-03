@@ -104,6 +104,7 @@ en:
     breadcrumb: "Breadcrumb"
     main_nav: "Main navigation"
     footer_nav: "Footer navigation"
+    pagination: "Pagination"
     choose_language: "Choose a language"
     controls: "Accessibility"
     display_settings: "Display settings"
@@ -124,6 +125,26 @@ en:
 
   forms:
     errors_summary: "Please correct the following errors:"
+
+  pagination:
+    summary: "Page %{page} of %{pages} — %{count} results"
+    previous: "Previous"
+    next: "Next"
+
+  status:
+    title: "System status"
+    subtitle: "Current state of the platform's key components."
+    database: "Database"
+    cache: "Cache"
+    up: "Operational"
+    down: "Unavailable"
+    current_wave: "Current wave"
+    last_sync: "Last API sync"
+    never: "Never"
+    counts: "Data"
+    services: "Services"
+    requests: "Requests"
+    demands: "Demands"
 
   requests:
     title: "My requests"
@@ -163,6 +184,16 @@ en:
       resolved: "Resolved"
       closed: "Closed"
       rejected: "Rejected"
+    priority:
+      normal: "Normal"
+      urgent: "Urgent"
+    filters:
+      search: "Search"
+      status: "Status"
+      all: "All"
+      sort: "Sort"
+      sort_recent: "Most recent"
+      sort_oldest: "Oldest"
     timeline:
       title: "Progress"
       empty: "No steps recorded yet."
@@ -667,6 +698,13 @@ en:
       subtitle: "Track the requests sent by the citizens of Terra Nova."
       updated: "The request has been updated and the citizen notified."
       pending: "Pending"
+      urgent: "Urgent"
+      priority: "Priority"
+      priority_updated: "The request priority has been updated."
+      save_priority: "Save priority"
+      sort: "Sort"
+      sort_recent: "Most recent"
+      sort_priority: "Priority first"
       search: "Search"
       status: "Status"
       service: "Service"
@@ -683,12 +721,14 @@ en:
         service: "Service"
         status: "Status"
         date: "Date"
+        priority: "Priority"
         actions: "Actions"
       fields:
         citizen: "Citizen"
         service: "Service"
         supporters: "Supporters"
         status: "New status"
+        priority: "Priority"
         comment: "Comment"
         visible_to_citizen: "Visible to the citizen"
       similar: "Possible duplicates"

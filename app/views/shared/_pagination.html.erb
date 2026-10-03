@@ -1,0 +1,19 @@
+<% if @pages.present? && @pages > 1 %>
+  <nav class="mt-4 flex flex-wrap items-center justify-between gap-2" aria-label="<%= t("a11y.pagination") %>">
+    <p class="text-sm text-base-content/60">
+      <%= t("pagination.summary", page: @page, pages: @pages, count: @total) %>
+    </p>
+    <div class="flex gap-2">
+      <% if @page > 1 %>
+        <%= link_to t("pagination.previous"),
+              url_for(request.query_parameters.merge(page: @page - 1)),
+              class: "btn btn-ghost btn-sm" %>
+      <% end %>
+      <% if @page < @pages %>
+        <%= link_to t("pagination.next"),
+              url_for(request.query_parameters.merge(page: @page + 1)),
+              class: "btn btn-ghost btn-sm" %>
+      <% end %>
+    </div>
+  </nav>
+<% end %>

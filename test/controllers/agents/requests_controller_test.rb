@@ -52,5 +52,23 @@ module Agents
 
       assert_equal duplicate, target.reload.duplicate_of
     end
+
+    test "an agent can set a request priority (F80)" do
+      sign_in agents(:agent)
+      request = requests(:streetlight)
+
+      patch prioritize_agents_request_url(request), params: { request: { priority: "urgent" } }
+
+      assert_redirected_to agents_request_url(request)
+      assert_equal "urgent", request.reload.priority
+    end
+
+    test "the requests index filters by priority and paginates (F80/F77)" do
+      sign_in agents(:agent)
+
+      get agents_requests_url(priority: "urgent", sort: "priority", page: 2)
+
+      assert_response :success
+    end
   end
 end

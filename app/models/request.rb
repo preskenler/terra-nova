@@ -29,6 +29,7 @@ class Request < ApplicationRecord
   has_many :supporters, through: :request_supports, source: :user
 
   enum :status, STATUSES, default: :submitted, validate: true
+  enum :priority, { normal: "normal", urgent: "urgent" }, default: :normal, validate: true
 
   validates :subject, presence: true, length: { maximum: 150 }
   validates :description, presence: true, length: { maximum: 5000 }
@@ -38,6 +39,8 @@ class Request < ApplicationRecord
 
   scope :recent_first, -> { order(created_at: :desc) }
   scope :open_requests, -> { where(status: OPEN_STATUSES) }
+  # Urgent first, then most recent (F80).
+  scope :priority_first, -> { order(Arel.sql("FIELD(priority, 'urgent', 'normal')"), created_at: :desc) }
 
   # URL-friendly and stable public identifier.
   def to_param

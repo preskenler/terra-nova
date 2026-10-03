@@ -18,4 +18,10 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "Impact environnemental", response.body
   end
+
+  test "system status page renders (F77/F78)" do
+    get status_url
+    assert_response :success
+    assert_match "État du système", response.body
+  end
 end

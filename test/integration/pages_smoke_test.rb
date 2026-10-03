@@ -6,19 +6,20 @@ class PagesSmokeTest < ActionDispatch::IntegrationTest
   PUBLIC_PAGES = %w[
     / /services /services/etat-civil /transports /glossary /announcements
     /alerts /projects /projects/reamenagement-du-parc-central /ideas
-    /partners /partners/centre-sante-horizon
+    /partners /partners/centre-sante-horizon /status
     /feedback/new /transparency /accessibility /eco /users/magic_link
     /users/sign_in /users/sign_up
   ].freeze
 
   CITIZEN_PAGES = %w[
     /espace /espace?situation=health /onboarding /profile /profile/edit /account /account/data
-    /requests /requests/new /appointments /appointments/new /notifications
-    /profile/two_factor
+    /requests /requests?status=submitted&sort=oldest /requests/new
+    /appointments /appointments/new /notifications /profile/two_factor
   ].freeze
 
   AGENT_PAGES = %w[
-    /agents /agents/requests /agents/users /agents/users/new /agents/services /agents/announcements
+    /agents /agents/requests /agents/requests?sort=priority /agents/requests/NOVA-2026-AAAAA
+    /agents/users /agents/users/new /agents/services /agents/announcements
     /agents/alerts /agents/projects /agents/consultations /agents/ideas
     /agents/feedbacks /agents/audit_logs /agents/appointments /agents/demands
     /agents/availabilities /agents/partners /agents/service_reviews /agents/security_events

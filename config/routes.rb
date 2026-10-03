@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :announcements, only: [ :index, :show ]
   resources :alerts, only: [ :index ]
   get "glossary", to: "glossary#index", as: :glossary
+  get "status", to: "pages#status", as: :status
 
   # Participatory democracy (F65-F68). Ideas new/create and the nested
   # response/support actions require a citizen, enforced in the controllers.
@@ -89,7 +90,10 @@ Rails.application.routes.draw do
 
       # Citizen requests / signalements (F22/D17/F75)
       resources :requests, only: [ :index, :show, :update ] do
-        member { patch :link_duplicate }
+        member do
+          patch :link_duplicate
+          patch :prioritize
+        end
       end
 
       # Appointment scheduling (F39/F40)

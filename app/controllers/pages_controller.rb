@@ -12,4 +12,21 @@ class PagesController < ApplicationController
   def eco
     @report = Eco::Report.call
   end
+
+  # Lightweight public system status page (F77/F78).
+  def status
+    @database_ok = begin
+      ActiveRecord::Base.connection.active?
+    rescue StandardError
+      false
+    end
+    @cache_ok = begin
+      Rails.cache.write("status:check", Time.current)
+      true
+    rescue StandardError
+      false
+    end
+    @last_sync = DemandSync.latest
+    @counts = { services: Service.count, requests: Request.count, demands: Demand.count }
+  end
 end

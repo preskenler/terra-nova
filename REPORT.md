@@ -1017,6 +1017,66 @@ service page with the reference confirmation. 3) As an agent, hide/publish it.
 
 ---
 
+## F77 · Difficult · 1200 XP — Stay pleasant under overload
+
+**What we built.** Large lists are now **paginated** (25/page) — agent requests, citizen
+requests, citizen accounts and the audit log — so pages stay bounded. Hot homepage,
+catalog and pinned-message queries are **cached** briefly, and the most-filtered columns
+are **indexed**. A public **`/status`** page reports component health, and the existing
+low-data/simple modes and dynamically-imported map already keep pages lightweight.
+
+**Where to test.** `/status`, and the pagination controls on `/agents/requests`,
+`/requests`, `/agents/users`, `/agents/audit_logs`
+
+**How to verify.** 1) `/status` shows database/cache state and counts. 2) Lists show
+“Page X of Y” with previous/next. 3) Filters keep working across pages.
+
+---
+
+## F78 · Expert · 1600 XP — Stable with many simultaneous connections
+
+**What we built.** Bounded page sizes and offsets (no unbounded result sets), cached hot
+reads, composite indexes for the queue/lists, and lightweight server-rendered pages with
+no SPA. Combined with the existing connection pooling, this keeps the platform responsive
+under concurrent access.
+
+**Where to test.** `/status` and the request lists
+
+**How to verify.** 1) Lists never load unbounded rows (25/page). 2) `/status` reports the
+database operational and cache writable. 3) Filtering/sorting stay fast.
+
+> Note: a full load-testing harness was out of scope for this pass; the safeguards above
+> (pagination, caching, indexes, bounded queries) are the concrete, verifiable measures.
+
+---
+
+## F79 · Easy · 400 XP — Sort and filter my requests
+
+**What we built.** Citizens can **search** their own requests by subject/description,
+**filter by status**, and **sort** by most recent or oldest. The CSV export follows the
+applied filters.
+
+**Where to test.** `/requests`
+
+**How to verify.** 1) Enter “lampadaire” → only matching requests remain. 2) Filter by
+“Submitted”. 3) Sort by “Oldest”.
+
+---
+
+## F80 · Medium · 800 XP — Rank priority requests
+
+**What we built.** Requests carry a **priority** (`normal`/`urgent`). Agents can set it on
+the request page; the queue shows a priority badge, an **urgent** counter, a priority
+filter and a “priority first” sort.
+
+**Where to test.** `/agents/requests` and `/agents/requests/:reference`
+
+**How to verify.** 1) Open a request and set it to **Urgent** (Save priority).
+2) Back in the list, filter by “Urgent” or sort “Priority first” → it comes first with an
+“Urgent” badge.
+
+---
+
 # Global implementation notes
 
 - **Stack:** Rails 8.1, MySQL 8.4, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -1037,6 +1097,6 @@ service page with the reference confirmation. 3) As an agent, hide/publish it.
   reviews (F76); duplicate detection for agents (F75).
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 268 automated tests pass (261 unit/controller/integration + 7 browser-style
+- **Quality:** 275 automated tests pass (268 unit/controller/integration + 7 browser-style
   system tests), including a page-render smoke test; RuboCop, Brakeman, bundler-audit and
   importmap audit are all clean.

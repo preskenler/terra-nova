@@ -4,14 +4,19 @@ module Agents
   # Agents administer citizen accounts (F34), including creating accounts for
   # residents without an email address (F71).
   class UsersController < BaseController
+    include Pagination
+
     def index
       authorize User
 
       scope = User.order(created_at: :desc)
-      scope = scope.where("email LIKE ?", "%#{params[:q].strip}%") if params[:q].present?
+      if params[:q].present?
+        query = "%#{params[:q].strip}%"
+        scope = scope.where("email LIKE ?", query)
+      end
       scope = scope.where(role: params[:role]) if params[:role].present?
 
-      @users = scope.limit(200).to_a
+      @users = paginate(scope).to_a
     end
 
     def show

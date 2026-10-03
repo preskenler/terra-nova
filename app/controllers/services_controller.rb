@@ -11,7 +11,9 @@ class ServicesController < ApplicationController
     @services = scope.to_a
     @priority_services = Service.publicly_visible.priorities.ordered.to_a
     @emergency_services = Service.publicly_visible.emergencies.ordered.to_a
-    @categories = Service.publicly_visible.where.not(category: nil).distinct.order(:category).pluck(:category)
+    @categories = Rails.cache.fetch("services:categories", expires_in: 10.minutes) do
+      Service.publicly_visible.where.not(category: nil).distinct.order(:category).pluck(:category)
+    end
   end
 
   def show

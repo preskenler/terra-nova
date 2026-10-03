@@ -32,4 +32,13 @@ class RequestTest < ActiveSupport::TestCase
     assert_nil event.created_by
     assert_equal "submitted", event.to_status
   end
+
+  test "defaults to normal priority" do
+    assert requests(:streetlight).normal?
+  end
+
+  test "priority_first puts urgent requests first" do
+    requests(:streetlight).update!(priority: "urgent")
+    assert_equal requests(:streetlight), Request.priority_first.first
+  end
 end

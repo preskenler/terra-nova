@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_04_000006) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_04_010000) do
   create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.integer "wday", null: false
@@ -194,6 +194,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_000006) do
     t.datetime "updated_at", null: false
     t.index ["assignee_id"], name: "index_demands_on_assignee_id"
     t.index ["difficulty_level"], name: "index_demands_on_difficulty_level"
+    t.index ["last_seen_at"], name: "index_demands_on_last_seen_at"
     t.index ["request_code"], name: "index_demands_on_request_code", unique: true
     t.index ["triage_status"], name: "index_demands_on_triage_status"
     t.index ["wave_number"], name: "index_demands_on_wave_number"
@@ -273,6 +274,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_000006) do
     t.datetime "updated_at", null: false
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["read_at"], name: "index_notifications_on_read_at"
+    t.index ["user_id", "read_at"], name: "index_notifications_on_user_id_and_read_at"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -369,10 +371,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_000006) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "duplicate_of_id"
+    t.string "priority", default: "normal", null: false
     t.index ["duplicate_of_id"], name: "index_requests_on_duplicate_of_id"
+    t.index ["priority"], name: "index_requests_on_priority"
     t.index ["reference"], name: "index_requests_on_reference", unique: true
     t.index ["service_id"], name: "index_requests_on_service_id"
     t.index ["status"], name: "index_requests_on_status"
+    t.index ["user_id", "status"], name: "index_requests_on_user_id_and_status"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 

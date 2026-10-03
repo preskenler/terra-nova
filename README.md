@@ -138,6 +138,10 @@ No counts or waves are hard-coded: future `D…`/`F…` demands simply appear in
 - **Guided start** — a “Where to start?” helper on the personal space.
 - **Security monitoring** — an admin-only security-event log; sign-in by email **or**
   citizen identifier (accounts can be created without an email); Spanish locale added.
+- **Resilience** — paginated lists, cached hot queries, indexed filters and a public
+  `/status` page.
+- **Request management** — citizens filter/sort their requests; agents rank priority
+  requests in the queue.
 
 ---
 

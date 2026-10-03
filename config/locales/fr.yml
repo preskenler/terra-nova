@@ -104,6 +104,7 @@ fr:
     breadcrumb: "Fil d'Ariane"
     main_nav: "Navigation principale"
     footer_nav: "Navigation de pied de page"
+    pagination: "Pagination"
     choose_language: "Choisir une langue"
     controls: "Accessibilité"
     display_settings: "Réglages d'affichage"
@@ -124,6 +125,26 @@ fr:
 
   forms:
     errors_summary: "Veuillez corriger les erreurs suivantes :"
+
+  pagination:
+    summary: "Page %{page} sur %{pages} — %{count} résultats"
+    previous: "Précédent"
+    next: "Suivant"
+
+  status:
+    title: "État du système"
+    subtitle: "État actuel des composants clés de la plateforme."
+    database: "Base de données"
+    cache: "Cache"
+    up: "Opérationnel"
+    down: "Indisponible"
+    current_wave: "Vague actuelle"
+    last_sync: "Dernière synchro API"
+    never: "Jamais"
+    counts: "Données"
+    services: "Services"
+    requests: "Demandes"
+    demands: "Demandes API"
 
   requests:
     title: "Mes demandes"
@@ -163,6 +184,16 @@ fr:
       resolved: "Résolue"
       closed: "Clôturée"
       rejected: "Rejetée"
+    priority:
+      normal: "Normale"
+      urgent: "Urgente"
+    filters:
+      search: "Rechercher"
+      status: "État"
+      all: "Tous"
+      sort: "Trier"
+      sort_recent: "Plus récentes"
+      sort_oldest: "Plus anciennes"
     timeline:
       title: "Avancement"
       empty: "Aucune étape enregistrée pour le moment."
@@ -667,6 +698,13 @@ fr:
       subtitle: "Suivez les demandes envoyées par les habitants de Terra Nova."
       updated: "La demande a été mise à jour et le citoyen prévenu."
       pending: "En attente"
+      urgent: "Urgentes"
+      priority: "Priorité"
+      priority_updated: "La priorité de la demande a été mise à jour."
+      save_priority: "Enregistrer la priorité"
+      sort: "Trier"
+      sort_recent: "Plus récentes"
+      sort_priority: "Priorité d'abord"
       search: "Rechercher"
       status: "État"
       service: "Service"
@@ -683,12 +721,14 @@ fr:
         service: "Service"
         status: "État"
         date: "Date"
+        priority: "Priorité"
         actions: "Actions"
       fields:
         citizen: "Citoyen"
         service: "Service"
         supporters: "Soutiens"
         status: "Nouvel état"
+        priority: "Priorité"
         comment: "Commentaire"
         visible_to_citizen: "Visible par le citoyen"
       similar: "Doublons possibles"

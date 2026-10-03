@@ -8,8 +8,9 @@
 
 <%= render Ui::PageHeaderComponent.new(title: t("agents.requests.title"), subtitle: t("agents.requests.subtitle")) %>
 
-<div class="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
+<div class="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-7">
   <%= render Ui::StatComponent.new(label: t("agents.requests.pending"), value: @pending_count, emphasis: @pending_count.positive?) %>
+  <%= render Ui::StatComponent.new(label: t("agents.requests.urgent"), value: @urgent_count, emphasis: @urgent_count.positive?) %>
   <% Request::STATUSES.each_key do |status| %>
     <%= render Ui::StatComponent.new(
           label: t("requests.status.#{status}"),
@@ -42,6 +43,25 @@
           ),
           id: "req-service", class: "select select-bordered select-sm" %>
   </div>
+  <div>
+    <label for="req-priority" class="mb-1 block text-sm font-medium"><%= t("agents.requests.priority") %></label>
+    <%= select_tag :priority,
+          options_for_select(
+            [ [ t("agents.requests.all"), "" ] ] +
+            Request.priorities.keys.map { |p| [ t("requests.priority.#{p}"), p ] },
+            params[:priority]
+          ),
+          id: "req-priority", class: "select select-bordered select-sm" %>
+  </div>
+  <div>
+    <label for="req-sort" class="mb-1 block text-sm font-medium"><%= t("agents.requests.sort") %></label>
+    <%= select_tag :sort,
+          options_for_select(
+            [ [ t("agents.requests.sort_recent"), "" ], [ t("agents.requests.sort_priority"), "priority" ] ],
+            params[:sort]
+          ),
+          id: "req-sort", class: "select select-bordered select-sm" %>
+  </div>
   <%= submit_tag t("actions.filter"), class: "btn btn-primary btn-sm" %>
   <%= link_to t("actions.reset"), agents_requests_path, class: "btn btn-ghost btn-sm" %>
 <% end %>
@@ -56,6 +76,7 @@
         <th scope="col"><%= t("agents.requests.columns.citizen") %></th>
         <th scope="col"><%= t("agents.requests.columns.service") %></th>
         <th scope="col"><%= t("agents.requests.columns.status") %></th>
+        <th scope="col"><%= t("agents.requests.columns.priority") %></th>
         <th scope="col"><%= t("agents.requests.columns.date") %></th>
         <th scope="col"><span class="sr-only"><%= t("agents.requests.columns.actions") %></span></th>
       </tr>
@@ -74,6 +95,11 @@
                   label: t("requests.status.#{request.status}"),
                   variant: request_badge_variant(request.status)) %>
           </td>
+          <td>
+            <%= render Ui::BadgeComponent.new(
+                  label: t("requests.priority.#{request.priority}"),
+                  variant: request_priority_variant(request.priority)) %>
+          </td>
           <td><%= l(request.created_at, format: :short) %></td>
           <td class="text-right">
             <%= link_to t("actions.view"), agents_request_path(request), class: "btn btn-ghost btn-xs" %>
@@ -83,4 +109,5 @@
     </tbody>
   </table>
 </div>
-<p class="mt-2 text-sm text-base-content/60"><%= t("agents.requests.count", count: @requests.size) %></p>
+<p class="mt-2 text-sm text-base-content/60"><%= t("agents.requests.count", count: @total || @requests.size) %></p>
+<%= render "shared/pagination" %>
