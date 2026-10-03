@@ -83,6 +83,9 @@
     <%= f.hidden_field :longitude, data: { map_target: "lngInput" } %>
   </fieldset>
 
+  <p class="text-xs text-base-content/60"><%= t("form_protection.notice") %></p>
+  <%= form_protection_fields %>
+
   <div class="flex gap-2">
     <%= f.submit t("requests.form.submit"), class: "btn btn-primary" %>
     <%= link_to t("actions.back"), requests_path, class: "btn btn-ghost" %>

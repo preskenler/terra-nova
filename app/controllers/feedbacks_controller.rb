@@ -2,6 +2,9 @@
 
 # Contact form to reach the municipal services (D04/F51).
 class FeedbacksController < ApplicationController
+  # Anti-automation protection on submission (F81).
+  before_action :verify_human_submission!, only: :create
+
   def new
     @feedback = Feedback.new(user: current_user, kind: params[:kind])
     authorize @feedback

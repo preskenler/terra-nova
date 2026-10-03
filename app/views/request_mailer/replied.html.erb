@@ -1,0 +1,7 @@
+<h1><%= t("request_mailer.replied.heading") %></h1>
+
+<p><%= t("request_mailer.replied.body", reference: @request.reference) %></p>
+
+<blockquote><%= @reply.body %></blockquote>
+
+<p><%= link_to t("request_mailer.view_request"), request_url(@request) %></p>

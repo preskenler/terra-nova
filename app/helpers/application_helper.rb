@@ -1,4 +1,13 @@
 module ApplicationHelper
+  # Renders the anti-automation fields shared by public forms (F81): an
+  # off-screen honeypot plus a signed render-time token.
+  def form_protection_fields
+    honeypot = content_tag(:div, class: "sr-only", "aria-hidden": "true") do
+      text_field_tag(FormProtection::HONEYPOT_FIELD, nil, tabindex: -1, autocomplete: "off")
+    end
+    safe_join([ honeypot, hidden_field_tag(:form_token, FormProtection.form_protection_token) ])
+  end
+
   # Maps a demand triage status to a UI badge variant. Colour is never the only
   # signal: the badge always carries the translated status text.
   def triage_variant(status)

@@ -43,6 +43,15 @@ class Rack::Attack
     req.ip if req.post? && req.path == "/requests"
   end
 
+  # Contact form and account creation abuse (F81).
+  throttle("feedbacks/ip", limit: 10, period: 10.minutes) do |req|
+    req.ip if req.post? && req.path == "/feedback"
+  end
+
+  throttle("signups/ip", limit: 10, period: 1.hour) do |req|
+    req.ip if req.post? && req.path == "/users"
+  end
+
   # Manual Webcup API refreshes from the agent console.
   throttle("webcup_refresh/ip", limit: 12, period: 1.minute) do |req|
     req.ip if req.post? && req.path.include?("/agents/demands/refresh")
@@ -50,7 +59,10 @@ class Rack::Attack
 
   ### Response ###
   self.throttled_responder = lambda do |request|
-    [ 429, { "Content-Type" => "text/html; charset=utf-8" },
-      [ "Trop de requêtes. Merci de réessayer dans quelques instants." ] ]
+    message = I18n.t(
+      "form_protection.throttled",
+      default: "Too many requests. Please try again later."
+    )
+    [ 429, { "Content-Type" => "text/html; charset=utf-8", "Retry-After" => "60" }, [ message ] ]
   end
 end

@@ -114,6 +114,40 @@
       </div>
     </section>
 
+    <section class="card border border-base-300 bg-base-100" aria-labelledby="agent-replies-heading">
+      <div class="card-body">
+        <h2 id="agent-replies-heading" class="card-title text-base"><%= t("agents.request_replies.title") %></h2>
+
+        <% if @request.request_replies.any? %>
+          <ul class="mb-3 space-y-2">
+            <% @request.request_replies.includes(:created_by).each do |reply| %>
+              <li class="rounded-box border border-base-300 p-2 text-sm">
+                <p class="text-xs text-base-content/60">
+                  <%= reply.internal? ? t("agents.request_replies.internal_badge") : t("agents.request_replies.public_badge") %>
+                  — <time datetime="<%= reply.created_at.iso8601 %>"><%= l(reply.created_at, format: :short) %></time>
+                </p>
+                <p class="mt-1 whitespace-pre-line"><%= reply.body %></p>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="mb-3 text-sm text-base-content/60"><%= t("agents.request_replies.none") %></p>
+        <% end %>
+
+        <%= form_with url: agents_request_replies_path(@request), scope: :request_reply, class: "space-y-2" do |f| %>
+          <div>
+            <%= f.label :body, t("agents.request_replies.body"), class: "mb-1 block text-sm font-medium" %>
+            <%= f.text_area :body, rows: 3, class: "textarea textarea-bordered w-full" %>
+          </div>
+          <label class="flex cursor-pointer items-center gap-2">
+            <%= f.check_box :internal, class: "checkbox checkbox-sm" %>
+            <span class="text-sm"><%= t("agents.request_replies.internal") %></span>
+          </label>
+          <%= f.submit t("agents.request_replies.submit"), class: "btn btn-primary btn-sm w-full" %>
+        <% end %>
+      </div>
+    </section>
+
     <% if @request.request_supports.any? %>
       <section class="card border border-base-300 bg-base-100">
         <div class="card-body">

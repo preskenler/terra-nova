@@ -4,4 +4,6 @@
 
 <p><strong><%= @request.subject %></strong></p>
 
+<p><%= t("request_mailer.submitted.keep_reference", reference: @request.reference) %></p>
+
 <p><%= link_to t("request_mailer.view_request"), request_url(@request) %></p>

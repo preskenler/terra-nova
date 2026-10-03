@@ -43,6 +43,9 @@
     <%= f.text_area :message, rows: 6, class: "textarea textarea-bordered w-full" %>
   </div>
 
+  <p class="text-xs text-base-content/60"><%= t("form_protection.notice") %></p>
+  <%= form_protection_fields %>
+
   <div class="flex flex-wrap items-center gap-2">
     <%= f.submit t("feedbacks.submit"), class: "btn btn-primary" %>
     <%= link_to t("pages.transparency.title"), transparency_path, class: "link text-sm" %>

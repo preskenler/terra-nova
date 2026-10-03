@@ -199,6 +199,15 @@ fr:
       empty: "Aucune étape enregistrée pour le moment."
     events:
       submitted: "Demande envoyée"
+    acknowledgement:
+      title: "Accusé de réception"
+      body: "Conservez cette référence : elle identifie votre demande et permet de la retrouver ou de la citer."
+      received_on: "Reçue le %{date}"
+      print: "Imprimer l'accusé"
+    duplicate_notice: "Vous avez déjà envoyé cette demande (%{reference}). Nous l'avons conservée au lieu d'en créer une nouvelle."
+    replies:
+      title: "Réponses de la mairie"
+      by_agent: "Réponse d'un agent municipal"
     supports:
       title: "Soutenir cette demande"
       count:
@@ -209,6 +218,11 @@ fr:
       added: "Votre soutien a bien été enregistré."
       removed: "Votre soutien a été retiré."
 
+  form_protection:
+    notice: "Formulaire protégé contre les envois automatiques."
+    blocked_title: "Envoi bloqué"
+    blocked_body: "Votre envoi a été bloqué par la protection anti-robots. Rechargez la page puis réessayez."
+    throttled: "Trop de requêtes. Merci de réessayer dans quelques instants."
   notifications:
     title: "Notifications"
     subtitle: "Restez informé de vos demandes et de l'actualité de la ville."
@@ -243,6 +257,9 @@ fr:
     review:
       title: "Avis enregistré — %{reference}"
       body: "Merci d'avoir partagé votre expérience."
+    reply:
+      title: "Demande %{reference} : nouvelle réponse"
+      body: "Un agent municipal a répondu à votre demande. Consultez-la pour lire le message."
 
   appointments:
     title: "Mes rendez-vous"
@@ -735,6 +752,16 @@ fr:
       similar_hint: "Demandes ouvertes pouvant décrire le même problème."
       link_duplicate: "Lier comme doublon"
       duplicate_linked: "La demande a été liée au doublon."
+    request_replies:
+      title: "Répondre à la demande"
+      body: "Réponse"
+      internal: "Note interne (non visible par le citoyen)"
+      internal_badge: "Note interne"
+      public_badge: "Réponse envoyée au citoyen"
+      none: "Aucune réponse pour le moment."
+      submit: "Envoyer la réponse"
+      created: "Réponse envoyée. Le citoyen a été prévenu."
+      invalid: "La réponse n'a pas pu être enregistrée."
     appointments:
       title: "Rendez-vous"
       subtitle: "Votre agenda et les rendez-vous pris par les habitants."
@@ -1149,11 +1176,16 @@ fr:
       subject: "Votre demande %{reference} a bien été reçue"
       heading: "Votre demande a bien été reçue"
       body: "Nous confirmons que votre demande %{reference} a été transmise aux services de Terra Nova."
+      keep_reference: "Conservez la référence %{reference} : elle vous permet de retrouver ou de citer votre demande."
     status_changed:
       subject: "Suivi de votre demande %{reference}"
       heading: "Votre demande a été mise à jour"
       body: "L'état de votre demande %{reference} a changé."
       new_status: "Nouvel état"
+    replied:
+      subject: "Nouvelle réponse à votre demande %{reference}"
+      heading: "Un agent a répondu à votre demande"
+      body: "Un agent municipal a répondu à votre demande %{reference} :"
     view_request: "Consulter ma demande"
 
   appointment_mailer:

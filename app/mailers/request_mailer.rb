@@ -15,4 +15,12 @@ class RequestMailer < ApplicationMailer
     @user = request.user
     mail(to: @user.email, subject: t("request_mailer.status_changed.subject", reference: request.reference))
   end
+
+  # Sent when an agent replies directly to a request (F84).
+  def replied(request, reply)
+    @request = request
+    @reply = reply
+    @user = request.user
+    mail(to: @user.email, subject: t("request_mailer.replied.subject", reference: request.reference))
+  end
 end

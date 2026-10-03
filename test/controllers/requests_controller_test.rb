@@ -18,9 +18,9 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference -> { Request.count }, 1 do
       assert_enqueued_emails 1 do
-        post requests_url, params: {
+        post requests_url, params: form_protection_params(
           request: { subject: "Graffiti", description: "A wall has been tagged." }
-        }
+        )
       end
     end
 
@@ -35,7 +35,7 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:citizen)
 
     assert_no_difference -> { Request.count } do
-      post requests_url, params: { request: { subject: "", description: "" } }
+      post requests_url, params: form_protection_params(request: { subject: "", description: "" })
     end
 
     assert_response :unprocessable_content
@@ -80,5 +80,60 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     assert_select "label[for=?]", "request_subject"
     assert_select "label[for=?]", "request_service_id"
     assert_select "textarea#request_description"
+  end
+
+  test "blocks a honeypot submission as a bot (F81)" do
+    sign_in users(:citizen)
+
+    assert_no_difference -> { Request.count } do
+      assert_difference -> { SecurityEvent.where(event: "form_protection_blocked").count }, 1 do
+        post requests_url, params: {
+          website: "http://spam.example",
+          request: { subject: "Spam", description: "Buy now" }
+        }
+      end
+    end
+
+    assert_response :forbidden
+  end
+
+  test "blocks a submission with no form token (F81)" do
+    sign_in users(:citizen)
+
+    assert_no_difference -> { Request.count } do
+      post requests_url, params: { request: { subject: "No token", description: "x" } }
+    end
+
+    assert_response :forbidden
+  end
+
+  test "an identical repeat submission is not duplicated (F82)" do
+    sign_in users(:citizen)
+    params = form_protection_params(
+      request: { subject: "Pothole", description: "A large pothole on Main street." }
+    )
+
+    assert_difference -> { Request.count }, 1 do
+      post requests_url, params: params
+    end
+    existing = Request.order(:created_at).last
+
+    assert_no_difference -> { Request.count } do
+      post requests_url, params: params
+    end
+
+    assert_redirected_to request_url(existing)
+    assert_match existing.reference, flash[:notice].to_s
+  end
+
+  test "the request page shows an acknowledgement with the reference (F83)" do
+    sign_in users(:citizen)
+    request = requests(:streetlight)
+
+    get request_url(request)
+
+    assert_response :success
+    assert_match I18n.t("requests.acknowledgement.title"), response.body
+    assert_match request.reference, response.body
   end
 end

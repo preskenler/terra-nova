@@ -15,6 +15,13 @@ module ActiveSupport
     # Helpers for testing mailers and background jobs.
     include ActiveJob::TestHelper
     include ActionMailer::TestHelper
+
+    # Builds form params with a valid anti-automation token and a blank honeypot
+    # (F81), so tests exercise the protected path.
+    def form_protection_params(params = {})
+      token = FormProtection.verifier.generate(2.minutes.ago.to_i)
+      { form_token: token, website: "" }.merge(params)
+    end
   end
 end
 

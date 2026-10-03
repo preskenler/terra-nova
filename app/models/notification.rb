@@ -5,6 +5,7 @@ class Notification < ApplicationRecord
   KINDS = {
     general: "general",
     status_change: "status_change",
+    reply: "reply",
     appointment: "appointment",
     announcement: "announcement",
     alert: "alert"

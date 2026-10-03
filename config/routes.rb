@@ -94,6 +94,8 @@ Rails.application.routes.draw do
           patch :link_duplicate
           patch :prioritize
         end
+        # Agent replies on a request (F84).
+        resources :replies, only: [ :create ], controller: "request_replies"
       end
 
       # Appointment scheduling (F39/F40)

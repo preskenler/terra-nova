@@ -199,6 +199,15 @@ en:
       empty: "No steps recorded yet."
     events:
       submitted: "Request submitted"
+    acknowledgement:
+      title: "Acknowledgement of receipt"
+      body: "Keep this reference: it identifies your request so you can find or quote it later."
+      received_on: "Received on %{date}"
+      print: "Print the acknowledgement"
+    duplicate_notice: "You already sent this request (%{reference}). We kept it instead of creating a new one."
+    replies:
+      title: "Replies from the city"
+      by_agent: "Reply from a municipal agent"
     supports:
       title: "Support this request"
       count:
@@ -209,6 +218,11 @@ en:
       added: "Your support has been recorded."
       removed: "Your support has been withdrawn."
 
+  form_protection:
+    notice: "Form protected against automated submissions."
+    blocked_title: "Submission blocked"
+    blocked_body: "Your submission was blocked by the anti-robot protection. Reload the page and try again."
+    throttled: "Too many requests. Please try again shortly."
   notifications:
     title: "Notifications"
     subtitle: "Stay informed about your requests and city news."
@@ -243,6 +257,9 @@ en:
     review:
       title: "Review recorded — %{reference}"
       body: "Thank you for sharing your experience."
+    reply:
+      title: "Request %{reference}: new reply"
+      body: "A municipal agent replied to your request. Open it to read the message."
 
   appointments:
     title: "My appointments"
@@ -735,6 +752,16 @@ en:
       similar_hint: "Open requests that may describe the same problem."
       link_duplicate: "Link as duplicate"
       duplicate_linked: "The request has been linked to the duplicate."
+    request_replies:
+      title: "Reply to the request"
+      body: "Reply"
+      internal: "Internal note (not visible to the citizen)"
+      internal_badge: "Internal note"
+      public_badge: "Reply sent to the citizen"
+      none: "No replies yet."
+      submit: "Send reply"
+      created: "Reply sent. The citizen has been notified."
+      invalid: "The reply could not be saved."
     appointments:
       title: "Appointments"
       subtitle: "Your schedule and the appointments booked by citizens."
@@ -1149,11 +1176,16 @@ en:
       subject: "Your request %{reference} has been received"
       heading: "Your request has been received"
       body: "We confirm that your request %{reference} has been sent to the services of Terra Nova."
+      keep_reference: "Keep the reference %{reference}: it lets you find or quote your request."
     status_changed:
       subject: "Update on your request %{reference}"
       heading: "Your request has been updated"
       body: "The status of your request %{reference} has changed."
       new_status: "New status"
+    replied:
+      subject: "New reply to your request %{reference}"
+      heading: "An agent replied to your request"
+      body: "A municipal agent replied to your request %{reference}:"
     view_request: "View my request"
 
   appointment_mailer:

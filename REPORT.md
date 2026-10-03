@@ -1077,6 +1077,62 @@ filter and a “priority first” sort.
 
 ---
 
+## F81 · Difficult · 1230 XP — Perceptible protection against automated submissions
+
+**What we built.** Public forms carry a signed render-time token and an off-screen
+honeypot field, so blind scripted POSTs and bots that fill hidden fields are rejected with
+a clear “Envoi bloqué” page. `rack-attack` throttles the request, contact and sign-up
+endpoints, and every block is recorded as a `SecurityEvent`, so the protection is
+perceptible from the admin security console without complicating normal use.
+
+**Where to test.** `/feedback/new`, `/requests/new`, `/agents/security_events`
+
+**How to verify.** 1) The forms show “Formulaire protégé contre les envois automatiques.”
+2) POST without the token (or with the honeypot filled) → “Envoi bloqué”. 3) The blocked
+attempt appears in `/agents/security_events` as `form_protection_blocked`.
+
+---
+
+## F82 · Medium · 820 XP — No uncontrolled repeat submissions
+
+**What we built.** Before creating a request, the app checks whether the signed-in citizen
+submitted an identical request (same subject and description) in the last 10 minutes. If so
+it keeps the first one and redirects the citizen to it with an explicit notice, instead of
+creating a duplicate.
+
+**Where to test.** `/requests/new`
+
+**How to verify.** Submit the same request twice in a row → the second submission lands on
+the existing request and shows “Vous avez déjà envoyé cette demande (…)”.
+
+---
+
+## F83 · Easy · 410 XP — Acknowledgement with an identifiable reference
+
+**What we built.** Every request has a stable reference (`NOVA-YYYY-XXXXX`), shown in an
+“Accusé de réception” card on the request page (with received date and a print action) and
+repeated in the confirmation email, so the citizen can find or quote it later.
+
+**Where to test.** `/requests/:reference` and the confirmation email.
+
+**How to verify.** Submit a request → the acknowledgement card shows the reference; the
+email subject and body repeat it.
+
+---
+
+## F84 · Medium · 820 XP — Agents reply directly to a request
+
+**What we built.** Agents post threaded replies from the request page — public (notifies the
+citizen in-app and by email) or internal (agent-only note). Public replies appear on the
+citizen’s request page.
+
+**Where to test.** `/agents/requests/:reference` (reply form) and `/requests/:reference`.
+
+**How to verify.** Post a public reply as an agent → the citizen sees it and receives a
+notification/email; post an internal note → the citizen does not.
+
+---
+
 # Global implementation notes
 
 - **Stack:** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -1097,6 +1153,6 @@ filter and a “priority first” sort.
   reviews (F76); duplicate detection for agents (F75).
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 275 automated tests pass (268 unit/controller/integration + 7 browser-style
+- **Quality:** 284 automated tests pass (277 unit/controller/integration + 7 browser-style
   system tests), including a page-render smoke test; RuboCop, Brakeman, bundler-audit and
   importmap audit are all clean.

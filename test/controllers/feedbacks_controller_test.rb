@@ -15,7 +15,9 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
 
   test "an anonymous message without an email is rejected" do
     assert_no_difference -> { Feedback.count } do
-      post feedback_url, params: { feedback: { kind: "question", subject: "Hi", message: "Hello" } }
+      post feedback_url, params: form_protection_params(
+        feedback: { kind: "question", subject: "Hi", message: "Hello" }
+      )
     end
 
     assert_response :unprocessable_content
@@ -23,9 +25,9 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
 
   test "an anonymous message with an email is accepted" do
     assert_difference -> { Feedback.count }, 1 do
-      post feedback_url, params: {
+      post feedback_url, params: form_protection_params(
         feedback: { kind: "data_concern", subject: "Data", message: "How is it used?", email: "visitor@example.com" }
-      }
+      )
     end
 
     assert_redirected_to root_url
@@ -35,7 +37,20 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:citizen)
 
     assert_difference -> { users(:citizen).feedbacks.count }, 1 do
-      post feedback_url, params: { feedback: { kind: "suggestion", subject: "Idea", message: "A suggestion." } }
+      post feedback_url, params: form_protection_params(
+        feedback: { kind: "suggestion", subject: "Idea", message: "A suggestion." }
+      )
     end
+  end
+
+  test "blocks a bot submission (F81)" do
+    assert_no_difference -> { Feedback.count } do
+      post feedback_url, params: {
+        website: "bot",
+        feedback: { kind: "question", subject: "Hi", message: "x", email: "a@b.c" }
+      }
+    end
+
+    assert_response :forbidden
   end
 end

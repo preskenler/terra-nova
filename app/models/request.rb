@@ -28,6 +28,11 @@ class Request < ApplicationRecord
   has_many :request_supports, dependent: :destroy
   has_many :supporters, through: :request_supports, source: :user
 
+  # Agent replies (F84).
+  has_many :request_replies, -> { order(created_at: :asc, id: :asc) }, dependent: :destroy
+  has_many :public_replies, -> { where(internal: false).order(created_at: :asc, id: :asc) },
+           class_name: "RequestReply"
+
   enum :status, STATUSES, default: :submitted, validate: true
   enum :priority, { normal: "normal", urgent: "urgent" }, default: :normal, validate: true
 

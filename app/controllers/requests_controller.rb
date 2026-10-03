@@ -5,6 +5,9 @@ class RequestsController < ApplicationController
   include CitizenSpace
   include Pagination
 
+  # Anti-automation protection on submission (F81).
+  before_action :verify_human_submission!, only: :create
+
   def index
     scope = current_user.requests
 
@@ -51,6 +54,13 @@ class RequestsController < ApplicationController
   def create
     @request = current_user.requests.new(request_params)
 
+    # Reject an identical repeat submission (F82) instead of creating a duplicate.
+    if (existing = duplicate_recent_request(@request))
+      redirect_to request_path(existing),
+                  notice: t("requests.duplicate_notice", reference: existing.reference)
+      return
+    end
+
     if @request.save
       @request.request_events.create!(
         to_status: @request.status,
@@ -68,6 +78,19 @@ class RequestsController < ApplicationController
   end
 
   private
+
+  # Prevents the same form from being submitted twice in a row (F82): an
+  # identical request created moments ago is treated as a repeat and the citizen
+  # is sent to the existing one instead of creating a duplicate.
+  def duplicate_recent_request(candidate)
+    return nil if candidate.subject.blank? || candidate.description.blank?
+
+    current_user.requests
+      .where(subject: candidate.subject, description: candidate.description)
+      .where(created_at: 10.minutes.ago..)
+      .recent_first
+      .first
+  end
 
   def request_params
     params.require(:request).permit(

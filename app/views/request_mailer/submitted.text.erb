@@ -4,4 +4,6 @@
 
 <%= @request.subject %>
 
+<%= t("request_mailer.submitted.keep_reference", reference: @request.reference) %>
+
 <%= t("request_mailer.view_request") %>: <%= request_url(@request) %>
