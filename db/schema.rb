@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_220000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_230000) do
   create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.integer "wday", null: false
@@ -167,6 +167,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_220000) do
     t.index ["request_code"], name: "index_demands_on_request_code", unique: true
     t.index ["triage_status"], name: "index_demands_on_triage_status"
     t.index ["wave_number"], name: "index_demands_on_wave_number"
+  end
+
+  create_table "feedbacks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "kind", default: "question", null: false
+    t.string "email"
+    t.string "subject", null: false
+    t.text "message", null: false
+    t.string "status", default: "new", null: false
+    t.text "agent_notes"
+    t.string "reference", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind"], name: "index_feedbacks_on_kind"
+    t.index ["reference"], name: "index_feedbacks_on_reference", unique: true
+    t.index ["status"], name: "index_feedbacks_on_status"
+    t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
   create_table "glossary_terms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -350,6 +367,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_220000) do
   add_foreign_key "appointments", "services"
   add_foreign_key "appointments", "users"
   add_foreign_key "demands", "agents", column: "assignee_id"
+  add_foreign_key "feedbacks", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "request_events", "requests"

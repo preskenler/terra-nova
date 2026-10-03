@@ -1,0 +1,57 @@
+<% content_for :title, t("agents.feedbacks.title") %>
+
+<div>
+  <h1 class="text-2xl font-bold"><%= t("agents.feedbacks.title") %></h1>
+  <p class="mt-1 text-base-content/70"><%= t("agents.feedbacks.subtitle") %></p>
+</div>
+
+<div class="mt-4 grid gap-3 sm:grid-cols-3">
+  <% Feedback::STATUSES.each do |key, value| %>
+    <%= render Ui::StatComponent.new(label: t("feedbacks.status.#{key}"), value: @counts.fetch(value, 0)) %>
+  <% end %>
+</div>
+
+<%= form_with url: agents_feedbacks_path, method: :get, class: "mt-4 flex flex-wrap items-end gap-3" do %>
+  <div>
+    <label for="fb-kind" class="mb-1 block text-sm font-medium"><%= t("agents.feedbacks.kind") %></label>
+    <%= select_tag :kind,
+          options_for_select([ [ t("agents.feedbacks.all"), "" ] ] + Feedback::KINDS.keys.map { |k| [ t("feedbacks.kinds.#{k}"), k ] }, params[:kind]),
+          id: "fb-kind", class: "select select-bordered select-sm" %>
+  </div>
+  <div>
+    <label for="fb-status" class="mb-1 block text-sm font-medium"><%= t("agents.feedbacks.status") %></label>
+    <%= select_tag :status,
+          options_for_select([ [ t("agents.feedbacks.all"), "" ] ] + Feedback::STATUSES.keys.map { |s| [ t("feedbacks.status.#{s}"), s ] }, params[:status]),
+          id: "fb-status", class: "select select-bordered select-sm" %>
+  </div>
+  <%= submit_tag t("actions.filter"), class: "btn btn-primary btn-sm" %>
+  <%= link_to t("actions.reset"), agents_feedbacks_path, class: "btn btn-ghost btn-sm" %>
+<% end %>
+
+<div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.feedbacks.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.feedbacks.columns.reference") %></th>
+        <th scope="col"><%= t("agents.feedbacks.columns.subject") %></th>
+        <th scope="col"><%= t("agents.feedbacks.columns.kind") %></th>
+        <th scope="col"><%= t("agents.feedbacks.columns.status") %></th>
+        <th scope="col"><%= t("agents.feedbacks.columns.date") %></th>
+        <th scope="col"><span class="sr-only"><%= t("actions.view") %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @feedbacks.each do |feedback| %>
+        <tr>
+          <th scope="row" class="font-mono text-xs"><%= link_to feedback.reference, agents_feedback_path(feedback), class: "link" %></th>
+          <td><%= truncate(feedback.subject, length: 50) %></td>
+          <td><%= t("feedbacks.kinds.#{feedback.kind}") %></td>
+          <td><%= render Ui::BadgeComponent.new(label: t("feedbacks.status.#{feedback.status}"), variant: feedback_badge_variant(feedback.status)) %></td>
+          <td><%= l(feedback.created_at, format: :short) %></td>
+          <td class="text-right"><%= link_to t("actions.view"), agents_feedback_path(feedback), class: "btn btn-ghost btn-xs" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

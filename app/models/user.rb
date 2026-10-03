@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :request_supports, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :appointments, dependent: :destroy
+  has_many :feedbacks, dependent: :nullify
 
   after_create :create_default_profile
 

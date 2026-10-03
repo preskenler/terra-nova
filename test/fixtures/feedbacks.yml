@@ -1,0 +1,15 @@
+question:
+  user: citizen
+  kind: question
+  subject: "Question about my file"
+  message: "Could you confirm my file is complete?"
+  status: new
+  reference: MSG-2026-AAAAA
+
+data_concern:
+  kind: data_concern
+  email: visiteur@example.com
+  subject: "How is my data used?"
+  message: "I would like to know how my data is used."
+  status: in_review
+  reference: MSG-2026-BBBBB

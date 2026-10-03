@@ -20,7 +20,7 @@ class Alert < ApplicationRecord
 
   enum :kind, KINDS, default: :other, validate: true
   enum :severity, SEVERITIES, default: :alert, validate: true
-  enum :target_segment, SEGMENTS, default: :all, validate: true
+  enum :target_segment, SEGMENTS, default: :everyone, validate: true
 
   validates :title, presence: true
   validates :body, presence: true

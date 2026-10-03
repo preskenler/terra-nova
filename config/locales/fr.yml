@@ -14,6 +14,7 @@ fr:
     glossary: "Glossaire"
     announcements: "Actualités"
     alerts: "Alertes"
+    contact: "Contact"
     requests: "Mes demandes"
     notifications: "Notifications"
     my_space: "Mon espace"
@@ -43,6 +44,7 @@ fr:
     skip_to_content: "Aller au contenu principal"
     breadcrumb: "Fil d'Ariane"
     main_nav: "Navigation principale"
+    footer_nav: "Navigation de pied de page"
     choose_language: "Choisir une langue"
     controls: "Accessibilité"
     display_settings: "Réglages d'affichage"
@@ -120,6 +122,9 @@ fr:
     status_change:
       title: "Demande %{reference} : état mis à jour"
       body: "Le nouvel état est : %{status}."
+    feedback:
+      title: "Votre message %{reference} a été mis à jour"
+      body: "Le nouvel état est : %{status}."
     appointment:
       title: "Rendez-vous confirmé"
       body: "Votre rendez-vous du %{date} a été confirmé."
@@ -188,6 +193,52 @@ fr:
       everyone: "Tout le monde"
       vulnerable: "Personnes vulnérables"
       residents: "Habitants du secteur"
+
+  feedbacks:
+    new: "Contacter la ville"
+    intro: "Envoyez un message aux services municipaux. Vous recevrez une référence pour en suivre le traitement."
+    submit: "Envoyer mon message"
+    created: "Votre message %{reference} a bien été envoyé. Les services vous répondront."
+    kinds:
+      question: "Question"
+      complaint: "Réclamation"
+      suggestion: "Suggestion"
+      data_concern: "Question sur mes données"
+    status:
+      received: "Nouveau"
+      in_review: "En cours de traitement"
+      resolved: "Traité"
+    fields:
+      kind: "Motif du contact"
+      email: "Votre adresse e-mail"
+      email_hint: "Une adresse e-mail est nécessaire pour vous répondre."
+      subject: "Objet"
+      message: "Message"
+
+  pages:
+    transparency:
+      title: "Transparence"
+      intro: "Nova Terra s'engage à traiter vos données de manière transparente et à expliquer leur utilisation."
+      how_heading: "Utilisation de vos données"
+      how_body: "Vos données servent uniquement à rendre les services municipaux, traiter vos demandes et vous informer. Elles ne sont jamais revendues."
+      rights_heading: "Vos droits"
+      rights_body: "Vous pouvez accéder à vos données, les corriger et les supprimer à tout moment depuis votre espace personnel."
+      concern_heading: "Une question sur vos données ?"
+      concern_body: "Envoyez-nous votre question et nous y répondrons ; votre message est suivi pour que vous sachiez qu'il a bien été reçu."
+      contact: "Signaler une question sur mes données"
+    accessibility:
+      title: "Accessibilité"
+      intro: "Nova Terra vise le niveau WCAG 2.2 AA afin que chaque habitant puisse utiliser la plateforme."
+      features_heading: "Fonctionnalités intégrées"
+      features:
+        keyboard: "Navigation complète au clavier avec un indicateur de focus visible."
+        contrast: "Mode contraste élevé et choix de couleurs qui ne reposent jamais sur la couleur seule."
+        text: "Mode texte agrandi et mises en page qui s'adaptent aux petits écrans et au fort zoom."
+        screen_reader: "Structure sémantique, formulaires étiquetés et zones dynamiques pour les lecteurs d'écran."
+        motion: "Respect de la préférence de mouvement réduit."
+      help_heading: "Besoin d'aide ?"
+      help_body: "Si vous rencontrez un obstacle d'accessibilité, signalez-le pour que nous le corrigions."
+      contact: "Signaler un problème d'accessibilité"
 
   services:
     title: "Services municipaux"
@@ -293,6 +344,7 @@ fr:
       announcements: "Actualités"
       alerts: "Alertes"
       audit_logs: "Journal d'audit"
+      feedbacks: "Messages"
       users: "Citoyens"
     dashboard:
       title: "Tableau de bord"
@@ -516,6 +568,23 @@ fr:
         attribute: "Champ"
         before: "Avant"
         after: "Après"
+    feedbacks:
+      title: "Messages"
+      subtitle: "Messages et questions envoyés par les habitants."
+      updated: "Le message a été mis à jour et le citoyen prévenu."
+      kind: "Type"
+      status: "État"
+      all: "Tous"
+      handle: "Traiter le message"
+      table_caption: "Liste des messages"
+      columns:
+        reference: "Référence"
+        subject: "Objet"
+        kind: "Type"
+        status: "État"
+        date: "Date"
+      fields:
+        notes: "Notes internes"
     users:
       title: "Comptes citoyens"
       subtitle: "Recherchez et administrez les habitants de Nova Terra."

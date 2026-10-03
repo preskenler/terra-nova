@@ -1,0 +1,51 @@
+<% content_for :title, t("feedbacks.new") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("nav.home"), path: root_path },
+      { label: t("feedbacks.new") }
+    ]) %>
+
+<h1 class="mt-4 text-2xl font-bold"><%= t("feedbacks.new") %></h1>
+<p class="mt-1 max-w-2xl text-base-content/70"><%= t("feedbacks.intro") %></p>
+
+<%= form_with model: @feedback, url: feedback_path, class: "mt-6 max-w-2xl space-y-4" do |f| %>
+  <% if @feedback.errors.any? %>
+    <div role="alert" class="alert alert-error">
+      <div>
+        <p class="font-semibold"><%= t("forms.errors_summary") %></p>
+        <ul class="mt-1 list-disc pl-5">
+          <% @feedback.errors.full_messages.each do |message| %><li><%= message %></li><% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :kind, t("feedbacks.fields.kind"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.select :kind, Feedback::KINDS.keys.map { |k| [ t("feedbacks.kinds.#{k}"), k ] }, {},
+          class: "select select-bordered w-full" %>
+  </div>
+
+  <% unless user_signed_in? %>
+    <div>
+      <%= f.label :email, t("feedbacks.fields.email"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.email_field :email, class: "input input-bordered w-full", autocomplete: "email" %>
+      <p class="mt-1 text-xs text-base-content/60"><%= t("feedbacks.fields.email_hint") %></p>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :subject, t("feedbacks.fields.subject"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.text_field :subject, class: "input input-bordered w-full", maxlength: 150 %>
+  </div>
+
+  <div>
+    <%= f.label :message, t("feedbacks.fields.message"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.text_area :message, rows: 6, class: "textarea textarea-bordered w-full" %>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-2">
+    <%= f.submit t("feedbacks.submit"), class: "btn btn-primary" %>
+    <%= link_to t("pages.transparency.title"), transparency_path, class: "link text-sm" %>
+  </div>
+<% end %>

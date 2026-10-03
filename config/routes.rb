@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   resources :alerts, only: [ :index ]
   get "glossary", to: "glossary#index", as: :glossary
 
+  # Contact the municipal services (D04/F51) and trust pages
+  resource :feedback, only: [ :new, :create ], controller: "feedbacks"
+  get "transparency",  to: "pages#transparency",  as: :transparency
+  get "accessibility", to: "pages#accessibility", as: :accessibility
+
   # Citizen space
   authenticate :user do
     get "espace", to: "dashboard#show", as: :citizen_dashboard
@@ -70,6 +75,9 @@ Rails.application.routes.draw do
 
       # Audit trail (F47/F48)
       resources :audit_logs, only: [ :index, :show ]
+
+      # Citizen messages (D04/F51)
+      resources :feedbacks, only: [ :index, :show, :update ]
     end
   end
 end

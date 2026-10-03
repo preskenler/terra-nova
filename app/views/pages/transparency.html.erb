@@ -1,0 +1,28 @@
+<% content_for :title, t("pages.transparency.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("nav.home"), path: root_path },
+      { label: t("pages.transparency.title") }
+    ]) %>
+
+<article class="mt-4 max-w-3xl space-y-4">
+  <h1 class="text-2xl font-bold"><%= t("pages.transparency.title") %></h1>
+  <p class="text-base-content/80"><%= t("pages.transparency.intro") %></p>
+
+  <section>
+    <h2 class="text-lg font-semibold"><%= t("pages.transparency.how_heading") %></h2>
+    <p class="mt-1 text-base-content/80"><%= t("pages.transparency.how_body") %></p>
+  </section>
+
+  <section>
+    <h2 class="text-lg font-semibold"><%= t("pages.transparency.rights_heading") %></h2>
+    <p class="mt-1 text-base-content/80"><%= t("pages.transparency.rights_body") %></p>
+  </section>
+
+  <section aria-labelledby="concern-heading">
+    <h2 id="concern-heading" class="text-lg font-semibold"><%= t("pages.transparency.concern_heading") %></h2>
+    <p class="mt-1 text-base-content/80"><%= t("pages.transparency.concern_body") %></p>
+    <%= link_to t("pages.transparency.contact"),
+          new_feedback_path(kind: "data_concern"), class: "btn btn-primary btn-sm mt-2" %>
+  </section>
+</article>

@@ -57,6 +57,14 @@ module ApplicationHelper
     end
   end
 
+  def feedback_badge_variant(status)
+    case status.to_s
+    when "resolved"  then :success
+    when "in_review" then :info
+    else :warning
+    end
+  end
+
   # Resolves a PaperTrail whodunnit ("Agent:1" / "User:2") to a readable label.
   def audit_actor_label(whodunnit)
     return t("agents.audit_logs.system") if whodunnit.blank?

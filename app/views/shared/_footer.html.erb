@@ -1,6 +1,15 @@
 <footer class="border-t border-base-300 bg-base-100">
-  <div class="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-6 text-sm text-base-content/70 sm:flex-row sm:items-center sm:justify-between">
-    <p><%= t("app.footer_tagline") %></p>
-    <p>&copy; <%= Time.current.year %> <%= t("app.name") %></p>
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-6 text-sm text-base-content/70 sm:flex-row sm:items-center sm:justify-between">
+    <nav aria-label="<%= t("a11y.footer_nav") %>">
+      <ul class="flex flex-wrap gap-4">
+        <li><%= link_to t("nav.contact"), new_feedback_path, class: "link link-hover" %></li>
+        <li><%= link_to t("pages.transparency.title"), transparency_path, class: "link link-hover" %></li>
+        <li><%= link_to t("pages.accessibility.title"), accessibility_path, class: "link link-hover" %></li>
+      </ul>
+    </nav>
+    <div class="flex flex-col gap-1 sm:items-end">
+      <p><%= t("app.footer_tagline") %></p>
+      <p>&copy; <%= Time.current.year %> <%= t("app.name") %></p>
+    </div>
   </div>
 </footer>

@@ -11,7 +11,7 @@ class Announcement < ApplicationRecord
   AUDIENCES  = { everyone: "all", citizens: "citizens", agents: "agents" }.freeze
 
   enum :severity, SEVERITIES, default: :info, validate: true
-  enum :target_audience, AUDIENCES, default: :all, validate: true
+  enum :target_audience, AUDIENCES, default: :everyone, validate: true
 
   validates :title, presence: true
   validates :body, presence: true

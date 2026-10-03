@@ -14,6 +14,7 @@ en:
     glossary: "Glossary"
     announcements: "News"
     alerts: "Alerts"
+    contact: "Contact"
     requests: "My requests"
     notifications: "Notifications"
     my_space: "My space"
@@ -43,6 +44,7 @@ en:
     skip_to_content: "Skip to main content"
     breadcrumb: "Breadcrumb"
     main_nav: "Main navigation"
+    footer_nav: "Footer navigation"
     choose_language: "Choose a language"
     controls: "Accessibility"
     display_settings: "Display settings"
@@ -120,6 +122,9 @@ en:
     status_change:
       title: "Request %{reference}: status updated"
       body: "The new status is: %{status}."
+    feedback:
+      title: "Your message %{reference} was updated"
+      body: "The new status is: %{status}."
     appointment:
       title: "Appointment confirmed"
       body: "Your appointment on %{date} has been confirmed."
@@ -188,6 +193,52 @@ en:
       everyone: "Everyone"
       vulnerable: "Vulnerable people"
       residents: "Local residents"
+
+  feedbacks:
+    new: "Contact the city"
+    intro: "Send a message to the municipal services. You will receive a reference to follow it up."
+    submit: "Send my message"
+    created: "Your message %{reference} has been sent. The services will get back to you."
+    kinds:
+      question: "Question"
+      complaint: "Complaint"
+      suggestion: "Suggestion"
+      data_concern: "Data usage concern"
+    status:
+      received: "New"
+      in_review: "In review"
+      resolved: "Resolved"
+    fields:
+      kind: "Reason for contact"
+      email: "Your email"
+      email_hint: "We need an email to answer you."
+      subject: "Subject"
+      message: "Message"
+
+  pages:
+    transparency:
+      title: "Transparency"
+      intro: "Nova Terra is committed to handling your data transparently and to explaining how it is used."
+      how_heading: "How your data is used"
+      how_body: "Your data is used only to provide municipal services, process your requests and keep you informed. It is never sold."
+      rights_heading: "Your rights"
+      rights_body: "You can access, correct and delete your data at any time from your personal space."
+      concern_heading: "A concern about your data?"
+      concern_body: "Send us your question and we will answer it; your message is tracked so you know it was received."
+      contact: "Report a data concern"
+    accessibility:
+      title: "Accessibility"
+      intro: "Nova Terra aims to meet the WCAG 2.2 AA standard so that every inhabitant can use the platform."
+      features_heading: "Built-in features"
+      features:
+        keyboard: "Full keyboard navigation with a visible focus indicator."
+        contrast: "High-contrast mode and colour choices that never rely on colour alone."
+        text: "Large-text mode and layouts that reflow on small screens and high zoom."
+        screen_reader: "Semantic structure, labelled forms and live regions for screen readers."
+        motion: "Respect for the reduced-motion preference."
+      help_heading: "Need help?"
+      help_body: "If you encounter an accessibility barrier, tell us so we can fix it."
+      contact: "Report an accessibility issue"
 
   services:
     title: "Municipal services"
@@ -293,6 +344,7 @@ en:
       announcements: "News"
       alerts: "Alerts"
       audit_logs: "Audit log"
+      feedbacks: "Messages"
       users: "Citizens"
     dashboard:
       title: "Dashboard"
@@ -516,6 +568,23 @@ en:
         attribute: "Field"
         before: "Before"
         after: "After"
+    feedbacks:
+      title: "Messages"
+      subtitle: "Messages and concerns sent by the inhabitants."
+      updated: "The message has been updated and the citizen notified."
+      kind: "Type"
+      status: "Status"
+      all: "All"
+      handle: "Handle the message"
+      table_caption: "List of messages"
+      columns:
+        reference: "Reference"
+        subject: "Subject"
+        kind: "Type"
+        status: "Status"
+        date: "Date"
+      fields:
+        notes: "Internal notes"
     users:
       title: "Citizen accounts"
       subtitle: "Search and administer the citizens of Nova Terra."
