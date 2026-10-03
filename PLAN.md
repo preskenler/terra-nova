@@ -1,6 +1,6 @@
-# Nova Terra — Implementation Plan
+# Terra Nova — Implementation Plan
 
-Municipal platform for the city of **Nova Terra** (Rails app `TerraNova`).
+Municipal platform for the city of **Terra Nova** (Rails app `TerraNova`).
 This document is the single source of truth for scope, architecture, milestones, and
 requirement traceability. It complements `README.md` (which is for setup/usage).
 
@@ -414,7 +414,7 @@ Status: ✅ planned · ➕ added from the requirements list
 | D07 | Homepage hierarchy | Institution | ✅ Homepage with priority services | M2 |
 | D08 | Distinguish citizen/agent/admin | Institution | ✅ Role enums | M0–M1 |
 | D09 | Role-based access | Institution | ✅ Pundit + namespaces | M1 |
-| D19 | Separate agent workspace reading **Nova Terra API** | Institution | ➕ API client + sync + live console | M0 |
+| D19 | Separate agent workspace reading **Terra Nova API** | Institution | ➕ API client + sync + live console | M0 |
 | F22 | Agent request queue + state | Institution | ✅ Agent requests index | M3 |
 | F21 | Screen-reader usability | Citoyen | ✅ A11y program | M7 |
 | F23 | Contrast / important info visible | Citoyen | ✅ High-contrast mode | M7 |

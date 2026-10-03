@@ -1,4 +1,4 @@
-# Deploying Nova Terra on cPanel (Hodifly / Passenger)
+# Deploying Terra Nova on cPanel (Hodifly / Passenger)
 
 The production host for this project is a cPanel account running the app through
 **Phusion Passenger** (Hodifly, glibc 2.28). This is *not* Kamal: the

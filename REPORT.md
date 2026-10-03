@@ -1,4 +1,4 @@
-# Nova Terra — Team Report
+# Terra Nova — Team Report
 
 Municipal platform for the city of Terra Nova, built with **Ruby on Rails 8.1**,
 **Hotwire** (Turbo + Stimulus) and **ViewComponents**.

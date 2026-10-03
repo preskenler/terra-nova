@@ -1,4 +1,4 @@
-# Nova Terra
+# Terra Nova
 
 The digital heart of **Terra Nova**: a production-ready, accessible, multilingual
 municipal platform built with **Ruby on Rails 8.1**, **Hotwire** and **ViewComponents**.

@@ -4,7 +4,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   test "homepage renders in French by default" do
     get root_url
     assert_response :success
-    assert_match "Bienvenue à Nova Terra", response.body
+    assert_match "Bienvenue à Terra Nova", response.body
   end
 
   test "homepage sets the document language" do

@@ -1,6 +1,6 @@
 en:
   app:
-    name: "Nova Terra"
+    name: "Terra Nova"
     civic_portal: "Citizen portal"
     footer_tagline: "The digital heart of Terra Nova"
 
@@ -242,7 +242,7 @@ en:
 
   projects:
     title: "City projects"
-    subtitle: "Follow the projects underway in Nova Terra and take part in the consultations."
+    subtitle: "Follow the projects underway in Terra Nova and take part in the consultations."
     ongoing: "Ongoing projects"
     all: "All projects"
     empty: "No project for now."
@@ -289,7 +289,7 @@ en:
 
   ideas:
     title: "Citizen ideas"
-    subtitle: "Propose and support ideas to improve Nova Terra."
+    subtitle: "Propose and support ideas to improve Terra Nova."
     new: "Propose an idea"
     empty: "No idea for now"
     empty_hint: "Be the first to propose an idea for the city."
@@ -330,7 +330,7 @@ en:
 
   announcements:
     title: "Municipal news"
-    subtitle: "Official announcements from the city of Nova Terra."
+    subtitle: "Official announcements from the city of Terra Nova."
     empty: "No announcement for now."
     new: "New announcement"
 
@@ -373,7 +373,7 @@ en:
   pages:
     transparency:
       title: "Transparency"
-      intro: "Nova Terra is committed to handling your data transparently and to explaining how it is used."
+      intro: "Terra Nova is committed to handling your data transparently and to explaining how it is used."
       how_heading: "How your data is used"
       how_body: "Your data is used only to provide municipal services, process your requests and keep you informed. It is never sold."
       rights_heading: "Your rights"
@@ -383,7 +383,7 @@ en:
       contact: "Report a data concern"
     accessibility:
       title: "Accessibility"
-      intro: "Nova Terra aims to meet the WCAG 2.2 AA standard so that every inhabitant can use the platform."
+      intro: "Terra Nova aims to meet the WCAG 2.2 AA standard so that every inhabitant can use the platform."
       features_heading: "Built-in features"
       features:
         keyboard: "Full keyboard navigation with a visible focus indicator."
@@ -396,7 +396,7 @@ en:
       contact: "Report an accessibility issue"
     eco:
       title: "Environmental impact"
-      intro: "Nova Terra keeps its digital footprint as light as possible. Here is the measured weight of the platform's own assets."
+      intro: "Terra Nova keeps its digital footprint as light as possible. Here is the measured weight of the platform's own assets."
       metrics_heading: "Measured weight"
       css: "Stylesheets"
       js: "JavaScript"
@@ -486,7 +486,7 @@ en:
 
   home:
     hero:
-      title: "Welcome to Nova Terra"
+      title: "Welcome to Terra Nova"
       subtitle: "Terra Nova is the very first city built beyond Earth. Surrounded by spectacular futuristic landscapes, Terra Nova offers a unique environment where immense luminous structures, advanced architecture and extraterrestrial horizons come together. The planet is also home to new fauna and flora, still unknown on Earth, making every exploration fascinating. Terra Nova is more than a city: it is a symbol of the future and the first step toward discovering a new world."
       welcome: "Hello, %{name}."
     highlights:
@@ -507,7 +507,7 @@ en:
       see_all: "See all the news"
 
   agents:
-    title: "Nova Terra — Agent workspace"
+    title: "Terra Nova — Agent workspace"
     nav:
       dashboard: "Dashboard"
       requests: "Citizen requests"
@@ -599,7 +599,7 @@ en:
         notes: "Internal notes"
     requests:
       title: "Citizen requests"
-      subtitle: "Track the requests sent by the citizens of Nova Terra."
+      subtitle: "Track the requests sent by the citizens of Terra Nova."
       updated: "The request has been updated and the citizen notified."
       pending: "Pending"
       search: "Search"
@@ -864,7 +864,7 @@ en:
         supports: "Supports"
     users:
       title: "Citizen accounts"
-      subtitle: "Search and administer the citizens of Nova Terra."
+      subtitle: "Search and administer the citizens of Terra Nova."
       search: "Search"
       role: "Role"
       all: "All"
@@ -918,10 +918,10 @@ en:
     quick_links: "Quick links"
 
   onboarding:
-    title: "Welcome to Nova Terra"
+    title: "Welcome to Terra Nova"
     intro: "A few quick steps to set up your account, then you can start using municipal services."
     required: "Please complete your onboarding first."
-    completed: "Onboarding complete. Welcome to Nova Terra!"
+    completed: "Onboarding complete. Welcome to Terra Nova!"
     finish: "Finish"
     profile:
       title: "Your information"
@@ -962,7 +962,7 @@ en:
     submitted:
       subject: "Your request %{reference} has been received"
       heading: "Your request has been received"
-      body: "We confirm that your request %{reference} has been sent to the services of Nova Terra."
+      body: "We confirm that your request %{reference} has been sent to the services of Terra Nova."
     status_changed:
       subject: "Update on your request %{reference}"
       heading: "Your request has been updated"
@@ -987,15 +987,15 @@ en:
 
   user_mailer:
     magic_link:
-      subject: "Your Nova Terra sign-in link"
-      heading: "Sign in to Nova Terra"
+      subject: "Your Terra Nova sign-in link"
+      heading: "Sign in to Terra Nova"
       body: "Click the link below to sign in without a password."
       button: "Sign in"
       expiry: "This link is valid for 15 minutes and can only be used once."
     new_sign_in:
-      subject: "New sign-in to your Nova Terra account"
+      subject: "New sign-in to your Terra Nova account"
       heading: "New sign-in detected"
-      body: "Your Nova Terra account was just accessed from a new device."
+      body: "Your Terra Nova account was just accessed from a new device."
       warning: "If this was not you, change your password immediately."
       fields:
         ip: "IP address"
@@ -1034,7 +1034,7 @@ en:
   account:
     data:
       title: "My personal data"
-      intro: "Here is a clear summary of the information Nova Terra holds about you, and a portable export."
+      intro: "Here is a clear summary of the information Terra Nova holds about you, and a portable export."
       short: "View and download the data the city holds about you."
       view: "View my data"
       download: "Download my data (JSON)"

@@ -6,7 +6,7 @@ class LocalesControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
 
     get root_url
-    assert_match "Welcome to Nova Terra", response.body
+    assert_match "Welcome to Terra Nova", response.body
     assert_select "html[lang=?]", "en"
   end
 
