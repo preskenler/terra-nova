@@ -15,6 +15,8 @@ fr:
     glossary: "Glossaire"
     announcements: "Actualités"
     alerts: "Alertes"
+    projects: "Projets"
+    ideas: "Idées"
     contact: "Contact"
     requests: "Mes demandes"
     notifications: "Notifications"
@@ -196,6 +198,15 @@ fr:
     new_device:
       title: "Nouvelle connexion détectée"
       body: "Votre compte a été utilisé depuis un nouvel appareil (%{ip}). Si ce n'est pas vous, changez votre mot de passe."
+    consultation:
+      title: "Avis enregistré — %{reference}"
+      body: "Merci d'avoir participé à la consultation."
+    idea:
+      title: "Idée reçue — %{reference}"
+      body: "Votre idée a été transmise aux services municipaux."
+    idea_status:
+      title: "Idée %{reference} mise à jour"
+      body: "Le nouvel état est : %{status}."
 
   appointments:
     title: "Mes rendez-vous"
@@ -227,6 +238,84 @@ fr:
       no_slots: "Aucun créneau disponible"
       no_slots_hint: "Essayez une autre date ou un autre agent."
       book: "Confirmer mon rendez-vous"
+
+  projects:
+    title: "Projets de la ville"
+    subtitle: "Suivez les projets en cours à Nova Terra et participez aux consultations."
+    ongoing: "Projets en cours"
+    all: "Tous les projets"
+    empty: "Aucun projet pour le moment."
+    category: "Catégorie"
+    starts_on: "Début"
+    ends_on: "Fin"
+    status:
+      planned: "Prévu"
+      ongoing: "En cours"
+      completed: "Terminé"
+    categories:
+      urbanisme: "Urbanisme"
+      environnement: "Environnement"
+      mobilite: "Mobilité"
+      social: "Social"
+      culture: "Culture"
+      economie: "Économie"
+      autres: "Autres"
+
+  consultations:
+    title: "Consultations"
+    none: "Aucune consultation pour le moment."
+    participate: "Participer"
+    your_opinion: "Votre avis"
+    comment: "Commentaire (facultatif)"
+    submit: "Envoyer mon avis"
+    sign_in_to_participate: "pour participer à cette consultation."
+    already_responded: "Votre avis a bien été enregistré (référence %{reference})."
+    your_choice: "Vous avez répondu : %{choice}"
+    recorded: "Merci, votre avis a bien été enregistré (référence %{reference})."
+    closed: "Cette consultation est terminée."
+    kinds:
+      opinion: "Avis"
+      poll: "Sondage"
+      decision: "Décision"
+    status_label:
+      draft: "Brouillon"
+      open: "Ouverte"
+      closed: "Fermée"
+    choices:
+      favorable: "Favorable"
+      unfavorable: "Défavorable"
+      no_opinion: "Sans avis"
+
+  ideas:
+    title: "Idées des habitants"
+    subtitle: "Proposez et soutenez des idées pour améliorer Nova Terra."
+    new: "Proposer une idée"
+    empty: "Aucune idée pour le moment"
+    empty_hint: "Soyez le premier à proposer une idée pour la ville."
+    created: "Merci, votre idée %{reference} a bien été enregistrée."
+    category: "Catégorie"
+    supports_title: "Soutenir cette idée"
+    supports_count:
+      one: "%{count} habitant soutient cette idée"
+      other: "%{count} habitants soutiennent cette idée"
+    supports:
+      add: "Soutenir cette idée"
+      remove: "Retirer mon soutien"
+      added: "Votre soutien a bien été enregistré."
+      removed: "Votre soutien a été retiré."
+    status:
+      submitted: "Proposée"
+      under_review: "En cours d'examen"
+      accepted: "Acceptée"
+      declined: "Refusée"
+    fields:
+      title: "Titre"
+      category: "Catégorie"
+      category_none: "Aucune catégorie"
+      description: "Description"
+    form:
+      intro: "Décrivez votre idée pour améliorer la ville. Elle sera étudiée par les services municipaux."
+      submit: "Envoyer mon idée"
 
   severities:
     info: "Information"
@@ -428,6 +517,9 @@ fr:
       audit_logs: "Journal d'audit"
       feedbacks: "Messages"
       services: "Services"
+      projects: "Projets"
+      consultations: "Consultations"
+      ideas: "Idées"
       users: "Citoyens"
     dashboard:
       title: "Tableau de bord"
@@ -699,6 +791,76 @@ fr:
         expected_return: "Retour prévu"
         phone: "Téléphone"
         email: "Adresse e-mail"
+    projects:
+      title: "Projets"
+      subtitle: "Publiez et suivez les projets de la ville."
+      new: "Nouveau projet"
+      edit: "Modifier le projet"
+      created: "Le projet a été créé."
+      updated: "Le projet a été mis à jour."
+      destroyed: "Le projet a été supprimé."
+      confirm_destroy: "Supprimer ce projet et ses consultations ?"
+      table_caption: "Liste des projets"
+      columns:
+        name: "Projet"
+        status: "État"
+        category: "Catégorie"
+        consultations: "Consultations"
+      fields:
+        name_fr: "Nom (FR)"
+        name_en: "Nom (EN)"
+        description_fr: "Description (FR)"
+        description_en: "Description (EN)"
+        category: "Catégorie"
+        category_none: "Aucune catégorie"
+        status: "État"
+        published: "Publié"
+        starts_on: "Début"
+        ends_on: "Fin"
+    consultations:
+      title: "Consultations"
+      subtitle: "Demandez l'avis des habitants et consultez les résultats."
+      new: "Nouvelle consultation"
+      edit: "Modifier la consultation"
+      created: "La consultation a été créée."
+      updated: "La consultation a été mise à jour."
+      destroyed: "La consultation a été supprimée."
+      confirm_destroy: "Supprimer cette consultation et ses réponses ?"
+      results: "Résultats"
+      responses: "Réponses"
+      actions_title: "Actions"
+      no_responses: "Aucune réponse pour le moment."
+      table_caption: "Liste des consultations"
+      columns:
+        title: "Consultation"
+        kind: "Type"
+        status: "État"
+        responses: "Réponses"
+      fields:
+        title_fr: "Titre (FR)"
+        title_en: "Titre (EN)"
+        description_fr: "Description (FR)"
+        description_en: "Description (EN)"
+        project: "Projet"
+        project_none: "Aucun projet"
+        kind: "Type"
+        status: "État"
+        opens_at: "Ouverture"
+        closes_at: "Clôture"
+    ideas:
+      title: "Idées"
+      subtitle: "Examinez et modérez les idées proposées par les habitants."
+      updated: "L'idée a été mise à jour et l'auteur prévenu."
+      moderate: "Modérer"
+      author: "Par %{email}"
+      category_none: "Aucune catégorie"
+      table_caption: "Liste des idées"
+      columns:
+        reference: "Référence"
+        title: "Idée"
+        author: "Auteur"
+        status: "État"
+        supports: "Soutiens"
     users:
       title: "Comptes citoyens"
       subtitle: "Recherchez et administrez les habitants de Nova Terra."

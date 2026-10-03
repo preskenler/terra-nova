@@ -1,0 +1,15 @@
+park_opinion:
+  project: park
+  title_translations: { "fr": "Aire de jeux", "en": "Playground" }
+  description_translations: { "fr": "Quelle place pour l'aire de jeux ?", "en": "How much space for the playground?" }
+  kind: opinion
+  status: open
+  opens_at: <%= 1.day.ago %>
+  closes_at: <%= 30.days.from_now %>
+
+closed_survey:
+  title_translations: { "fr": "Sondage fermé", "en": "Closed survey" }
+  description_translations: { "fr": "Terminé.", "en": "Over." }
+  kind: poll
+  status: closed
+  closes_at: <%= 1.day.ago %>

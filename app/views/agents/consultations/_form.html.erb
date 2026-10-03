@@ -1,0 +1,58 @@
+<%= form_with model: consultation,
+      url: consultation.persisted? ? agents_consultation_path(consultation) : agents_consultations_path,
+      class: "space-y-4" do |f| %>
+  <% if consultation.errors.any? %>
+    <div role="alert" class="alert alert-error">
+      <ul class="list-disc pl-5">
+        <% consultation.errors.full_messages.each do |message| %><li><%= message %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    <div>
+      <%= f.label :title_fr, t("agents.consultations.fields.title_fr"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :title_fr, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :title_en, t("agents.consultations.fields.title_en"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :title_en, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :description_fr, t("agents.consultations.fields.description_fr"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :description_fr, rows: 4, class: "textarea textarea-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :description_en, t("agents.consultations.fields.description_en"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :description_en, rows: 4, class: "textarea textarea-bordered w-full" %>
+    </div>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    <div>
+      <%= f.label :project_id, t("agents.consultations.fields.project"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.collection_select :project_id, Project.ordered, :id, :name, { include_blank: t("agents.consultations.fields.project_none") }, class: "select select-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :kind, t("agents.consultations.fields.kind"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.select :kind, Consultation::KINDS.keys.map { |k| [ t("consultations.kinds.#{k}"), k ] }, {}, class: "select select-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :status, t("agents.consultations.fields.status"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.select :status, Consultation::STATUSES.keys.map { |s| [ t("consultations.status_label.#{s}"), s ] }, {}, class: "select select-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :opens_at, t("agents.consultations.fields.opens_at"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.datetime_local_field :opens_at, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :closes_at, t("agents.consultations.fields.closes_at"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.datetime_local_field :closes_at, class: "input input-bordered w-full" %>
+    </div>
+  </div>
+
+  <div class="flex gap-2">
+    <%= f.submit t("actions.save"), class: "btn btn-primary" %>
+    <%= link_to t("actions.back"), agents_consultations_path, class: "btn btn-ghost" %>
+  </div>
+<% end %>

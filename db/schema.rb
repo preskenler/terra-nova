@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_250000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_260004) do
   create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.integer "wday", null: false
@@ -112,6 +112,34 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_250000) do
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
+  create_table "consultation_responses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "consultation_id", null: false
+    t.bigint "user_id", null: false
+    t.string "choice", null: false
+    t.text "comment"
+    t.string "reference", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consultation_id", "user_id"], name: "index_consultation_responses_on_consultation_and_user", unique: true
+    t.index ["consultation_id"], name: "index_consultation_responses_on_consultation_id"
+    t.index ["reference"], name: "index_consultation_responses_on_reference", unique: true
+    t.index ["user_id"], name: "index_consultation_responses_on_user_id"
+  end
+
+  create_table "consultations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "project_id"
+    t.json "title_translations"
+    t.json "description_translations"
+    t.string "kind", default: "opinion", null: false
+    t.string "status", default: "draft", null: false
+    t.datetime "opens_at"
+    t.datetime "closes_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_consultations_on_project_id"
+    t.index ["status"], name: "index_consultations_on_status"
+  end
+
   create_table "demand_syncs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "fetched_at", null: false
     t.boolean "success", default: false, null: false
@@ -195,6 +223,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_250000) do
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
   end
 
+  create_table "idea_supports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "idea_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["idea_id", "user_id"], name: "index_idea_supports_on_idea_id_and_user_id", unique: true
+    t.index ["idea_id"], name: "index_idea_supports_on_idea_id"
+    t.index ["user_id"], name: "index_idea_supports_on_user_id"
+  end
+
+  create_table "ideas", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "reference", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.string "category"
+    t.string "status", default: "submitted", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reference"], name: "index_ideas_on_reference", unique: true
+    t.index ["status"], name: "index_ideas_on_status"
+    t.index ["user_id"], name: "index_ideas_on_user_id"
+  end
+
   create_table "login_activities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "ip"
@@ -232,6 +284,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_250000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
+  end
+
+  create_table "projects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "slug", null: false
+    t.json "name_translations"
+    t.json "description_translations"
+    t.string "category"
+    t.string "status", default: "planned", null: false
+    t.date "starts_on"
+    t.date "ends_on"
+    t.boolean "published", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_projects_on_slug", unique: true
+    t.index ["status"], name: "index_projects_on_status"
   end
 
   create_table "request_events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -385,8 +452,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_250000) do
   add_foreign_key "appointments", "agents"
   add_foreign_key "appointments", "services"
   add_foreign_key "appointments", "users"
+  add_foreign_key "consultation_responses", "consultations"
+  add_foreign_key "consultation_responses", "users"
+  add_foreign_key "consultations", "projects"
   add_foreign_key "demands", "agents", column: "assignee_id"
   add_foreign_key "feedbacks", "users"
+  add_foreign_key "idea_supports", "ideas"
+  add_foreign_key "idea_supports", "users"
+  add_foreign_key "ideas", "users"
   add_foreign_key "login_activities", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "profiles", "users"

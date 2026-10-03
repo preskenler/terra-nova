@@ -72,6 +72,29 @@ module ApplicationHelper
     :neutral
   end
 
+  def project_status_variant(project)
+    return :primary if project.ongoing?
+    return :info if project.planned?
+
+    :neutral
+  end
+
+  def consultation_status_variant(consultation)
+    return :success if consultation.open_for_response?
+    return :info if consultation.open?
+
+    :neutral
+  end
+
+  def idea_status_variant(idea)
+    case idea.status.to_s
+    when "accepted"     then :success
+    when "under_review" then :info
+    when "declined"     then :error
+    else :warning
+    end
+  end
+
   # Resolves a PaperTrail whodunnit ("Agent:1" / "User:2") to a readable label.
   def audit_actor_label(whodunnit)
     return t("agents.audit_logs.system") if whodunnit.blank?

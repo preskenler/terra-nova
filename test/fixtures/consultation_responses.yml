@@ -1,0 +1,5 @@
+from_admin:
+  consultation: park_opinion
+  user: admin
+  choice: favorable
+  reference: PART-2026-AAAAA

@@ -15,6 +15,8 @@ en:
     glossary: "Glossary"
     announcements: "News"
     alerts: "Alerts"
+    projects: "Projects"
+    ideas: "Ideas"
     contact: "Contact"
     requests: "My requests"
     notifications: "Notifications"
@@ -196,6 +198,15 @@ en:
     new_device:
       title: "New sign-in detected"
       body: "Your account was accessed from a new device (%{ip}). If this was not you, change your password."
+    consultation:
+      title: "Opinion recorded — %{reference}"
+      body: "Thank you for taking part in the consultation."
+    idea:
+      title: "Idea received — %{reference}"
+      body: "Your idea has been sent to the municipal services."
+    idea_status:
+      title: "Idea %{reference} updated"
+      body: "The new status is: %{status}."
 
   appointments:
     title: "My appointments"
@@ -227,6 +238,84 @@ en:
       no_slots: "No slot available"
       no_slots_hint: "Try another date or another agent."
       book: "Confirm my appointment"
+
+  projects:
+    title: "City projects"
+    subtitle: "Follow the projects underway in Nova Terra and take part in the consultations."
+    ongoing: "Ongoing projects"
+    all: "All projects"
+    empty: "No project for now."
+    category: "Category"
+    starts_on: "Starts"
+    ends_on: "Ends"
+    status:
+      planned: "Planned"
+      ongoing: "Ongoing"
+      completed: "Completed"
+    categories:
+      urbanisme: "Urban planning"
+      environnement: "Environment"
+      mobilite: "Mobility"
+      social: "Social"
+      culture: "Culture"
+      economie: "Economy"
+      autres: "Other"
+
+  consultations:
+    title: "Consultations"
+    none: "No consultation for now."
+    participate: "Take part"
+    your_opinion: "Your opinion"
+    comment: "Comment (optional)"
+    submit: "Send my opinion"
+    sign_in_to_participate: "to take part in this consultation."
+    already_responded: "Your opinion has been recorded (reference %{reference})."
+    your_choice: "You answered: %{choice}"
+    recorded: "Thank you, your opinion has been recorded (reference %{reference})."
+    closed: "This consultation is closed."
+    kinds:
+      opinion: "Opinion"
+      poll: "Poll"
+      decision: "Decision"
+    status_label:
+      draft: "Draft"
+      open: "Open"
+      closed: "Closed"
+    choices:
+      favorable: "Favourable"
+      unfavorable: "Unfavourable"
+      no_opinion: "No opinion"
+
+  ideas:
+    title: "Citizen ideas"
+    subtitle: "Propose and support ideas to improve Nova Terra."
+    new: "Propose an idea"
+    empty: "No idea for now"
+    empty_hint: "Be the first to propose an idea for the city."
+    created: "Thank you, your idea %{reference} has been recorded."
+    category: "Category"
+    supports_title: "Support this idea"
+    supports_count:
+      one: "%{count} citizen supports this idea"
+      other: "%{count} citizens support this idea"
+    supports:
+      add: "Support this idea"
+      remove: "Withdraw my support"
+      added: "Your support has been recorded."
+      removed: "Your support has been withdrawn."
+    status:
+      submitted: "Submitted"
+      under_review: "Under review"
+      accepted: "Accepted"
+      declined: "Declined"
+    fields:
+      title: "Title"
+      category: "Category"
+      category_none: "No category"
+      description: "Description"
+    form:
+      intro: "Describe your idea to improve the city. It will be reviewed by the municipal services."
+      submit: "Submit my idea"
 
   severities:
     info: "Information"
@@ -428,6 +517,9 @@ en:
       audit_logs: "Audit log"
       feedbacks: "Messages"
       services: "Services"
+      projects: "Projects"
+      consultations: "Consultations"
+      ideas: "Ideas"
       users: "Citizens"
     dashboard:
       title: "Dashboard"
@@ -699,6 +791,76 @@ en:
         expected_return: "Expected return"
         phone: "Phone"
         email: "Email"
+    projects:
+      title: "Projects"
+      subtitle: "Publish and follow the city's projects."
+      new: "New project"
+      edit: "Edit project"
+      created: "The project has been created."
+      updated: "The project has been updated."
+      destroyed: "The project has been deleted."
+      confirm_destroy: "Delete this project and its consultations?"
+      table_caption: "List of projects"
+      columns:
+        name: "Project"
+        status: "Status"
+        category: "Category"
+        consultations: "Consultations"
+      fields:
+        name_fr: "Name (FR)"
+        name_en: "Name (EN)"
+        description_fr: "Description (FR)"
+        description_en: "Description (EN)"
+        category: "Category"
+        category_none: "No category"
+        status: "Status"
+        published: "Published"
+        starts_on: "Starts"
+        ends_on: "Ends"
+    consultations:
+      title: "Consultations"
+      subtitle: "Ask citizens for their opinion and review the results."
+      new: "New consultation"
+      edit: "Edit consultation"
+      created: "The consultation has been created."
+      updated: "The consultation has been updated."
+      destroyed: "The consultation has been deleted."
+      confirm_destroy: "Delete this consultation and its responses?"
+      results: "Results"
+      responses: "Responses"
+      actions_title: "Actions"
+      no_responses: "No response yet."
+      table_caption: "List of consultations"
+      columns:
+        title: "Consultation"
+        kind: "Type"
+        status: "Status"
+        responses: "Responses"
+      fields:
+        title_fr: "Title (FR)"
+        title_en: "Title (EN)"
+        description_fr: "Description (FR)"
+        description_en: "Description (EN)"
+        project: "Project"
+        project_none: "No project"
+        kind: "Type"
+        status: "Status"
+        opens_at: "Opens at"
+        closes_at: "Closes at"
+    ideas:
+      title: "Ideas"
+      subtitle: "Review and moderate the ideas proposed by citizens."
+      updated: "The idea has been updated and the author notified."
+      moderate: "Moderate"
+      author: "By %{email}"
+      category_none: "No category"
+      table_caption: "List of ideas"
+      columns:
+        reference: "Reference"
+        title: "Idea"
+        author: "Author"
+        status: "Status"
+        supports: "Supports"
     users:
       title: "Citizen accounts"
       subtitle: "Search and administer the citizens of Nova Terra."

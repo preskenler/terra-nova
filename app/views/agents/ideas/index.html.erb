@@ -1,0 +1,34 @@
+<% content_for :title, t("agents.ideas.title") %>
+
+<div>
+  <h1 class="text-2xl font-bold"><%= t("agents.ideas.title") %></h1>
+  <p class="mt-1 text-base-content/70"><%= t("agents.ideas.subtitle") %></p>
+</div>
+
+<div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.ideas.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.ideas.columns.reference") %></th>
+        <th scope="col"><%= t("agents.ideas.columns.title") %></th>
+        <th scope="col"><%= t("agents.ideas.columns.author") %></th>
+        <th scope="col"><%= t("agents.ideas.columns.status") %></th>
+        <th scope="col"><%= t("agents.ideas.columns.supports") %></th>
+        <th scope="col"><span class="sr-only"><%= t("actions.view") %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @ideas.each do |idea| %>
+        <tr>
+          <th scope="row" class="font-mono text-xs"><%= link_to idea.reference, agents_idea_path(idea), class: "link" %></th>
+          <td><%= truncate(idea.title, length: 50) %></td>
+          <td><%= idea.user.email %></td>
+          <td><%= render Ui::BadgeComponent.new(label: t("ideas.status.#{idea.status}"), variant: idea_status_variant(idea)) %></td>
+          <td><%= idea.support_count %></td>
+          <td class="text-right"><%= link_to t("actions.view"), agents_idea_path(idea), class: "btn btn-ghost btn-xs" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

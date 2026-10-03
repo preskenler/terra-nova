@@ -1,0 +1,35 @@
+<% content_for :title, t("agents.projects.title") %>
+
+<div class="flex flex-wrap items-start justify-between gap-3">
+  <div>
+    <h1 class="text-2xl font-bold"><%= t("agents.projects.title") %></h1>
+    <p class="mt-1 text-base-content/70"><%= t("agents.projects.subtitle") %></p>
+  </div>
+  <%= link_to t("agents.projects.new"), new_agents_project_path, class: "btn btn-primary btn-sm" %>
+</div>
+
+<div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.projects.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.projects.columns.name") %></th>
+        <th scope="col"><%= t("agents.projects.columns.status") %></th>
+        <th scope="col"><%= t("agents.projects.columns.category") %></th>
+        <th scope="col"><%= t("agents.projects.columns.consultations") %></th>
+        <th scope="col"><span class="sr-only"><%= t("actions.view") %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <th scope="row"><%= link_to project.name, agents_project_path(project), class: "link" %></th>
+          <td><%= render Ui::BadgeComponent.new(label: t("projects.status.#{project.status}"), variant: project_status_variant(project)) %></td>
+          <td><%= project.category.present? ? t("projects.categories.#{project.category}") : "—" %></td>
+          <td><%= project.consultations.size %></td>
+          <td class="text-right"><%= link_to t("actions.view"), agents_project_path(project), class: "btn btn-ghost btn-xs" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

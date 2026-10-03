@@ -263,6 +263,45 @@ if Alert.none?
 end
 puts "  Alerts:       #{Alert.count} alerts, #{Announcement.count} announcements"
 
+# --- Participatory democracy (F65-F68) -------------------------------------
+if Project.none?
+  park = Project.new(status: "ongoing", category: "environnement", published: true,
+                     starts_on: Date.current - 20, ends_on: Date.current + 120)
+  park.name_fr = "Réaménagement du parc central"
+  park.name_en = "Central park redevelopment"
+  park.description_fr = "Création d'îlots de fraîcheur, aire de jeux et pistes cyclables au parc central."
+  park.description_en = "Creation of cool islands, a playground and cycle paths in the central park."
+  park.save!
+
+  tram = Project.new(status: "planned", category: "mobilite", published: true, starts_on: Date.current + 30)
+  tram.name_fr = "Nouvelle ligne de tram"
+  tram.name_en = "New tram line"
+  tram.description_fr = "Étude d'une nouvelle ligne de tram reliant le centre à l'université."
+  tram.description_en = "Study of a new tram line linking the centre to the university."
+  tram.save!
+end
+
+if Consultation.none?
+  consultation = Consultation.new(
+    project: Project.find_by(slug: "reamenagement-du-parc-central"),
+    kind: "opinion", status: "open", opens_at: Time.current, closes_at: 30.days.from_now
+  )
+  consultation.title_fr = "Parc central : votre avis sur l'aire de jeux"
+  consultation.title_en = "Central park: your opinion on the playground"
+  consultation.description_fr = "Quelle place donner à l'aire de jeux dans le futur parc ? Donnez votre avis."
+  consultation.description_en = "How much space should the playground take in the future park? Share your opinion."
+  consultation.save!
+end
+
+if Idea.none?
+  author = User.find_by(email: "citoyen@novaterra.fr")
+  idea = author.ideas.new(category: "environnement")
+  idea.title = "Plus de composteurs partagés"
+  idea.description = "Installer des composteurs partagés dans chaque quartier pour réduire nos déchets."
+  idea.save!
+end
+puts "  Participation: #{Project.count} projects, #{Consultation.count} consultations, #{Idea.count} ideas"
+
 # --- Initial demand sync (optional) -----------------------------------------
 if TerraNova::Webcup.configured?
   result = Demands::Sync.call

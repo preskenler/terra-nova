@@ -130,6 +130,8 @@ No counts or waves are hard-coded: future `D…`/`F…` demands simply appear in
   asset budget test, plus low-data and simple modes and a dynamically imported map library.
 - **Service administration** — agents manage the catalog and can disable a faulty service
   in one click (`/agents/services`).
+- **Participatory democracy** — consult city projects, answer consultations with a
+  traceable opinion, and propose/support citizen ideas.
 
 ---
 

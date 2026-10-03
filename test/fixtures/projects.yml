@@ -1,0 +1,23 @@
+park:
+  slug: reamenagement-du-parc-central
+  name_translations: { "fr": "Réaménagement du parc", "en": "Park redevelopment" }
+  description_translations: { "fr": "Description parc.", "en": "Park description." }
+  category: environnement
+  status: ongoing
+  starts_on: <%= Date.current - 10 %>
+  published: true
+
+tram:
+  slug: nouvelle-ligne-de-tram
+  name_translations: { "fr": "Nouvelle ligne de tram", "en": "New tram line" }
+  description_translations: { "fr": "Description tram.", "en": "Tram description." }
+  category: mobilite
+  status: planned
+  published: true
+
+draft_project:
+  slug: projet-brouillon
+  name_translations: { "fr": "Brouillon", "en": "Draft" }
+  description_translations: { "fr": "Brouillon.", "en": "Draft." }
+  status: planned
+  published: false

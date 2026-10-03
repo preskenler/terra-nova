@@ -29,6 +29,16 @@ Rails.application.routes.draw do
   resources :alerts, only: [ :index ]
   get "glossary", to: "glossary#index", as: :glossary
 
+  # Participatory democracy (F65-F68). Ideas new/create and the nested
+  # response/support actions require a citizen, enforced in the controllers.
+  resources :projects, only: [ :index, :show ]
+  resources :consultations, only: [ :show ] do
+    resource :response, only: [ :create ], controller: "consultation_responses"
+  end
+  resources :ideas, only: [ :index, :show, :new, :create ] do
+    resource :support, only: [ :create, :destroy ], controller: "idea_supports"
+  end
+
   # Contact the municipal services (D04/F51) and trust pages
   resource :feedback, only: [ :new, :create ], controller: "feedbacks"
   get "transparency",  to: "pages#transparency",  as: :transparency
@@ -101,6 +111,11 @@ Rails.application.routes.draw do
           patch :enable
         end
       end
+
+      # Participatory democracy management (F65-F68)
+      resources :projects
+      resources :consultations
+      resources :ideas, only: [ :index, :show, :update ]
     end
   end
 end

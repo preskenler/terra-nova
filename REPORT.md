@@ -854,6 +854,62 @@ submit.
 
 ---
 
+## F65 · Difficult · 1110 XP — Put decisions to residents' opinion
+
+**What we built.** Consultations (attached to a project, with a kind: opinion, poll or
+decision) that citizens can answer. Each answer is recorded with a **traceable reference**
+and a confirmation notification, and agents can view the aggregated results — so the city
+can justify the participation and the citizen knows the contribution was received.
+
+**Where to test.** `/projects`, `/consultations/:id` and `/agents/consultations`
+
+**How to verify.** 1) Open a consultation from a project page. 2) Submit your opinion →
+the confirmation shows a reference. 3) As an agent, open the consultation → the results
+and the list of responses are displayed.
+
+---
+
+## F66 · Medium · 740 XP — Give an opinion without a formal vote
+
+**What we built.** A simple answer form on each consultation (Favourable / Unfavourable /
+No opinion + optional comment). One answer per citizen, recorded instantly, with a
+reference and a confirmation so nothing is ambiguous.
+
+**Where to test.** `/consultations/:id`
+
+**How to verify.** 1) Sign in and open a consultation → choose an option and submit.
+2) A confirmation with a reference is displayed. 3) Re-open the consultation → your
+recorded answer and reference are shown.
+
+---
+
+## F67 · Medium · 740 XP — Consult the city's ongoing projects
+
+**What we built.** A public projects area: an index that highlights **ongoing** projects
+and a detail page per project, listing its consultations, timeline and category.
+
+**Where to test.** `/projects` and `/projects/:slug`
+
+**How to verify.** 1) Open `/projects` → ongoing projects appear in a dedicated section.
+2) Open a project → its description, dates, category and related consultations are shown.
+
+---
+
+## F68 · Easy · 370 XP — Propose ideas for the colony
+
+**What we built.** Citizens can propose an idea (category, title, description) — recorded
+with a reference and a confirmation notification — support others' ideas (co-sign), and
+agents can **moderate** ideas (submitted → under review → accepted/declined) with the
+author notified.
+
+**Where to test.** `/ideas`, `/ideas/new`, `/ideas/:reference` and `/agents/ideas`
+
+**How to verify.** 1) Propose an idea → confirmation with a reference. 2) Open another
+citizen's idea → support it (the counter increases). 3) As an agent, open `/agents/ideas`,
+change the status → the author is notified.
+
+---
+
 # Global implementation notes
 
 - **Stack:** Rails 8.1, MySQL 8.4, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -868,7 +924,9 @@ submit.
 - **Accessibility:** WCAG 2.2 AA-oriented statement at `/accessibility`.
 - **Environmental:** measured weight and budgets at `/eco`, enforced by an automated
   asset-size test; low-data and simple modes, and a dynamically imported map library.
+- **Participatory democracy:** projects, consultations with recorded opinions (F65/F66),
+  and citizen ideas with support and moderation (F68).
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 191 automated tests pass (185 unit/controller/integration + 6 browser-style
+- **Quality:** 229 automated tests pass (222 unit/controller/integration + 7 browser-style
   system tests); RuboCop, Brakeman, bundler-audit and importmap audit are all clean.

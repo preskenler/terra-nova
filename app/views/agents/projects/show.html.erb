@@ -1,0 +1,35 @@
+<% content_for :title, @project.name %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("agents.nav.dashboard"), path: agents_root_path },
+      { label: t("agents.projects.title"), path: agents_projects_path },
+      { label: @project.name }
+    ]) %>
+
+<div class="mt-4 max-w-3xl">
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <h1 class="text-2xl font-bold"><%= @project.name %></h1>
+    <%= render Ui::BadgeComponent.new(label: t("projects.status.#{@project.status}"), variant: project_status_variant(@project)) %>
+  </div>
+  <p class="mt-2 whitespace-pre-line text-base-content/90"><%= @project.description %></p>
+
+  <h2 class="mt-6 text-lg font-semibold"><%= t("consultations.title") %></h2>
+  <% if @consultations.any? %>
+    <ul class="mt-2 divide-y divide-base-200 rounded-box border border-base-300 bg-base-100">
+      <% @consultations.each do |consultation| %>
+        <li class="flex items-center justify-between gap-2 p-3">
+          <span><%= link_to consultation.title, agents_consultation_path(consultation), class: "link" %></span>
+          <%= render Ui::BadgeComponent.new(label: t("consultations.status_label.#{consultation.status}"), variant: consultation_status_variant(consultation)) %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="mt-2 text-sm text-base-content/60"><%= t("consultations.none") %></p>
+  <% end %>
+
+  <div class="mt-6 flex flex-wrap gap-2">
+    <%= link_to t("actions.edit"), edit_agents_project_path(@project), class: "btn btn-primary btn-sm" %>
+    <%= button_to t("actions.delete"), agents_project_path(@project), method: :delete,
+          class: "btn btn-error btn-sm", data: { turbo_confirm: t("agents.projects.confirm_destroy") } %>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<%= form_with model: project,
+      url: project.persisted? ? agents_project_path(project) : agents_projects_path,
+      class: "space-y-4" do |f| %>
+  <% if project.errors.any? %>
+    <div role="alert" class="alert alert-error">
+      <ul class="list-disc pl-5">
+        <% project.errors.full_messages.each do |message| %><li><%= message %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    <div>
+      <%= f.label :name_fr, t("agents.projects.fields.name_fr"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :name_fr, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :name_en, t("agents.projects.fields.name_en"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :name_en, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :description_fr, t("agents.projects.fields.description_fr"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :description_fr, rows: 4, class: "textarea textarea-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :description_en, t("agents.projects.fields.description_en"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :description_en, rows: 4, class: "textarea textarea-bordered w-full" %>
+    </div>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-3">
+    <div>
+      <%= f.label :category, t("agents.projects.fields.category"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.select :category, Project::CATEGORIES.map { |c| [ t("projects.categories.#{c}"), c ] }, { include_blank: t("agents.projects.fields.category_none") }, class: "select select-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :status, t("agents.projects.fields.status"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.select :status, Project::STATUSES.keys.map { |s| [ t("projects.status.#{s}"), s ] }, {}, class: "select select-bordered w-full" %>
+    </div>
+    <label class="flex cursor-pointer items-center gap-2 pt-6">
+      <%= f.check_box :published, class: "checkbox checkbox-sm" %>
+      <span class="text-sm"><%= t("agents.projects.fields.published") %></span>
+    </label>
+    <div>
+      <%= f.label :starts_on, t("agents.projects.fields.starts_on"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.date_field :starts_on, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :ends_on, t("agents.projects.fields.ends_on"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.date_field :ends_on, class: "input input-bordered w-full" %>
+    </div>
+  </div>
+
+  <div class="flex gap-2">
+    <%= f.submit t("actions.save"), class: "btn btn-primary" %>
+    <%= link_to t("actions.back"), agents_projects_path, class: "btn btn-ghost" %>
+  </div>
+<% end %>
