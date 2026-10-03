@@ -4,7 +4,7 @@
     <span><%= t("a11y.controls") %></span>
   </summary>
   <div class="dropdown-content z-40 mt-2 w-72 rounded-box border border-base-300 bg-base-100 p-4 shadow-lg">
-    <%= form_with url: preferences_path, method: :patch, class: "space-y-3" do %>
+    <%= form_with url: preferences_path, method: :patch, class: "space-y-3", data: { turbo: false } do %>
       <p class="text-sm font-semibold"><%= t("a11y.display_settings") %></p>
 
       <label class="flex cursor-pointer items-center gap-2">

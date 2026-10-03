@@ -19,6 +19,8 @@ class PreferencesController < ApplicationController
       reduced_data: reduced_data, simple_mode: simple_mode
     )
 
-    redirect_back fallback_location: root_path, notice: t("preferences.updated")
+    # A full-page redirect is intentional: Turbo Drive replaces the body but
+    # does not refresh the accessibility attributes carried by the <html> tag.
+    redirect_back fallback_location: root_path, notice: t("preferences.updated"), status: :see_other
   end
 end
