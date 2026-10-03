@@ -1,0 +1,85 @@
+<% content_for :title, t("agents.requests.title") %>
+
+<div class="flex flex-wrap items-start justify-between gap-3">
+  <div>
+    <h1 class="text-2xl font-bold"><%= t("agents.requests.title") %></h1>
+    <p class="mt-1 text-base-content/70"><%= t("agents.requests.subtitle") %></p>
+  </div>
+</div>
+
+<div class="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
+  <%= render Ui::StatComponent.new(label: t("agents.requests.pending"), value: @pending_count, emphasis: @pending_count.positive?) %>
+  <% Request::STATUSES.each_key do |status| %>
+    <%= render Ui::StatComponent.new(
+          label: t("requests.status.#{status}"),
+          value: @counts.fetch(status, 0)) %>
+  <% end %>
+</div>
+
+<%= form_with url: agents_requests_path, method: :get, class: "mt-4 flex flex-wrap items-end gap-3" do %>
+  <div>
+    <label for="req-q" class="mb-1 block text-sm font-medium"><%= t("agents.requests.search") %></label>
+    <%= text_field_tag :q, params[:q], id: "req-q", class: "input input-bordered input-sm" %>
+  </div>
+  <div>
+    <label for="req-status" class="mb-1 block text-sm font-medium"><%= t("agents.requests.status") %></label>
+    <%= select_tag :status,
+          options_for_select(
+            [ [ t("agents.requests.all"), "" ] ] +
+            Request::STATUSES.keys.map { |s| [ t("requests.status.#{s}"), s ] },
+            params[:status]
+          ),
+          id: "req-status", class: "select select-bordered select-sm" %>
+  </div>
+  <div>
+    <label for="req-service" class="mb-1 block text-sm font-medium"><%= t("agents.requests.service") %></label>
+    <%= select_tag :service_id,
+          options_for_select(
+            [ [ t("agents.requests.all"), "" ] ] +
+            @services.map { |s| [ s.name, s.id ] },
+            params[:service_id]
+          ),
+          id: "req-service", class: "select select-bordered select-sm" %>
+  </div>
+  <%= submit_tag t("actions.filter"), class: "btn btn-primary btn-sm" %>
+  <%= link_to t("actions.reset"), agents_requests_path, class: "btn btn-ghost btn-sm" %>
+<% end %>
+
+<div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.requests.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.requests.columns.reference") %></th>
+        <th scope="col"><%= t("agents.requests.columns.subject") %></th>
+        <th scope="col"><%= t("agents.requests.columns.citizen") %></th>
+        <th scope="col"><%= t("agents.requests.columns.service") %></th>
+        <th scope="col"><%= t("agents.requests.columns.status") %></th>
+        <th scope="col"><%= t("agents.requests.columns.date") %></th>
+        <th scope="col"><span class="sr-only"><%= t("agents.requests.columns.actions") %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @requests.each do |request| %>
+        <tr>
+          <th scope="row" class="font-mono text-xs">
+            <%= link_to request.reference, agents_request_path(request), class: "link" %>
+          </th>
+          <td><%= truncate(request.subject, length: 50) %></td>
+          <td><%= request.user.email %></td>
+          <td><%= request.service&.name || "—" %></td>
+          <td>
+            <%= render Ui::BadgeComponent.new(
+                  label: t("requests.status.#{request.status}"),
+                  variant: request_badge_variant(request.status)) %>
+          </td>
+          <td><%= l(request.created_at, format: :short) %></td>
+          <td class="text-right">
+            <%= link_to t("actions.view"), agents_request_path(request), class: "btn btn-ghost btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<p class="mt-2 text-sm text-base-content/60"><%= t("agents.requests.count", count: @requests.size) %></p>

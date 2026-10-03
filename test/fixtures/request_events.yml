@@ -1,0 +1,12 @@
+submitted_event:
+  request: streetlight
+  to_status: submitted
+  comment: "Request submitted"
+  visible_to_citizen: true
+
+internal_note:
+  request: streetlight
+  from_status: submitted
+  to_status: submitted
+  comment: "Internal follow-up"
+  visible_to_citizen: false

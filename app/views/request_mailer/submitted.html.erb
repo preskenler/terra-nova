@@ -1,0 +1,7 @@
+<h1><%= t("request_mailer.submitted.heading") %></h1>
+
+<p><%= t("request_mailer.submitted.body", reference: @request.reference) %></p>
+
+<p><strong><%= @request.subject %></strong></p>
+
+<p><%= link_to t("request_mailer.view_request"), request_url(@request) %></p>

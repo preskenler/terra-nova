@@ -1,0 +1,121 @@
+<% content_for :title, "#{@request.reference} — #{@request.subject}" %>
+<% if @request.latitude.present? && @request.longitude.present? %>
+  <% content_for :head do %>
+    <%= stylesheet_link_tag "leaflet", "data-turbo-track": "reload" %>
+  <% end %>
+<% end %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("agents.nav.dashboard"), path: agents_root_path },
+      { label: t("agents.requests.title"), path: agents_requests_path },
+      { label: @request.reference }
+    ]) %>
+
+<div class="mt-4 grid gap-6 lg:grid-cols-3">
+  <div class="space-y-4 lg:col-span-2">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div>
+        <p class="font-mono text-sm text-base-content/60"><%= @request.reference %></p>
+        <h1 class="text-2xl font-bold"><%= @request.subject %></h1>
+      </div>
+      <%= render Ui::BadgeComponent.new(
+            label: t("requests.status.#{@request.status}"),
+            variant: request_badge_variant(@request.status)) %>
+    </div>
+
+    <dl class="grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+      <div>
+        <dt class="text-base-content/60"><%= t("agents.requests.fields.citizen") %></dt>
+        <dd class="font-medium"><%= request_user_link(@request.user) %></dd>
+      </div>
+      <div>
+        <dt class="text-base-content/60"><%= t("agents.requests.fields.service") %></dt>
+        <dd class="font-medium"><%= @request.service&.name || "—" %></dd>
+      </div>
+      <div>
+        <dt class="text-base-content/60"><%= t("requests.fields.submitted_at") %></dt>
+        <dd class="font-medium"><%= l(@request.created_at, format: :short) %></dd>
+      </div>
+      <div>
+        <dt class="text-base-content/60"><%= t("requests.fields.location") %></dt>
+        <dd class="font-medium"><%= @request.location_text.presence || "—" %></dd>
+      </div>
+      <div>
+        <dt class="text-base-content/60"><%= t("agents.requests.fields.supporters") %></dt>
+        <dd class="font-medium"><%= @request.support_count %></dd>
+      </div>
+    </dl>
+
+    <section>
+      <h2 class="text-lg font-semibold"><%= t("requests.fields.description") %></h2>
+      <p class="mt-1 whitespace-pre-line text-base-content/90"><%= @request.description %></p>
+    </section>
+
+    <% if @request.latitude.present? && @request.longitude.present? %>
+      <section aria-labelledby="agent-request-location-heading">
+        <h2 id="agent-request-location-heading" class="text-lg font-semibold"><%= t("services.location.title") %></h2>
+        <div class="mt-2"
+             data-controller="map"
+             data-map-lat-value="<%= @request.latitude %>"
+             data-map-lng-value="<%= @request.longitude %>"
+             data-map-label-value="<%= @request.location_text.presence || @request.subject %>">
+          <div data-map-target="container"
+               role="img"
+               aria-label="<%= t("requests.map_label", reference: @request.reference) %>"
+               class="h-56 w-full overflow-hidden rounded-box border border-base-300"></div>
+        </div>
+      </section>
+    <% end %>
+
+    <section aria-labelledby="agent-timeline-heading">
+      <h2 id="agent-timeline-heading" class="text-lg font-semibold"><%= t("requests.timeline.title") %></h2>
+      <div class="mt-2">
+        <%= render "requests/timeline", events: @events %>
+      </div>
+    </section>
+  </div>
+
+  <aside class="space-y-4">
+    <section class="card border border-base-300 bg-base-100">
+      <div class="card-body">
+        <h2 class="card-title text-base"><%= t("agents.requests.update_status") %></h2>
+
+        <%= form_with model: @event, url: agents_request_path(@request), method: :patch, class: "space-y-3" do |f| %>
+          <div>
+            <%= f.label :to_status, t("agents.requests.fields.status"),
+                  class: "mb-1 block text-sm font-medium" %>
+            <%= f.select :to_status,
+                  Request::STATUSES.keys.map { |s| [ t("requests.status.#{s}"), s ] },
+                  {}, class: "select select-bordered select-sm w-full" %>
+          </div>
+
+          <div>
+            <%= f.label :comment, t("agents.requests.fields.comment"),
+                  class: "mb-1 block text-sm font-medium" %>
+            <%= f.text_area :comment, rows: 4, class: "textarea textarea-bordered w-full" %>
+          </div>
+
+          <label class="flex cursor-pointer items-center gap-2">
+            <%= f.check_box :visible_to_citizen, class: "checkbox checkbox-sm" %>
+            <span class="text-sm"><%= t("agents.requests.fields.visible_to_citizen") %></span>
+          </label>
+
+          <%= f.submit t("actions.save"), class: "btn btn-primary btn-sm w-full" %>
+        <% end %>
+      </div>
+    </section>
+
+    <% if @request.request_supports.any? %>
+      <section class="card border border-base-300 bg-base-100">
+        <div class="card-body">
+          <h2 class="card-title text-base"><%= t("requests.supports.title") %></h2>
+          <ul class="space-y-1 text-sm">
+            <% @request.request_supports.includes(:user).each do |support| %>
+              <li><%= support.user.email %></li>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+    <% end %>
+  </aside>
+</div>

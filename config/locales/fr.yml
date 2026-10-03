@@ -12,6 +12,8 @@ fr:
     services: "Services"
     transports: "Transports"
     glossary: "Glossaire"
+    requests: "Mes demandes"
+    notifications: "Notifications"
     my_space: "Mon espace"
     profile: "Mon profil"
     sign_in: "Se connecter"
@@ -49,6 +51,71 @@ fr:
 
   errors:
     not_authorized: "Vous n'êtes pas autorisé à effectuer cette action."
+
+  forms:
+    errors_summary: "Veuillez corriger les erreurs suivantes :"
+
+  requests:
+    title: "Mes demandes"
+    subtitle: "Retrouvez toutes vos demandes et suivez leur avancement."
+    new: "Nouvelle demande"
+    created_notice: "Votre demande %{reference} a bien été envoyée. Vous recevrez une confirmation par e-mail."
+    submitted_on: "Envoyée le %{date}"
+    empty: "Vous n'avez encore aucune demande"
+    empty_hint: "Signalez un problème et suivez son avancement depuis cet espace."
+    map_label: "Carte indiquant la localisation de la demande %{reference}"
+    fields:
+      submitted_at: "Envoyée"
+      service: "Service"
+      location: "Lieu"
+      description: "Description"
+    form:
+      intro: "Décrivez votre demande le plus précisément possible. Nous confirmons immédiatement son envoi."
+      service: "Service concerné (facultatif)"
+      service_none: "Aucun service en particulier"
+      subject: "Objet"
+      description: "Description"
+      description_hint: "Précisez ce qui s'est passé et où, pour permettre aux agents d'agir rapidement."
+      location: "Lieu"
+      location_placeholder: "Rue, place, point de repère…"
+      map_legend: "Localisation sur la carte (facultatif)"
+      map_hint: "Cliquez sur la carte pour placer le repère, ou laissez vide."
+      map_label: "Carte pour choisir la localisation de votre demande"
+      coordinates: "Coordonnées"
+      no_coordinates: "non renseignées"
+      submit: "Envoyer ma demande"
+    status:
+      submitted: "Envoyée"
+      acknowledged: "Prise en compte"
+      in_progress: "En cours de traitement"
+      resolved: "Résolue"
+      closed: "Clôturée"
+      rejected: "Rejetée"
+    timeline:
+      title: "Avancement"
+      empty: "Aucune étape enregistrée pour le moment."
+    events:
+      submitted: "Demande envoyée"
+    supports:
+      title: "Soutenir cette demande"
+      count:
+        one: "%{count} habitant soutient cette demande"
+        other: "%{count} habitants soutiennent cette demande"
+      add: "Soutenir cette demande"
+      remove: "Retirer mon soutien"
+      added: "Votre soutien a bien été enregistré."
+      removed: "Votre soutien a été retiré."
+
+  notifications:
+    title: "Notifications"
+    subtitle: "Restez informé de vos demandes et de l'actualité de la ville."
+    empty: "Aucune notification pour le moment."
+    unread: "Non lue"
+    mark_read: "Marquer comme lue"
+    marked_read: "Notification marquée comme lue."
+    status_change:
+      title: "Demande %{reference} : état mis à jour"
+      body: "Le nouvel état est : %{status}."
 
   services:
     title: "Services municipaux"
@@ -146,7 +213,8 @@ fr:
     title: "Nova Terra — Espace agent"
     nav:
       dashboard: "Tableau de bord"
-      demands: "Demandes"
+      requests: "Demandes citoyennes"
+      demands: "Demandes API"
       users: "Citoyens"
     dashboard:
       title: "Tableau de bord"
@@ -215,6 +283,35 @@ fr:
         assignee: "Assignée à"
         unassigned: "Non assignée"
         notes: "Notes internes"
+    requests:
+      title: "Demandes citoyennes"
+      subtitle: "Suivez les demandes envoyées par les habitants de Nova Terra."
+      updated: "La demande a été mise à jour et le citoyen prévenu."
+      pending: "En attente"
+      search: "Rechercher"
+      status: "État"
+      service: "Service"
+      all: "Tous"
+      count:
+        one: "%{count} demande"
+        other: "%{count} demandes"
+      table_caption: "Liste des demandes citoyennes"
+      update_status: "Mettre à jour l'état"
+      columns:
+        reference: "Référence"
+        subject: "Objet"
+        citizen: "Citoyen"
+        service: "Service"
+        status: "État"
+        date: "Date"
+        actions: "Actions"
+      fields:
+        citizen: "Citoyen"
+        service: "Service"
+        supporters: "Soutiens"
+        status: "Nouvel état"
+        comment: "Commentaire"
+        visible_to_citizen: "Visible par le citoyen"
     users:
       title: "Comptes citoyens"
       subtitle: "Recherchez et administrez les habitants de Nova Terra."
@@ -264,6 +361,9 @@ fr:
     requests: "Mes demandes"
     open_requests: "En cours"
     appointments: "Mes rendez-vous"
+    notifications: "Notifications non lues"
+    recent_requests: "Mes demandes récentes"
+    no_requests: "Aucune demande pour le moment."
     my_profile: "Mon profil"
     quick_links: "Accès rapides"
 
@@ -307,6 +407,18 @@ fr:
     confirm: "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible."
     wrong_password: "Mot de passe incorrect. Votre compte n'a pas été supprimé."
     deleted: "Votre compte a été supprimé. À bientôt…"
+
+  request_mailer:
+    submitted:
+      subject: "Votre demande %{reference} a bien été reçue"
+      heading: "Votre demande a bien été reçue"
+      body: "Nous confirmons que votre demande %{reference} a été transmise aux services de Nova Terra."
+    status_changed:
+      subject: "Suivi de votre demande %{reference}"
+      heading: "Votre demande a été mise à jour"
+      body: "L'état de votre demande %{reference} a changé."
+      new_status: "Nouvel état"
+    view_request: "Consulter ma demande"
 
   time:
     formats:

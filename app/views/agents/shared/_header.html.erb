@@ -8,6 +8,7 @@
     <nav aria-label="<%= t("a11y.main_nav") %>" class="flex-1">
       <ul class="flex flex-wrap items-center gap-4">
         <li><%= link_to t("agents.nav.dashboard"), agents_root_path, class: "link link-hover" %></li>
+        <li><%= link_to t("agents.nav.requests"), agents_requests_path, class: "link link-hover" %></li>
         <li><%= link_to t("agents.nav.demands"), agents_demands_path, class: "link link-hover" %></li>
         <li><%= link_to t("agents.nav.users"), agents_users_path, class: "link link-hover" %></li>
       </ul>

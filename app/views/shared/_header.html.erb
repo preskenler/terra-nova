@@ -20,7 +20,14 @@
 
       <% if user_signed_in? %>
         <%= link_to t("nav.my_space"), citizen_dashboard_path, class: "btn btn-ghost btn-sm" %>
-        <%= link_to t("nav.profile"), profile_path, class: "btn btn-ghost btn-sm" %>
+        <%= link_to t("nav.requests"), requests_path, class: "btn btn-ghost btn-sm" %>
+        <%= link_to notifications_path, class: "btn btn-ghost btn-sm" do %>
+          <%= t("nav.notifications") %>
+          <% unread = current_user.notifications.unread.count %>
+          <% if unread.positive? %>
+            <span class="badge badge-primary badge-sm"><%= unread %></span>
+          <% end %>
+        <% end %>
         <%= button_to t("nav.sign_out"), destroy_user_session_path, method: :delete,
               class: "btn btn-ghost btn-sm" %>
       <% else %>

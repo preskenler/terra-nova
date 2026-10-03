@@ -1,0 +1,12 @@
+status_update:
+  user: citizen
+  kind: status_change
+  title: "Request NOVA-2026-AAAAA: status updated"
+  body: "The new status is: in progress."
+
+read_notification:
+  user: citizen
+  kind: general
+  title: "Welcome"
+  body: "Welcome to Nova Terra."
+  read_at: <%= 1.day.ago %>

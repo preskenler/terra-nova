@@ -1,0 +1,11 @@
+<%= t("request_mailer.status_changed.heading") %>
+
+<%= t("request_mailer.status_changed.body", reference: @request.reference) %>
+
+<%= t("request_mailer.status_changed.new_status") %>: <%= t("requests.status.#{@request.status}") %>
+<% if @event.comment.present? %>
+
+<%= @event.comment %>
+<% end %>
+
+<%= t("request_mailer.view_request") %>: <%= request_url(@request) %>

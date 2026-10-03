@@ -24,6 +24,11 @@ Rails.application.routes.draw do
   authenticate :user do
     get "espace", to: "dashboard#show", as: :citizen_dashboard
 
+    resources :requests, only: [ :index, :show, :new, :create ] do
+      resource :support, only: [ :create, :destroy ], controller: "request_supports"
+    end
+    resources :notifications, only: [ :index, :update ]
+
     resource :profile,    only: [ :show, :edit, :update ], controller: "profiles"
     resource :onboarding, only: [ :show, :update ],        controller: "onboarding"
     resource :account,    only: [ :show, :destroy ],       controller: "accounts"
@@ -43,6 +48,9 @@ Rails.application.routes.draw do
       resources :users, only: [ :index, :show, :edit, :update ] do
         member { patch :unlock }
       end
+
+      # Citizen requests / signalements (F22/D17)
+      resources :requests, only: [ :index, :show, :update ]
     end
   end
 end

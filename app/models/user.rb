@@ -14,6 +14,9 @@ class User < ApplicationRecord
   enum :role, { citizen: "citizen", admin: "admin" }, default: :citizen
 
   has_one :profile, dependent: :destroy
+  has_many :requests, dependent: :destroy
+  has_many :request_supports, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   after_create :create_default_profile
 

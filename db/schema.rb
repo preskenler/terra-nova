@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_180005) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_190003) do
   create_table "agents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -101,6 +101,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_180005) do
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
   end
 
+  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.string "kind", default: "general", null: false
+    t.string "title", null: false
+    t.text "body"
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["read_at"], name: "index_notifications_on_read_at"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "address"
@@ -111,6 +126,48 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_180005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
+  end
+
+  create_table "request_events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "request_id", null: false
+    t.string "from_status"
+    t.string "to_status", null: false
+    t.text "comment"
+    t.boolean "visible_to_citizen", default: true, null: false
+    t.string "created_by_type"
+    t.bigint "created_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_type", "created_by_id"], name: "index_request_events_on_created_by"
+    t.index ["request_id"], name: "index_request_events_on_request_id"
+  end
+
+  create_table "request_supports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "request_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id", "user_id"], name: "index_request_supports_on_request_id_and_user_id", unique: true
+    t.index ["request_id"], name: "index_request_supports_on_request_id"
+    t.index ["user_id"], name: "index_request_supports_on_user_id"
+  end
+
+  create_table "requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "service_id"
+    t.string "reference", null: false
+    t.string "subject", null: false
+    t.text "description", null: false
+    t.string "location_text"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.string "status", default: "submitted", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reference"], name: "index_requests_on_reference", unique: true
+    t.index ["service_id"], name: "index_requests_on_service_id"
+    t.index ["status"], name: "index_requests_on_status"
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "services", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -210,7 +267,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_180005) do
   end
 
   add_foreign_key "demands", "agents", column: "assignee_id"
+  add_foreign_key "notifications", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "request_events", "requests"
+  add_foreign_key "request_supports", "requests"
+  add_foreign_key "request_supports", "users"
+  add_foreign_key "requests", "services"
+  add_foreign_key "requests", "users"
   add_foreign_key "transport_disruptions", "transport_lines"
   add_foreign_key "transport_schedules", "transport_lines"
 end

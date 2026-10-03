@@ -10,6 +10,10 @@ module ActiveSupport
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
+
+    # Helpers for testing mailers and background jobs.
+    include ActiveJob::TestHelper
+    include ActionMailer::TestHelper
   end
 end
 

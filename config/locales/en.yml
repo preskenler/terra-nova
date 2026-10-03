@@ -12,6 +12,8 @@ en:
     services: "Services"
     transports: "Transport"
     glossary: "Glossary"
+    requests: "My requests"
+    notifications: "Notifications"
     my_space: "My space"
     profile: "My profile"
     sign_in: "Sign in"
@@ -49,6 +51,71 @@ en:
 
   errors:
     not_authorized: "You are not allowed to perform this action."
+
+  forms:
+    errors_summary: "Please correct the following errors:"
+
+  requests:
+    title: "My requests"
+    subtitle: "Find all your requests and follow their progress."
+    new: "New request"
+    created_notice: "Your request %{reference} has been sent. You will receive a confirmation by email."
+    submitted_on: "Submitted on %{date}"
+    empty: "You have no requests yet"
+    empty_hint: "Report an issue and follow its progress from here."
+    map_label: "Map showing the location of request %{reference}"
+    fields:
+      submitted_at: "Submitted"
+      service: "Service"
+      location: "Location"
+      description: "Description"
+    form:
+      intro: "Describe your request as precisely as possible. We will confirm its submission immediately."
+      service: "Related service (optional)"
+      service_none: "No specific service"
+      subject: "Subject"
+      description: "Description"
+      description_hint: "Explain what happened and where, so agents can act quickly."
+      location: "Location"
+      location_placeholder: "Street, place, landmark…"
+      map_legend: "Location on the map (optional)"
+      map_hint: "Click on the map to place the marker, or leave it empty."
+      map_label: "Map to choose the location of your request"
+      coordinates: "Coordinates"
+      no_coordinates: "not set"
+      submit: "Send my request"
+    status:
+      submitted: "Submitted"
+      acknowledged: "Acknowledged"
+      in_progress: "In progress"
+      resolved: "Resolved"
+      closed: "Closed"
+      rejected: "Rejected"
+    timeline:
+      title: "Progress"
+      empty: "No steps recorded yet."
+    events:
+      submitted: "Request submitted"
+    supports:
+      title: "Support this request"
+      count:
+        one: "%{count} citizen supports this request"
+        other: "%{count} citizens support this request"
+      add: "Support this request"
+      remove: "Withdraw my support"
+      added: "Your support has been recorded."
+      removed: "Your support has been withdrawn."
+
+  notifications:
+    title: "Notifications"
+    subtitle: "Stay informed about your requests and city news."
+    empty: "No notifications for now."
+    unread: "Unread"
+    mark_read: "Mark as read"
+    marked_read: "Notification marked as read."
+    status_change:
+      title: "Request %{reference}: status updated"
+      body: "The new status is: %{status}."
 
   services:
     title: "Municipal services"
@@ -146,7 +213,8 @@ en:
     title: "Nova Terra — Agent workspace"
     nav:
       dashboard: "Dashboard"
-      demands: "Demands"
+      requests: "Citizen requests"
+      demands: "API demands"
       users: "Citizens"
     dashboard:
       title: "Dashboard"
@@ -215,6 +283,35 @@ en:
         assignee: "Assignee"
         unassigned: "Unassigned"
         notes: "Internal notes"
+    requests:
+      title: "Citizen requests"
+      subtitle: "Track the requests sent by the citizens of Nova Terra."
+      updated: "The request has been updated and the citizen notified."
+      pending: "Pending"
+      search: "Search"
+      status: "Status"
+      service: "Service"
+      all: "All"
+      count:
+        one: "%{count} request"
+        other: "%{count} requests"
+      table_caption: "List of citizen requests"
+      update_status: "Update the status"
+      columns:
+        reference: "Reference"
+        subject: "Subject"
+        citizen: "Citizen"
+        service: "Service"
+        status: "Status"
+        date: "Date"
+        actions: "Actions"
+      fields:
+        citizen: "Citizen"
+        service: "Service"
+        supporters: "Supporters"
+        status: "New status"
+        comment: "Comment"
+        visible_to_citizen: "Visible to the citizen"
     users:
       title: "Citizen accounts"
       subtitle: "Search and administer the citizens of Nova Terra."
@@ -264,6 +361,9 @@ en:
     requests: "My requests"
     open_requests: "In progress"
     appointments: "My appointments"
+    notifications: "Unread notifications"
+    recent_requests: "My recent requests"
+    no_requests: "No requests yet."
     my_profile: "My profile"
     quick_links: "Quick links"
 
@@ -307,6 +407,18 @@ en:
     confirm: "Are you sure you want to delete your account? This cannot be undone."
     wrong_password: "Incorrect password. Your account was not deleted."
     deleted: "Your account has been deleted. Goodbye…"
+
+  request_mailer:
+    submitted:
+      subject: "Your request %{reference} has been received"
+      heading: "Your request has been received"
+      body: "We confirm that your request %{reference} has been sent to the services of Nova Terra."
+    status_changed:
+      subject: "Update on your request %{reference}"
+      heading: "Your request has been updated"
+      body: "The status of your request %{reference} has changed."
+      new_status: "New status"
+    view_request: "View my request"
 
   time:
     formats:

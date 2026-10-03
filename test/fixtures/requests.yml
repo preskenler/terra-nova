@@ -1,0 +1,17 @@
+streetlight:
+  user: citizen
+  service: etat_civil
+  reference: NOVA-2026-AAAAA
+  subject: "Broken streetlight"
+  description: "The streetlight in front of number 12 has been broken since yesterday."
+  location_text: "12 rue des Étoiles"
+  latitude: 48.8566
+  longitude: 2.3522
+  status: submitted
+
+pothole:
+  user: citizen
+  reference: NOVA-2026-BBBBB
+  subject: "Pothole on the road"
+  description: "A large pothole has formed near the school."
+  status: resolved

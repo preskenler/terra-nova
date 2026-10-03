@@ -1,0 +1,18 @@
+<% if events.any? %>
+  <ol class="relative ms-2 border-s border-base-300">
+    <% events.each do |event| %>
+      <li class="mb-4 ms-4">
+        <span class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary" aria-hidden="true"></span>
+        <p class="font-medium"><%= t("requests.status.#{event.to_status}") %></p>
+        <time class="text-xs text-base-content/60" datetime="<%= event.created_at.iso8601 %>">
+          <%= l(event.created_at, format: :short) %>
+        </time>
+        <% if event.comment.present? %>
+          <p class="mt-1 text-sm text-base-content/80"><%= event.comment %></p>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+<% else %>
+  <p class="text-sm text-base-content/60"><%= t("requests.timeline.empty") %></p>
+<% end %>

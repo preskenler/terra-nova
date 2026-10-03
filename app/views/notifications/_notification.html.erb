@@ -1,0 +1,24 @@
+<article id="<%= dom_id(notification) %>"
+         class="rounded-box border border-base-300 bg-base-100 p-4 <%= "opacity-70" if notification.read? %>">
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <p class="font-medium">
+        <% unless notification.read? %>
+          <span class="badge badge-warning badge-xs mr-1" aria-hidden="true"></span>
+          <span class="sr-only"><%= t("notifications.unread") %></span>
+        <% end %>
+        <%= notification.title %>
+      </p>
+      <% if notification.body.present? %>
+        <p class="mt-1 text-sm text-base-content/80"><%= notification.body %></p>
+      <% end %>
+      <time class="mt-1 block text-xs text-base-content/60" datetime="<%= notification.created_at.iso8601 %>">
+        <%= l(notification.created_at, format: :short) %>
+      </time>
+    </div>
+    <% unless notification.read? %>
+      <%= button_to t("notifications.mark_read"), notification_path(notification), method: :patch,
+            class: "btn btn-ghost btn-xs" %>
+    <% end %>
+  </div>
+</article>

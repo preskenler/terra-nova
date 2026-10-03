@@ -1,0 +1,7 @@
+<%= t("request_mailer.submitted.heading") %>
+
+<%= t("request_mailer.submitted.body", reference: @request.reference) %>
+
+<%= @request.subject %>
+
+<%= t("request_mailer.view_request") %>: <%= request_url(@request) %>

@@ -1,0 +1,49 @@
+require "test_helper"
+
+class RequestsControllerTest < ActionDispatch::IntegrationTest
+  test "requires authentication" do
+    get requests_url
+    assert_response :redirect
+  end
+
+  test "a citizen lists their requests" do
+    sign_in users(:citizen)
+    get requests_url
+    assert_response :success
+    assert_match "NOVA-2026-AAAAA", response.body
+  end
+
+  test "creating a request records an event and enqueues a confirmation email" do
+    sign_in users(:citizen)
+
+    assert_difference -> { Request.count }, 1 do
+      assert_enqueued_emails 1 do
+        post requests_url, params: {
+          request: { subject: "Graffiti", description: "A wall has been tagged." }
+        }
+      end
+    end
+
+    request = Request.order(:created_at).last
+    assert_redirected_to request_url(request)
+    assert_equal "submitted", request.status
+    assert_equal 1, request.request_events.count
+    assert_equal users(:citizen), request.user
+  end
+
+  test "an invalid request re-renders the form" do
+    sign_in users(:citizen)
+
+    assert_no_difference -> { Request.count } do
+      post requests_url, params: { request: { subject: "", description: "" } }
+    end
+
+    assert_response :unprocessable_content
+  end
+
+  test "a citizen cannot open someone else's request" do
+    sign_in users(:admin)
+    get request_url(requests(:streetlight))
+    assert_response :not_found
+  end
+end

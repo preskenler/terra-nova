@@ -11,4 +11,21 @@ module ApplicationHelper
     else :neutral
     end
   end
+
+  # Maps a citizen request status to a badge variant (text always present).
+  def request_badge_variant(status)
+    case status.to_s
+    when "resolved"    then :success
+    when "in_progress" then :info
+    when "acknowledged" then :primary
+    when "closed", "rejected" then :neutral
+    else :warning
+    end
+  end
+
+  def request_user_link(user)
+    return "—" if user.blank?
+
+    link_to user.email, agents_user_path(user), class: "link"
+  end
 end
