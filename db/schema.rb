@@ -10,7 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_190003) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_200002) do
+  create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "agent_id", null: false
+    t.integer "wday", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.integer "slot_minutes", default: 30, null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_agent_availabilities_on_agent_id"
+  end
+
+  create_table "agent_time_offs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "agent_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id", "starts_at"], name: "index_agent_time_offs_on_agent_id_and_starts_at"
+    t.index ["agent_id"], name: "index_agent_time_offs_on_agent_id"
+  end
+
   create_table "agents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -33,6 +56,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_190003) do
     t.index ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true
     t.index ["role"], name: "index_agents_on_role"
     t.index ["unlock_token"], name: "index_agents_on_unlock_token", unique: true
+  end
+
+  create_table "appointments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "agent_id", null: false
+    t.bigint "service_id"
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.integer "duration_minutes", default: 30, null: false
+    t.text "notes"
+    t.string "status", default: "confirmed", null: false
+    t.string "cancellation_reason"
+    t.datetime "reminder_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_appointments_on_agent_id"
+    t.index ["service_id"], name: "index_appointments_on_service_id"
+    t.index ["starts_at"], name: "index_appointments_on_starts_at"
+    t.index ["status"], name: "index_appointments_on_status"
+    t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
   create_table "demand_syncs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -266,6 +309,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_190003) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "agent_availabilities", "agents"
+  add_foreign_key "agent_time_offs", "agents"
+  add_foreign_key "appointments", "agents"
+  add_foreign_key "appointments", "services"
+  add_foreign_key "appointments", "users"
   add_foreign_key "demands", "agents", column: "assignee_id"
   add_foreign_key "notifications", "users"
   add_foreign_key "profiles", "users"

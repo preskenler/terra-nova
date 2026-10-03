@@ -28,4 +28,14 @@ module ApplicationHelper
 
     link_to user.email, agents_user_path(user), class: "link"
   end
+
+  def appointment_badge_variant(status)
+    case status.to_s
+    when "confirmed" then :success
+    when "requested" then :warning
+    when "completed" then :info
+    when "cancelled", "no_show" then :error
+    else :neutral
+    end
+  end
 end

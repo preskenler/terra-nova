@@ -1,0 +1,97 @@
+<% content_for :title, t("agents.availabilities.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("agents.nav.dashboard"), path: agents_root_path },
+      { label: t("agents.appointments.title"), path: agents_appointments_path },
+      { label: t("agents.availabilities.title") }
+    ]) %>
+
+<h1 class="mt-4 text-2xl font-bold"><%= t("agents.availabilities.title") %></h1>
+<p class="mt-1 max-w-2xl text-base-content/70"><%= t("agents.availabilities.subtitle") %></p>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-2">
+  <section aria-labelledby="weekly-heading" class="rounded-box border border-base-300 bg-base-100 p-4">
+    <h2 id="weekly-heading" class="text-lg font-semibold"><%= t("agents.availabilities.weekly") %></h2>
+
+    <%= form_with model: @availability, url: agents_availabilities_path, class: "mt-3 space-y-3" do |f| %>
+      <% if @availability.errors.any? %>
+        <div role="alert" class="alert alert-error">
+          <ul class="list-disc pl-5">
+            <% @availability.errors.full_messages.each do |message| %><li><%= message %></li><% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <%= f.label :wday, t("agents.availabilities.fields.wday"), class: "mb-1 block text-sm font-medium" %>
+          <%= f.select :wday, (0..6).map { |d| [ t("transports.weekdays.#{d}"), d ] }, {},
+                class: "select select-bordered select-sm w-full" %>
+        </div>
+        <div>
+          <%= f.label :slot_minutes, t("agents.availabilities.fields.slot_minutes"), class: "mb-1 block text-sm font-medium" %>
+          <%= f.number_field :slot_minutes, min: 15, step: 15, class: "input input-bordered input-sm w-full" %>
+        </div>
+        <div>
+          <%= f.label :start_time, t("agents.availabilities.fields.start_time"), class: "mb-1 block text-sm font-medium" %>
+          <%= f.time_field :start_time, class: "input input-bordered input-sm w-full" %>
+        </div>
+        <div>
+          <%= f.label :end_time, t("agents.availabilities.fields.end_time"), class: "mb-1 block text-sm font-medium" %>
+          <%= f.time_field :end_time, class: "input input-bordered input-sm w-full" %>
+        </div>
+      </div>
+
+      <%= f.submit t("agents.availabilities.add"), class: "btn btn-primary btn-sm" %>
+    <% end %>
+
+    <ul class="mt-4 divide-y divide-base-200">
+      <% @availabilities.each do |availability| %>
+        <li class="flex items-center justify-between gap-2 py-2">
+          <span class="text-sm">
+            <strong><%= t("transports.weekdays.#{availability.wday}") %></strong>
+            <%= availability.start_time.strftime("%H:%M") %>–<%= availability.end_time.strftime("%H:%M") %>
+            <span class="text-base-content/60">(<%= availability.slot_minutes %> min)</span>
+          </span>
+          <%= button_to t("actions.delete"), agents_availability_path(availability), method: :delete,
+                class: "btn btn-ghost btn-xs" %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+
+  <section aria-labelledby="time-off-heading" class="rounded-box border border-base-300 bg-base-100 p-4">
+    <h2 id="time-off-heading" class="text-lg font-semibold"><%= t("agents.time_offs.title") %></h2>
+
+    <%= form_with model: @time_off, url: agents_time_offs_path, class: "mt-3 space-y-3" do |f| %>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <%= f.label :starts_at, t("agents.time_offs.fields.starts_at"), class: "mb-1 block text-sm font-medium" %>
+          <%= f.datetime_local_field :starts_at, class: "input input-bordered input-sm w-full" %>
+        </div>
+        <div>
+          <%= f.label :ends_at, t("agents.time_offs.fields.ends_at"), class: "mb-1 block text-sm font-medium" %>
+          <%= f.datetime_local_field :ends_at, class: "input input-bordered input-sm w-full" %>
+        </div>
+      </div>
+      <div>
+        <%= f.label :reason, t("agents.time_offs.fields.reason"), class: "mb-1 block text-sm font-medium" %>
+        <%= f.text_field :reason, class: "input input-bordered input-sm w-full" %>
+      </div>
+      <%= f.submit t("agents.time_offs.add"), class: "btn btn-primary btn-sm" %>
+    <% end %>
+
+    <ul class="mt-4 divide-y divide-base-200">
+      <% @time_offs.each do |time_off| %>
+        <li class="flex items-center justify-between gap-2 py-2">
+          <span class="text-sm">
+            <%= l(time_off.starts_at, format: :short) %> → <%= l(time_off.ends_at, format: :short) %>
+            <% if time_off.reason.present? %><span class="text-base-content/60">· <%= time_off.reason %></span><% end %>
+          </span>
+          <%= button_to t("actions.delete"), agents_time_off_path(time_off), method: :delete,
+                class: "btn btn-ghost btn-xs" %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+</div>

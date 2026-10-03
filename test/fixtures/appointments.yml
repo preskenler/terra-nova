@@ -1,0 +1,16 @@
+upcoming:
+  user: citizen
+  agent: agent
+  service: etat_civil
+  starts_at: <%= 3.days.from_now.change(hour: 10, min: 0) %>
+  ends_at: <%= 3.days.from_now.change(hour: 10, min: 30) %>
+  duration_minutes: 30
+  status: confirmed
+
+past:
+  user: citizen
+  agent: agent
+  starts_at: <%= 3.days.ago.change(hour: 10, min: 0) %>
+  ends_at: <%= 3.days.ago.change(hour: 10, min: 30) %>
+  duration_minutes: 30
+  status: completed

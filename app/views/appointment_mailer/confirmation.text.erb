@@ -1,0 +1,11 @@
+<%= t("appointment_mailer.confirmation.heading") %>
+
+<%= t("appointment_mailer.confirmation.body", reference: @appointment.id) %>
+
+<%= t("appointment_mailer.fields.date") %>: <%= l(@appointment.starts_at, format: :short) %>
+<%= t("appointment_mailer.fields.agent") %>: <%= @appointment.agent.email %>
+<% if @appointment.service %>
+<%= t("appointment_mailer.fields.service") %>: <%= @appointment.service.name %>
+<% end %>
+
+<%= t("appointment_mailer.view") %>: <%= appointment_url(@appointment) %>

@@ -217,6 +217,17 @@ GLOSSARY.each do |attrs|
 end
 puts "  Glossary:     #{GlossaryTerm.count} terms"
 
+# --- Agent availability (F39) ----------------------------------------------
+Agent.find_each do |agent_record|
+  next if agent_record.agent_availabilities.exists?
+
+  [ 1, 2, 3, 4, 5 ].each do |wday|
+    agent_record.agent_availabilities.create!(wday: wday, start_time: "09:00", end_time: "12:00", slot_minutes: 30)
+    agent_record.agent_availabilities.create!(wday: wday, start_time: "14:00", end_time: "17:00", slot_minutes: 30)
+  end
+end
+puts "  Availability: #{AgentAvailability.count} ranges"
+
 # --- Initial demand sync (optional) -----------------------------------------
 if TerraNova::Webcup.configured?
   result = Demands::Sync.call

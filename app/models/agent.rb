@@ -10,6 +10,10 @@ class Agent < ApplicationRecord
 
   enum :role, { agent: "agent", admin: "admin" }, default: :agent
 
+  has_many :appointments, dependent: :restrict_with_error
+  has_many :agent_availabilities, dependent: :destroy
+  has_many :agent_time_offs, dependent: :destroy
+
   def display_name
     email
   end

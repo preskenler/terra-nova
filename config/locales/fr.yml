@@ -34,6 +34,7 @@ fr:
     filter: "Filtrer"
     reset: "Réinitialiser"
     back: "Retour"
+    delete: "Supprimer"
 
   a11y:
     skip_to_content: "Aller au contenu principal"
@@ -116,6 +117,43 @@ fr:
     status_change:
       title: "Demande %{reference} : état mis à jour"
       body: "Le nouvel état est : %{status}."
+    appointment:
+      title: "Rendez-vous confirmé"
+      body: "Votre rendez-vous du %{date} a été confirmé."
+    appointment_cancelled:
+      title: "Rendez-vous annulé"
+      body: "Votre rendez-vous du %{date} a été annulé."
+
+  appointments:
+    title: "Mes rendez-vous"
+    subtitle: "Prenez rendez-vous avec un agent municipal et préparez votre venue."
+    new: "Prendre rendez-vous"
+    detail_title: "Rendez-vous"
+    created: "Votre rendez-vous a été enregistré. Un e-mail de confirmation vous a été envoyé."
+    cancelled: "Votre rendez-vous a été annulé."
+    confirm_cancel: "Annuler ce rendez-vous ?"
+    with: "Avec %{agent}"
+    empty: "Aucun rendez-vous"
+    empty_hint: "Prenez rendez-vous avec un agent pour être aidé dans vos démarches."
+    status:
+      requested: "Demandé"
+      confirmed: "Confirmé"
+      cancelled: "Annulé"
+      completed: "Terminé"
+      no_show: "Non honoré"
+    form:
+      intro: "Choisissez un agent et une date pour voir les créneaux disponibles, puis confirmez."
+      agent: "Agent"
+      date: "Date"
+      service: "Service concerné (facultatif)"
+      service_none: "Aucun service en particulier"
+      notes: "Informations à préparer (facultatif)"
+      notes_hint: "Indiquez votre besoin pour permettre à l'agent de se préparer."
+      show_slots: "Voir les créneaux"
+      slots_for: "Créneaux disponibles le %{date} avec %{agent}"
+      no_slots: "Aucun créneau disponible"
+      no_slots_hint: "Essayez une autre date ou un autre agent."
+      book: "Confirmer mon rendez-vous"
 
   services:
     title: "Services municipaux"
@@ -214,6 +252,7 @@ fr:
     nav:
       dashboard: "Tableau de bord"
       requests: "Demandes citoyennes"
+      appointments: "Rendez-vous"
       demands: "Demandes API"
       users: "Citoyens"
     dashboard:
@@ -312,6 +351,49 @@ fr:
         status: "Nouvel état"
         comment: "Commentaire"
         visible_to_citizen: "Visible par le citoyen"
+    appointments:
+      title: "Rendez-vous"
+      subtitle: "Votre agenda et les rendez-vous pris par les habitants."
+      upcoming: "À venir"
+      past: "Passés"
+      total: "Total"
+      updated: "Le rendez-vous a été mis à jour."
+      cancelled: "Le rendez-vous a été annulé et le citoyen prévenu."
+      reschedule: "Reprogrammer"
+      detail_title: "Rendez-vous"
+      none_upcoming: "Aucun rendez-vous à venir."
+      none_past: "Aucun rendez-vous passé."
+      upcoming_caption: "Rendez-vous à venir"
+      confirm_cancel: "Annuler ce rendez-vous ? Le citoyen sera prévenu."
+      columns:
+        date: "Date"
+        citizen: "Citoyen"
+        service: "Service"
+        status: "État"
+      fields:
+        duration: "Durée (minutes)"
+        status: "État"
+    availabilities:
+      title: "Mes disponibilités"
+      subtitle: "Définissez vos créneaux hebdomadaires et vos périodes bloquées."
+      weekly: "Disponibilités hebdomadaires"
+      created: "Disponibilité ajoutée."
+      destroyed: "Disponibilité supprimée."
+      add: "Ajouter une plage"
+      fields:
+        wday: "Jour"
+        start_time: "Début"
+        end_time: "Fin"
+        slot_minutes: "Créneau (min)"
+    time_offs:
+      title: "Périodes bloquées"
+      add: "Ajouter une période bloquée"
+      created: "Période bloquée ajoutée."
+      destroyed: "Période bloquée supprimée."
+      fields:
+        starts_at: "Du"
+        ends_at: "Au"
+        reason: "Motif"
     users:
       title: "Comptes citoyens"
       subtitle: "Recherchez et administrez les habitants de Nova Terra."
@@ -420,8 +502,24 @@ fr:
       new_status: "Nouvel état"
     view_request: "Consulter ma demande"
 
+  appointment_mailer:
+    confirmation:
+      subject: "Confirmation de rendez-vous — %{date}"
+      heading: "Votre rendez-vous est confirmé"
+      body: "Votre rendez-vous n°%{reference} a bien été enregistré."
+    reminder:
+      subject: "Rappel : votre rendez-vous du %{date}"
+      heading: "Rappel de rendez-vous"
+      body: "Nous vous rappelons votre rendez-vous du %{date}."
+    fields:
+      date: "Date"
+      agent: "Agent"
+      service: "Service"
+    view: "Consulter mon rendez-vous"
+
   time:
     formats:
+      time: "%H:%M"
       short: "%d/%m/%Y %H:%M"
       long: "%d %B %Y à %H:%M"
   date:

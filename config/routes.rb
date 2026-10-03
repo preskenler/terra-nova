@@ -27,6 +27,9 @@ Rails.application.routes.draw do
     resources :requests, only: [ :index, :show, :new, :create ] do
       resource :support, only: [ :create, :destroy ], controller: "request_supports"
     end
+    resources :appointments, only: [ :index, :show, :new, :create ] do
+      member { patch :cancel }
+    end
     resources :notifications, only: [ :index, :update ]
 
     resource :profile,    only: [ :show, :edit, :update ], controller: "profiles"
@@ -51,6 +54,13 @@ Rails.application.routes.draw do
 
       # Citizen requests / signalements (F22/D17)
       resources :requests, only: [ :index, :show, :update ]
+
+      # Appointment scheduling (F39/F40)
+      resources :appointments, only: [ :index, :show, :edit, :update ] do
+        member { patch :cancel }
+      end
+      resources :availabilities, only: [ :index, :create, :destroy ]
+      resources :time_offs, only: [ :create, :destroy ]
     end
   end
 end

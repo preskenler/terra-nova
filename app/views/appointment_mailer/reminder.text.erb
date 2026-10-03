@@ -1,0 +1,8 @@
+<%= t("appointment_mailer.reminder.heading") %>
+
+<%= t("appointment_mailer.reminder.body", date: l(@appointment.starts_at, format: :short)) %>
+
+<%= t("appointment_mailer.fields.date") %>: <%= l(@appointment.starts_at, format: :short) %>
+<%= t("appointment_mailer.fields.agent") %>: <%= @appointment.agent.email %>
+
+<%= t("appointment_mailer.view") %>: <%= appointment_url(@appointment) %>

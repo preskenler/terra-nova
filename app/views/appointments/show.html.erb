@@ -1,0 +1,46 @@
+<% content_for :title, t("appointments.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("nav.home"), path: root_path },
+      { label: t("nav.my_space"), path: citizen_dashboard_path },
+      { label: t("appointments.title"), path: appointments_path },
+      { label: l(@appointment.starts_at, format: :short) }
+    ]) %>
+
+<div class="mt-4 max-w-2xl">
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <h1 class="text-2xl font-bold"><%= t("appointments.detail_title") %></h1>
+    <%= render Ui::BadgeComponent.new(
+          label: t("appointments.status.#{@appointment.status}"),
+          variant: appointment_badge_variant(@appointment.status)) %>
+  </div>
+
+  <dl class="mt-4 grid grid-cols-2 gap-3 text-sm">
+    <div>
+      <dt class="text-base-content/60"><%= t("appointments.form.date") %></dt>
+      <dd class="font-medium"><%= l(@appointment.starts_at, format: :long) %></dd>
+    </div>
+    <div>
+      <dt class="text-base-content/60"><%= t("appointments.form.agent") %></dt>
+      <dd class="font-medium"><%= @appointment.agent.display_name %></dd>
+    </div>
+    <div>
+      <dt class="text-base-content/60"><%= t("appointments.form.service") %></dt>
+      <dd class="font-medium"><%= @appointment.service&.name || "—" %></dd>
+    </div>
+    <% if @appointment.notes.present? %>
+      <div class="col-span-2">
+        <dt class="text-base-content/60"><%= t("appointments.form.notes") %></dt>
+        <dd class="font-medium"><%= @appointment.notes %></dd>
+      </div>
+    <% end %>
+  </dl>
+
+  <% if %w[requested confirmed].include?(@appointment.status) && !@appointment.start_passed? %>
+    <div class="mt-6">
+      <%= button_to t("appointments.cancel"), cancel_appointment_path(@appointment), method: :patch,
+            class: "btn btn-error btn-sm",
+            data: { turbo_confirm: t("appointments.confirm_cancel") } %>
+    </div>
+  <% end %>
+</div>

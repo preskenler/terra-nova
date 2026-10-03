@@ -1,0 +1,10 @@
+<h1><%= t("appointment_mailer.reminder.heading") %></h1>
+
+<p><%= t("appointment_mailer.reminder.body", date: l(@appointment.starts_at, format: :short)) %></p>
+
+<ul>
+  <li><%= t("appointment_mailer.fields.date") %>: <%= l(@appointment.starts_at, format: :short) %></li>
+  <li><%= t("appointment_mailer.fields.agent") %>: <%= @appointment.agent.email %></li>
+</ul>
+
+<p><%= link_to t("appointment_mailer.view"), appointment_url(@appointment) %></p>

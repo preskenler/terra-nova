@@ -34,6 +34,7 @@ en:
     filter: "Filter"
     reset: "Reset"
     back: "Back"
+    delete: "Delete"
 
   a11y:
     skip_to_content: "Skip to main content"
@@ -116,6 +117,43 @@ en:
     status_change:
       title: "Request %{reference}: status updated"
       body: "The new status is: %{status}."
+    appointment:
+      title: "Appointment confirmed"
+      body: "Your appointment on %{date} has been confirmed."
+    appointment_cancelled:
+      title: "Appointment cancelled"
+      body: "Your appointment on %{date} has been cancelled."
+
+  appointments:
+    title: "My appointments"
+    subtitle: "Book an appointment with a municipal agent and prepare for it."
+    new: "Book an appointment"
+    detail_title: "Appointment"
+    created: "Your appointment has been booked. A confirmation email has been sent."
+    cancelled: "Your appointment has been cancelled."
+    confirm_cancel: "Cancel this appointment?"
+    with: "With %{agent}"
+    empty: "No appointments"
+    empty_hint: "Book an appointment with an agent to get help with your procedures."
+    status:
+      requested: "Requested"
+      confirmed: "Confirmed"
+      cancelled: "Cancelled"
+      completed: "Completed"
+      no_show: "No-show"
+    form:
+      intro: "Choose an agent and a date to see available slots, then confirm."
+      agent: "Agent"
+      date: "Date"
+      service: "Related service (optional)"
+      service_none: "No specific service"
+      notes: "Information to prepare (optional)"
+      notes_hint: "Tell the agent what you need so they can prepare."
+      show_slots: "Show slots"
+      slots_for: "Available slots on %{date} with %{agent}"
+      no_slots: "No slot available"
+      no_slots_hint: "Try another date or another agent."
+      book: "Confirm my appointment"
 
   services:
     title: "Municipal services"
@@ -214,6 +252,7 @@ en:
     nav:
       dashboard: "Dashboard"
       requests: "Citizen requests"
+      appointments: "Appointments"
       demands: "API demands"
       users: "Citizens"
     dashboard:
@@ -312,6 +351,49 @@ en:
         status: "New status"
         comment: "Comment"
         visible_to_citizen: "Visible to the citizen"
+    appointments:
+      title: "Appointments"
+      subtitle: "Your schedule and the appointments booked by citizens."
+      upcoming: "Upcoming"
+      past: "Past"
+      total: "Total"
+      updated: "The appointment has been updated."
+      cancelled: "The appointment has been cancelled and the citizen notified."
+      reschedule: "Reschedule"
+      detail_title: "Appointment"
+      none_upcoming: "No upcoming appointments."
+      none_past: "No past appointments."
+      upcoming_caption: "Upcoming appointments"
+      confirm_cancel: "Cancel this appointment? The citizen will be notified."
+      columns:
+        date: "Date"
+        citizen: "Citizen"
+        service: "Service"
+        status: "Status"
+      fields:
+        duration: "Duration (minutes)"
+        status: "Status"
+    availabilities:
+      title: "My availability"
+      subtitle: "Define your weekly slots and blocked periods."
+      weekly: "Weekly availability"
+      created: "Availability added."
+      destroyed: "Availability removed."
+      add: "Add a slot range"
+      fields:
+        wday: "Day"
+        start_time: "Start"
+        end_time: "End"
+        slot_minutes: "Slot (min)"
+    time_offs:
+      title: "Blocked periods"
+      add: "Add a blocked period"
+      created: "Blocked period added."
+      destroyed: "Blocked period removed."
+      fields:
+        starts_at: "From"
+        ends_at: "To"
+        reason: "Reason"
     users:
       title: "Citizen accounts"
       subtitle: "Search and administer the citizens of Nova Terra."
@@ -420,8 +502,24 @@ en:
       new_status: "New status"
     view_request: "View my request"
 
+  appointment_mailer:
+    confirmation:
+      subject: "Appointment confirmation — %{date}"
+      heading: "Your appointment is confirmed"
+      body: "Your appointment #%{reference} has been booked."
+    reminder:
+      subject: "Reminder: your appointment on %{date}"
+      heading: "Appointment reminder"
+      body: "This is a reminder of your appointment on %{date}."
+    fields:
+      date: "Date"
+      agent: "Agent"
+      service: "Service"
+    view: "View my appointment"
+
   time:
     formats:
+      time: "%H:%M"
       short: "%d/%m/%Y %H:%M"
       long: "%B %d, %Y at %H:%M"
   date:

@@ -21,3 +21,16 @@ end
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 end
+
+# Date helpers for appointment tests.
+module AppointmentTestDates
+  # Returns a Monday at least one day in the future.
+  def next_monday
+    date = Date.current + 7.days
+    date -= 1.day until date.wday == 1
+    date
+  end
+end
+
+ActiveSupport::TestCase.include AppointmentTestDates
+ActionDispatch::IntegrationTest.include AppointmentTestDates

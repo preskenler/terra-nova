@@ -1,0 +1,52 @@
+<% content_for :title, t("agents.appointments.reschedule") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("agents.nav.dashboard"), path: agents_root_path },
+      { label: t("agents.appointments.title"), path: agents_appointments_path },
+      { label: l(@appointment.starts_at, format: :short), path: agents_appointment_path(@appointment) },
+      { label: t("agents.appointments.reschedule") }
+    ]) %>
+
+<h1 class="mt-4 text-2xl font-bold"><%= t("agents.appointments.reschedule") %></h1>
+
+<%= form_with model: @appointment, url: agents_appointment_path(@appointment), method: :patch, class: "mt-4 max-w-xl space-y-4" do |f| %>
+  <% if @appointment.errors.any? %>
+    <div role="alert" class="alert alert-error">
+      <ul class="list-disc pl-5">
+        <% @appointment.errors.full_messages.each do |message| %><li><%= message %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :starts_at, t("appointments.form.date"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.datetime_local_field :starts_at, class: "input input-bordered w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :duration_minutes, t("agents.appointments.fields.duration"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.number_field :duration_minutes, min: 15, step: 15, class: "input input-bordered w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :service_id, t("appointments.form.service"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.collection_select :service_id, Service.publicly_visible.ordered, :id, :name,
+          { include_blank: t("appointments.form.service_none") }, class: "select select-bordered w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :status, t("agents.appointments.fields.status"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.select :status, Appointment::STATUSES.keys.map { |s| [ t("appointments.status.#{s}"), s ] }, {},
+          class: "select select-bordered w-full" %>
+  </div>
+
+  <div>
+    <%= f.label :notes, t("appointments.form.notes"), class: "mb-1 block text-sm font-medium" %>
+    <%= f.text_area :notes, rows: 3, class: "textarea textarea-bordered w-full" %>
+  </div>
+
+  <div class="flex gap-2">
+    <%= f.submit t("actions.save"), class: "btn btn-primary" %>
+    <%= link_to t("actions.back"), agents_appointment_path(@appointment), class: "btn btn-ghost" %>
+  </div>
+<% end %>

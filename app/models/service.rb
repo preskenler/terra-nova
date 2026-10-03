@@ -22,6 +22,7 @@ class Service < ApplicationRecord
   before_validation :ensure_slug
 
   has_many :requests, dependent: :nullify
+  has_many :appointments, dependent: :nullify
 
   # Priority/common services first (F28).
   scope :ordered, -> { order(priority: :desc, created_at: :asc) }
