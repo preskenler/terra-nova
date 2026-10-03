@@ -27,10 +27,14 @@ module Agents
       @user = User.find(params[:id])
       authorize @user
 
-      permitted = [ :locale, :onboarding_completed ]
-      permitted << :role if current_agent.admin?
+      attributes = params.require(:user).permit(:locale, :onboarding_completed)
+      # Role changes are sensitive: only administrators may perform them, and
+      # only for values known to the enum.
+      if current_agent.admin? && User.roles.key?(params.dig(:user, :role))
+        attributes[:role] = params[:user][:role]
+      end
 
-      if @user.update(params.require(:user).permit(*permitted))
+      if @user.update(attributes)
         redirect_to agents_user_path(@user), notice: t("agents.users.updated")
       else
         render :edit, status: :unprocessable_content

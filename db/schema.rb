@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_170000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_180005) do
   create_table "agents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -92,6 +92,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_170000) do
     t.index ["wave_number"], name: "index_demands_on_wave_number"
   end
 
+  create_table "glossary_terms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "slug", null: false
+    t.json "term_translations"
+    t.json "definition_translations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
+  end
+
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "address"
@@ -102,6 +111,65 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_170000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
+  end
+
+  create_table "services", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "slug", null: false
+    t.json "name_translations"
+    t.json "description_translations"
+    t.string "category"
+    t.boolean "priority", default: false, null: false
+    t.boolean "emergency", default: false, null: false
+    t.string "status", default: "active", null: false
+    t.string "address"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.string "contact_email"
+    t.string "contact_phone"
+    t.string "expected_return"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "maintenance_message_translations"
+    t.index ["category"], name: "index_services_on_category"
+    t.index ["emergency"], name: "index_services_on_emergency"
+    t.index ["priority"], name: "index_services_on_priority"
+    t.index ["slug"], name: "index_services_on_slug", unique: true
+    t.index ["status"], name: "index_services_on_status"
+  end
+
+  create_table "transport_disruptions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "transport_line_id", null: false
+    t.json "message_translations"
+    t.string "severity", default: "info", null: false
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transport_line_id"], name: "index_transport_disruptions_on_transport_line_id"
+  end
+
+  create_table "transport_lines", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "slug", null: false
+    t.json "name_translations"
+    t.json "description_translations"
+    t.string "mode", default: "bus", null: false
+    t.string "color"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_transport_lines_on_slug", unique: true
+  end
+
+  create_table "transport_schedules", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "transport_line_id", null: false
+    t.integer "wday", null: false
+    t.string "first_departure"
+    t.string "last_departure"
+    t.integer "frequency_minutes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transport_line_id"], name: "index_transport_schedules_on_transport_line_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -143,4 +211,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_170000) do
 
   add_foreign_key "demands", "agents", column: "assignee_id"
   add_foreign_key "profiles", "users"
+  add_foreign_key "transport_disruptions", "transport_lines"
+  add_foreign_key "transport_schedules", "transport_lines"
 end

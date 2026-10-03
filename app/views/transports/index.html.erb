@@ -1,0 +1,57 @@
+<% content_for :title, t("transports.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("nav.home"), path: root_path },
+      { label: t("transports.title") }
+    ]) %>
+
+<h1 class="mt-4 text-2xl font-bold"><%= t("transports.title") %></h1>
+<p class="mt-1 text-base-content/70"><%= t("transports.subtitle") %></p>
+
+<div class="mt-6 grid gap-4 md:grid-cols-2">
+  <% @lines.each do |line| %>
+    <section class="card border border-base-300 bg-base-100" aria-labelledby="line-<%= line.slug %>">
+      <div class="card-body">
+        <div class="flex items-center gap-2">
+          <span class="inline-block h-4 w-4 rounded-full" style="background-color: <%= line.color.presence || "#666" %>" aria-hidden="true"></span>
+          <h2 id="line-<%= line.slug %>" class="card-title text-base"><%= line.name %></h2>
+          <%= render Ui::BadgeComponent.new(label: t("transports.modes.#{line.mode}"), variant: :neutral) %>
+        </div>
+        <p class="text-sm text-base-content/80"><%= line.description %></p>
+
+        <% disruptions = line.current_disruptions %>
+        <% disruptions.each do |disruption| %>
+          <div role="status" class="alert <%= disruption.severity == "critical" ? "alert-error" : "alert-warning" %> mt-2">
+            <span><%= disruption.message %></span>
+          </div>
+        <% end %>
+
+        <% if line.transport_schedules.any? %>
+          <div class="mt-2 overflow-x-auto">
+            <table class="table table-sm">
+              <caption class="sr-only"><%= t("transports.schedule_caption", line: line.name) %></caption>
+              <thead>
+                <tr>
+                  <th scope="col"><%= t("transports.columns.day") %></th>
+                  <th scope="col"><%= t("transports.columns.first") %></th>
+                  <th scope="col"><%= t("transports.columns.last") %></th>
+                  <th scope="col"><%= t("transports.columns.frequency") %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% line.transport_schedules.order(:wday).each do |schedule| %>
+                  <tr>
+                    <th scope="row"><%= t("transports.weekdays.#{schedule.wday}") %></th>
+                    <td><%= schedule.first_departure %></td>
+                    <td><%= schedule.last_departure %></td>
+                    <td><%= t("transports.every", minutes: schedule.frequency_minutes) if schedule.frequency_minutes %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+</div>

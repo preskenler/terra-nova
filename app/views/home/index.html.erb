@@ -7,14 +7,31 @@
 
     <div class="mt-6 flex flex-wrap gap-2">
       <% if user_signed_in? %>
-        <span class="text-base-content/80"><%= t("home.hero.welcome", name: current_user.display_name) %></span>
+        <%= link_to t("nav.my_space"), citizen_dashboard_path, class: "btn btn-primary" %>
       <% else %>
         <%= link_to t("nav.sign_up"), new_user_registration_path, class: "btn btn-primary" %>
         <%= link_to t("nav.sign_in"), new_user_session_path, class: "btn btn-ghost" %>
       <% end %>
+      <%= link_to t("nav.services"), services_path, class: "btn btn-ghost" %>
     </div>
   </div>
 </section>
+
+<% if @emergency_services.any? %>
+  <section aria-labelledby="home-emergency-heading" class="mt-6 rounded-box border-2 border-error bg-base-100 p-4">
+    <h2 id="home-emergency-heading" class="text-lg font-bold"><%= t("services.emergency.title") %></h2>
+    <ul class="mt-2 flex flex-wrap gap-4">
+      <% @emergency_services.each do |service| %>
+        <li>
+          <span class="font-semibold"><%= service.name %></span>
+          <% if service.contact_phone.present? %>
+            — <a class="link font-mono" href="tel:<%= service.contact_phone.gsub(/[^0-9+]/, "") %>"><%= service.contact_phone %></a>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
 
 <section class="mt-6 grid gap-4 md:grid-cols-3" aria-label="<%= t("home.highlights.title") %>">
   <% %i[discover requests alerts].each do |key| %>
@@ -26,3 +43,18 @@
     </article>
   <% end %>
 </section>
+
+<% priority_services = @priority_services %>
+<% if priority_services.any? %>
+  <section class="mt-8" aria-labelledby="home-services-heading">
+    <div class="flex items-center justify-between">
+      <h2 id="home-services-heading" class="text-xl font-bold"><%= t("home.services.title") %></h2>
+      <%= link_to t("home.services.see_all"), services_path, class: "link text-sm" %>
+    </div>
+    <div class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <% priority_services.each do |service| %>
+        <%= render "services/card", service: service %>
+      <% end %>
+    </div>
+  </section>
+<% end %>

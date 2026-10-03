@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   }
   devise_for :agents, path: "agents", controllers: { sessions: "agents/sessions" }
 
+  # Public city information
+  resources :services, only: [ :index, :show ]
+  resources :transports, only: [ :index ]
+  get "glossary", to: "glossary#index", as: :glossary
+
   # Citizen space
   authenticate :user do
     get "espace", to: "dashboard#show", as: :citizen_dashboard

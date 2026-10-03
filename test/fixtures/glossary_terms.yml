@@ -1,0 +1,9 @@
+signalement:
+  slug: signalement
+  term_translations: { "fr": "Signalement", "en": "Report" }
+  definition_translations: { "fr": "Prévenir la ville d'un problème.", "en": "Reporting a problem to the city." }
+
+demarche:
+  slug: demarche
+  term_translations: { "fr": "Démarche", "en": "Procedure" }
+  definition_translations: { "fr": "Étapes pour obtenir une prestation.", "en": "Steps to obtain a service." }

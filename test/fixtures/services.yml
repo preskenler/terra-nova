@@ -1,0 +1,46 @@
+etat_civil:
+  slug: etat-civil
+  name_translations: { "fr": "État civil", "en": "Civil registry" }
+  description_translations: { "fr": "Actes d'état civil.", "en": "Civil status records." }
+  category: etat_civil
+  priority: true
+  status: active
+  address: "Hôtel de Ville"
+  latitude: 48.8566
+  longitude: 2.3522
+  contact_phone: "01 23 45 67 89"
+
+health:
+  slug: sante
+  name_translations: { "fr": "Santé", "en": "Health" }
+  description_translations: { "fr": "Centre de santé.", "en": "Health centre." }
+  category: sante
+  priority: true
+  status: active
+  emergency: false
+
+water_maintenance:
+  slug: eau
+  name_translations: { "fr": "Eau", "en": "Water" }
+  description_translations: { "fr": "Eau et assainissement.", "en": "Water and sanitation." }
+  category: environnement
+  priority: false
+  status: maintenance
+
+closed:
+  slug: ferme
+  name_translations: { "fr": "Service fermé", "en": "Closed service" }
+  description_translations: { "fr": "Indisponible.", "en": "Unavailable." }
+  category: autres
+  priority: false
+  status: inactive
+
+emergency:
+  slug: urgences
+  name_translations: { "fr": "Urgences", "en": "Emergency" }
+  description_translations: { "fr": "Numéros d'urgence.", "en": "Emergency numbers." }
+  category: urgence
+  priority: true
+  emergency: true
+  status: active
+  contact_phone: "112"

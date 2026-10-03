@@ -1,0 +1,15 @@
+tram:
+  slug: tram-t1
+  name_translations: { "fr": "Tram T1", "en": "Tram T1" }
+  description_translations: { "fr": "Ligne de tram.", "en": "Tram line." }
+  mode: tram
+  color: "#0055a4"
+  active: true
+
+bus:
+  slug: bus-b2
+  name_translations: { "fr": "Bus B2", "en": "Bus B2" }
+  description_translations: { "fr": "Ligne de bus.", "en": "Bus line." }
+  mode: bus
+  color: "#00a651"
+  active: true

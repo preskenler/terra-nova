@@ -9,6 +9,9 @@ fr:
 
   nav:
     home: "Accueil"
+    services: "Services"
+    transports: "Transports"
+    glossary: "Glossaire"
     my_space: "Mon espace"
     profile: "Mon profil"
     sign_in: "Se connecter"
@@ -47,6 +50,78 @@ fr:
   errors:
     not_authorized: "Vous n'êtes pas autorisé à effectuer cette action."
 
+  services:
+    title: "Services municipaux"
+    subtitle: "Trouvez le service qui correspond à votre besoin et accédez aux informations utiles pour chacun."
+    all: "Toutes les catégories"
+    all_services: "Tous les services"
+    search: "Rechercher"
+    search_placeholder: "Nom du service ou mot-clé…"
+    category: "Catégorie"
+    empty: "Aucun service ne correspond à votre recherche"
+    empty_hint: "Essayez un autre mot-clé ou parcourez tous les services."
+    related: "Services liés"
+    contact:
+      title: "Contact"
+    location:
+      title: "Localisation"
+    map:
+      label: "Carte indiquant l'emplacement de %{name}"
+      open: "Ouvrir dans OpenStreetMap"
+    priority:
+      title: "Services prioritaires"
+      badge: "Prioritaire"
+    status:
+      active: "Ouvert"
+      maintenance: "En maintenance"
+      inactive: "Fermé"
+    maintenance:
+      title: "Service actuellement en maintenance"
+      default_message: "Ce service est temporairement indisponible."
+      expected_return: "Retour prévu : %{time}."
+    emergency:
+      title: "Services d'urgence"
+      hint: "En cas de danger immédiat, appelez le 112."
+    categories:
+      etat_civil: "État civil"
+      urbanisme: "Urbanisme"
+      sante: "Santé"
+      urgence: "Urgences"
+      dechets: "Déchets"
+      transports: "Transports"
+      social: "Action sociale"
+      loisirs: "Culture et loisirs"
+      environnement: "Environnement"
+      autres: "Autres"
+
+  transports:
+    title: "Transports municipaux"
+    subtitle: "Horaires, lignes et perturbations des bus, tram et navettes de la ville."
+    schedule_caption: "Horaires de %{line}"
+    every: "toutes les %{minutes} min"
+    columns:
+      day: "Jour"
+      first: "Premier"
+      last: "Dernier"
+      frequency: "Fréquence"
+    modes:
+      bus: "Bus"
+      tram: "Tram"
+      metro: "Métro"
+      navette: "Navette"
+    weekdays:
+      "0": "Dimanche"
+      "1": "Lundi"
+      "2": "Mardi"
+      "3": "Mercredi"
+      "4": "Jeudi"
+      "5": "Vendredi"
+      "6": "Samedi"
+
+  glossary:
+    title: "Glossaire"
+    intro: "Quelques mots utilisés sur la plateforme, expliqués simplement."
+
   home:
     hero:
       title: "Bienvenue à Nova Terra"
@@ -63,6 +138,9 @@ fr:
       alerts:
         title: "Rester informé"
         body: "Consultez les annonces officielles et les alertes urgentes."
+    services:
+      title: "Services prioritaires"
+      see_all: "Voir tous les services"
 
   agents:
     title: "Nova Terra — Espace agent"

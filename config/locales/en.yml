@@ -9,6 +9,9 @@ en:
 
   nav:
     home: "Home"
+    services: "Services"
+    transports: "Transport"
+    glossary: "Glossary"
     my_space: "My space"
     profile: "My profile"
     sign_in: "Sign in"
@@ -47,6 +50,78 @@ en:
   errors:
     not_authorized: "You are not allowed to perform this action."
 
+  services:
+    title: "Municipal services"
+    subtitle: "Find the service that matches your need and access the useful information for each one."
+    all: "All categories"
+    all_services: "All services"
+    search: "Search"
+    search_placeholder: "Service name or keyword…"
+    category: "Category"
+    empty: "No service matches your search"
+    empty_hint: "Try another keyword or browse all services."
+    related: "Related services"
+    contact:
+      title: "Contact"
+    location:
+      title: "Location"
+    map:
+      label: "Map showing the location of %{name}"
+      open: "Open in OpenStreetMap"
+    priority:
+      title: "Priority services"
+      badge: "Priority"
+    status:
+      active: "Open"
+      maintenance: "Under maintenance"
+      inactive: "Closed"
+    maintenance:
+      title: "Service currently under maintenance"
+      default_message: "This service is temporarily unavailable."
+      expected_return: "Expected return: %{time}."
+    emergency:
+      title: "Emergency services"
+      hint: "In immediate danger, call 112."
+    categories:
+      etat_civil: "Civil registry"
+      urbanisme: "Urban planning"
+      sante: "Health"
+      urgence: "Emergency"
+      dechets: "Waste"
+      transports: "Transport"
+      social: "Social services"
+      loisirs: "Culture and leisure"
+      environnement: "Environment"
+      autres: "Other"
+
+  transports:
+    title: "Municipal transport"
+    subtitle: "Timetables, routes and disruptions for the city's bus, tram and shuttle lines."
+    schedule_caption: "Timetables for %{line}"
+    every: "every %{minutes} min"
+    columns:
+      day: "Day"
+      first: "First"
+      last: "Last"
+      frequency: "Frequency"
+    modes:
+      bus: "Bus"
+      tram: "Tram"
+      metro: "Metro"
+      navette: "Shuttle"
+    weekdays:
+      "0": "Sunday"
+      "1": "Monday"
+      "2": "Tuesday"
+      "3": "Wednesday"
+      "4": "Thursday"
+      "5": "Friday"
+      "6": "Saturday"
+
+  glossary:
+    title: "Glossary"
+    intro: "A few words used on the platform, explained simply."
+
   home:
     hero:
       title: "Welcome to Nova Terra"
@@ -63,6 +138,9 @@ en:
       alerts:
         title: "Stay informed"
         body: "Read official announcements and urgent alerts."
+    services:
+      title: "Priority services"
+      see_all: "See all services"
 
   agents:
     title: "Nova Terra — Agent workspace"

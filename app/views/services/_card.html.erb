@@ -1,0 +1,23 @@
+<article class="card border border-base-300 bg-base-100">
+  <div class="card-body gap-2">
+    <div class="flex flex-wrap items-start justify-between gap-2">
+      <h3 class="card-title text-base">
+        <%= link_to service.name, service_path(service), class: "link link-hover" %>
+      </h3>
+      <div class="flex flex-wrap gap-1">
+        <% if service.priority? %>
+          <%= render Ui::BadgeComponent.new(label: t("services.priority.badge"), variant: :primary) %>
+        <% end %>
+        <% unless service.active? %>
+          <%= render Ui::BadgeComponent.new(
+                label: t("services.status.#{service.status}"),
+                variant: service.maintenance? ? :warning : :neutral) %>
+        <% end %>
+      </div>
+    </div>
+    <p class="text-sm text-base-content/80"><%= truncate(service.description.to_s, length: 130) %></p>
+    <% if service.address.present? %>
+      <p class="text-xs text-base-content/60"><%= service.address %></p>
+    <% end %>
+  </div>
+</article>

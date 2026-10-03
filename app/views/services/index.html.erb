@@ -1,0 +1,81 @@
+<% content_for :title, t("services.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("nav.home"), path: root_path },
+      { label: t("services.title") }
+    ]) %>
+
+<div class="mt-4">
+  <h1 class="text-2xl font-bold"><%= t("services.title") %></h1>
+  <p class="mt-1 text-base-content/70"><%= t("services.subtitle") %></p>
+</div>
+
+<%= form_with url: services_path, method: :get, class: "mt-4 flex flex-wrap items-end gap-3" do %>
+  <div>
+    <label for="service-q" class="mb-1 block text-sm font-medium"><%= t("services.search") %></label>
+    <%= text_field_tag :q, @query, id: "service-q", class: "input input-bordered input-sm",
+          placeholder: t("services.search_placeholder") %>
+  </div>
+  <div>
+    <label for="service-category" class="mb-1 block text-sm font-medium"><%= t("services.category") %></label>
+    <%= select_tag :category,
+          options_for_select(
+            [ [ t("services.all"), "" ] ] +
+            @categories.map { |c| [ t("services.categories.#{c}"), c ] },
+            @category
+          ),
+          id: "service-category", class: "select select-bordered select-sm" %>
+  </div>
+  <%= submit_tag t("actions.filter"), class: "btn btn-primary btn-sm" %>
+  <%= link_to t("actions.reset"), services_path, class: "btn btn-ghost btn-sm" %>
+<% end %>
+
+<% if @emergency_services.any? %>
+  <section aria-labelledby="emergency-heading" class="mt-6 rounded-box border-2 border-error bg-base-100 p-4">
+    <h2 id="emergency-heading" class="text-lg font-bold"><%= t("services.emergency.title") %></h2>
+    <p class="text-sm text-base-content/80"><%= t("services.emergency.hint") %></p>
+    <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+      <% @emergency_services.each do |service| %>
+        <li class="rounded-box border border-base-300 p-3">
+          <p class="font-semibold"><%= link_to service.name, service_path(service), class: "link" %></p>
+          <% if service.contact_phone.present? %>
+            <p>
+              <a class="link font-mono text-lg" href="tel:<%= service.contact_phone.gsub(/[^0-9+]/, "") %>">
+                <%= service.contact_phone %>
+              </a>
+            </p>
+          <% end %>
+          <p class="text-sm text-base-content/70"><%= service.address %></p>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<% if @query.blank? && @category.blank? && @priority_services.any? %>
+  <section class="mt-6" aria-labelledby="priority-heading">
+    <h2 id="priority-heading" class="text-lg font-bold"><%= t("services.priority.title") %></h2>
+    <div class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <% @priority_services.each do |service| %>
+        <%= render "services/card", service: service %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<section class="mt-6" aria-labelledby="all-services-heading">
+  <h2 id="all-services-heading" class="text-lg font-bold"><%= t("services.all_services") %></h2>
+  <% if @services.any? %>
+    <div class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <% @services.each do |service| %>
+        <%= render "services/card", service: service %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="mt-3">
+      <%= render Ui::EmptyStateComponent.new(
+            title: t("services.empty"),
+            description: t("services.empty_hint")) %>
+    </div>
+  <% end %>
+</section>
