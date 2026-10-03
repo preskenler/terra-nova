@@ -1,0 +1,692 @@
+# Nova Terra — Team Report
+
+Municipal platform for the city of Terra Nova, built with **Ruby on Rails 8.1**,
+**Hotwire** (Turbo + Stimulus) and **ViewComponents**.
+
+This document answers the jury's declaration form for every demand currently
+broadcast by the Terra Nova API: what the team built, where to test it, and how to
+verify it.
+
+---
+
+## How to run and where to test
+
+Start the application:
+
+```sh
+docker compose up -d mysql
+bin/rails db:prepare db:seed
+bin/rails server
+```
+
+Then open <http://localhost:3000>.
+
+Demo accounts (all passwords are `password123`):
+
+| Role | Sign-in URL | Credentials |
+|---|---|---|
+| Citizen | `/users/sign_in` | `citoyen@novaterra.fr` |
+| Agent | `/agents/sign_in` | `agent@novaterra.fr` |
+| Agent admin | `/agents/sign_in` | `admin@novaterra.fr` |
+| Citizen admin | `/users/sign_in` | `admin@novaterra.fr` |
+
+The external Terra Nova API key must be configured (`WEBCUP_API_KEY`) for the agent
+demand feed (`/agents/demands`) to populate.
+
+> URLs below are written as paths relative to the application root. Prepend the
+> deployed host to obtain a full URL (e.g. `https://example.com/requests/new`).
+
+---
+
+# Implemented demands
+
+## D01 · Easy · 250 XP — Create an account
+
+**What we built.** A complete citizen sign-up flow with Devise
+(`:database_authenticatable`, `:registerable`, `:validatable`): unique email,
+password validation (minimum 8 characters), automatic `Profile` creation, then a
+redirect to onboarding and finally to the personal space. Forms are labelled,
+translated (FR/EN) and accessible, with clear error messages.
+
+**Where to test.** `/users/sign_up`
+
+**How to verify.**
+1. Open `/users/sign_up` and submit an email that already exists → a readable error is shown.
+2. Create a valid account (email + password) → you are redirected to `/onboarding`.
+3. Complete onboarding (profile, language, accessibility) → you land on `/espace`.
+4. Sign out, then sign back in with the same credentials → you return to your personal space.
+
+---
+
+## D03 · Easy · 250 XP — Sign in to a personal space
+
+**What we built.** Devise login for citizens; the personal space `/espace` aggregates
+the profile and activity (requests, appointments, unread notifications). The session
+persists across visits.
+
+**Where to test.** `/users/sign_in` → `/espace`
+
+**How to verify.** Sign in with `citoyen@novaterra.fr` / `password123` → you are
+redirected to `/espace`, which shows your information and activity.
+
+---
+
+## D04 · Easy · 250 XP — Contact the administration
+
+**What we built.** A public contact form for questions, complaints, suggestions or
+data concerns. It works signed-in or anonymously (an email is required when anonymous),
+generates a tracked reference (`MSG-…`) and confirms the submission. Agents handle the
+messages in their workspace.
+
+**Where to test.** `/feedback/new` → agent side: `/agents/feedbacks`
+
+**How to verify.** 1) Submit a message → a confirmation with a reference is displayed.
+2) Sign in as an agent → `/agents/feedbacks` lists the message. 3) Change its status →
+the linked citizen is notified.
+
+---
+
+## D05 · Easy · 250 XP — Present municipal services
+
+**What we built.** A services catalog with categories, descriptions, contacts and
+priority highlighting; 12 services are seeded.
+
+**Where to test.** `/services`
+
+**How to verify.** Browse the list, search “civil”, open a service → description,
+contact details and a map are shown.
+
+---
+
+## D06 · Easy · 250 XP — Find and read announcements
+
+**What we built.** A public announcements index and detail pages; only published and
+active announcements are visible.
+
+**Where to test.** `/announcements`
+
+**How to verify.** The seeded announcements are listed; open one to read the full body.
+
+---
+
+## D07 · Medium · 500 XP — Clear homepage
+
+**What we built.** A homepage with a hero section, active alerts, emergency contacts,
+priority services and the latest news, giving direct access to the main services.
+
+**Where to test.** `/`
+
+**How to verify.** The priority services are surfaced first and a prominent link leads
+to `/services`.
+
+---
+
+## D08 · Medium · 500 XP — Distinguish citizen / agent / admin
+
+**What we built.** Two Devise scopes (`User` and `Agent`) with `role` enums
+(`citizen` / `agent` / `admin`) and a separate `/agents` workspace with its own
+navigation and sign-in.
+
+**Where to test.** `/agents` versus `/`
+
+**How to verify.** The agent workspace is visually and functionally distinct from the
+citizen space and requires an agent account.
+
+---
+
+## D09 · Medium · 500 XP — Role-based access
+
+**What we built.** Pundit policies plus route constraints; citizens cannot reach the
+agent workspace or perform sensitive actions.
+
+**Where to test.** Sign in as a citizen, then open `/agents/requests`
+
+**How to verify.** You are redirected to the agent sign-in; agent-only pages are
+inaccessible to citizens.
+
+---
+
+## D11 · Medium · 540 XP — Track request status and steps
+
+**What we built.** A citizen request list with status, and a per-request event timeline
+showing the steps already completed.
+
+**Where to test.** `/requests` → open a request
+
+**How to verify.** The status badge and the “Progress” timeline of events are displayed.
+
+---
+
+## D12 · Medium · 540 XP — First-login onboarding
+
+**What we built.** `/onboarding` guides the citizen through profile completion, language
+selection and accessibility settings. First-time citizens are redirected there
+automatically and land in `/espace` when finished.
+
+**Where to test.** Create a new account → `/onboarding`
+
+**How to verify.** Complete the guided steps → onboarding is marked complete and you
+reach your personal space.
+
+---
+
+## D13 · Easy · 310 XP — Understand difficult words
+
+**What we built.** A plain-language glossary explaining terms used across the platform.
+
+**Where to test.** `/glossary`
+
+**How to verify.** Seeded terms (“Signalement”, “Démarche”, …) are explained simply.
+
+---
+
+## D14 · Medium · 540 XP — Choose another language
+
+**What we built.** A French/English interface with a header switcher and a profile
+setting; the choice is persisted to the account.
+
+**Where to test.** Header language selector, or `/profile/edit`
+
+**How to verify.** Switch to English → navigation and pages update; reload the page →
+the choice persists.
+
+---
+
+## D15 · Easy · 270 XP — Know where you are
+
+**What we built.** Accessible breadcrumb navigation (with an “aria-label”) on all key
+pages, showing the path back to the previous levels.
+
+**Where to test.** Any inner page, e.g. `/services/etat-civil`
+
+**How to verify.** The breadcrumb shows Home / Services / page and links back.
+
+---
+
+## D16 · Easy · 270 XP — Confirmation after sending
+
+**What we built.** Submitting a request shows a confirmation message with its reference,
+opens the request page (which includes the reference and a timeline) and queues a
+confirmation email.
+
+**Where to test.** `/requests/new` → submit
+
+**How to verify.** 1) You are redirected to the new request with a success message.
+2) The request appears in `/requests`. 3) The email is queued (asserted by the test
+suite; configure SMTP or a preview tool such as Letter Opener to read it).
+
+---
+
+## D17 · Easy · 270 XP — Count of pending requests
+
+**What we built.** The agent dashboard and the request list display how many requests
+still need action.
+
+**Where to test.** `/agents` and `/agents/requests`
+
+**How to verify.** “Pending requests” counters and per-status statistics are visible.
+
+---
+
+## D18 · Difficult · 840 XP — Broadcast a general message
+
+**What we built.** Agents publish announcements (severity, audience, publication window);
+published announcements appear on the homepage and the news page.
+
+**Where to test.** `/agents/announcements` → New
+
+**How to verify.** Create an announcement → it appears at `/` and `/announcements`.
+
+---
+
+## D19 · Difficult · 750 XP — Agent workspace reading the Terra Nova API
+
+**What we built.** A server-side client for the Webcup API (authenticated with the
+`X-Webcup-Api-Key` header), idempotent synchronisation keyed on `request_code`, polling
+roughly every 30 seconds via Solid Queue, and a live console with session status,
+filters and a triage board (`unseen → reviewing → planned → in progress → done/ignored`).
+
+**Where to test.** `/agents/demands`
+
+**How to verify.** 1) The feed lists the current demands with XP and difficulty.
+2) “Refresh now” updates it; it also auto-refreshes every 30 seconds. 3) Change a
+demand’s triage status → it persists.
+
+---
+
+## D20 · Difficult · 930 XP — Usable by everyone (accessibility)
+
+**What we built.** A WCAG 2.2 AA accessibility program: semantic landmarks, skip-to-content
+link, visible keyboard focus, labelled forms with error summaries, high-contrast and
+large-text modes, reduced-motion support and live regions for alerts.
+
+**Where to test.** `/accessibility` and the header “Accessibility” menu
+
+**How to verify.** Toggle high contrast / large text; navigate with the keyboard only;
+the accessibility statement lists every supported feature.
+
+---
+
+## F21 · Medium · 520 XP — Screen-reader usability
+
+**What we built.** Semantic HTML, correct `lang` attribute, landmark roles, labelled
+controls, `aria-current` breadcrumbs and `role="alert"` / live regions for alerts.
+
+**Where to test.** `/accessibility` and any form (e.g. `/feedback/new`)
+
+**How to verify.** With VoiceOver/NVDA, headings, labels and errors are announced
+correctly, and the skip link jumps to the main content.
+
+---
+
+## F22 · Easy · 250 XP — Agent request queue with states
+
+**What we built.** An agent list of citizen requests with status badges, filters and
+pending counts, so agents can quickly see what still needs action.
+
+**Where to test.** `/agents/requests`
+
+**How to verify.** Filter by status and open a request to see its state and details.
+
+---
+
+## F23 · Medium · 520 XP — Contrast / readability
+
+**What we built.** A high-contrast mode (persisted) and colour choices that never rely
+on colour alone to convey meaning.
+
+**Where to test.** Header “Accessibility” menu
+
+**How to verify.** Enable “High contrast” → the interface switches to high-contrast
+colours and the choice persists.
+
+---
+
+## F24 · Easy · 260 XP — Larger text
+
+**What we built.** A large-text mode that scales the root font size; layouts reflow
+without breaking.
+
+**Where to test.** Header “Accessibility” menu
+
+**How to verify.** Enable “Large text” → text grows and the layout remains usable; the
+choice persists.
+
+---
+
+## F25 · Medium · 540 XP — Report a broken streetlight with location
+
+**What we built.** A report form with an optional service, a description, location text
+and an interactive map picker to place the exact spot.
+
+**Where to test.** `/requests/new`
+
+**How to verify.** Fill in the problem, click the map to place the marker (coordinates
+fill the form), submit → the request is created and tracked.
+
+---
+
+## F26 · Easy · 270 XP — History of past requests
+
+**What we built.** A personal history of requests with their status and dates.
+
+**Where to test.** `/requests`
+
+**How to verify.** All previously created requests are listed and can be opened.
+
+---
+
+## F27 · Medium · 540 XP — Multilingual service content
+
+**What we built.** Service names and descriptions are stored per locale and follow the
+selected interface language.
+
+**Where to test.** `/services` after switching the interface to English
+
+**How to verify.** Service names/descriptions display in English; switch back to French.
+
+---
+
+## F28 · Easy · 270 XP — Highlight priority services
+
+**What we built.** A `priority` flag on services, surfaced in a dedicated “Priority
+services” section on the homepage and catalog.
+
+**Where to test.** `/` and `/services`
+
+**How to verify.** Priority services appear in a dedicated section with a “Priority” badge.
+
+---
+
+## F29 · Difficult · 840 XP — Neighbourhood flood alert
+
+**What we built.** Alerts with a kind (flood / heatwave / security / other), a severity,
+an area and a schedule; they are shown as prominent banners and announced to screen
+readers.
+
+**Where to test.** `/` and `/alerts`
+
+**How to verify.** The seeded “flood — south district” alert is displayed prominently on
+the homepage.
+
+---
+
+## F30 · Medium · 560 XP — Notify on important announcement
+
+**What we built.** Publishing an announcement notifies every citizen in-app (and queues
+an email), so nobody misses important information.
+
+**Where to test.** `/agents/announcements` → New; then `/notifications`
+
+**How to verify.** After publishing, the notification appears in the citizen’s
+notification list.
+
+---
+
+## F31 · Difficult · 840 XP — Heatwave guidance for vulnerable people
+
+**What we built.** Alerts carry a target segment (e.g. “vulnerable people”) and
+recommendations, and are displayed as a distinct warning banner.
+
+**Where to test.** `/alerts`
+
+**How to verify.** The seeded heatwave alert with its recommendations is visible.
+
+---
+
+## F32 · Easy · 280 XP — Find health services quickly
+
+**What we built.** Search and category filters, a dedicated “Health” service and an
+emergency panel so urgent needs are found immediately.
+
+**Where to test.** `/services?q=santé`
+
+**How to verify.** The Health service is returned, and the emergency panel is displayed
+alongside the results.
+
+---
+
+## F33 · Easy · 290 XP — Delete my account safely
+
+**What we built.** Account deletion protected by password confirmation, so an
+unauthorized person with an open session cannot delete the account.
+
+**Where to test.** `/account`
+
+**How to verify.** 1) Enter a wrong password → an error is shown and the account is
+kept. 2) Enter the correct password → the account is deleted and you are redirected
+home. (Use a throwaway account.)
+
+---
+
+## F34 · Medium · 580 XP — Agents administer citizen accounts
+
+**What we built.** Agent management of citizen accounts: list, search, view, edit
+(language, onboarding), role change (administrators only) and account unlock.
+
+**Where to test.** `/agents/users`
+
+**How to verify.** Search a citizen and open the record; edit fields; an administrator
+can change the role and unlock a locked account.
+
+---
+
+## F35 · Easy · 290 XP — Onboarding guidance
+
+**What we built.** The onboarding page guides the new inhabitant step by step through
+profile completion, language, accessibility and a short tour.
+
+**Where to test.** `/onboarding` (with a new account)
+
+**How to verify.** The four guided steps are presented clearly with short hints.
+
+---
+
+## F36 · Medium · 580 XP — Transport schedules and info
+
+**What we built.** Transport lines with their mode, per-weekday schedules and active
+disruptions, all in one screen.
+
+**Where to test.** `/transports`
+
+**How to verify.** Seeded lines show their timetables, and an active disruption is
+flagged on one line.
+
+---
+
+## F37 · Difficult · 900 XP — Brute-force protection
+
+**What we built.** `rack-attack` throttling on sign-in (per IP and per account),
+password resets and sensitive endpoints; Devise `:lockable` for account lockout; agents
+can unlock accounts.
+
+**Where to test.** Repeated failed sign-ins at `/users/sign_in`
+
+**How to verify.** After several rapid attempts you receive **HTTP 429 (Too Many
+Requests)**; sustained failures lock the account, which an agent can unlock at
+`/agents/users/:id`.
+
+---
+
+## F38 · Medium · 600 XP — Service under maintenance
+
+**What we built.** Services have a status (`active` / `maintenance` / `inactive`).
+A service under maintenance shows a banner with a message and expected return; inactive
+services are hidden from the public catalog.
+
+**Where to test.** `/services/eau-assainissement`
+
+**How to verify.** A maintenance banner with the message and the expected return is
+displayed.
+
+---
+
+## F39 · Medium · 600 XP — Book an appointment
+
+**What we built.** Citizens choose an agent and a date, see computed available slots and
+confirm; booking sends a confirmation and an in-app notification. Cancellation is
+supported, and agents manage their schedule and availability.
+
+**Where to test.** `/appointments/new`
+
+**How to verify.** 1) Pick an agent and a date → available slots appear. 2) Choose a slot
+→ confirm → the appointment page shows a success message. 3) The appointment appears in
+`/appointments`.
+
+---
+
+## F40 · Easy · 300 XP — Reminder before an appointment
+
+**What we built.** `Appointments::ReminderJob` emails confirmed appointments roughly 24
+hours ahead; it is scheduled through Solid Queue recurring tasks.
+
+**Where to test.** Create an appointment ~24 hours ahead, then run
+`bin/rails runner 'Appointments::ReminderJob.new.perform'`
+
+**How to verify.** A reminder is queued/sent exactly once (never twice); this is covered
+by the test suite.
+
+---
+
+## F41 · Medium · 620 XP — Keyboard-only navigation
+
+**What we built.** A skip-to-content link, logical focus order, a visible focus
+indicator and no keyboard traps.
+
+**Where to test.** Any page, using only Tab/Shift+Tab
+
+**How to verify.** You can reach the header, navigation, forms and content, and the
+focus indicator is always visible.
+
+---
+
+## F42 · Difficult · 930 XP — Accessible forms and errors
+
+**What we built.** Programmatic labels, an error summary with links, and
+`aria-describedby` / `aria-invalid` wiring. Authentication fields allow pasting and
+password managers.
+
+**Where to test.** `/requests/new` → submit the empty form
+
+**How to verify.** An error summary appears; fields are marked invalid and associated
+with their messages for assistive technologies.
+
+---
+
+## F43 · Easy · 310 XP — Colour blindness
+
+**What we built.** Status is never conveyed by colour alone — every coloured badge
+carries a readable label — and a high-contrast mode is available.
+
+**Where to test.** `/services`, `/requests`, `/alerts`
+
+**How to verify.** Every coloured badge displays a text label.
+
+---
+
+## F44 · Medium · 620 XP — Enlarge without breaking layout
+
+**What we built.** Responsive layouts that reflow, plus a large-text mode; content stays
+usable at narrow widths and high zoom.
+
+**Where to test.** Browser zoom at 200–400% on `/services`
+
+**How to verify.** Content reflows into a single column without overlap or loss of
+information.
+
+---
+
+## F45 · Difficult · 960 XP — Locate physical services
+
+**What we built.** A Leaflet/OpenStreetMap map on service pages with the address and an
+“Open in OpenStreetMap” link, plus a text alternative for assistive technologies.
+
+**Where to test.** `/services/etat-civil`
+
+**How to verify.** A map with a marker and the address is displayed; the OpenStreetMap
+link opens the location.
+
+---
+
+## F46 · Easy · 320 XP — Hospitals and emergency services
+
+**What we built.** Emergency services (call 112) are surfaced in a dedicated panel on
+the homepage and the catalog, with telephone number and address.
+
+**Where to test.** `/services` (emergency panel) and `/services/urgences`
+
+**How to verify.** The emergency panel and the “Emergency services” detail page display
+the number and the location.
+
+---
+
+## F47 · Difficult · 960 XP — Justify and trace actions
+
+**What we built.** PaperTrail records changes on the key models with the acting user and
+a timestamp, and an agent-facing audit log page makes it consultable over time.
+
+**Where to test.** `/agents/audit_logs`
+
+**How to verify.** Past changes are listed with who did them and when.
+
+---
+
+## F48 · Medium · 640 XP — Who modified what
+
+**What we built.** Each audit entry shows the actor (`Agent:` / `User:`) and an
+attribute-level before/after diff of the change.
+
+**Where to test.** As an agent, change a request status → `/agents/audit_logs` → open the
+entry
+
+**How to verify.** The diff shows the changed field with its before and after values.
+
+---
+
+## F49 · Easy · 330 XP — Notify when my request changes state
+
+**What we built.** When an agent changes the status of a request, an in-app notification
+is created (and a status email is queued).
+
+**Where to test.** As an agent, update a request at `/agents/requests/:reference`; then
+visit `/notifications`
+
+**How to verify.** The citizen receives a notification describing the new status.
+
+---
+
+## F50 · Difficult · 990 XP — Activity dashboard
+
+**What we built.** An agent dashboard showing platform activity (citizens, requests,
+pending requests, upcoming appointments) alongside the Terra Nova API feed statistics
+and recent items.
+
+**Where to test.** `/agents`
+
+**How to verify.** The statistics cards and the recent-activity lists are displayed.
+
+---
+
+## F51 · Difficult · 990 XP — Data-usage concerns, traceable
+
+**What we built.** A transparency page explaining how data is used and citizens’ rights,
+a dedicated “data concern” contact kind, and a tracked reference so the citizen knows
+the contribution was received. Agents handle these messages in their workspace.
+
+**Where to test.** `/transparency` → “Report a data concern”
+
+**How to verify.** Submit a concern → a confirmation with a reference is displayed; the
+message appears in `/agents/feedbacks`.
+
+---
+
+## F52 · Medium · 660 XP — Support an existing request
+
+**What we built.** Citizens can co-sign another citizen’s request; the support count is
+tracked, displayed, and can be withdrawn.
+
+**Where to test.** Open a request (e.g. from `/requests`) → “Support this request”
+
+**How to verify.** Clicking records your support and the counter increases; you can
+withdraw your support.
+
+---
+
+# Newly released demands — not yet implemented
+
+These demands appeared in later API waves, after the initial build. They are listed here
+for transparency; they are **not implemented yet** and therefore have no test URL.
+
+- **D02 · Difficult · 1020 XP** — Simplify access to the platform (single sign-on).
+  *Not yet implemented.*
+- **F53 · Difficult · 1020 XP** — Stronger account security with an additional
+  verification step (two-factor authentication). *Not yet implemented.*
+- **F54 · Medium · 680 XP** — Be alerted when someone signs in to my account from a new
+  device. *Not yet implemented* (sign-ins are tracked for audit, but no alert is sent).
+- **F55 · Difficult · 1020 XP** — Retrieve the personal data the city holds about me.
+  *Not yet implemented* (the profile is viewable, but no data export exists).
+- **F56 · Medium · 680 XP** — Download a summary of my requests. *Not yet implemented.*
+- **F57 · Medium · 700 XP** — Limit the environmental impact of the platform.
+  *Not yet implemented* (the app is lightweight by design, but no dedicated feature).
+- **F58 · Difficult · 1050 XP** — Reduce the digital environmental impact durably.
+  *Not yet implemented.*
+- **F59 · Medium · 700 XP** — Work well on slow connections. *Partial:* server-rendered
+  pages and no SPA framework, but no dedicated optimisation.
+- **F60 · Easy · 350 XP** — Keep images and media lightweight. *Partial:* minimal
+  imagery; the map tile layer is the only external resource.
+
+---
+
+# Global implementation notes
+
+- **Stack:** Rails 8.1, MySQL 8.4, Hotwire (Turbo + Stimulus), ViewComponents,
+  Tailwind + daisyUI (no Node toolchain).
+- **Security:** Devise (two scopes), Pundit, PaperTrail, `rack-attack`, CSP with nonces,
+  HSTS and secure cookies in production, filtered parameters, password-confirmed account
+  deletion.
+- **Internationalisation:** French default with English fallback; translatable service,
+  announcement and alert content; locale resolved from parameter → profile → session →
+  cookie.
+- **Accessibility:** WCAG 2.2 AA-oriented statement at `/accessibility`.
+- **Quality:** 137 automated tests pass; RuboCop, Brakeman, bundler-audit and importmap
+  audit are all clean.
