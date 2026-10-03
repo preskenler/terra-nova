@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
+  before_action :set_audit_actor
+
   around_action :switch_locale
 
   helper_method :current_locale, :high_contrast?, :large_text?
@@ -14,6 +16,19 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+
+  # Records who made each audited change (F47/F48). Stored as "Agent:<id>" or
+  # "User:<id>" so the audit log can resolve the actor.
+  def set_audit_actor
+    PaperTrail.request.whodunnit = audit_actor
+  end
+
+  def audit_actor
+    return "Agent:#{current_agent.id}" if respond_to?(:current_agent) && current_agent
+    return "User:#{current_user.id}" if respond_to?(:current_user) && current_user
+
+    "system"
+  end
 
   # Locale resolution order: explicit param -> signed-in preference -> session
   # -> cookie -> default. Keeps the language stable across the whole app.

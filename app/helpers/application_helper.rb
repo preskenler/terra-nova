@@ -56,4 +56,21 @@ module ApplicationHelper
     else "alert-info"
     end
   end
+
+  # Resolves a PaperTrail whodunnit ("Agent:1" / "User:2") to a readable label.
+  def audit_actor_label(whodunnit)
+    return t("agents.audit_logs.system") if whodunnit.blank?
+
+    type, id = whodunnit.split(":", 2)
+    case type
+    when "Agent"
+      agent = Agent.find_by(id: id)
+      agent ? t("agents.audit_logs.agent", email: agent.email) : whodunnit
+    when "User"
+      user = User.find_by(id: id)
+      user ? link_to(user.email, agents_user_path(user), class: "link") : whodunnit
+    else
+      whodunnit
+    end
+  end
 end

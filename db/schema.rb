@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_210001) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_220000) do
   create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.integer "wday", null: false
@@ -340,6 +340,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_210001) do
     t.string "item_type", limit: 191, null: false
     t.string "event", null: false
     t.text "object", size: :long
+    t.text "object_changes", size: :long
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 

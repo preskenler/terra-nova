@@ -1,0 +1,55 @@
+<% content_for :title, t("agents.audit_logs.title") %>
+
+<div>
+  <h1 class="text-2xl font-bold"><%= t("agents.audit_logs.title") %></h1>
+  <p class="mt-1 text-base-content/70"><%= t("agents.audit_logs.subtitle") %></p>
+</div>
+
+<%= form_with url: agents_audit_logs_path, method: :get, class: "mt-4 flex flex-wrap items-end gap-3" do %>
+  <div>
+    <label for="audit-q" class="mb-1 block text-sm font-medium"><%= t("agents.audit_logs.search") %></label>
+    <%= text_field_tag :q, params[:q], id: "audit-q", class: "input input-bordered input-sm" %>
+  </div>
+  <div>
+    <label for="audit-item" class="mb-1 block text-sm font-medium"><%= t("agents.audit_logs.item_type") %></label>
+    <%= select_tag :item_type,
+          options_for_select([ [ t("agents.audit_logs.all"), "" ] ] + @item_types.map { |type| [ type, type ] }, params[:item_type]),
+          id: "audit-item", class: "select select-bordered select-sm" %>
+  </div>
+  <div>
+    <label for="audit-event" class="mb-1 block text-sm font-medium"><%= t("agents.audit_logs.event") %></label>
+    <%= select_tag :event,
+          options_for_select([ [ t("agents.audit_logs.all"), "" ] ] + @events.map { |event| [ t("agents.audit_logs.events.#{event}", default: event), event ] }, params[:event]),
+          id: "audit-event", class: "select select-bordered select-sm" %>
+  </div>
+  <%= submit_tag t("actions.filter"), class: "btn btn-primary btn-sm" %>
+  <%= link_to t("actions.reset"), agents_audit_logs_path, class: "btn btn-ghost btn-sm" %>
+<% end %>
+
+<div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.audit_logs.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.audit_logs.columns.date") %></th>
+        <th scope="col"><%= t("agents.audit_logs.columns.actor") %></th>
+        <th scope="col"><%= t("agents.audit_logs.columns.event") %></th>
+        <th scope="col"><%= t("agents.audit_logs.columns.item") %></th>
+        <th scope="col"><span class="sr-only"><%= t("actions.view") %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @versions.each do |version| %>
+        <tr>
+          <th scope="row" class="whitespace-nowrap"><%= l(version.created_at, format: :short) %></th>
+          <td><%= audit_actor_label(version.whodunnit) %></td>
+          <td><%= t("agents.audit_logs.events.#{version.event}", default: version.event) %></td>
+          <td><%= version.item_type %> #<%= version.item_id %></td>
+          <td class="text-right">
+            <%= link_to t("actions.view"), agents_audit_log_path(version), class: "btn btn-ghost btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

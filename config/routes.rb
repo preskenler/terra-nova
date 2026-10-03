@@ -67,6 +67,9 @@ Rails.application.routes.draw do
       # Announcements and urgent alerts (D18/F29/F30/F31)
       resources :announcements
       resources :alerts
+
+      # Audit trail (F47/F48)
+      resources :audit_logs, only: [ :index, :show ]
     end
   end
 end
