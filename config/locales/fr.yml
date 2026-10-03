@@ -24,6 +24,60 @@ fr:
     sign_up: "Créer un compte"
     sign_out: "Se déconnecter"
 
+  auth:
+    citizen_space: "Espace citoyen"
+    agent_space: "Espace agent"
+    aside:
+      title: "Votre ville, simplement."
+      body: "Retrouvez vos démarches, vos services et les informations de Terra Nova dans un espace sécurisé."
+    sessions:
+      title: "Se connecter"
+      subtitle: "Accédez à votre espace citoyen et retrouvez vos démarches."
+      agent_title: "Connexion agent"
+      agent_subtitle: "Accédez à l’espace de travail des services municipaux."
+      remember_me: "Rester connecté"
+      submit: "Connexion"
+    registrations:
+      title: "Créer un compte"
+      subtitle: "Quelques informations suffisent pour accéder aux services de Terra Nova."
+      submit: "Créer mon compte"
+      edit_title: "Modifier mon accès"
+      edit_subtitle: "Mettez à jour votre adresse e-mail ou votre mot de passe."
+      update: "Enregistrer les modifications"
+    passwords:
+      forgot_title: "Mot de passe oublié"
+      forgot_subtitle: "Indiquez votre adresse e-mail pour recevoir un lien de réinitialisation."
+      edit_title: "Choisir un nouveau mot de passe"
+      edit_subtitle: "Définissez un nouveau mot de passe pour sécuriser votre compte."
+      send: "Recevoir le lien"
+      update: "Modifier mon mot de passe"
+    unlocks:
+      title: "Déverrouiller mon compte"
+      subtitle: "Nous vous enverrons les instructions nécessaires par e-mail."
+      submit: "Recevoir les instructions"
+    confirmations:
+      title: "Confirmer mon adresse"
+      subtitle: "Recevez un nouveau lien de confirmation par e-mail."
+      submit: "Renvoyer le lien"
+    fields:
+      email: "Adresse e-mail"
+      password: "Mot de passe"
+      new_password: "Nouveau mot de passe"
+      new_password_optional: "Nouveau mot de passe (facultatif)"
+      password_confirmation: "Confirmer le mot de passe"
+      current_password: "Mot de passe actuel"
+      password_hint: "%{count} caractères minimum"
+    links:
+      title: "Autres options d’accès"
+      sign_in: "J’ai déjà un compte"
+      sign_up: "Créer un compte"
+      forgot_password: "Mot de passe oublié ?"
+      unlock: "Compte verrouillé ?"
+    errors:
+      title:
+        one: "Une information doit être corrigée"
+        other: "%{count} informations doivent être corrigées"
+
   roles:
     citizen: "Citoyen"
     admin: "Administrateur"

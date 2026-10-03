@@ -24,6 +24,60 @@ en:
     sign_up: "Create an account"
     sign_out: "Sign out"
 
+  auth:
+    citizen_space: "Citizen space"
+    agent_space: "Agent workspace"
+    aside:
+      title: "Your city, made simple."
+      body: "Find your requests, services and Terra Nova information in one secure place."
+    sessions:
+      title: "Sign in"
+      subtitle: "Access your citizen space and find your ongoing requests."
+      agent_title: "Agent sign in"
+      agent_subtitle: "Access the municipal services workspace."
+      remember_me: "Keep me signed in"
+      submit: "Sign in"
+    registrations:
+      title: "Create an account"
+      subtitle: "A few details are all you need to access Terra Nova services."
+      submit: "Create my account"
+      edit_title: "Update my access"
+      edit_subtitle: "Update your email address or password."
+      update: "Save changes"
+    passwords:
+      forgot_title: "Forgot your password?"
+      forgot_subtitle: "Enter your email address to receive a password reset link."
+      edit_title: "Choose a new password"
+      edit_subtitle: "Set a new password to secure your account."
+      send: "Send me the link"
+      update: "Change my password"
+    unlocks:
+      title: "Unlock my account"
+      subtitle: "We will email you the instructions you need."
+      submit: "Send instructions"
+    confirmations:
+      title: "Confirm my address"
+      subtitle: "Receive a new confirmation link by email."
+      submit: "Resend the link"
+    fields:
+      email: "Email address"
+      password: "Password"
+      new_password: "New password"
+      new_password_optional: "New password (optional)"
+      password_confirmation: "Confirm password"
+      current_password: "Current password"
+      password_hint: "%{count} characters minimum"
+    links:
+      title: "Other access options"
+      sign_in: "I already have an account"
+      sign_up: "Create an account"
+      forgot_password: "Forgot your password?"
+      unlock: "Account locked?"
+    errors:
+      title:
+        one: "One detail needs to be corrected"
+        other: "%{count} details need to be corrected"
+
   roles:
     citizen: "Citizen"
     admin: "Administrator"

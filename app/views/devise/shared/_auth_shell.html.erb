@@ -1,0 +1,22 @@
+<section class="auth-shell">
+  <aside class="auth-aside">
+    <%= link_to root_path, aria: { label: t("app.name") } do %>
+      <%= image_tag "/logo.webp", class: "auth-logo", alt: "" %>
+    <% end %>
+
+    <div>
+      <p class="text-xs font-bold uppercase tracking-widest opacity-70"><%= t("app.name") %></p>
+      <p class="mt-3 text-xl font-bold leading-tight"><%= t("auth.aside.title") %></p>
+      <p class="mt-3 text-sm leading-relaxed opacity-70"><%= t("auth.aside.body") %></p>
+    </div>
+  </aside>
+
+  <div class="auth-panel">
+    <p class="text-xs font-bold uppercase tracking-widest text-primary"><%= eyebrow %></p>
+    <h1 class="mt-2 text-2xl font-bold"><%= title %></h1>
+    <% if local_assigns[:subtitle].present? %>
+      <p class="mt-2 text-sm leading-relaxed text-base-content/65"><%= subtitle %></p>
+    <% end %>
+    <div class="mt-6"><%= yield %></div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation" class="alert alert-error mb-4 text-sm" role="alert" data-turbo-temporary>
+    <div>
+      <p class="font-bold"><%= t("auth.errors.title", count: resource.errors.count) %></p>
+      <ul class="mt-2 list-disc space-y-1 pl-5">
+        <% resource.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

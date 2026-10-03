@@ -1,0 +1,36 @@
+<% agent_login = resource_name == :agent %>
+<% content_for :title, agent_login ? t("auth.sessions.agent_title") : t("auth.sessions.title") %>
+
+<%= render layout: "devise/shared/auth_shell", locals: {
+      eyebrow: agent_login ? t("auth.agent_space") : t("auth.citizen_space"),
+      title: agent_login ? t("auth.sessions.agent_title") : t("auth.sessions.title"),
+      subtitle: agent_login ? t("auth.sessions.agent_subtitle") : t("auth.sessions.subtitle")
+    } do %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+    <div class="auth-field">
+      <%= f.label :email, t("auth.fields.email"), class: "text-sm font-semibold" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input input-bordered w-full" %>
+    </div>
+
+    <div class="auth-field">
+      <div class="flex items-center justify-between gap-3">
+        <%= f.label :password, t("auth.fields.password"), class: "text-sm font-semibold" %>
+        <% if devise_mapping.recoverable? %>
+          <%= link_to t("auth.links.forgot_password"), new_password_path(resource_name), class: "link text-xs text-primary" %>
+        <% end %>
+      </div>
+      <%= f.password_field :password, autocomplete: "current-password", class: "input input-bordered w-full" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <label class="flex cursor-pointer items-center gap-2 text-sm">
+        <%= f.check_box :remember_me, class: "checkbox checkbox-sm" %>
+        <span><%= t("auth.sessions.remember_me") %></span>
+      </label>
+    <% end %>
+
+    <%= f.submit t("auth.sessions.submit"), class: "btn btn-primary w-full" %>
+  <% end %>
+
+  <div class="mt-5"><%= render "devise/shared/links" %></div>
+<% end %>

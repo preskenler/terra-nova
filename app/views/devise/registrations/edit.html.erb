@@ -1,0 +1,29 @@
+<% content_for :title, t("auth.registrations.edit_title") %>
+
+<%= render layout: "devise/shared/auth_shell", locals: {
+      eyebrow: t("auth.citizen_space"),
+      title: t("auth.registrations.edit_title"),
+      subtitle: t("auth.registrations.edit_subtitle")
+    } do %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-4" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="auth-field">
+      <%= f.label :email, t("auth.fields.email"), class: "text-sm font-semibold" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input input-bordered w-full" %>
+    </div>
+    <div class="auth-field">
+      <%= f.label :password, t("auth.fields.new_password_optional"), class: "text-sm font-semibold" %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full" %>
+    </div>
+    <div class="auth-field">
+      <%= f.label :password_confirmation, t("auth.fields.password_confirmation"), class: "text-sm font-semibold" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full" %>
+    </div>
+    <div class="auth-field">
+      <%= f.label :current_password, t("auth.fields.current_password"), class: "text-sm font-semibold" %>
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "input input-bordered w-full" %>
+    </div>
+    <%= f.submit t("auth.registrations.update"), class: "btn btn-primary w-full" %>
+  <% end %>
+<% end %>

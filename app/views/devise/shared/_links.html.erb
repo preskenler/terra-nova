@@ -1,0 +1,21 @@
+<nav class="auth-links" aria-label="<%= t("auth.links.title") %>">
+  <% if controller_name != "sessions" %>
+    <%= link_to t("auth.links.sign_in"), new_session_path(resource_name) %>
+  <% end %>
+
+  <% if devise_mapping.registerable? && controller_name != "registrations" %>
+    <%= link_to t("auth.links.sign_up"), new_registration_path(resource_name) %>
+  <% end %>
+
+  <% if devise_mapping.recoverable? && controller_name != "passwords" && controller_name != "registrations" %>
+    <%= link_to t("auth.links.forgot_password"), new_password_path(resource_name) %>
+  <% end %>
+
+  <% if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != "unlocks" %>
+    <%= link_to t("auth.links.unlock"), new_unlock_path(resource_name) %>
+  <% end %>
+
+  <% if resource_name == :user && controller_name == "sessions" %>
+    <%= link_to t("magic_links.link"), users_magic_link_path %>
+  <% end %>
+</nav>
