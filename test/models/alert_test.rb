@@ -11,4 +11,10 @@ class AlertTest < ActiveSupport::TestCase
     assert alerts(:flood).critical?
     assert_not alerts(:expired).critical?
   end
+
+  test "an alert can target a specific segment (F31)" do
+    alert = Alert.new(target_segment: "vulnerable")
+    assert alert.vulnerable?
+    assert_equal "vulnerable", alert.target_segment
+  end
 end

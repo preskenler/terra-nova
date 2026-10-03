@@ -627,6 +627,8 @@ en:
       table_caption: "List of municipal services"
       emergency: "Emergency"
       edit: "Edit service"
+      disable: "Disable"
+      enable: "Enable"
       updated: "%{name} has been updated."
       disabled: "%{name} is now under maintenance."
       enabled: "%{name} is active again."

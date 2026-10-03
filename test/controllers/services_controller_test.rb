@@ -21,6 +21,12 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
     assert_no_match(/Santé<\/a>/o, response.body)
   end
 
+  test "health services can be found by search (F32)" do
+    get services_url, params: { q: "santé" }
+    assert_response :success
+    assert_match "Santé", response.body
+  end
+
   test "show renders a service by its slug" do
     get service_url(services(:etat_civil))
     assert_response :success

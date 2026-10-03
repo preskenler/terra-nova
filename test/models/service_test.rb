@@ -25,6 +25,12 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not_includes slugs, "ferme"
   end
 
+  test "priorities scope returns priority services only (F28)" do
+    slugs = Service.priorities.map(&:slug)
+    assert_includes slugs, "etat-civil"
+    assert_not_includes slugs, "eau"
+  end
+
   test "search matches translated content" do
     results = Service.publicly_visible.search("civil")
     assert_includes results.map(&:slug), "etat-civil"

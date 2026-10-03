@@ -6,6 +6,13 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "the contact form is labelled for assistive technologies (F21/F42)" do
+    get new_feedback_url
+    assert_select "label[for=?]", "feedback_subject"
+    assert_select "label[for=?]", "feedback_message"
+    assert_select "form select#feedback_kind"
+  end
+
   test "an anonymous message without an email is rejected" do
     assert_no_difference -> { Feedback.count } do
       post feedback_url, params: { feedback: { kind: "question", subject: "Hi", message: "Hello" } }

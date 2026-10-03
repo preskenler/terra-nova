@@ -870,5 +870,5 @@ submit.
   asset-size test; low-data and simple modes, and a dynamically imported map library.
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 168 automated tests pass; RuboCop, Brakeman, bundler-audit and importmap
-  audit are all clean.
+- **Quality:** 191 automated tests pass (185 unit/controller/integration + 6 browser-style
+  system tests); RuboCop, Brakeman, bundler-audit and importmap audit are all clean.

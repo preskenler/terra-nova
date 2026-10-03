@@ -171,8 +171,10 @@ bin/rails db:test:prepare test      # unit, model, policy, service, mailer and c
 bin/rails test:system               # system tests (requires Chrome/chromedriver)
 ```
 
-The suite covers models, Pundit policies, service objects, mailers, background jobs and
-critical flows (registration → onboarding, request creation and agent handling, booking).
+The suite covers models, Pundit policies, service objects, mailers, background jobs,
+ViewComponents and critical flows (registration → onboarding, request creation and agent
+handling, booking, service disable → citizen banner). System tests use the RackTest driver
+so they run in CI without a browser; an asset-budget test guards the platform's weight.
 
 Quality gates used by CI: `bin/rubocop`, `bin/brakeman`, `bin/bundler-audit` and
 `bin/importmap audit`.

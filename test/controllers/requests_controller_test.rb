@@ -64,4 +64,13 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     assert_match "data-status", response.body
     assert_match "data-service-status-warning-value", response.body
   end
+
+  test "the new request form is labelled (F42)" do
+    sign_in users(:citizen)
+    get new_request_url
+
+    assert_select "label[for=?]", "request_subject"
+    assert_select "label[for=?]", "request_service_id"
+    assert_select "textarea#request_description"
+  end
 end
