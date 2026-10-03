@@ -23,7 +23,7 @@ module TerraNova
     config.middleware.insert_before(
       0, Rack::Deflater,
       if: lambda { |_env, _status, headers, _body|
-        headers["Content-Type"].to_s.match?(%r{\A(?:text/|application/(?:json|xml|javascript)|image/svg)})
+        headers["content-type"].to_s.match?(%r{\A(?:text/|application/(?:json|xml|javascript)|image/svg)})
       }
     )
 
