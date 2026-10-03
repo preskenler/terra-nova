@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_164419) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_170000) do
   create_table "agents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -92,6 +92,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_164419) do
     t.index ["wave_number"], name: "index_demands_on_wave_number"
   end
 
+  create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "address"
+    t.string "postal_code"
+    t.string "city"
+    t.string "phone"
+    t.json "preferences"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -130,4 +142,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_164419) do
   end
 
   add_foreign_key "demands", "agents", column: "assignee_id"
+  add_foreign_key "profiles", "users"
 end

@@ -13,8 +13,18 @@ class User < ApplicationRecord
 
   enum :role, { citizen: "citizen", admin: "admin" }, default: :citizen
 
+  has_one :profile, dependent: :destroy
+
+  after_create :create_default_profile
+
   # Human-friendly label used in navigation and audit logs.
   def display_name
     email
+  end
+
+  private
+
+  def create_default_profile
+    create_profile unless profile
   end
 end

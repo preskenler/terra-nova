@@ -9,9 +9,19 @@ en:
 
   nav:
     home: "Home"
+    my_space: "My space"
+    profile: "My profile"
     sign_in: "Sign in"
     sign_up: "Create an account"
     sign_out: "Sign out"
+
+  roles:
+    citizen: "Citizen"
+    admin: "Administrator"
+
+  common:
+    yes: "Yes"
+    no: "No"
 
   actions:
     view: "View"
@@ -59,6 +69,7 @@ en:
     nav:
       dashboard: "Dashboard"
       demands: "Demands"
+      users: "Citizens"
     dashboard:
       title: "Dashboard"
       subtitle: "A quick overview of platform activity."
@@ -126,6 +137,36 @@ en:
         assignee: "Assignee"
         unassigned: "Unassigned"
         notes: "Internal notes"
+    users:
+      title: "Citizen accounts"
+      subtitle: "Search and administer the citizens of Nova Terra."
+      search: "Search"
+      role: "Role"
+      all: "All"
+      locked: "Locked"
+      active: "Active"
+      updated: "The account has been updated."
+      unlocked: "The account has been unlocked."
+      edit: "Edit account"
+      detail_title: "Citizen account"
+      actions_title: "Actions"
+      role_hint: "Granting administrator rights gives access to sensitive features."
+      count:
+        one: "%{count} account"
+        other: "%{count} accounts"
+      table_caption: "List of citizen accounts"
+      columns:
+        email: "Email"
+        role: "Role"
+        locale: "Language"
+        onboarding: "Onboarding"
+        status: "Status"
+        actions: "Actions"
+      fields:
+        sign_in_count: "Sign-ins"
+        last_sign_in: "Last sign-in"
+        failed_attempts: "Failed attempts"
+        onboarding_completed: "Onboarding completed"
 
   demands:
     triage:
@@ -137,6 +178,57 @@ en:
       ignored: "Ignored"
     updated: "The demand was updated."
     refreshed: "Demands refreshed."
+
+  dashboard:
+    title: "My space"
+    welcome: "Hello, %{name}"
+    subtitle: "Here you can find your information and your activity on the platform."
+    requests: "My requests"
+    open_requests: "In progress"
+    appointments: "My appointments"
+    my_profile: "My profile"
+    quick_links: "Quick links"
+
+  onboarding:
+    title: "Welcome to Nova Terra"
+    intro: "A few quick steps to set up your account, then you can start using municipal services."
+    required: "Please complete your onboarding first."
+    completed: "Onboarding complete. Welcome to Nova Terra!"
+    finish: "Finish"
+    profile:
+      title: "Your information"
+      hint: "This information helps agents process your requests."
+    language:
+      title: "Your language"
+    accessibility:
+      title: "Display settings"
+    tour:
+      title: "Getting started"
+      body: "From your personal space you can browse municipal services, report an issue and track your requests. You can change these settings at any time from your profile."
+
+  profiles:
+    title: "My profile"
+    edit: "Edit my profile"
+    updated: "Your profile has been updated."
+    personal_info: "Personal information"
+    preferences: "Language and display"
+    fields:
+      email: "Email"
+      locale: "Language"
+      address: "Address"
+      postal_code: "Postal code"
+      city: "City"
+      phone: "Phone"
+
+  accounts:
+    title: "Delete my account"
+    explanation: "Deleting your account permanently removes your profile and your requests. This action cannot be undone."
+    password_label: "Confirm your password"
+    password_hint: "For your security, confirm your password to delete your account."
+    delete: "Delete my account"
+    confirm: "Are you sure you want to delete your account? This cannot be undone."
+    wrong_password: "Incorrect password. Your account was not deleted."
+    deleted: "Your account has been deleted. Goodbye…"
 
   time:
     formats:

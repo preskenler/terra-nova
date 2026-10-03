@@ -12,3 +12,10 @@ admin:
   role: admin
   locale: fr
   onboarding_completed: true
+
+newcomer:
+  email: nouveau@example.com
+  encrypted_password: <%= BCrypt::Password.create("password123") %>
+  role: citizen
+  locale: fr
+  onboarding_completed: false

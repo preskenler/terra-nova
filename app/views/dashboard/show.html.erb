@@ -1,0 +1,40 @@
+<% content_for :title, t("dashboard.title") %>
+
+<h1 class="text-2xl font-bold"><%= t("dashboard.welcome", name: current_user.display_name) %></h1>
+<p class="mt-1 text-base-content/70"><%= t("dashboard.subtitle") %></p>
+
+<div class="mt-6 grid gap-4 sm:grid-cols-3">
+  <%= render Ui::StatComponent.new(label: t("dashboard.requests"), value: @request_count) %>
+  <%= render Ui::StatComponent.new(label: t("dashboard.open_requests"), value: @open_request_count) %>
+  <%= render Ui::StatComponent.new(label: t("dashboard.appointments"), value: @appointment_count) %>
+</div>
+
+<div class="mt-6 grid gap-4 md:grid-cols-2">
+  <%= render Ui::CardComponent.new(title: t("dashboard.my_profile")) do %>
+    <dl class="space-y-1 text-sm">
+      <div class="flex gap-2">
+        <dt class="text-base-content/60"><%= t("profiles.fields.email") %>:</dt>
+        <dd><%= current_user.email %></dd>
+      </div>
+      <div class="flex gap-2">
+        <dt class="text-base-content/60"><%= t("profiles.fields.address") %>:</dt>
+        <dd><%= @profile.address.presence || "—" %></dd>
+      </div>
+      <div class="flex gap-2">
+        <dt class="text-base-content/60"><%= t("profiles.fields.phone") %>:</dt>
+        <dd><%= @profile.phone.presence || "—" %></dd>
+      </div>
+    </dl>
+    <div class="mt-4 flex gap-2">
+      <%= link_to t("profiles.edit"), edit_profile_path, class: "btn btn-sm" %>
+      <%= link_to t("accounts.title"), account_path, class: "btn btn-ghost btn-sm" %>
+    </div>
+  <% end %>
+
+  <%= render Ui::CardComponent.new(title: t("dashboard.quick_links")) do %>
+    <ul class="list-disc space-y-1 pl-5 text-sm">
+      <li><%= link_to t("nav.home"), root_path, class: "link" %></li>
+      <li><%= link_to t("profiles.title"), profile_path, class: "link" %></li>
+    </ul>
+  <% end %>
+</div>

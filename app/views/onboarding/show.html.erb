@@ -1,0 +1,72 @@
+<% content_for :title, t("onboarding.title") %>
+
+<h1 class="text-2xl font-bold"><%= t("onboarding.title") %></h1>
+<p class="mt-1 max-w-2xl text-base-content/70"><%= t("onboarding.intro") %></p>
+
+<%= form_with url: onboarding_path, method: :patch, class: "mt-6 space-y-6" do %>
+  <ol class="space-y-6">
+    <li>
+      <fieldset class="rounded-box border border-base-300 bg-base-100 p-4">
+        <legend class="px-1 text-lg font-semibold">1. <%= t("onboarding.profile.title") %></legend>
+        <p class="mb-3 text-sm text-base-content/70"><%= t("onboarding.profile.hint") %></p>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div>
+            <label for="profile_address" class="mb-1 block text-sm font-medium"><%= t("profiles.fields.address") %></label>
+            <%= text_field_tag "profile[address]", @profile.address, id: "profile_address",
+                  class: "input input-bordered w-full", autocomplete: "street-address" %>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="profile_postal_code" class="mb-1 block text-sm font-medium"><%= t("profiles.fields.postal_code") %></label>
+              <%= text_field_tag "profile[postal_code]", @profile.postal_code, id: "profile_postal_code",
+                    class: "input input-bordered w-full", autocomplete: "postal-code" %>
+            </div>
+            <div>
+              <label for="profile_city" class="mb-1 block text-sm font-medium"><%= t("profiles.fields.city") %></label>
+              <%= text_field_tag "profile[city]", @profile.city, id: "profile_city",
+                    class: "input input-bordered w-full", autocomplete: "address-level2" %>
+            </div>
+          </div>
+          <div>
+            <label for="profile_phone" class="mb-1 block text-sm font-medium"><%= t("profiles.fields.phone") %></label>
+            <%= telephone_field_tag "profile[phone]", @profile.phone, id: "profile_phone",
+                  class: "input input-bordered w-full", autocomplete: "tel" %>
+          </div>
+        </div>
+      </fieldset>
+    </li>
+
+    <li>
+      <fieldset class="rounded-box border border-base-300 bg-base-100 p-4">
+        <legend class="px-1 text-lg font-semibold">2. <%= t("onboarding.language.title") %></legend>
+        <label for="user_locale" class="mb-1 block text-sm font-medium"><%= t("a11y.choose_language") %></label>
+        <%= select_tag "user[locale]",
+              options_for_select(I18n.available_locales.map { |l| [ t("languages.#{l}"), l ] }, current_user.locale),
+              id: "user_locale", class: "select select-bordered w-full sm:w-64" %>
+      </fieldset>
+    </li>
+
+    <li>
+      <fieldset class="rounded-box border border-base-300 bg-base-100 p-4">
+        <legend class="px-1 text-lg font-semibold">3. <%= t("onboarding.accessibility.title") %></legend>
+        <label class="flex cursor-pointer items-center gap-2">
+          <%= check_box_tag "user[high_contrast]", "1", current_user.high_contrast?, class: "checkbox checkbox-sm" %>
+          <span><%= t("a11y.high_contrast") %></span>
+        </label>
+        <label class="mt-2 flex cursor-pointer items-center gap-2">
+          <%= check_box_tag "user[large_text]", "1", current_user.large_text?, class: "checkbox checkbox-sm" %>
+          <span><%= t("a11y.large_text") %></span>
+        </label>
+      </fieldset>
+    </li>
+
+    <li>
+      <section class="rounded-box border border-base-300 bg-base-100 p-4">
+        <h2 class="text-lg font-semibold">4. <%= t("onboarding.tour.title") %></h2>
+        <p class="mt-1 text-sm text-base-content/80"><%= t("onboarding.tour.body") %></p>
+      </section>
+    </li>
+  </ol>
+
+  <%= submit_tag t("onboarding.finish"), class: "btn btn-primary" %>
+<% end %>

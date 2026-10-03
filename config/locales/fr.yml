@@ -9,9 +9,19 @@ fr:
 
   nav:
     home: "Accueil"
+    my_space: "Mon espace"
+    profile: "Mon profil"
     sign_in: "Se connecter"
     sign_up: "Créer un compte"
     sign_out: "Se déconnecter"
+
+  roles:
+    citizen: "Citoyen"
+    admin: "Administrateur"
+
+  common:
+    yes: "Oui"
+    no: "Non"
 
   actions:
     view: "Consulter"
@@ -59,6 +69,7 @@ fr:
     nav:
       dashboard: "Tableau de bord"
       demands: "Demandes"
+      users: "Citoyens"
     dashboard:
       title: "Tableau de bord"
       subtitle: "Un aperçu rapide de l'activité de la plateforme."
@@ -126,6 +137,36 @@ fr:
         assignee: "Assignée à"
         unassigned: "Non assignée"
         notes: "Notes internes"
+    users:
+      title: "Comptes citoyens"
+      subtitle: "Recherchez et administrez les habitants de Nova Terra."
+      search: "Rechercher"
+      role: "Rôle"
+      all: "Tous"
+      locked: "Verrouillé"
+      active: "Actif"
+      updated: "Le compte a été mis à jour."
+      unlocked: "Le compte a été déverrouillé."
+      edit: "Modifier le compte"
+      detail_title: "Compte citoyen"
+      actions_title: "Actions"
+      role_hint: "Accorder les droits d'administrateur donne accès à des fonctions sensibles."
+      count:
+        one: "%{count} compte"
+        other: "%{count} comptes"
+      table_caption: "Liste des comptes citoyens"
+      columns:
+        email: "Adresse e-mail"
+        role: "Rôle"
+        locale: "Langue"
+        onboarding: "Accueil"
+        status: "État"
+        actions: "Actions"
+      fields:
+        sign_in_count: "Connexions"
+        last_sign_in: "Dernière connexion"
+        failed_attempts: "Tentatives échouées"
+        onboarding_completed: "Parcours d'accueil terminé"
 
   demands:
     triage:
@@ -137,6 +178,57 @@ fr:
       ignored: "Ignorée"
     updated: "La demande a été mise à jour."
     refreshed: "Demandes actualisées."
+
+  dashboard:
+    title: "Mon espace"
+    welcome: "Bonjour, %{name}"
+    subtitle: "Retrouvez ici vos informations et votre activité sur la plateforme."
+    requests: "Mes demandes"
+    open_requests: "En cours"
+    appointments: "Mes rendez-vous"
+    my_profile: "Mon profil"
+    quick_links: "Accès rapides"
+
+  onboarding:
+    title: "Bienvenue à Nova Terra"
+    intro: "Quelques étapes rapides pour configurer votre compte, puis vous pourrez utiliser les services municipaux."
+    required: "Veuillez d'abord terminer votre parcours d'accueil."
+    completed: "Parcours d'accueil terminé. Bienvenue à Nova Terra !"
+    finish: "Terminer"
+    profile:
+      title: "Vos informations"
+      hint: "Ces informations aident les agents à traiter vos demandes."
+    language:
+      title: "Votre langue"
+    accessibility:
+      title: "Réglages d'affichage"
+    tour:
+      title: "Pour commencer"
+      body: "Depuis votre espace personnel, vous pouvez consulter les services municipaux, signaler un problème et suivre vos demandes. Vous pouvez modifier ces réglages à tout moment depuis votre profil."
+
+  profiles:
+    title: "Mon profil"
+    edit: "Modifier mon profil"
+    updated: "Votre profil a été mis à jour."
+    personal_info: "Informations personnelles"
+    preferences: "Langue et affichage"
+    fields:
+      email: "Adresse e-mail"
+      locale: "Langue"
+      address: "Adresse"
+      postal_code: "Code postal"
+      city: "Ville"
+      phone: "Téléphone"
+
+  accounts:
+    title: "Supprimer mon compte"
+    explanation: "La suppression de votre compte efface définitivement votre profil et vos demandes. Cette action est irréversible."
+    password_label: "Confirmez votre mot de passe"
+    password_hint: "Pour votre sécurité, confirmez votre mot de passe afin de supprimer votre compte."
+    delete: "Supprimer mon compte"
+    confirm: "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible."
+    wrong_password: "Mot de passe incorrect. Votre compte n'a pas été supprimé."
+    deleted: "Votre compte a été supprimé. À bientôt…"
 
   time:
     formats:

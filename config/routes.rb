@@ -9,8 +9,20 @@ Rails.application.routes.draw do
   patch "preferences", to: "preferences#update", as: :preferences
 
   # Authentication
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations"
+  }
   devise_for :agents, path: "agents", controllers: { sessions: "agents/sessions" }
+
+  # Citizen space
+  authenticate :user do
+    get "espace", to: "dashboard#show", as: :citizen_dashboard
+
+    resource :profile,    only: [ :show, :edit, :update ], controller: "profiles"
+    resource :onboarding, only: [ :show, :update ],        controller: "onboarding"
+    resource :account,    only: [ :show, :destroy ],       controller: "accounts"
+  end
 
   # Municipal agent workspace (distinct from the citizen space)
   authenticate :agent do
@@ -20,6 +32,11 @@ Rails.application.routes.draw do
       # Demands streamed by the external Webcup API (D19)
       resources :demands, only: [ :index, :show, :update ] do
         collection { post :refresh }
+      end
+
+      # Citizen account administration (F34)
+      resources :users, only: [ :index, :show, :edit, :update ] do
+        member { patch :unlock }
       end
     end
   end
