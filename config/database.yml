@@ -28,19 +28,24 @@ test:
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
+#
+# Shared hosts such as cPanel often expose a single database. The cache, queue
+# and cable connections therefore fall back to the primary database when their
+# dedicated variables are unset; set MYSQL_CACHE_DATABASE, MYSQL_QUEUE_DATABASE
+# and MYSQL_CABLE_DATABASE to split them onto their own databases.
 production:
   primary:
     <<: *default
     database: <%= ENV.fetch("MYSQL_DATABASE", "terra_nova_production") %>
   cache:
     <<: *default
-    database: <%= ENV.fetch("MYSQL_CACHE_DATABASE", "terra_nova_production_cache") %>
+    database: <%= ENV.fetch("MYSQL_CACHE_DATABASE") { ENV.fetch("MYSQL_DATABASE", "terra_nova_production") } %>
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    database: <%= ENV.fetch("MYSQL_QUEUE_DATABASE", "terra_nova_production_queue") %>
+    database: <%= ENV.fetch("MYSQL_QUEUE_DATABASE") { ENV.fetch("MYSQL_DATABASE", "terra_nova_production") } %>
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    database: <%= ENV.fetch("MYSQL_CABLE_DATABASE", "terra_nova_production_cable") %>
+    database: <%= ENV.fetch("MYSQL_CABLE_DATABASE") { ENV.fetch("MYSQL_DATABASE", "terra_nova_production") } %>
     migrations_paths: db/cable_migrate

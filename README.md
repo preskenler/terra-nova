@@ -231,4 +231,9 @@ config/
 
 ## Deployment
 
-Deployment uses [Kamal](https://kamal-deploy.org); see `config/deploy.yml` and `.kamal/`.
+Production runs on a **cPanel host through Phusion Passenger** (Hodifly,
+glibc 2.28). Step-by-step setup, environment variables and 500-error
+troubleshooting are in [DEPLOY.md](DEPLOY.md).
+
+The `config/deploy.yml` and `.kamal/` files are stock Rails generator scaffolding
+and are **not** used by the production deployment.
