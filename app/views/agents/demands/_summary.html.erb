@@ -1,0 +1,23 @@
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  <%= render Ui::StatComponent.new(
+        label: t("agents.demands.total"), value: total_count) %>
+  <%= render Ui::StatComponent.new(
+        label: t("agents.demands.unseen"), value: unseen_count,
+        emphasis: unseen_count.positive?) %>
+  <%= render Ui::StatComponent.new(
+        label: t("agents.demands.current_wave"),
+        value: sync&.current_wave || "—") %>
+  <%= render Ui::StatComponent.new(
+        label: t("agents.demands.next_wave_in"),
+        value: sync&.minutes_until_next_wave.present? ? t("agents.demands.minutes", count: sync.minutes_until_next_wave) : "—",
+        hint: sync&.visible_requests_count ? t("agents.demands.visible", count: sync.visible_requests_count) : nil) %>
+</div>
+
+<% if sync && !sync.success? %>
+  <div role="alert" class="alert alert-error mt-4">
+    <span>
+      <%= t("agents.demands.sync_error") %>
+      <% if sync.error.present? %><span class="font-mono text-xs">(<%= sync.error %>)</span><% end %>
+    </span>
+  </div>
+<% end %>

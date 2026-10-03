@@ -1,0 +1,11 @@
+<section class="card border border-base-300 bg-base-100 shadow-sm <%= @options[:class] %>">
+  <div class="card-body">
+    <% if @title.present? %>
+      <h2 class="card-title"><%= @title %></h2>
+    <% end %>
+    <% if @subtitle.present? %>
+      <p class="text-sm text-base-content/70"><%= @subtitle %></p>
+    <% end %>
+    <%= content %>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" dir="ltr"
+      data-theme="<%= high_contrast? ? "contrast" : "light" %>"
+      class="<%= "large-text" if large_text? %>">
+  <head>
+    <title><%= content_for(:title) || t("agents.title") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+    <link rel="icon" href="/icon.png" type="image/png">
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="flex min-h-screen flex-col bg-base-200 text-base-content">
+    <%= turbo_stream_from "agents_demands" %>
+    <%= render Ui::SkipLinkComponent.new %>
+    <%= render "agents/shared/header" %>
+    <%= render Ui::FlashComponent.new(flash: flash) %>
+
+    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-6xl flex-1 px-4 py-6">
+      <%= yield %>
+    </main>
+  </body>
+</html>

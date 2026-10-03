@@ -7,3 +7,60 @@
 
 /* Optional: enable for custom daisyUI themes – https://daisyui.com/docs/themes/ */
 /* @plugin "./daisyui-theme.mjs" { } */
+
+/*
+ * Nova Terra accessibility layer (WCAG 2.2 AA).
+ * High-contrast mode overrides daisyUI theme variables without requiring a
+ * compiled custom theme; large-text mode scales the root font size so all
+ * rem-based sizing (spacing, typography) scales together.
+ */
+html.large-text {
+  font-size: 125%;
+}
+
+html[data-theme="contrast"] {
+  --color-base-100: #ffffff;
+  --color-base-200: #ffffff;
+  --color-base-300: #000000;
+  --color-base-content: #000000;
+  --color-primary: #00308f;
+  --color-primary-content: #ffffff;
+  --color-secondary: #1a1a1a;
+  --color-secondary-content: #ffffff;
+  --color-accent: #6a1b9a;
+  --color-accent-content: #ffffff;
+  --color-neutral: #000000;
+  --color-neutral-content: #ffffff;
+  --color-info: #004085;
+  --color-info-content: #ffffff;
+  --color-success: #0b5d1e;
+  --color-success-content: #ffffff;
+  --color-warning: #7a4f00;
+  --color-warning-content: #ffffff;
+  --color-error: #b00020;
+  --color-error-content: #ffffff;
+}
+
+/* Never rely on colour alone: reinforce links and focus. */
+html[data-theme="contrast"] a:not(.btn),
+html[data-theme="contrast"] .link {
+  text-decoration: underline;
+}
+
+/* Strong, consistent keyboard focus indicator (WCAG 2.4.7 / 2.4.11). */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

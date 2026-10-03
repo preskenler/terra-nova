@@ -23,5 +23,11 @@ module TerraNova
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Internationalization: French is the default interface language, English is
+    # the fallback. New locales are picked up automatically from config/locales.
+    config.i18n.available_locales = %i[fr en]
+    config.i18n.default_locale = :fr
+    config.i18n.fallbacks = [ :en ]
   end
 end

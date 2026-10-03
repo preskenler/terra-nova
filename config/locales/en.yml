@@ -1,31 +1,148 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  app:
+    name: "Nova Terra"
+    footer_tagline: "The digital heart of Terra Nova"
+
+  languages:
+    fr: "Français"
+    en: "English"
+
+  nav:
+    home: "Home"
+    sign_in: "Sign in"
+    sign_up: "Create an account"
+    sign_out: "Sign out"
+
+  actions:
+    view: "View"
+    save: "Save"
+    filter: "Filter"
+    reset: "Reset"
+    back: "Back"
+
+  a11y:
+    skip_to_content: "Skip to main content"
+    breadcrumb: "Breadcrumb"
+    main_nav: "Main navigation"
+    choose_language: "Choose a language"
+    controls: "Accessibility"
+    display_settings: "Display settings"
+    high_contrast: "High contrast"
+    large_text: "Large text"
+    apply: "Apply"
+
+  preferences:
+    updated: "Your display preferences have been saved."
+
+  errors:
+    not_authorized: "You are not allowed to perform this action."
+
+  home:
+    hero:
+      title: "Welcome to Nova Terra"
+      subtitle: "Access municipal services, follow your procedures and stay informed, all in one place."
+      welcome: "Hello, %{name}."
+    highlights:
+      title: "What you can do"
+      discover:
+        title: "Discover services"
+        body: "Find the municipal service that matches your need."
+      requests:
+        title: "Follow your requests"
+        body: "Report an issue and track its progress."
+      alerts:
+        title: "Stay informed"
+        body: "Read official announcements and urgent alerts."
+
+  agents:
+    title: "Nova Terra — Agent workspace"
+    nav:
+      dashboard: "Dashboard"
+      demands: "Demands"
+    dashboard:
+      title: "Dashboard"
+      subtitle: "A quick overview of platform activity."
+      total_demands: "Demands received"
+      unseen_demands: "New, unseen"
+      pending_demands: "Pending triage"
+      current_wave: "Current wave"
+      last_sync: "Updated %{time}"
+      no_sync: "No sync yet"
+      recent_demands: "Recently received demands"
+      no_demands: "No demands yet"
+      no_demands_hint: "Demands broadcast by the Terra Nova API will appear here."
+    demands:
+      title: "Demands from the Terra Nova API"
+      subtitle: "Live feed of the demands issued by the Haut Conseil, ready to be triaged."
+      auto_refresh: "Auto refresh"
+      refresh: "Refresh now"
+      not_configured: "The Terra Nova API key is not configured. Set WEBCUP_API_KEY to receive demands."
+      total: "Total demands"
+      unseen: "New"
+      current_wave: "Current wave"
+      next_wave_in: "Next wave in"
+      minutes:
+        one: "%{count} minute"
+        other: "%{count} minutes"
+      visible:
+        one: "%{count} visible demand"
+        other: "%{count} visible demands"
+      sync_error: "The last sync failed."
+      search: "Search"
+      search_placeholder: "Code or text…"
+      status: "Status"
+      all: "All"
+      difficulty: "Difficulty"
+      wave: "Wave"
+      wave_number: "Wave %{number}"
+      count:
+        one: "%{count} demand"
+        other: "%{count} demands"
+      empty: "No demand matches your filters"
+      empty_hint: "Try clearing the filters, or refresh to fetch the latest demands."
+      table_caption: "List of demands received from the Terra Nova API"
+      detail_title: "Demand"
+      triage: "Triage"
+      refreshed: "Demands refreshed."
+      updated: "The demand was updated."
+      columns:
+        code: "Code"
+        difficulty: "Difficulty"
+        xp: "XP"
+        wave: "Wave"
+        status: "Status"
+        actions: "Actions"
+      fields:
+        requester: "Requester"
+        requester_type: "Requester type"
+        difficulty: "Difficulty"
+        xp_base: "Base XP"
+        xp_bonus: "Time bonus"
+        xp_total: "Total XP"
+        wave: "Wave"
+        arrival: "Arrival"
+        first_seen: "First seen"
+        triage_status: "Status"
+        assignee: "Assignee"
+        unassigned: "Unassigned"
+        notes: "Internal notes"
+
+  demands:
+    triage:
+      unseen: "New"
+      reviewing: "Reviewing"
+      planned: "Planned"
+      in_progress: "In progress"
+      done: "Done"
+      ignored: "Ignored"
+    updated: "The demand was updated."
+    refreshed: "Demands refreshed."
+
+  time:
+    formats:
+      short: "%d/%m/%Y %H:%M"
+      long: "%B %d, %Y at %H:%M"
+  date:
+    formats:
+      short: "%d/%m/%Y"
+      long: "%B %d, %Y"

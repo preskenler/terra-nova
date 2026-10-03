@@ -1,0 +1,12 @@
+# Devise fixtures. Passwords are "password123".
+agent:
+  email: agent@example.com
+  encrypted_password: <%= BCrypt::Password.create("password123") %>
+  role: agent
+  locale: fr
+
+admin:
+  email: admin-agent@example.com
+  encrypted_password: <%= BCrypt::Password.create("password123") %>
+  role: admin
+  locale: fr

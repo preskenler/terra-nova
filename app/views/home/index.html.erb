@@ -1,0 +1,28 @@
+<% content_for :title, t("app.name") %>
+
+<section class="hero rounded-box border border-base-300 bg-base-100 px-6 py-10">
+  <div class="max-w-2xl">
+    <h1 class="text-3xl font-bold sm:text-4xl"><%= t("home.hero.title") %></h1>
+    <p class="mt-3 text-lg text-base-content/80"><%= t("home.hero.subtitle") %></p>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      <% if user_signed_in? %>
+        <span class="text-base-content/80"><%= t("home.hero.welcome", name: current_user.display_name) %></span>
+      <% else %>
+        <%= link_to t("nav.sign_up"), new_user_registration_path, class: "btn btn-primary" %>
+        <%= link_to t("nav.sign_in"), new_user_session_path, class: "btn btn-ghost" %>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="mt-6 grid gap-4 md:grid-cols-3" aria-label="<%= t("home.highlights.title") %>">
+  <% %i[discover requests alerts].each do |key| %>
+    <article class="card border border-base-300 bg-base-100">
+      <div class="card-body">
+        <h2 class="card-title text-base"><%= t("home.highlights.#{key}.title") %></h2>
+        <p class="text-sm text-base-content/80"><%= t("home.highlights.#{key}.body") %></p>
+      </div>
+    </article>
+  <% end %>
+</section>

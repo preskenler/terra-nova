@@ -1,0 +1,12 @@
+<%= form_with url: locale_path, method: :patch, class: "flex items-center gap-1",
+              data: { controller: "locale-switcher" } do %>
+  <label for="locale-select" class="sr-only"><%= t("a11y.choose_language") %></label>
+  <%= select_tag :locale,
+        options_for_select(I18n.available_locales.map { |l| [ t("languages.#{l}"), l ] }, I18n.locale),
+        id: "locale-select",
+        class: "select select-bordered select-sm",
+        data: { action: "change->locale-switcher#submit" } %>
+  <noscript>
+    <%= submit_tag t("a11y.apply"), class: "btn btn-sm" %>
+  </noscript>
+<% end %>

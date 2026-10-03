@@ -1,0 +1,49 @@
+<%= form_with url: agents_demands_path, method: :get,
+      class: "card border border-base-300 bg-base-100" do %>
+  <div class="card-body grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <label for="demand-q" class="mb-1 block text-sm font-medium"><%= t("agents.demands.search") %></label>
+      <%= text_field_tag :q, params[:q], id: "demand-q",
+            class: "input input-bordered input-sm w-full",
+            placeholder: t("agents.demands.search_placeholder") %>
+    </div>
+
+    <div>
+      <label for="demand-status" class="mb-1 block text-sm font-medium"><%= t("agents.demands.status") %></label>
+      <%= select_tag :status,
+            options_for_select(
+              [ [ t("agents.demands.all"), "" ] ] +
+              Demand::TRIAGE_STATUSES.map { |s| [ t("demands.triage.#{s}"), s ] },
+              params[:status]
+            ),
+            id: "demand-status", class: "select select-bordered select-sm w-full" %>
+    </div>
+
+    <div>
+      <label for="demand-difficulty" class="mb-1 block text-sm font-medium"><%= t("agents.demands.difficulty") %></label>
+      <%= select_tag :difficulty,
+            options_for_select(
+              [ [ t("agents.demands.all"), "" ] ] +
+              Demand::DIFFICULTY_LABELS.map { |level, label| [ "#{label} (#{level})", level ] },
+              params[:difficulty]
+            ),
+            id: "demand-difficulty", class: "select select-bordered select-sm w-full" %>
+    </div>
+
+    <div>
+      <label for="demand-wave" class="mb-1 block text-sm font-medium"><%= t("agents.demands.wave") %></label>
+      <%= select_tag :wave,
+            options_for_select(
+              [ [ t("agents.demands.all"), "" ] ] +
+              @waves.map { |w| [ t("agents.demands.wave_number", number: w), w ] },
+              params[:wave]
+            ),
+            id: "demand-wave", class: "select select-bordered select-sm w-full" %>
+    </div>
+
+    <div class="flex items-end gap-2 sm:col-span-2 lg:col-span-4">
+      <%= submit_tag t("actions.filter"), class: "btn btn-primary btn-sm" %>
+      <%= link_to t("actions.reset"), agents_demands_path, class: "btn btn-ghost btn-sm" %>
+    </div>
+  </div>
+<% end %>

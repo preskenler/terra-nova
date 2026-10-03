@@ -1,0 +1,18 @@
+<% return if @items.blank? %>
+<nav aria-label="<%= t("a11y.breadcrumb") %>" class="text-sm">
+  <ol class="flex flex-wrap items-center gap-1">
+    <% @items.each_with_index do |item, index| %>
+      <% last = index == @items.size - 1 %>
+      <li class="flex items-center gap-1">
+        <% if item[:path].present? && !last %>
+          <%= link_to item[:label], item[:path], class: "link link-hover" %>
+        <% else %>
+          <span aria-current="page" class="font-medium"><%= item[:label] %></span>
+        <% end %>
+        <% unless last %>
+          <span aria-hidden="true" class="text-base-content/40">/</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+</nav>

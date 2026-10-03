@@ -1,0 +1,148 @@
+fr:
+  app:
+    name: "Nova Terra"
+    footer_tagline: "Le cœur numérique de Terra Nova"
+
+  languages:
+    fr: "Français"
+    en: "English"
+
+  nav:
+    home: "Accueil"
+    sign_in: "Se connecter"
+    sign_up: "Créer un compte"
+    sign_out: "Se déconnecter"
+
+  actions:
+    view: "Consulter"
+    save: "Enregistrer"
+    filter: "Filtrer"
+    reset: "Réinitialiser"
+    back: "Retour"
+
+  a11y:
+    skip_to_content: "Aller au contenu principal"
+    breadcrumb: "Fil d'Ariane"
+    main_nav: "Navigation principale"
+    choose_language: "Choisir une langue"
+    controls: "Accessibilité"
+    display_settings: "Réglages d'affichage"
+    high_contrast: "Contraste élevé"
+    large_text: "Texte agrandi"
+    apply: "Appliquer"
+
+  preferences:
+    updated: "Vos préférences d'affichage ont été enregistrées."
+
+  errors:
+    not_authorized: "Vous n'êtes pas autorisé à effectuer cette action."
+
+  home:
+    hero:
+      title: "Bienvenue à Nova Terra"
+      subtitle: "Accédez aux services municipaux, suivez vos démarches et restez informé, au même endroit."
+      welcome: "Bonjour, %{name}."
+    highlights:
+      title: "Ce que vous pouvez faire"
+      discover:
+        title: "Découvrir les services"
+        body: "Trouvez le service municipal qui correspond à votre besoin."
+      requests:
+        title: "Suivre vos demandes"
+        body: "Signalez un problème et suivez son avancement."
+      alerts:
+        title: "Rester informé"
+        body: "Consultez les annonces officielles et les alertes urgentes."
+
+  agents:
+    title: "Nova Terra — Espace agent"
+    nav:
+      dashboard: "Tableau de bord"
+      demands: "Demandes"
+    dashboard:
+      title: "Tableau de bord"
+      subtitle: "Un aperçu rapide de l'activité de la plateforme."
+      total_demands: "Demandes reçues"
+      unseen_demands: "Nouvelles, non vues"
+      pending_demands: "En attente de traitement"
+      current_wave: "Vague actuelle"
+      last_sync: "Mis à jour %{time}"
+      no_sync: "Aucune synchronisation"
+      recent_demands: "Dernières demandes reçues"
+      no_demands: "Aucune demande pour le moment"
+      no_demands_hint: "Les demandes diffusées par l'API Terra Nova apparaîtront ici."
+    demands:
+      title: "Demandes de l'API Terra Nova"
+      subtitle: "Flux en direct des demandes émises par le Haut Conseil, prêtes à être traitées."
+      auto_refresh: "Actualisation auto"
+      refresh: "Actualiser"
+      not_configured: "La clé de l'API Terra Nova n'est pas configurée. Renseignez WEBCUP_API_KEY pour recevoir les demandes."
+      total: "Demandes au total"
+      unseen: "Nouvelles"
+      current_wave: "Vague actuelle"
+      next_wave_in: "Prochaine vague dans"
+      minutes:
+        one: "%{count} minute"
+        other: "%{count} minutes"
+      visible:
+        one: "%{count} demande visible"
+        other: "%{count} demandes visibles"
+      sync_error: "La dernière synchronisation a échoué."
+      search: "Rechercher"
+      search_placeholder: "Code ou texte…"
+      status: "État"
+      all: "Tous"
+      difficulty: "Difficulté"
+      wave: "Vague"
+      wave_number: "Vague %{number}"
+      count:
+        one: "%{count} demande"
+        other: "%{count} demandes"
+      empty: "Aucune demande ne correspond à vos filtres"
+      empty_hint: "Réinitialisez les filtres ou actualisez pour récupérer les dernières demandes."
+      table_caption: "Liste des demandes reçues de l'API Terra Nova"
+      detail_title: "Demande"
+      triage: "Traitement"
+      refreshed: "Demandes actualisées."
+      updated: "La demande a été mise à jour."
+      columns:
+        code: "Code"
+        difficulty: "Difficulté"
+        xp: "XP"
+        wave: "Vague"
+        status: "État"
+        actions: "Actions"
+      fields:
+        requester: "Demandeur"
+        requester_type: "Type de demandeur"
+        difficulty: "Difficulté"
+        xp_base: "XP de base"
+        xp_bonus: "Bonus temps"
+        xp_total: "XP total"
+        wave: "Vague"
+        arrival: "Diffusion"
+        first_seen: "Vu pour la première fois"
+        triage_status: "État"
+        assignee: "Assignée à"
+        unassigned: "Non assignée"
+        notes: "Notes internes"
+
+  demands:
+    triage:
+      unseen: "Nouvelle"
+      reviewing: "En cours d'examen"
+      planned: "Planifiée"
+      in_progress: "En cours"
+      done: "Terminée"
+      ignored: "Ignorée"
+    updated: "La demande a été mise à jour."
+    refreshed: "Demandes actualisées."
+
+  time:
+    formats:
+      short: "%d/%m/%Y %H:%M"
+      long: "%d %B %Y à %H:%M"
+  date:
+    formats:
+      short: "%d/%m/%Y"
+      long: "%d %B %Y"

@@ -1,0 +1,40 @@
+d01:
+  request_code: D01
+  external_id: 1
+  requester_name: Haut Conseil de la Ville
+  requester_type: Institution
+  message_public: "A new inhabitant must be able to create an account."
+  difficulty: Facile
+  difficulty_level: 1
+  xp_base: 250
+  xp_time_bonus: 0
+  xp_total: 250
+  xp_available: 250
+  is_initial: true
+  visible_since_wave: 0
+  arrival_type: debut
+  arrival_time: ""
+  triage_status: unseen
+  first_seen_at: <%= 1.hour.ago %>
+  last_seen_at: <%= Time.current %>
+
+f52:
+  request_code: F52
+  external_id: 52
+  requester_name: Habitante de Terra Nova
+  requester_type: Citoyen
+  message_public: "Citizens should be able to support an existing demand."
+  difficulty: Moyenne
+  difficulty_level: 2
+  xp_base: 500
+  xp_time_bonus: 160
+  xp_total: 660
+  xp_available: 660
+  is_initial: false
+  visible_since_wave: 3
+  arrival_type: vague
+  wave_number: 3
+  arrival_time: "04:00:00"
+  triage_status: planned
+  first_seen_at: <%= 2.hours.ago %>
+  last_seen_at: <%= Time.current %>

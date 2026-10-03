@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "demands-summary" do %>
+  <%= render "agents/demands/summary",
+        sync: @sync, unseen_count: @unseen_count, total_count: @total_demands,
+        api_configured: @api_configured %>
+<% end %>
+
+<%= turbo_stream.replace "demands-list" do %>
+  <%= render "agents/demands/list", demands: @demands %>
+<% end %>

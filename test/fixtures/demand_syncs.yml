@@ -1,0 +1,13 @@
+latest:
+  fetched_at: <%= Time.current %>
+  success: true
+  http_status: 200
+  status: active
+  is_running: true
+  current_wave: 9
+  elapsed_minutes: 625
+  visible_requests_count: 55
+  initial_requests_count: 10
+  wave_requests_count: 45
+  next_wave_number: 10
+  minutes_until_next_wave: 35

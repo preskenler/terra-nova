@@ -19,8 +19,28 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Authentication for citizens (User) and municipal agents (Agent)
+gem "devise"
+# French/English translations bundled with Devise views and messages
+gem "devise-i18n"
+
+# Authorization (role-based access control)
+gem "pundit"
+
+# Audit trail / traceability of important models
+gem "paper_trail"
+
+# Component-driven UI
+gem "view_component"
+
+# Rate limiting and brute-force protection
+gem "rack-attack"
+
+# Translatable content (service names/descriptions, announcements, alerts)
+gem "mobility"
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -46,6 +66,9 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
+  # Load environment variables from .env in development/test
+  gem "dotenv-rails"
+
   # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
   gem "bundler-audit", require: false
 
@@ -54,6 +77,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Sample data for seeds and tests
+  gem "faker"
 end
 
 group :development do

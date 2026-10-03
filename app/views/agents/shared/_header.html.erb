@@ -1,0 +1,23 @@
+<header class="border-b border-base-300 bg-base-100">
+  <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
+    <%= link_to agents_root_path, class: "flex items-center gap-2 text-lg font-bold" do %>
+      <span aria-hidden="true">&#127963;&#65039;</span>
+      <span><%= t("agents.title") %></span>
+    <% end %>
+
+    <nav aria-label="<%= t("a11y.main_nav") %>" class="flex-1">
+      <ul class="flex flex-wrap items-center gap-4">
+        <li><%= link_to t("agents.nav.dashboard"), agents_root_path, class: "link link-hover" %></li>
+        <li><%= link_to t("agents.nav.demands"), agents_demands_path, class: "link link-hover" %></li>
+      </ul>
+    </nav>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <%= render Ui::LocaleSwitcherComponent.new(current: I18n.locale) %>
+      <%= render Ui::AccessibilityControlsComponent.new(high_contrast: high_contrast?, large_text: large_text?) %>
+      <span class="hidden text-sm text-base-content/70 sm:inline"><%= current_agent.display_name %></span>
+      <%= button_to t("nav.sign_out"), destroy_agent_session_path, method: :delete,
+            class: "btn btn-ghost btn-sm" %>
+    </div>
+  </div>
+</header>

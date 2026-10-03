@@ -1,31 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>" dir="ltr"
+      data-theme="<%= high_contrast? ? "contrast" : "light" %>"
+      class="<%= "large-text" if large_text? %>">
   <head>
-    <title><%= content_for(:title) || "Terra Nova" %></title>
+    <title><%= content_for(:title) || t("app.name") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Terra Nova">
+    <meta name="application-name" content="<%= t("app.name") %>">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="flex min-h-screen flex-col bg-base-200 text-base-content">
+    <%= render Ui::SkipLinkComponent.new %>
+    <%= render "shared/header" %>
+    <%= render Ui::FlashComponent.new(flash: flash) %>
+
+    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-6xl flex-1 px-4 py-6">
       <%= yield %>
     </main>
+
+    <%= render "shared/footer" %>
   </body>
 </html>

@@ -1,0 +1,14 @@
+# Devise fixtures. Passwords are "password123".
+citizen:
+  email: citoyen@example.com
+  encrypted_password: <%= BCrypt::Password.create("password123") %>
+  role: citizen
+  locale: fr
+  onboarding_completed: true
+
+admin:
+  email: admin-citoyen@example.com
+  encrypted_password: <%= BCrypt::Password.create("password123") %>
+  role: admin
+  locale: fr
+  onboarding_completed: true

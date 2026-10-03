@@ -1,0 +1,42 @@
+<% if demands.any? %>
+  <div class="overflow-x-auto rounded-box border border-base-300 bg-base-100">
+    <table class="table table-zebra">
+      <caption class="sr-only"><%= t("agents.demands.table_caption") %></caption>
+      <thead>
+        <tr>
+          <th scope="col"><%= t("agents.demands.columns.code") %></th>
+          <th scope="col"><%= t("agents.demands.columns.difficulty") %></th>
+          <th scope="col"><%= t("agents.demands.columns.xp") %></th>
+          <th scope="col"><%= t("agents.demands.columns.wave") %></th>
+          <th scope="col"><%= t("agents.demands.columns.status") %></th>
+          <th scope="col"><span class="sr-only"><%= t("agents.demands.columns.actions") %></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% demands.each do |demand| %>
+          <tr>
+            <th scope="row" class="font-mono">
+              <%= link_to demand.request_code, agents_demand_path(demand), class: "link" %>
+            </th>
+            <td><%= demand.difficulty_label %></td>
+            <td><%= demand.xp %></td>
+            <td><%= demand.wave_number.presence || "—" %></td>
+            <td>
+              <%= render Ui::BadgeComponent.new(
+                    label: t("demands.triage.#{demand.triage_status}"),
+                    variant: triage_variant(demand.triage_status)) %>
+            </td>
+            <td class="text-right">
+              <%= link_to t("actions.view"), agents_demand_path(demand), class: "btn btn-ghost btn-xs" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <p class="mt-2 text-sm text-base-content/60"><%= t("agents.demands.count", count: demands.size) %></p>
+<% else %>
+  <%= render Ui::EmptyStateComponent.new(
+        title: t("agents.demands.empty"),
+        description: t("agents.demands.empty_hint")) %>
+<% end %>

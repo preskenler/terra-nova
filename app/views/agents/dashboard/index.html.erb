@@ -1,0 +1,41 @@
+<% content_for :title, t("agents.dashboard.title") %>
+
+<h1 class="text-2xl font-bold"><%= t("agents.dashboard.title") %></h1>
+<p class="mt-1 text-base-content/70"><%= t("agents.dashboard.subtitle") %></p>
+
+<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  <%= render Ui::StatComponent.new(
+        label: t("agents.dashboard.total_demands"), value: @demand_count) %>
+  <%= render Ui::StatComponent.new(
+        label: t("agents.dashboard.unseen_demands"), value: @unseen_demand_count,
+        emphasis: @unseen_demand_count.positive?) %>
+  <%= render Ui::StatComponent.new(
+        label: t("agents.dashboard.pending_demands"), value: @pending_demand_count) %>
+  <%= render Ui::StatComponent.new(
+        label: t("agents.dashboard.current_wave"),
+        value: @latest_sync&.current_wave || "—",
+        hint: @latest_sync ? t("agents.dashboard.last_sync", time: l(@latest_sync.fetched_at, format: :short)) : t("agents.dashboard.no_sync")) %>
+</div>
+
+<div class="mt-6">
+  <%= render Ui::CardComponent.new(title: t("agents.dashboard.recent_demands")) do %>
+    <% if @recent_demands.any? %>
+      <ul class="divide-y divide-base-200">
+        <% @recent_demands.each do |demand| %>
+          <li class="flex items-center justify-between gap-3 py-2">
+            <div class="min-w-0">
+              <p class="font-mono text-sm font-semibold"><%= demand.request_code %></p>
+              <p class="truncate text-sm text-base-content/70"><%= truncate(demand.message_public, length: 90) %></p>
+            </div>
+            <%= link_to t("actions.view"), agents_demand_path(demand), class: "btn btn-ghost btn-xs" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= render Ui::EmptyStateComponent.new(title: t("agents.dashboard.no_demands"), description: t("agents.dashboard.no_demands_hint")) %>
+    <% end %>
+    <div class="mt-4">
+      <%= link_to t("agents.nav.demands"), agents_demands_path, class: "btn btn-primary btn-sm" %>
+    </div>
+  <% end %>
+</div>

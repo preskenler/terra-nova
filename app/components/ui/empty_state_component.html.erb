@@ -1,0 +1,9 @@
+<div class="rounded-box border border-dashed border-base-300 p-8 text-center">
+  <p class="text-lg font-semibold"><%= @title %></p>
+  <% if @description.present? %>
+    <p class="mt-1 text-base-content/70"><%= @description %></p>
+  <% end %>
+  <% if content? %>
+    <div class="mt-4"><%= content %></div>
+  <% end %>
+</div>

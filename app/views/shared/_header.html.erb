@@ -1,0 +1,28 @@
+<header class="border-b border-base-300 bg-base-100">
+  <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
+    <%= link_to root_path, class: "flex items-center gap-2 text-lg font-bold" do %>
+      <span aria-hidden="true">&#127961;&#65039;</span>
+      <span><%= t("app.name") %></span>
+    <% end %>
+
+    <nav aria-label="<%= t("a11y.main_nav") %>" class="flex-1">
+      <ul class="flex flex-wrap items-center gap-4">
+        <li><%= link_to t("nav.home"), root_path, class: "link link-hover" %></li>
+      </ul>
+    </nav>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <%= render Ui::LocaleSwitcherComponent.new(current: I18n.locale) %>
+      <%= render Ui::AccessibilityControlsComponent.new(high_contrast: high_contrast?, large_text: large_text?) %>
+
+      <% if user_signed_in? %>
+        <span class="hidden text-sm text-base-content/70 sm:inline"><%= current_user.display_name %></span>
+        <%= button_to t("nav.sign_out"), destroy_user_session_path, method: :delete,
+              class: "btn btn-ghost btn-sm" %>
+      <% else %>
+        <%= link_to t("nav.sign_in"), new_user_session_path, class: "btn btn-ghost btn-sm" %>
+        <%= link_to t("nav.sign_up"), new_user_registration_path, class: "btn btn-primary btn-sm" %>
+      <% end %>
+    </div>
+  </div>
+</header>

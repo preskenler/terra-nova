@@ -9,7 +9,10 @@ module ActiveSupport
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
-
-    # Add more helper methods to be used by all tests here...
   end
+end
+
+# Devise helpers (`sign_in` / `sign_out`) for integration and controller tests.
+class ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
 end
