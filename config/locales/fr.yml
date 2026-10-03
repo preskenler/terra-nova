@@ -256,7 +256,7 @@ fr:
       css: "Feuilles de style"
       js: "JavaScript"
       budget: "Budget : %{value}"
-      measured_note: "Mesuré sur les ressources de l'application, hors tuiles tierces."
+      measured_note: "Mesuré sur les ressources de l'application (taille compressée, gzip), hors tuiles tierces."
       choices_heading: "Choix de conception qui réduisent l'empreinte"
       choices:
         no_framework: "Pages rendues côté serveur avec Hotwire, sans framework SPA lourd."

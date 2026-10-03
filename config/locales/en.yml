@@ -256,7 +256,7 @@ en:
       css: "Stylesheets"
       js: "JavaScript"
       budget: "Budget: %{value}"
-      measured_note: "Measured on the application's own build assets, excluding third-party tiles."
+      measured_note: "Measured on the application's own build assets (compressed size, gzip), excluding third-party tiles."
       choices_heading: "Design choices that reduce the footprint"
       choices:
         no_framework: "Server-rendered pages with Hotwire, no heavy SPA framework."
