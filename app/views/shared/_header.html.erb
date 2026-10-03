@@ -1,9 +1,19 @@
 <header class="site-header">
-  <div class="mx-auto flex w-full max-w-6xl items-center gap-4 px-4 py-2">
-    <%= link_to root_path, class: "flex items-center gap-3 text-lg font-extrabold no-underline", aria: { label: t("app.name") } do %>
-      <%= image_tag "/logo.webp", class: "brand-mark", alt: "" %>
-      <span class="hidden leading-none sm:inline"><%= t("app.name") %></span>
-    <% end %>
+  <div class="civic-masthead">
+    <%= image_tag "/city.webp", class: "civic-masthead-image", alt: "", width: 2161, height: 728, fetchpriority: "high" %>
+    <div class="mx-auto w-full max-w-6xl px-4">
+      <%= link_to root_path, class: "civic-brand", aria: { label: t("app.name") } do %>
+        <%= image_tag "/logo.webp", class: "civic-brand-logo", alt: "", width: 688, height: 688 %>
+        <span class="civic-brand-copy">
+          <span class="civic-brand-kicker"><%= t("app.civic_portal") %></span>
+          <span class="civic-brand-name"><%= t("app.name") %></span>
+        </span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="site-header-bar mx-auto flex w-full max-w-6xl items-center gap-4 px-4 py-2">
+    <%= link_to t("nav.home"), root_path, class: "site-nav-link hidden lg:inline" %>
 
     <nav aria-label="<%= t("a11y.main_nav") %>" class="hidden flex-1 md:block">
       <ul class="flex items-center justify-center gap-6">
