@@ -7,12 +7,12 @@
       subtitle: agent_login ? t("auth.sessions.agent_subtitle") : t("auth.sessions.subtitle")
     } do %>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
-    <div class="auth-field">
+    <div class="grid gap-1.5">
       <%= f.label :email, t("auth.fields.email"), class: "text-sm font-semibold" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input input-bordered w-full" %>
     </div>
 
-    <div class="auth-field">
+    <div class="grid gap-1.5">
       <div class="flex items-center justify-between gap-3">
         <%= f.label :password, t("auth.fields.password"), class: "text-sm font-semibold" %>
         <% if devise_mapping.recoverable? %>

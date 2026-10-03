@@ -1,7 +1,7 @@
-<section class="auth-shell">
-  <aside class="auth-aside">
+<section class="mx-auto grid w-full max-w-4xl overflow-hidden rounded-box border border-base-300 bg-base-100 md:grid-cols-[2fr_3fr]">
+  <aside class="flex flex-col justify-between gap-10 bg-primary p-8 text-primary-content md:p-12">
     <%= link_to root_path, aria: { label: t("app.name") } do %>
-      <%= image_tag "/logo.webp", class: "auth-logo", alt: "" %>
+      <%= image_tag "/logo.webp", class: "size-16 rounded-full border border-primary-content/25 object-cover", alt: "" %>
     <% end %>
 
     <div>
@@ -11,9 +11,9 @@
     </div>
   </aside>
 
-  <div class="auth-panel">
+  <div class="flex flex-col justify-center p-8 md:p-12">
     <p class="text-xs font-bold uppercase tracking-widest text-primary"><%= eyebrow %></p>
-    <h1 class="mt-2 text-2xl font-bold"><%= title %></h1>
+    <h1 class="mt-2 text-2xl font-bold tracking-tight"><%= title %></h1>
     <% if local_assigns[:subtitle].present? %>
       <p class="mt-2 text-sm leading-relaxed text-base-content/65"><%= subtitle %></p>
     <% end %>

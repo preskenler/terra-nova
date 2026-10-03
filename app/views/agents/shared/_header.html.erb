@@ -1,25 +1,25 @@
-<header class="site-header">
+<header class="sticky top-0 z-30 border-b border-base-300 bg-base-100">
   <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
     <%= link_to agents_root_path, class: "flex items-center gap-3 text-lg font-extrabold no-underline" do %>
-      <%= image_tag "/logo.webp", class: "brand-mark", alt: "" %>
+      <%= image_tag "/logo.webp", class: "size-13 rounded-full object-cover", alt: "" %>
       <span><%= t("agents.title") %></span>
     <% end %>
 
     <nav aria-label="<%= t("a11y.main_nav") %>" class="flex-1">
       <ul class="flex flex-wrap items-center gap-4">
-        <li><%= link_to t("agents.nav.dashboard"), agents_root_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.requests"), agents_requests_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.appointments"), agents_appointments_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.demands"), agents_demands_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.announcements"), agents_announcements_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.alerts"), agents_alerts_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.audit_logs"), agents_audit_logs_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.feedbacks"), agents_feedbacks_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.services"), agents_services_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.projects"), agents_projects_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.consultations"), agents_consultations_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.ideas"), agents_ideas_path, class: "site-nav-link" %></li>
-        <li><%= link_to t("agents.nav.users"), agents_users_path, class: "site-nav-link" %></li>
+        <li><%= link_to t("agents.nav.dashboard"), agents_root_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.requests"), agents_requests_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.appointments"), agents_appointments_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.demands"), agents_demands_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.announcements"), agents_announcements_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.alerts"), agents_alerts_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.audit_logs"), agents_audit_logs_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.feedbacks"), agents_feedbacks_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.services"), agents_services_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.projects"), agents_projects_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.consultations"), agents_consultations_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.ideas"), agents_ideas_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+        <li><%= link_to t("agents.nav.users"), agents_users_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
       </ul>
     </nav>
 

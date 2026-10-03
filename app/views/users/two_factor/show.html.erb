@@ -6,7 +6,7 @@
       subtitle: t("two_factor.challenge_intro")
     } do %>
   <%= form_with url: users_two_factor_path, method: :post, class: "space-y-4" do %>
-    <div class="auth-field">
+    <div class="grid gap-1.5">
       <label for="otp_code" class="text-sm font-semibold"><%= t("two_factor.code") %></label>
       <%= text_field_tag :code, nil, id: "otp_code", class: "input input-bordered w-full font-mono tracking-widest",
             inputmode: "numeric", autocomplete: "one-time-code", required: true, autofocus: true %>

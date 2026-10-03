@@ -1,9 +1,9 @@
 <% content_for :title, t("app.name") %>
 
-<section class="hero-shell <%= "hero-shell-simple" if simple_mode? %>">
-  <div class="hero-content">
-    <span class="hero-eyebrow"><%= t("app.name") %></span>
-    <h1 class="mt-4 max-w-xl text-3xl font-extrabold leading-tight sm:text-4xl"><%= t("home.hero.title") %></h1>
+<section class="grid overflow-hidden rounded-box border border-base-300 bg-base-100 <%= "md:grid-cols-[3fr_2fr]" unless simple_mode? %>">
+  <div class="flex min-h-[25rem] flex-col justify-center border-t-4 border-primary p-8 md:border-l-4 md:border-t-0 md:p-14">
+    <span class="text-xs font-extrabold uppercase tracking-widest text-primary"><%= t("app.name") %></span>
+    <h1 class="mt-4 max-w-xl text-balance text-3xl font-extrabold leading-tight sm:text-4xl"><%= t("home.hero.title") %></h1>
     <p class="mt-4 max-w-xl text-base leading-relaxed text-base-content/75"><%= t("home.hero.subtitle") %></p>
 
     <div class="mt-7 flex flex-wrap gap-3">
@@ -17,23 +17,23 @@
   </div>
 
   <% unless simple_mode? %>
-  <nav class="home-actions" aria-label="<%= t("home.highlights.title") %>">
-    <% home_actions = {
-         discover: services_path,
-         requests: user_signed_in? ? requests_path : new_user_registration_path,
-         alerts: alerts_path
-       } %>
-    <% home_actions.each_with_index do |(key, path), index| %>
-      <%= link_to path, class: "home-action" do %>
-        <span class="home-action-number" aria-hidden="true"><%= format("%02d", index + 1) %></span>
-        <span>
-          <strong class="block text-base"><%= t("home.highlights.#{key}.title") %></strong>
-          <span class="mt-1 block text-sm opacity-70"><%= t("home.highlights.#{key}.body") %></span>
-        </span>
-        <span class="home-action-arrow" aria-hidden="true">&#8594;</span>
+    <nav class="flex flex-col bg-primary text-primary-content" aria-label="<%= t("home.highlights.title") %>">
+      <% home_actions = {
+           discover: services_path,
+           requests: user_signed_in? ? requests_path : new_user_registration_path,
+           alerts: alerts_path
+         } %>
+      <% home_actions.each_with_index do |(key, path), index| %>
+        <%= link_to path, class: "grid flex-1 grid-cols-[auto_1fr_auto] items-start gap-4 border-b border-primary-content/20 p-6 no-underline transition-colors last:border-b-0 hover:bg-primary-content/10" do %>
+          <span class="text-xs font-extrabold tracking-widest text-primary-content/60" aria-hidden="true"><%= format("%02d", index + 1) %></span>
+          <span>
+            <strong class="block text-base"><%= t("home.highlights.#{key}.title") %></strong>
+            <span class="mt-1 block text-sm opacity-70"><%= t("home.highlights.#{key}.body") %></span>
+          </span>
+          <span class="text-lg leading-none" aria-hidden="true">&#8594;</span>
+        <% end %>
       <% end %>
-    <% end %>
-  </nav>
+    </nav>
   <% end %>
 </section>
 
@@ -79,9 +79,9 @@
 <% priority_services = @priority_services %>
 <div class="mt-10 grid gap-10 lg:grid-cols-3">
 <% if priority_services.any? %>
-  <section class="home-section lg:col-span-2" aria-labelledby="home-services-heading">
-    <div class="home-section-header">
-      <h2 id="home-services-heading" class="text-xl font-bold"><%= t("home.services.title") %></h2>
+  <section class="border-t border-base-300 pt-6 lg:col-span-2" aria-labelledby="home-services-heading">
+    <div class="mb-4 flex items-baseline justify-between gap-4">
+      <h2 id="home-services-heading" class="text-xl font-bold tracking-tight"><%= t("home.services.title") %></h2>
       <%= link_to t("home.services.see_all"), services_path, class: "link text-sm" %>
     </div>
     <div class="grid gap-4 md:grid-cols-2">
@@ -93,14 +93,14 @@
 <% end %>
 
 <% if @announcements.any? && !simple_mode? %>
-  <section class="home-section" aria-labelledby="home-announcements-heading">
-    <div class="home-section-header">
-      <h2 id="home-announcements-heading" class="text-xl font-bold"><%= t("announcements.title") %></h2>
+  <section class="border-t border-base-300 pt-6" aria-labelledby="home-announcements-heading">
+    <div class="mb-4 flex items-baseline justify-between gap-4">
+      <h2 id="home-announcements-heading" class="text-xl font-bold tracking-tight"><%= t("announcements.title") %></h2>
       <%= link_to t("home.announcements.see_all"), announcements_path, class: "link text-sm" %>
     </div>
     <div>
       <% @announcements.each do |announcement| %>
-        <article class="home-news-item">
+        <article class="border-b border-base-300 py-5 first:pt-0 last:border-b-0">
           <h3 class="text-base font-bold leading-tight">
             <%= link_to announcement.title, announcement_path(announcement), class: "link link-hover" %>
           </h3>

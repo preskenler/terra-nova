@@ -8,12 +8,12 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
-    <div class="auth-field">
+    <div class="grid gap-1.5">
       <%= f.label :email, t("auth.fields.email"), class: "text-sm font-semibold" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input input-bordered w-full" %>
     </div>
 
-    <div class="auth-field">
+    <div class="grid gap-1.5">
       <%= f.label :password, t("auth.fields.password"), class: "text-sm font-semibold" %>
       <% if @minimum_password_length %>
         <p class="text-xs text-base-content/60"><%= t("auth.fields.password_hint", count: @minimum_password_length) %></p>
@@ -21,7 +21,7 @@
       <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full" %>
     </div>
 
-    <div class="auth-field">
+    <div class="grid gap-1.5">
       <%= f.label :password_confirmation, t("auth.fields.password_confirmation"), class: "text-sm font-semibold" %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full" %>
     </div>
