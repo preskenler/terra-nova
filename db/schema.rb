@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_200002) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_210001) do
   create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.integer "wday", null: false
@@ -56,6 +56,40 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_200002) do
     t.index ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true
     t.index ["role"], name: "index_agents_on_role"
     t.index ["unlock_token"], name: "index_agents_on_unlock_token", unique: true
+  end
+
+  create_table "alerts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.json "title_translations"
+    t.json "body_translations"
+    t.string "kind", default: "other", null: false
+    t.string "severity", default: "alert", null: false
+    t.string "target_segment", default: "all", null: false
+    t.string "locality"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.decimal "radius_km", precision: 8, scale: 2
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_alerts_on_active"
+    t.index ["kind"], name: "index_alerts_on_kind"
+  end
+
+  create_table "announcements", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.json "title_translations"
+    t.json "body_translations"
+    t.string "severity", default: "info", null: false
+    t.string "target_audience", default: "all", null: false
+    t.datetime "published_at"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_announcements_on_active"
+    t.index ["severity"], name: "index_announcements_on_severity"
   end
 
   create_table "appointments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

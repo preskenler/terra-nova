@@ -12,6 +12,8 @@ en:
     services: "Services"
     transports: "Transport"
     glossary: "Glossary"
+    announcements: "News"
+    alerts: "Alerts"
     requests: "My requests"
     notifications: "Notifications"
     my_space: "My space"
@@ -30,6 +32,7 @@ en:
 
   actions:
     view: "View"
+    edit: "Edit"
     save: "Save"
     filter: "Filter"
     reset: "Reset"
@@ -155,6 +158,37 @@ en:
       no_slots_hint: "Try another date or another agent."
       book: "Confirm my appointment"
 
+  severities:
+    info: "Information"
+    alert: "Alert"
+    critical: "Critical"
+
+  audiences:
+    everyone: "Everyone"
+    citizens: "Citizens"
+    agents: "Agents"
+
+  announcements:
+    title: "Municipal news"
+    subtitle: "Official announcements from the city of Nova Terra."
+    empty: "No announcement for now."
+    new: "New announcement"
+
+  alerts:
+    title: "Alerts"
+    subtitle: "Urgent information concerning the city and its districts."
+    empty: "No alert in progress."
+    locality: "Area: %{name}"
+    kinds:
+      flood: "Flood"
+      heatwave: "Heatwave"
+      security: "Security"
+      other: "Other"
+    segments:
+      everyone: "Everyone"
+      vulnerable: "Vulnerable people"
+      residents: "Local residents"
+
   services:
     title: "Municipal services"
     subtitle: "Find the service that matches your need and access the useful information for each one."
@@ -246,6 +280,8 @@ en:
     services:
       title: "Priority services"
       see_all: "See all services"
+    announcements:
+      see_all: "See all the news"
 
   agents:
     title: "Nova Terra — Agent workspace"
@@ -254,6 +290,8 @@ en:
       requests: "Citizen requests"
       appointments: "Appointments"
       demands: "API demands"
+      announcements: "News"
+      alerts: "Alerts"
       users: "Citizens"
     dashboard:
       title: "Dashboard"
@@ -394,6 +432,63 @@ en:
         starts_at: "From"
         ends_at: "To"
         reason: "Reason"
+    announcements:
+      title: "Announcements"
+      subtitle: "Publish official information to the inhabitants."
+      new: "New announcement"
+      edit: "Edit announcement"
+      created: "The announcement has been published."
+      updated: "The announcement has been updated."
+      destroyed: "The announcement has been deleted."
+      confirm_destroy: "Delete this announcement?"
+      table_caption: "List of announcements"
+      columns:
+        title: "Title"
+        severity: "Severity"
+        audience: "Audience"
+        published_at: "Published"
+        status: "Active"
+      fields:
+        title_fr: "Title (FR)"
+        title_en: "Title (EN)"
+        body_fr: "Body (FR)"
+        body_en: "Body (EN)"
+        severity: "Severity"
+        audience: "Audience"
+        published_at: "Published at"
+        starts_at: "Visible from"
+        ends_at: "Visible until"
+        active: "Active"
+    alerts:
+      title: "Alerts"
+      subtitle: "Broadcast urgent information (flood, heatwave, security…)."
+      new: "New alert"
+      edit: "Edit alert"
+      created: "The alert has been broadcast."
+      updated: "The alert has been updated."
+      destroyed: "The alert has been deleted."
+      confirm_destroy: "Delete this alert?"
+      table_caption: "List of alerts"
+      columns:
+        title: "Title"
+        kind: "Type"
+        severity: "Severity"
+        segment: "Audience"
+        status: "Active"
+      fields:
+        title_fr: "Title (FR)"
+        title_en: "Title (EN)"
+        body_fr: "Body (FR)"
+        body_en: "Body (EN)"
+        kind: "Type"
+        severity: "Severity"
+        segment: "Audience"
+        locality: "Area"
+        latitude: "Latitude"
+        longitude: "Longitude"
+        starts_at: "From"
+        ends_at: "Until"
+        active: "Active"
     users:
       title: "Citizen accounts"
       subtitle: "Search and administer the citizens of Nova Terra."

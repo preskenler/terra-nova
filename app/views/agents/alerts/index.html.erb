@@ -1,0 +1,37 @@
+<% content_for :title, t("agents.alerts.title") %>
+
+<div class="flex flex-wrap items-start justify-between gap-3">
+  <div>
+    <h1 class="text-2xl font-bold"><%= t("agents.alerts.title") %></h1>
+    <p class="mt-1 text-base-content/70"><%= t("agents.alerts.subtitle") %></p>
+  </div>
+  <%= link_to t("agents.alerts.new"), new_agents_alert_path, class: "btn btn-error btn-sm" %>
+</div>
+
+<div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.alerts.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.alerts.columns.title") %></th>
+        <th scope="col"><%= t("agents.alerts.columns.kind") %></th>
+        <th scope="col"><%= t("agents.alerts.columns.severity") %></th>
+        <th scope="col"><%= t("agents.alerts.columns.segment") %></th>
+        <th scope="col"><%= t("agents.alerts.columns.status") %></th>
+        <th scope="col"><span class="sr-only"><%= t("actions.view") %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @alerts.each do |alert| %>
+        <tr>
+          <th scope="row"><%= link_to alert.title, agents_alert_path(alert), class: "link" %></th>
+          <td><%= t("alerts.kinds.#{alert.kind}") %></td>
+          <td><%= render Ui::BadgeComponent.new(label: t("severities.#{alert.severity}"), variant: severity_badge_variant(alert.severity)) %></td>
+          <td><%= t("alerts.segments.#{alert.target_segment}") %></td>
+          <td><%= alert.active? ? t("common.yes") : t("common.no") %></td>
+          <td class="text-right"><%= link_to t("actions.view"), agents_alert_path(alert), class: "btn btn-ghost btn-xs" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

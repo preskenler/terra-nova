@@ -1,0 +1,74 @@
+<%= form_with model: alert,
+      url: alert.persisted? ? agents_alert_path(alert) : agents_alerts_path,
+      class: "space-y-4" do |f| %>
+  <% if alert.errors.any? %>
+    <div role="alert" class="alert alert-error">
+      <ul class="list-disc pl-5">
+        <% alert.errors.full_messages.each do |message| %><li><%= message %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    <div>
+      <%= f.label :title_fr, t("agents.alerts.fields.title_fr"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :title_fr, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :title_en, t("agents.alerts.fields.title_en"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :title_en, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :body_fr, t("agents.alerts.fields.body_fr"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :body_fr, rows: 4, class: "textarea textarea-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :body_en, t("agents.alerts.fields.body_en"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_area :body_en, rows: 4, class: "textarea textarea-bordered w-full" %>
+    </div>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-3">
+    <div>
+      <%= f.label :kind, t("agents.alerts.fields.kind"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.select :kind, Alert::KINDS.keys.map { |k| [ t("alerts.kinds.#{k}"), k ] }, {}, class: "select select-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :severity, t("agents.alerts.fields.severity"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.select :severity, Alert::SEVERITIES.keys.map { |s| [ t("severities.#{s}"), s ] }, {}, class: "select select-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :target_segment, t("agents.alerts.fields.segment"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.select :target_segment, Alert::SEGMENTS.keys.map { |s| [ t("alerts.segments.#{s}"), s ] }, {}, class: "select select-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :locality, t("agents.alerts.fields.locality"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.text_field :locality, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :latitude, t("agents.alerts.fields.latitude"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.number_field :latitude, step: "any", class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :longitude, t("agents.alerts.fields.longitude"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.number_field :longitude, step: "any", class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :starts_at, t("agents.alerts.fields.starts_at"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.datetime_local_field :starts_at, class: "input input-bordered w-full" %>
+    </div>
+    <div>
+      <%= f.label :ends_at, t("agents.alerts.fields.ends_at"), class: "mb-1 block text-sm font-medium" %>
+      <%= f.datetime_local_field :ends_at, class: "input input-bordered w-full" %>
+    </div>
+    <label class="flex cursor-pointer items-center gap-2 pt-6">
+      <%= f.check_box :active, class: "checkbox checkbox-sm" %>
+      <span class="text-sm"><%= t("agents.alerts.fields.active") %></span>
+    </label>
+  </div>
+
+  <div class="flex gap-2">
+    <%= f.submit t("actions.save"), class: "btn btn-error" %>
+    <%= link_to t("actions.back"), agents_alerts_path, class: "btn btn-ghost" %>
+  </div>
+<% end %>

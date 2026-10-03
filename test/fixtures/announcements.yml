@@ -1,0 +1,14 @@
+info:
+  title_translations: { "fr": "Travaux place centrale", "en": "Central square works" }
+  body_translations: { "fr": "Des travaux débutent lundi.", "en": "Works start on Monday." }
+  severity: info
+  target_audience: all
+  published_at: <%= 1.day.ago %>
+  active: true
+
+draft:
+  title_translations: { "fr": "Brouillon", "en": "Draft" }
+  body_translations: { "fr": "Non publié.", "en": "Not published." }
+  severity: info
+  target_audience: citizens
+  active: false

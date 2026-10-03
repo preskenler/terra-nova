@@ -1,0 +1,19 @@
+flood:
+  title_translations: { "fr": "Montée des eaux", "en": "Rising water" }
+  body_translations: { "fr": "Le niveau monte.", "en": "The level is rising." }
+  kind: flood
+  severity: critical
+  target_segment: all
+  locality: "Quartier sud"
+  starts_at: <%= 1.hour.ago %>
+  active: true
+
+expired:
+  title_translations: { "fr": "Ancienne alerte", "en": "Old alert" }
+  body_translations: { "fr": "Terminée.", "en": "Over." }
+  kind: other
+  severity: info
+  target_segment: all
+  starts_at: <%= 5.days.ago %>
+  ends_at: <%= 4.days.ago %>
+  active: true

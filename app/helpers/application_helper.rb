@@ -38,4 +38,22 @@ module ApplicationHelper
     else :neutral
     end
   end
+
+  # Severity styling shared by announcements and alerts. Colour is never the
+  # only signal: badges always carry the translated severity text.
+  def severity_badge_variant(severity)
+    case severity.to_s
+    when "critical" then :error
+    when "alert"    then :warning
+    else :info
+    end
+  end
+
+  def severity_alert_class(severity)
+    case severity.to_s
+    when "critical" then "alert-error"
+    when "alert"    then "alert-warning"
+    else "alert-info"
+    end
+  end
 end

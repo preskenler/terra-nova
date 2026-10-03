@@ -12,6 +12,8 @@ fr:
     services: "Services"
     transports: "Transports"
     glossary: "Glossaire"
+    announcements: "Actualités"
+    alerts: "Alertes"
     requests: "Mes demandes"
     notifications: "Notifications"
     my_space: "Mon espace"
@@ -30,6 +32,7 @@ fr:
 
   actions:
     view: "Consulter"
+    edit: "Modifier"
     save: "Enregistrer"
     filter: "Filtrer"
     reset: "Réinitialiser"
@@ -155,6 +158,37 @@ fr:
       no_slots_hint: "Essayez une autre date ou un autre agent."
       book: "Confirmer mon rendez-vous"
 
+  severities:
+    info: "Information"
+    alert: "Alerte"
+    critical: "Critique"
+
+  audiences:
+    everyone: "Tout le monde"
+    citizens: "Citoyens"
+    agents: "Agents"
+
+  announcements:
+    title: "Actualités municipales"
+    subtitle: "Les annonces officielles de la ville de Nova Terra."
+    empty: "Aucune annonce pour le moment."
+    new: "Nouvelle annonce"
+
+  alerts:
+    title: "Alertes"
+    subtitle: "Informations urgentes concernant la ville et ses quartiers."
+    empty: "Aucune alerte en cours."
+    locality: "Secteur : %{name}"
+    kinds:
+      flood: "Inondation"
+      heatwave: "Canicule"
+      security: "Sécurité"
+      other: "Autre"
+    segments:
+      everyone: "Tout le monde"
+      vulnerable: "Personnes vulnérables"
+      residents: "Habitants du secteur"
+
   services:
     title: "Services municipaux"
     subtitle: "Trouvez le service qui correspond à votre besoin et accédez aux informations utiles pour chacun."
@@ -246,6 +280,8 @@ fr:
     services:
       title: "Services prioritaires"
       see_all: "Voir tous les services"
+    announcements:
+      see_all: "Voir toutes les actualités"
 
   agents:
     title: "Nova Terra — Espace agent"
@@ -254,6 +290,8 @@ fr:
       requests: "Demandes citoyennes"
       appointments: "Rendez-vous"
       demands: "Demandes API"
+      announcements: "Actualités"
+      alerts: "Alertes"
       users: "Citoyens"
     dashboard:
       title: "Tableau de bord"
@@ -394,6 +432,63 @@ fr:
         starts_at: "Du"
         ends_at: "Au"
         reason: "Motif"
+    announcements:
+      title: "Actualités"
+      subtitle: "Publiez des informations officielles à destination des habitants."
+      new: "Nouvelle annonce"
+      edit: "Modifier l'annonce"
+      created: "L'annonce a été publiée."
+      updated: "L'annonce a été mise à jour."
+      destroyed: "L'annonce a été supprimée."
+      confirm_destroy: "Supprimer cette annonce ?"
+      table_caption: "Liste des annonces"
+      columns:
+        title: "Titre"
+        severity: "Gravité"
+        audience: "Public"
+        published_at: "Publiée le"
+        status: "Active"
+      fields:
+        title_fr: "Titre (FR)"
+        title_en: "Titre (EN)"
+        body_fr: "Contenu (FR)"
+        body_en: "Contenu (EN)"
+        severity: "Gravité"
+        audience: "Public"
+        published_at: "Publiée le"
+        starts_at: "Visible à partir du"
+        ends_at: "Visible jusqu'au"
+        active: "Active"
+    alerts:
+      title: "Alertes"
+      subtitle: "Diffusez des informations urgentes (inondation, canicule, sécurité…)."
+      new: "Nouvelle alerte"
+      edit: "Modifier l'alerte"
+      created: "L'alerte a été diffusée."
+      updated: "L'alerte a été mise à jour."
+      destroyed: "L'alerte a été supprimée."
+      confirm_destroy: "Supprimer cette alerte ?"
+      table_caption: "Liste des alertes"
+      columns:
+        title: "Titre"
+        kind: "Type"
+        severity: "Gravité"
+        segment: "Public"
+        status: "Active"
+      fields:
+        title_fr: "Titre (FR)"
+        title_en: "Titre (EN)"
+        body_fr: "Contenu (FR)"
+        body_en: "Contenu (EN)"
+        kind: "Type"
+        severity: "Gravité"
+        segment: "Public"
+        locality: "Secteur"
+        latitude: "Latitude"
+        longitude: "Longitude"
+        starts_at: "Du"
+        ends_at: "Au"
+        active: "Active"
     users:
       title: "Comptes citoyens"
       subtitle: "Recherchez et administrez les habitants de Nova Terra."

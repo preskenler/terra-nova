@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   # Public city information
   resources :services, only: [ :index, :show ]
   resources :transports, only: [ :index ]
+  resources :announcements, only: [ :index, :show ]
+  resources :alerts, only: [ :index ]
   get "glossary", to: "glossary#index", as: :glossary
 
   # Citizen space
@@ -61,6 +63,10 @@ Rails.application.routes.draw do
       end
       resources :availabilities, only: [ :index, :create, :destroy ]
       resources :time_offs, only: [ :create, :destroy ]
+
+      # Announcements and urgent alerts (D18/F29/F30/F31)
+      resources :announcements
+      resources :alerts
     end
   end
 end

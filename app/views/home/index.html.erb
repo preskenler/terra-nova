@@ -17,6 +17,23 @@
   </div>
 </section>
 
+<% if @alerts.any? %>
+  <section aria-label="<%= t("alerts.title") %>" class="mt-6 space-y-3">
+    <% @alerts.each do |alert| %>
+      <div role="<%= alert.critical? ? "alert" : "status" %>"
+           class="alert <%= severity_alert_class(alert.severity) %>">
+        <div>
+          <p class="font-semibold"><%= alert.title %></p>
+          <p class="text-sm"><%= alert.body %></p>
+          <% if alert.locality.present? %>
+            <p class="mt-1 text-xs"><%= t("alerts.locality", name: alert.locality) %></p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
 <% if @emergency_services.any? %>
   <section aria-labelledby="home-emergency-heading" class="mt-6 rounded-box border-2 border-error bg-base-100 p-4">
     <h2 id="home-emergency-heading" class="text-lg font-bold"><%= t("services.emergency.title") %></h2>
@@ -54,6 +71,27 @@
     <div class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <% priority_services.each do |service| %>
         <%= render "services/card", service: service %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<% if @announcements.any? %>
+  <section class="mt-8" aria-labelledby="home-announcements-heading">
+    <div class="flex items-center justify-between">
+      <h2 id="home-announcements-heading" class="text-xl font-bold"><%= t("announcements.title") %></h2>
+      <%= link_to t("home.announcements.see_all"), announcements_path, class: "link text-sm" %>
+    </div>
+    <div class="mt-3 grid gap-4 md:grid-cols-3">
+      <% @announcements.each do |announcement| %>
+        <article class="card border border-base-300 bg-base-100">
+          <div class="card-body gap-2">
+            <h3 class="card-title text-base">
+              <%= link_to announcement.title, announcement_path(announcement), class: "link link-hover" %>
+            </h3>
+            <p class="text-sm text-base-content/80"><%= truncate(announcement.body.to_s, length: 120) %></p>
+          </div>
+        </article>
       <% end %>
     </div>
   </section>

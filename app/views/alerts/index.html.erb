@@ -1,0 +1,35 @@
+<% content_for :title, t("alerts.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("nav.home"), path: root_path },
+      { label: t("alerts.title") }
+    ]) %>
+
+<h1 class="mt-4 text-2xl font-bold"><%= t("alerts.title") %></h1>
+<p class="mt-1 text-base-content/70"><%= t("alerts.subtitle") %></p>
+
+<% if @alerts.any? %>
+  <ul class="mt-6 space-y-4">
+    <% @alerts.each do |alert| %>
+      <li role="<%= alert.critical? ? "alert" : "status" %>"
+          class="alert <%= severity_alert_class(alert.severity) %>">
+        <div>
+          <p class="text-base font-semibold"><%= alert.title %></p>
+          <p class="text-sm"><%= alert.body %></p>
+          <p class="mt-1 text-xs">
+            <%= render Ui::BadgeComponent.new(
+                  label: t("alerts.kinds.#{alert.kind}"),
+                  variant: severity_badge_variant(alert.severity)) %>
+            <% if alert.locality.present? %>
+              <span class="ml-2"><%= t("alerts.locality", name: alert.locality) %></span>
+            <% end %>
+          </p>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="mt-6">
+    <%= render Ui::EmptyStateComponent.new(title: t("alerts.empty")) %>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+<% content_for :title, t("agents.announcements.title") %>
+
+<div class="flex flex-wrap items-start justify-between gap-3">
+  <div>
+    <h1 class="text-2xl font-bold"><%= t("agents.announcements.title") %></h1>
+    <p class="mt-1 text-base-content/70"><%= t("agents.announcements.subtitle") %></p>
+  </div>
+  <%= link_to t("agents.announcements.new"), new_agents_announcement_path, class: "btn btn-primary btn-sm" %>
+</div>
+
+<div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.announcements.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.announcements.columns.title") %></th>
+        <th scope="col"><%= t("agents.announcements.columns.severity") %></th>
+        <th scope="col"><%= t("agents.announcements.columns.audience") %></th>
+        <th scope="col"><%= t("agents.announcements.columns.published_at") %></th>
+        <th scope="col"><%= t("agents.announcements.columns.status") %></th>
+        <th scope="col"><span class="sr-only"><%= t("actions.view") %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @announcements.each do |announcement| %>
+        <tr>
+          <th scope="row"><%= link_to announcement.title, agents_announcement_path(announcement), class: "link" %></th>
+          <td><%= render Ui::BadgeComponent.new(label: t("severities.#{announcement.severity}"), variant: severity_badge_variant(announcement.severity)) %></td>
+          <td><%= t("audiences.#{announcement.target_audience}") %></td>
+          <td><%= announcement.published_at ? l(announcement.published_at, format: :short) : "—" %></td>
+          <td><%= announcement.active? ? t("common.yes") : t("common.no") %></td>
+          <td class="text-right"><%= link_to t("actions.view"), agents_announcement_path(announcement), class: "btn btn-ghost btn-xs" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

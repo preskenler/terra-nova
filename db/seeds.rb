@@ -228,6 +228,41 @@ Agent.find_each do |agent_record|
 end
 puts "  Availability: #{AgentAvailability.count} ranges"
 
+# --- Announcements and alerts (D18/F29/F30/F31) ----------------------------
+if Announcement.none?
+  announcement = Announcement.new(severity: "info", target_audience: "all", published_at: Time.current, active: true)
+  announcement.title_fr = "Travaux de rénovation de la place centrale"
+  announcement.title_en = "Central square renovation works"
+  announcement.body_fr = "Les travaux de rénovation de la place centrale débutent lundi. Des déviations sont mises en place."
+  announcement.body_en = "Renovation works on the central square start on Monday. Diversions are in place."
+  announcement.save!
+
+  waste = Announcement.new(severity: "alert", target_audience: "citizens", published_at: 1.day.ago, active: true)
+  waste.title_fr = "Nouveaux horaires de collecte des déchets"
+  waste.title_en = "New waste collection times"
+  waste.body_fr = "À partir du 1er novembre, la collecte des ordures ménagères aura lieu le matin au lieu du soir."
+  waste.body_en = "From 1 November, household waste collection will take place in the morning instead of the evening."
+  waste.save!
+end
+
+if Alert.none?
+  flood = Alert.new(kind: "flood", severity: "critical", target_segment: "residents", locality: "Quartier sud",
+                    latitude: 48.850, longitude: 2.360, radius_km: 2, starts_at: Time.current, active: true)
+  flood.title_fr = "Montée inhabituelle du niveau de l'eau — quartier sud"
+  flood.title_en = "Unusual water level rise — south district"
+  flood.body_fr = "Le niveau de l'eau monte rapidement dans le quartier sud. Évitez les abords de la rivière et suivez les consignes des secours."
+  flood.body_en = "Water levels are rising quickly in the south district. Avoid the riverbanks and follow emergency instructions."
+  flood.save!
+
+  heat = Alert.new(kind: "heatwave", severity: "alert", target_segment: "vulnerable", starts_at: Time.current, active: true)
+  heat.title_fr = "Vague de chaleur : recommandations"
+  heat.title_en = "Heatwave: recommendations"
+  heat.body_fr = "Une vague de chaleur touche la ville. Buvez régulièrement, restez au frais et prenez des nouvelles de vos proches vulnérables."
+  heat.body_en = "A heatwave is affecting the city. Drink regularly, stay cool and check on vulnerable relatives."
+  heat.save!
+end
+puts "  Alerts:       #{Alert.count} alerts, #{Announcement.count} announcements"
+
 # --- Initial demand sync (optional) -----------------------------------------
 if TerraNova::Webcup.configured?
   result = Demands::Sync.call
