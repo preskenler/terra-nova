@@ -73,6 +73,34 @@ Copy `.env.example` to `.env` (gitignored). Every variable is optional; defaults
 
 ---
 
+## Deploying to Heroku
+
+The app is Heroku-ready: the `Procfile` runs `db:prepare` and `db:load_solid_schemas`
+in the release phase, and `config/database.yml` production uses the platform
+`DATABASE_URL` for the primary database **and** the Solid Cache/Queue/Cable components
+(they share the single Heroku Postgres instance).
+
+```sh
+heroku create <app-name>
+heroku addons:create heroku-postgresql:essential-0
+heroku addons:create mailtrap:unpaid          # or any SMTP provider
+heroku config:set RAILS_MASTER_KEY="$(cat config/master.key)" \
+  WEBCUP_API_KEY=<key> \
+  SOLID_QUEUE_IN_PUMA=true \
+  APP_HOST=<app-name>.herokuapp.com \
+  MAILER_FROM=no-reply@example.com \
+  SMTP_ADDRESS=... SMTP_PORT=587 SMTP_USER_NAME=... SMTP_PASSWORD=...
+git push heroku main                          # release phase migrates + loads schemas
+heroku run bin/rails db:seed                  # demo data (idempotent)
+```
+
+- `SOLID_QUEUE_IN_PUMA=true` runs the job supervisor (demand sync, appointment
+  reminders, mailers) inside the web dyno — no separate worker dyno required.
+- Mail goes out through the `SMTP_*` variables, so any provider works (Mailtrap,
+  SendGrid, Mailgun, …). `APP_HOST` is used for mailer links and host authorization.
+
+---
+
 ## Demo accounts
 
 Seeded by `bin/rails db:seed`:
