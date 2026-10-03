@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_230000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_240001) do
   create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.integer "wday", null: false
@@ -195,6 +195,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_230000) do
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
   end
 
+  create_table "login_activities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "ip"
+    t.string "user_agent"
+    t.string "fingerprint", limit: 64
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_login_activities_on_created_at"
+    t.index ["user_id", "fingerprint"], name: "index_login_activities_on_user_id_and_fingerprint"
+    t.index ["user_id"], name: "index_login_activities_on_user_id"
+  end
+
   create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "notifiable_type"
@@ -344,6 +356,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_230000) do
     t.boolean "large_text", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "magic_link_nonce"
+    t.datetime "magic_link_sent_at"
+    t.string "otp_secret"
+    t.boolean "otp_required", default: false, null: false
+    t.datetime "otp_confirmed_at"
+    t.boolean "reduced_data", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"
@@ -368,6 +386,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_03_230000) do
   add_foreign_key "appointments", "users"
   add_foreign_key "demands", "agents", column: "assignee_id"
   add_foreign_key "feedbacks", "users"
+  add_foreign_key "login_activities", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "request_events", "requests"

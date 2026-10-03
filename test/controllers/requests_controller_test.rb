@@ -46,4 +46,13 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     get request_url(requests(:streetlight))
     assert_response :not_found
   end
+
+  test "requests can be downloaded as CSV" do
+    sign_in users(:citizen)
+    get requests_url(format: :csv)
+
+    assert_response :success
+    assert_includes response.media_type, "csv"
+    assert_match "NOVA-2026-AAAAA", response.body
+  end
 end

@@ -1,0 +1,66 @@
+<% content_for :title, t("account.data.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("nav.home"), path: root_path },
+      { label: t("nav.my_space"), path: citizen_dashboard_path },
+      { label: t("profiles.title"), path: profile_path },
+      { label: t("account.data.title") }
+    ]) %>
+
+<div class="mt-4 flex flex-wrap items-start justify-between gap-3">
+  <div>
+    <h1 class="text-2xl font-bold"><%= t("account.data.title") %></h1>
+    <p class="mt-1 max-w-2xl text-base-content/70"><%= t("account.data.intro") %></p>
+  </div>
+  <%= link_to t("account.data.download"), export_account_path, class: "btn btn-primary btn-sm" %>
+</div>
+
+<% account = @data[:account] %>
+<section class="mt-6" aria-labelledby="data-account-heading">
+  <h2 id="data-account-heading" class="text-lg font-semibold"><%= t("account.data.account") %></h2>
+  <dl class="mt-2 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+    <div>
+      <dt class="text-base-content/60"><%= t("profiles.fields.email") %></dt>
+      <dd class="font-medium"><%= account[:email] %></dd>
+    </div>
+    <div>
+      <dt class="text-base-content/60"><%= t("profiles.fields.locale") %></dt>
+      <dd class="font-medium"><%= account[:language] %></dd>
+    </div>
+    <div>
+      <dt class="text-base-content/60"><%= t("account.data.two_factor") %></dt>
+      <dd class="font-medium"><%= account[:two_factor_enabled] ? t("common.yes") : t("common.no") %></dd>
+    </div>
+    <div>
+      <dt class="text-base-content/60"><%= t("account.data.registered_at") %></dt>
+      <dd class="font-medium"><%= l(current_user.created_at, format: :short) %></dd>
+    </div>
+  </dl>
+</section>
+
+<section class="mt-6" aria-labelledby="data-activity-heading">
+  <h2 id="data-activity-heading" class="text-lg font-semibold"><%= t("account.data.activity") %></h2>
+  <div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <%= render Ui::StatComponent.new(label: t("requests.title"), value: @data[:requests].size) %>
+    <%= render Ui::StatComponent.new(label: t("appointments.title"), value: @data[:appointments].size) %>
+    <%= render Ui::StatComponent.new(label: t("notifications.title"), value: @data[:notifications].size) %>
+    <%= render Ui::StatComponent.new(label: t("feedbacks.title"), value: @data[:messages].size) %>
+  </div>
+</section>
+
+<section class="mt-6" aria-labelledby="data-logins-heading">
+  <h2 id="data-logins-heading" class="text-lg font-semibold"><%= t("account.devices.title") %></h2>
+  <% if @recent_logins.any? %>
+    <ul class="mt-2 divide-y divide-base-200 rounded-box border border-base-300 bg-base-100">
+      <% @recent_logins.each do |activity| %>
+        <li class="flex flex-wrap items-center justify-between gap-2 p-3 text-sm">
+          <span class="font-mono"><%= activity.ip %></span>
+          <span class="text-base-content/70"><%= activity.device_label %></span>
+          <time datetime="<%= activity.created_at.iso8601 %>"><%= l(activity.created_at, format: :short) %></time>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="mt-2 text-sm text-base-content/60"><%= t("account.devices.empty") %></p>
+  <% end %>
+</section>

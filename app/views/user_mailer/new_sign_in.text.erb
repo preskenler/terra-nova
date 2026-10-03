@@ -1,0 +1,9 @@
+<%= t("user_mailer.new_sign_in.heading") %>
+
+<%= t("user_mailer.new_sign_in.body") %>
+
+<%= t("user_mailer.new_sign_in.fields.ip") %>: <%= @ip %>
+<%= t("user_mailer.new_sign_in.fields.device") %>: <%= @user_agent %>
+<%= t("user_mailer.new_sign_in.fields.at") %>: <%= l(@at, format: :long) %>
+
+<%= t("user_mailer.new_sign_in.warning") %>

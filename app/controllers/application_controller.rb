@@ -8,10 +8,11 @@ class ApplicationController < ActionController::Base
   stale_when_importmap_changes
 
   before_action :set_audit_actor
+  before_action :require_otp_verification
 
   around_action :switch_locale
 
-  helper_method :current_locale, :high_contrast?, :large_text?
+  helper_method :current_locale, :high_contrast?, :large_text?, :reduced_data?
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -28,6 +29,20 @@ class ApplicationController < ActionController::Base
     return "User:#{current_user.id}" if respond_to?(:current_user) && current_user
 
     "system"
+  end
+
+  # Enforces the second factor after a password/magic-link sign-in (F53).
+  def require_otp_verification
+    return unless current_user&.otp_enabled?
+    return if session[:otp_verified]
+
+    allowed = %w[
+      users/two_factor users/sessions users/magic_links
+      users/registrations users/passwords
+    ]
+    return if allowed.include?(controller_path)
+
+    redirect_to users_two_factor_path
   end
 
   # Locale resolution order: explicit param -> signed-in preference -> session
@@ -60,6 +75,11 @@ class ApplicationController < ActionController::Base
 
   def large_text?
     accessibility_preference(:large_text)
+  end
+
+  # Low-data mode: skips heavy optional resources (map tiles) (F59).
+  def reduced_data?
+    accessibility_preference(:reduced_data)
   end
 
   def accessibility_preference(attribute)

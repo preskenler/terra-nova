@@ -121,6 +121,13 @@ No counts or waves are hard-coded: future `D…`/`F…` demands simply appear in
   diffs, filterable from `/agents/audit_logs`.
 - **Contact & transparency** — public contact form (including data-usage concerns),
   transparency and accessibility statement pages.
+- **Passwordless sign-in & 2FA** — email magic-link login and TOTP two-factor
+  authentication.
+- **Personal data** — a clear personal-data page and a portable JSON export.
+- **Security alerts** — a notification and email when a sign-in comes from a new device.
+- **Requests recap** — CSV download of a citizen's request history.
+- **Environmental impact** — measured weight report at `/eco` enforced by an automated
+  asset budget test, plus a low-data mode and a dynamically imported map library.
 
 ---
 

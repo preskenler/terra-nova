@@ -8,7 +8,12 @@
 
 <h1 class="mt-4 text-2xl font-bold"><%= t("accounts.title") %></h1>
 
-<div class="mt-4 max-w-2xl">
+<div class="mt-4 grid max-w-2xl gap-4">
+  <%= render Ui::CardComponent.new(title: t("account.data.title")) do %>
+    <p class="text-sm text-base-content/80"><%= t("account.data.short") %></p>
+    <%= link_to t("account.data.view"), data_account_path, class: "btn btn-primary btn-sm mt-2" %>
+  <% end %>
+
   <%= render Ui::CardComponent.new do %>
     <p><%= t("accounts.explanation") %></p>
 

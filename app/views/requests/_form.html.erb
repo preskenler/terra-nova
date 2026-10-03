@@ -40,28 +40,32 @@
     <legend class="px-1 text-sm font-medium"><%= t("requests.form.map_legend") %></legend>
     <p class="mb-2 text-xs text-base-content/60"><%= t("requests.form.map_hint") %></p>
 
-    <div data-controller="map"
-         data-map-interactive-value="true"
-         data-map-lat-value="<%= request.latitude %>"
-         data-map-lng-value="<%= request.longitude %>"
-         data-map-zoom-value="13"
-         data-map-label-value="<%= t("requests.form.location") %>">
-      <div data-map-target="container"
-           role="application"
-           aria-label="<%= t("requests.form.map_label") %>"
-           class="h-64 w-full overflow-hidden rounded-box border border-base-300"></div>
+    <% unless reduced_data? %>
+      <div data-controller="map"
+           data-map-interactive-value="true"
+           data-map-lat-value="<%= request.latitude %>"
+           data-map-lng-value="<%= request.longitude %>"
+           data-map-zoom-value="13"
+           data-map-label-value="<%= t("requests.form.location") %>">
+        <div data-map-target="container"
+             role="application"
+             aria-label="<%= t("requests.form.map_label") %>"
+             class="h-64 w-full overflow-hidden rounded-box border border-base-300"></div>
 
-      <p class="mt-2 text-sm text-base-content/70">
-        <%= t("requests.form.coordinates") %>:
-        <span data-map-target="coords" class="font-mono">
-          <% if request.latitude.present? && request.longitude.present? %>
-            <%= request.latitude.to_f.round(5) %>, <%= request.longitude.to_f.round(5) %>
-          <% else %>
-            <%= t("requests.form.no_coordinates") %>
-          <% end %>
-        </span>
-      </p>
-    </div>
+        <p class="mt-2 text-sm text-base-content/70">
+          <%= t("requests.form.coordinates") %>:
+          <span data-map-target="coords" class="font-mono">
+            <% if request.latitude.present? && request.longitude.present? %>
+              <%= request.latitude.to_f.round(5) %>, <%= request.longitude.to_f.round(5) %>
+            <% else %>
+              <%= t("requests.form.no_coordinates") %>
+            <% end %>
+          </span>
+        </p>
+      </div>
+    <% else %>
+      <p class="text-sm text-base-content/60"><%= t("a11y.reduced_data_note") %></p>
+    <% end %>
 
     <%= f.hidden_field :latitude, data: { map_target: "latInput" } %>
     <%= f.hidden_field :longitude, data: { map_target: "lngInput" } %>

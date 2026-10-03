@@ -15,6 +15,13 @@ Rails.application.routes.draw do
   }
   devise_for :agents, path: "agents", controllers: { sessions: "agents/sessions" }
 
+  # Passwordless sign-in (D02) and two-factor challenge (F53)
+  get  "users/magic_link",        to: "users/magic_links#new",  as: :users_magic_link
+  post "users/magic_link",        to: "users/magic_links#create"
+  get  "users/magic_link/:token", to: "users/magic_links#show", as: :users_magic_link_session
+  get  "users/two_factor",        to: "users/two_factor#show",  as: :users_two_factor
+  post "users/two_factor",        to: "users/two_factor#create"
+
   # Public city information
   resources :services, only: [ :index, :show ]
   resources :transports, only: [ :index ]
@@ -26,6 +33,7 @@ Rails.application.routes.draw do
   resource :feedback, only: [ :new, :create ], controller: "feedbacks"
   get "transparency",  to: "pages#transparency",  as: :transparency
   get "accessibility", to: "pages#accessibility", as: :accessibility
+  get "eco",           to: "pages#eco",           as: :eco
 
   # Citizen space
   authenticate :user do
@@ -41,7 +49,14 @@ Rails.application.routes.draw do
 
     resource :profile,    only: [ :show, :edit, :update ], controller: "profiles"
     resource :onboarding, only: [ :show, :update ],        controller: "onboarding"
-    resource :account,    only: [ :show, :destroy ],       controller: "accounts"
+    resource :account,    only: [ :show, :destroy ],       controller: "accounts" do
+      get :data
+      get :export
+    end
+
+    get    "profile/two_factor", to: "two_factor_settings#show",    as: :two_factor_settings
+    post   "profile/two_factor", to: "two_factor_settings#create"
+    delete "profile/two_factor", to: "two_factor_settings#destroy"
   end
 
   # Municipal agent workspace (distinct from the citizen space)

@@ -1,0 +1,14 @@
+<% content_for :title, t("two_factor.challenge_title") %>
+
+<h1 class="text-2xl font-bold"><%= t("two_factor.challenge_title") %></h1>
+<p class="mt-1 max-w-xl text-base-content/70"><%= t("two_factor.challenge_intro") %></p>
+
+<%= form_with url: users_two_factor_path, method: :post, class: "mt-6 max-w-sm space-y-4" do %>
+  <div>
+    <label for="otp_code" class="mb-1 block text-sm font-medium"><%= t("two_factor.code") %></label>
+    <%= text_field_tag :code, nil, id: "otp_code", class: "input input-bordered w-full font-mono tracking-widest",
+          inputmode: "numeric", autocomplete: "one-time-code", required: true, autofocus: true %>
+  </div>
+
+  <%= submit_tag t("two_factor.verify"), class: "btn btn-primary" %>
+<% end %>

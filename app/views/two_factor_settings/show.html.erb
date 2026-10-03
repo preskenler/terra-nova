@@ -1,0 +1,46 @@
+<% content_for :title, t("two_factor.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("nav.home"), path: root_path },
+      { label: t("nav.my_space"), path: citizen_dashboard_path },
+      { label: t("profiles.title"), path: profile_path },
+      { label: t("two_factor.title") }
+    ]) %>
+
+<h1 class="mt-4 text-2xl font-bold"><%= t("two_factor.title") %></h1>
+<p class="mt-1 max-w-2xl text-base-content/70"><%= t("two_factor.intro") %></p>
+
+<% if current_user.otp_enabled? %>
+  <div class="mt-6 max-w-xl">
+    <div role="status" class="alert alert-success">
+      <span><%= t("two_factor.enabled_notice") %></span>
+    </div>
+    <%= button_to t("two_factor.disable"), two_factor_settings_path, method: :delete,
+          class: "btn btn-error btn-sm mt-4",
+          data: { turbo_confirm: t("two_factor.confirm_disable") } %>
+  </div>
+<% else %>
+  <div class="mt-6 grid max-w-2xl gap-6 sm:grid-cols-2">
+    <div>
+      <%= image_tag @qr_data_uri, alt: t("two_factor.qr_alt"), width: 240, height: 240,
+            class: "rounded-box border border-base-300" %>
+    </div>
+    <div>
+      <p class="text-sm text-base-content/80"><%= t("two_factor.scan") %></p>
+      <p class="mt-2 text-sm">
+        <%= t("two_factor.manual") %>
+        <code class="break-all rounded bg-base-200 px-1 py-0.5 font-mono text-xs"><%= current_user.otp_secret %></code>
+      </p>
+
+      <%= form_with url: two_factor_settings_path, method: :post, class: "mt-4 space-y-3" do %>
+        <div>
+          <label for="otp_setup_code" class="mb-1 block text-sm font-medium"><%= t("two_factor.code") %></label>
+          <%= text_field_tag :code, nil, id: "otp_setup_code",
+                class: "input input-bordered w-full font-mono tracking-widest",
+                inputmode: "numeric", autocomplete: "one-time-code", required: true %>
+        </div>
+        <%= submit_tag t("two_factor.enable"), class: "btn btn-primary btn-sm" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

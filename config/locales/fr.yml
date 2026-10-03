@@ -50,6 +50,9 @@ fr:
     display_settings: "Réglages d'affichage"
     high_contrast: "Contraste élevé"
     large_text: "Texte agrandi"
+    reduced_data: "Mode économie de données"
+    reduced_data_hint: "Évite les ressources lourdes comme les cartes sur les connexions lentes."
+    reduced_data_note: "Mode économie de données : la carte n'est pas chargée."
     apply: "Appliquer"
 
   preferences:
@@ -65,6 +68,7 @@ fr:
     title: "Mes demandes"
     subtitle: "Retrouvez toutes vos demandes et suivez leur avancement."
     new: "Nouvelle demande"
+    export_csv: "Télécharger (CSV)"
     created_notice: "Votre demande %{reference} a bien été envoyée. Vous recevrez une confirmation par e-mail."
     submitted_on: "Envoyée le %{date}"
     empty: "Vous n'avez encore aucune demande"
@@ -131,6 +135,9 @@ fr:
     appointment_cancelled:
       title: "Rendez-vous annulé"
       body: "Votre rendez-vous du %{date} a été annulé."
+    new_device:
+      title: "Nouvelle connexion détectée"
+      body: "Votre compte a été utilisé depuis un nouvel appareil (%{ip}). Si ce n'est pas vous, changez votre mot de passe."
 
   appointments:
     title: "Mes rendez-vous"
@@ -239,6 +246,23 @@ fr:
       help_heading: "Besoin d'aide ?"
       help_body: "Si vous rencontrez un obstacle d'accessibilité, signalez-le pour que nous le corrigions."
       contact: "Signaler un problème d'accessibilité"
+    eco:
+      title: "Impact environnemental"
+      intro: "Nova Terra cherche à limiter son empreinte numérique. Voici le poids mesuré des ressources propres à la plateforme."
+      metrics_heading: "Poids mesuré"
+      css: "Feuilles de style"
+      js: "JavaScript"
+      budget: "Budget : %{value}"
+      measured_note: "Mesuré sur les ressources de l'application, hors tuiles tierces."
+      choices_heading: "Choix de conception qui réduisent l'empreinte"
+      choices:
+        no_framework: "Pages rendues côté serveur avec Hotwire, sans framework SPA lourd."
+        maps_lazy: "La bibliothèque de cartes (~170 Ko) n'est chargée que sur les pages qui affichent une carte."
+        low_data: "Un mode économie de données désactive les cartes sur les connexions lentes."
+        no_fonts: "Aucune police externe ni traceur tiers."
+        budget: "Budget de taille des ressources vérifié automatiquement par la suite de tests."
+      low_data_heading: "Mode économie de données"
+      low_data_body: "Activez « Mode économie de données » depuis le menu Accessibilité pour éviter les cartes et les ressources lourdes."
 
   services:
     title: "Services municipaux"
@@ -715,6 +739,68 @@ fr:
       agent: "Agent"
       service: "Service"
     view: "Consulter mon rendez-vous"
+
+  user_mailer:
+    magic_link:
+      subject: "Votre lien de connexion Nova Terra"
+      heading: "Connexion à Nova Terra"
+      body: "Cliquez sur le lien ci-dessous pour vous connecter sans mot de passe."
+      button: "Se connecter"
+      expiry: "Ce lien est valable 15 minutes et ne peut être utilisé qu'une seule fois."
+    new_sign_in:
+      subject: "Nouvelle connexion à votre compte Nova Terra"
+      heading: "Nouvelle connexion détectée"
+      body: "Votre compte Nova Terra vient d'être utilisé depuis un nouvel appareil."
+      warning: "Si ce n'est pas vous, changez votre mot de passe immédiatement."
+      fields:
+        ip: "Adresse IP"
+        device: "Appareil"
+        at: "Date"
+
+  magic_links:
+    link: "Se connecter sans mot de passe"
+    title: "Se connecter sans mot de passe"
+    intro: "Saisissez votre adresse e-mail et nous vous enverrons un lien de connexion à usage unique."
+    email: "Votre adresse e-mail"
+    submit: "Envoyer le lien"
+    sent: "Si cette adresse correspond à un compte, un lien de connexion vient d'être envoyé."
+    signed_in: "Vous êtes connecté."
+    invalid: "Ce lien de connexion est invalide ou a expiré."
+
+  two_factor:
+    title: "Authentification à deux facteurs"
+    intro: "Ajoutez une vérification supplémentaire pour protéger votre compte avec une application d'authentification."
+    challenge_title: "Vérification requise"
+    challenge_intro: "Saisissez le code à 6 chiffres de votre application d'authentification pour terminer la connexion."
+    code: "Code de vérification"
+    verify: "Vérifier"
+    verified: "Vérification réussie."
+    invalid_code: "Le code est incorrect ou a expiré."
+    enable: "Activer l'authentification à deux facteurs"
+    enabled_notice: "L'authentification à deux facteurs est activée sur votre compte."
+    disable: "Désactiver l'authentification à deux facteurs"
+    confirm_disable: "Désactiver l'authentification à deux facteurs ?"
+    enabled: "L'authentification à deux facteurs est désormais activée."
+    disabled: "L'authentification à deux facteurs a été désactivée."
+    scan: "Scannez ce QR code avec votre application d'authentification."
+    manual: "Ou saisissez ce secret manuellement :"
+    qr_alt: "QR code pour activer l'authentification à deux facteurs"
+
+  account:
+    data:
+      title: "Mes données personnelles"
+      intro: "Voici un résumé clair des informations que Nova Terra détient à votre sujet, ainsi qu'un export portable."
+      short: "Consultez et téléchargez les données que la ville détient à votre sujet."
+      view: "Consulter mes données"
+      download: "Télécharger mes données (JSON)"
+      account: "Compte"
+      activity: "Activité"
+      registered_at: "Inscrit le"
+      two_factor: "Double authentification"
+    devices:
+      title: "Connexions récentes"
+      empty: "Aucune connexion enregistrée pour le moment."
+      unknown: "Appareil inconnu"
 
   time:
     formats:

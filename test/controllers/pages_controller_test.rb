@@ -12,4 +12,10 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "Accessibilité", response.body
   end
+
+  test "eco page renders with measured metrics" do
+    get eco_url
+    assert_response :success
+    assert_match "Impact environnemental", response.body
+  end
 end

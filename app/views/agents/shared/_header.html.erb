@@ -21,7 +21,7 @@
 
     <div class="flex flex-wrap items-center gap-2">
       <%= render Ui::LocaleSwitcherComponent.new(current: I18n.locale) %>
-      <%= render Ui::AccessibilityControlsComponent.new(high_contrast: high_contrast?, large_text: large_text?) %>
+      <%= render Ui::AccessibilityControlsComponent.new(high_contrast: high_contrast?, large_text: large_text?, reduced_data: reduced_data?) %>
       <span class="hidden text-sm text-base-content/70 sm:inline"><%= current_agent.display_name %></span>
       <%= button_to t("nav.sign_out"), destroy_agent_session_path, method: :delete,
             class: "btn btn-ghost btn-sm" %>

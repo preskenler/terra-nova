@@ -19,12 +19,43 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :appointments, dependent: :destroy
   has_many :feedbacks, dependent: :nullify
+  has_many :login_activities, dependent: :destroy
 
   after_create :create_default_profile
 
   # Human-friendly label used in navigation and audit logs.
   def display_name
     email
+  end
+
+  # --- Two-factor authentication (F53) -------------------------------------
+
+  def otp_enabled?
+    otp_required? && otp_secret.present?
+  end
+
+  # Generates a TOTP secret the first time it is needed.
+  def generate_otp_secret!
+    update!(otp_secret: ROTP::Base32.random, otp_confirmed_at: nil) if otp_secret.blank?
+    otp_secret
+  end
+
+  def otp_provisioning_uri
+    ROTP::TOTP.new(otp_secret, issuer: "Nova Terra").provisioning_uri(email)
+  end
+
+  def verify_otp(code)
+    return false if otp_secret.blank? || code.blank?
+
+    ROTP::TOTP.new(otp_secret).verify(code.to_s.delete(" "), drift_behind: 30, drift_ahead: 30).present?
+  end
+
+  def enable_two_factor!
+    update!(otp_required: true, otp_confirmed_at: Time.current)
+  end
+
+  def disable_two_factor!
+    update!(otp_required: false, otp_secret: nil, otp_confirmed_at: nil)
   end
 
   private

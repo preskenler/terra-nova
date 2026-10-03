@@ -7,6 +7,15 @@ class RequestsController < ApplicationController
   def index
     @requests = current_user.requests.recent_first
     @open_count = current_user.requests.open_requests.count
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data Requests::Csv.call(@requests),
+                  filename: "mes-demandes-#{Date.current}.csv",
+                  type: "text/csv; charset=utf-8"
+      end
+    end
   end
 
   def show

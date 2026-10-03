@@ -50,6 +50,9 @@ en:
     display_settings: "Display settings"
     high_contrast: "High contrast"
     large_text: "Large text"
+    reduced_data: "Low data mode"
+    reduced_data_hint: "Skips heavy resources such as maps on slow connections."
+    reduced_data_note: "Low data mode: the map is not loaded."
     apply: "Apply"
 
   preferences:
@@ -65,6 +68,7 @@ en:
     title: "My requests"
     subtitle: "Find all your requests and follow their progress."
     new: "New request"
+    export_csv: "Download (CSV)"
     created_notice: "Your request %{reference} has been sent. You will receive a confirmation by email."
     submitted_on: "Submitted on %{date}"
     empty: "You have no requests yet"
@@ -131,6 +135,9 @@ en:
     appointment_cancelled:
       title: "Appointment cancelled"
       body: "Your appointment on %{date} has been cancelled."
+    new_device:
+      title: "New sign-in detected"
+      body: "Your account was accessed from a new device (%{ip}). If this was not you, change your password."
 
   appointments:
     title: "My appointments"
@@ -239,6 +246,23 @@ en:
       help_heading: "Need help?"
       help_body: "If you encounter an accessibility barrier, tell us so we can fix it."
       contact: "Report an accessibility issue"
+    eco:
+      title: "Environmental impact"
+      intro: "Nova Terra keeps its digital footprint as light as possible. Here is the measured weight of the platform's own assets."
+      metrics_heading: "Measured weight"
+      css: "Stylesheets"
+      js: "JavaScript"
+      budget: "Budget: %{value}"
+      measured_note: "Measured on the application's own build assets, excluding third-party tiles."
+      choices_heading: "Design choices that reduce the footprint"
+      choices:
+        no_framework: "Server-rendered pages with Hotwire, no heavy SPA framework."
+        maps_lazy: "The map library (~170 KB) is loaded only on pages that actually show a map."
+        low_data: "A low-data mode disables maps on slow connections."
+        no_fonts: "No external web fonts or third-party trackers."
+        budget: "Automated asset-size budget enforced by the test suite."
+      low_data_heading: "Low-data mode"
+      low_data_body: "Enable “Low data mode” from the Accessibility menu to skip maps and heavy resources."
 
   services:
     title: "Municipal services"
@@ -715,6 +739,68 @@ en:
       agent: "Agent"
       service: "Service"
     view: "View my appointment"
+
+  user_mailer:
+    magic_link:
+      subject: "Your Nova Terra sign-in link"
+      heading: "Sign in to Nova Terra"
+      body: "Click the link below to sign in without a password."
+      button: "Sign in"
+      expiry: "This link is valid for 15 minutes and can only be used once."
+    new_sign_in:
+      subject: "New sign-in to your Nova Terra account"
+      heading: "New sign-in detected"
+      body: "Your Nova Terra account was just accessed from a new device."
+      warning: "If this was not you, change your password immediately."
+      fields:
+        ip: "IP address"
+        device: "Device"
+        at: "Date"
+
+  magic_links:
+    link: "Sign in without a password"
+    title: "Sign in without a password"
+    intro: "Enter your email address and we will send you a single-use sign-in link."
+    email: "Your email"
+    submit: "Send me a link"
+    sent: "If this email matches an account, a sign-in link has just been sent."
+    signed_in: "You are signed in."
+    invalid: "This sign-in link is invalid or has expired."
+
+  two_factor:
+    title: "Two-factor authentication"
+    intro: "Add a second verification step to protect your account with an authenticator app."
+    challenge_title: "Verification required"
+    challenge_intro: "Enter the 6-digit code from your authenticator app to finish signing in."
+    code: "Verification code"
+    verify: "Verify"
+    verified: "Verification successful."
+    invalid_code: "The code is incorrect or has expired."
+    enable: "Enable two-factor authentication"
+    enabled_notice: "Two-factor authentication is enabled on your account."
+    disable: "Disable two-factor authentication"
+    confirm_disable: "Disable two-factor authentication?"
+    enabled: "Two-factor authentication is now enabled."
+    disabled: "Two-factor authentication has been disabled."
+    scan: "Scan this QR code with your authenticator app."
+    manual: "Or enter this secret manually:"
+    qr_alt: "QR code to enrol two-factor authentication"
+
+  account:
+    data:
+      title: "My personal data"
+      intro: "Here is a clear summary of the information Nova Terra holds about you, and a portable export."
+      short: "View and download the data the city holds about you."
+      view: "View my data"
+      download: "Download my data (JSON)"
+      account: "Account"
+      activity: "Activity"
+      registered_at: "Registered on"
+      two_factor: "Two-factor"
+    devices:
+      title: "Recent sign-ins"
+      empty: "No sign-in recorded yet."
+      unknown: "Unknown device"
 
   time:
     formats:

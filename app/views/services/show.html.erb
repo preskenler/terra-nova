@@ -39,20 +39,25 @@
     <% if @service.location? %>
       <section aria-labelledby="location-heading">
         <h2 id="location-heading" class="text-lg font-semibold"><%= t("services.location.title") %></h2>
-        <div class="mt-2"
-             data-controller="map"
-             data-map-lat-value="<%= @service.latitude %>"
-             data-map-lng-value="<%= @service.longitude %>"
-             data-map-label-value="<%= @service.name %>">
-          <div data-map-target="container"
-               role="img"
-               aria-label="<%= t("services.map.label", name: @service.name) %>"
-               class="h-64 w-full overflow-hidden rounded-box border border-base-300"></div>
-        </div>
+        <% unless reduced_data? %>
+          <div class="mt-2"
+               data-controller="map"
+               data-map-lat-value="<%= @service.latitude %>"
+               data-map-lng-value="<%= @service.longitude %>"
+               data-map-label-value="<%= @service.name %>">
+            <div data-map-target="container"
+                 role="img"
+                 aria-label="<%= t("services.map.label", name: @service.name) %>"
+                 class="h-64 w-full overflow-hidden rounded-box border border-base-300"></div>
+          </div>
+        <% end %>
         <p class="mt-2 text-sm">
           <span class="font-medium"><%= @service.address %></span> —
           <%= link_to t("services.map.open"), "https://www.openstreetmap.org/?mlat=#{@service.latitude}&mlon=#{@service.longitude}#map=17/#{@service.latitude}/#{@service.longitude}",
                 class: "link", target: "_blank", rel: "noopener" %>
+          <% if reduced_data? %>
+            <span class="text-base-content/60">(<%= t("a11y.reduced_data_note") %>)</span>
+          <% end %>
         </p>
       </section>
     <% end %>

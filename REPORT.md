@@ -652,28 +652,138 @@ withdraw your support.
 
 ---
 
-# Newly released demands — not yet implemented
+# Additional demands (later API waves) — implemented
 
-These demands appeared in later API waves, after the initial build. They are listed here
-for transparency; they are **not implemented yet** and therefore have no test URL.
+These demands appeared in later API waves. They are now implemented as well.
 
-- **D02 · Difficult · 1020 XP** — Simplify access to the platform (single sign-on).
-  *Not yet implemented.*
-- **F53 · Difficult · 1020 XP** — Stronger account security with an additional
-  verification step (two-factor authentication). *Not yet implemented.*
-- **F54 · Medium · 680 XP** — Be alerted when someone signs in to my account from a new
-  device. *Not yet implemented* (sign-ins are tracked for audit, but no alert is sent).
-- **F55 · Difficult · 1020 XP** — Retrieve the personal data the city holds about me.
-  *Not yet implemented* (the profile is viewable, but no data export exists).
-- **F56 · Medium · 680 XP** — Download a summary of my requests. *Not yet implemented.*
-- **F57 · Medium · 700 XP** — Limit the environmental impact of the platform.
-  *Not yet implemented* (the app is lightweight by design, but no dedicated feature).
-- **F58 · Difficult · 1050 XP** — Reduce the digital environmental impact durably.
-  *Not yet implemented.*
-- **F59 · Medium · 700 XP** — Work well on slow connections. *Partial:* server-rendered
-  pages and no SPA framework, but no dedicated optimisation.
-- **F60 · Easy · 350 XP** — Keep images and media lightweight. *Partial:* minimal
-  imagery; the map tile layer is the only external resource.
+## D02 · Difficult · 1020 XP — Sign in without a classic password
+
+**What we built.** Passwordless sign-in with email magic links. The link is signed,
+single-use and valid for 15 minutes; consuming it rotates a per-user nonce so it cannot
+be replayed. The request response is deliberately generic to avoid revealing whether an
+email exists, and the endpoint is rate-limited. The second factor still applies when
+enabled.
+
+**Where to test.** `/users/magic_link` (link “Sign in without a password” in the header)
+
+**How to verify.** 1) Enter `citoyen@novaterra.fr` → a generic “link sent” message.
+2) Open the emailed link (configure SMTP or a mail preview to read it) → you are signed
+in. 3) Open the same link again → it is rejected (single use). 4) Enter an unknown email
+→ the same generic message. Covered by automated tests.
+
+---
+
+## F53 · Difficult · 1020 XP — Additional verification (two-factor authentication)
+
+**What we built.** TOTP two-factor authentication via an authenticator app. Citizens
+enrol from their profile (QR code + manual secret), confirm with a 6-digit code, and the
+account is then gated by a verification challenge after every password or magic-link
+sign-in. It can be disabled from the same page.
+
+**Where to test.** `/profile/two_factor`
+
+**How to verify.** 1) Open `/profile/two_factor` and scan the QR code with an
+authenticator app. 2) Enter the current 6-digit code → enabling is confirmed.
+3) Sign out and sign in with your password → you are redirected to `/users/two_factor`.
+4) Enter the code → access is granted. 5) Disable it from the same page.
+
+---
+
+## F54 · Medium · 680 XP — Alert on sign-in from a new device
+
+**What we built.** Each sign-in is recorded with its IP address and a device fingerprint.
+A sign-in from a device never seen before creates an in-app notification and a security
+email. Recent sign-ins are listed in the personal data page.
+
+**Where to test.** New-device notification at `/notifications`; history at `/account/data`
+
+**How to verify.** 1) Sign in normally, then sign in again from a different browser
+(different user agent). 2) A “New sign-in detected” notification appears, and a security
+email is queued. 3) Signing in twice from the same device does not alert again.
+
+---
+
+## F55 · Difficult · 1020 XP — Retrieve my personal data
+
+**What we built.** A personal data page giving a clear, structured summary (account
+settings, two-factor status, registration date, activity counts and recent sign-ins),
+plus a portable JSON export covering the account, profile, requests with their steps,
+appointments, notifications, messages and supports.
+
+**Where to test.** `/account/data` → “Download my data (JSON)”
+
+**How to verify.** 1) Open `/account/data` → a readable summary is displayed.
+2) Click the download button → a structured JSON file is returned. 3) Check it reflects
+your real requests and appointments.
+
+---
+
+## F56 · Medium · 680 XP — Download a recap of my requests
+
+**What we built.** A CSV export of the citizen’s request history: reference, submission
+date, subject, status, service, location, number of steps, supporters and last update —
+ready to open in a spreadsheet.
+
+**Where to test.** `/requests` → “Download (CSV)”, or directly `/requests.csv`
+
+**How to verify.** 1) Open `/requests`. 2) Click “Download (CSV)” → a data file is
+downloaded. 3) Check the rows match your requests and their statuses.
+
+---
+
+## F57 · Medium · 700 XP — Environmental performance diagnosis
+
+**What we built.** An `/eco` page reporting the measured size of the application’s own
+stylesheets and JavaScript against explicit budgets, together with the design choices
+that reduce the footprint. The Leaflet map library is now imported dynamically, so its
+weight is only paid on pages that actually display a map.
+
+**Where to test.** `/eco`
+
+**How to verify.** Open `/eco` → measured weights and budgets are shown. Then open a
+page without a map and check the browser Network tab: `leaflet.js` is not downloaded.
+
+---
+
+## F58 · Difficult · 1050 XP — Durable reduction of the digital impact
+
+**What we built.** Systematic lightweight choices across the key journeys: no SPA
+framework (server-rendered Hotwire), no external web fonts or trackers, dynamic import of
+the map library, and an **automated asset-size budget** enforced by the test suite so the
+weight cannot regress unnoticed.
+
+**Where to test.** `/eco`; test `test/performance/asset_budget_test.rb`
+
+**How to verify.** 1) Run `bin/rails test test/performance/asset_budget_test.rb` → it
+passes and fails if the CSS/JS budgets are exceeded. 2) `/eco` documents the policy and
+current numbers.
+
+---
+
+## F59 · Medium · 700 XP — Works on slow connections
+
+**What we built.** A **low-data mode** preference, persisted to the profile and session,
+that disables maps (no tile requests) and other heavy optional resources. Pages are
+server-rendered, so content remains available and readable without JavaScript.
+
+**Where to test.** Header “Accessibility” menu → “Low data mode”
+
+**How to verify.** 1) Enable “Low data mode”. 2) Open a service with a location → the map
+is not loaded and a note is displayed instead. 3) In the Network tab, confirm no tile
+requests are made.
+
+---
+
+## F60 · Easy · 350 XP — Lightweight images and media
+
+**What we built.** No external fonts or heavy media; the 2FA QR code is an inline data
+URI; map tiles are only requested when a map is actually shown (and never in low-data
+mode). The media choices and budgets are documented at `/eco`.
+
+**Where to test.** `/eco` and any page’s Network tab
+
+**How to verify.** 1) Browse the main pages → no large media are loaded.
+2) Enable low-data mode → no tile requests. 3) `/eco` describes the media choices.
 
 ---
 
@@ -681,12 +791,15 @@ for transparency; they are **not implemented yet** and therefore have no test UR
 
 - **Stack:** Rails 8.1, MySQL 8.4, Hotwire (Turbo + Stimulus), ViewComponents,
   Tailwind + daisyUI (no Node toolchain).
-- **Security:** Devise (two scopes), Pundit, PaperTrail, `rack-attack`, CSP with nonces,
-  HSTS and secure cookies in production, filtered parameters, password-confirmed account
-  deletion.
+- **Security:** Devise (two scopes) with passwordless magic links and TOTP two-factor
+  authentication, Pundit, PaperTrail, `rack-attack`, new-device sign-in alerts, CSP with
+  nonces, HSTS and secure cookies in production, filtered parameters, password-confirmed
+  account deletion.
 - **Internationalisation:** French default with English fallback; translatable service,
   announcement and alert content; locale resolved from parameter → profile → session →
   cookie.
 - **Accessibility:** WCAG 2.2 AA-oriented statement at `/accessibility`.
-- **Quality:** 137 automated tests pass; RuboCop, Brakeman, bundler-audit and importmap
+- **Environmental:** measured weight and budgets at `/eco`, enforced by an automated
+  asset-size test; low-data mode and dynamically imported map library.
+- **Quality:** 159 automated tests pass; RuboCop, Brakeman, bundler-audit and importmap
   audit are all clean.

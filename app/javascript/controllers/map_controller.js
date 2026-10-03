@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import L from "leaflet"
 
 // Renders a Leaflet/OpenStreetMap map (F45/F46). Progressive enhancement: the
 // address text and latitude/longitude fields remain usable without JS.
@@ -7,6 +6,9 @@ import L from "leaflet"
 // - Read-only mode: set lat/lng/label values on the element.
 // - Interactive mode (`data-map-interactive-value="true"`): clicking the map
 //   updates the lat/lng input targets and the live coordinate text target.
+//
+// Leaflet is imported dynamically so its ~170 KB bundle is only fetched when a
+// page actually contains a map (F57/F58/F59).
 export default class extends Controller {
   static values = {
     lat: Number,
@@ -20,8 +22,11 @@ export default class extends Controller {
   // Fallback centre (downtown Nova Terra) when no coordinates are provided.
   static DEFAULT_CENTER = [ 48.8566, 2.3522 ]
 
-  connect() {
+  async connect() {
     if (!this.hasContainerTarget) return
+
+    const { default: L } = await import("leaflet")
+    this.L = L
 
     const center = this.hasCoordinates ? [ this.latValue, this.lngValue ] : this.constructor.DEFAULT_CENTER
 
@@ -62,7 +67,7 @@ export default class extends Controller {
     if (this.marker) {
       this.marker.setLatLng(center)
     } else {
-      this.marker = L.marker(center, options).addTo(this.map)
+      this.marker = this.L.marker(center, options).addTo(this.map)
     }
   }
 
@@ -73,7 +78,7 @@ export default class extends Controller {
 
   // Use a div icon so no marker image assets are required (CSP-friendly).
   pinIcon() {
-    return L.divIcon({
+    return this.L.divIcon({
       className: "nova-map-pin",
       html: '<span aria-hidden="true">&#128205;</span>',
       iconSize: [ 28, 28 ],

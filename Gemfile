@@ -39,6 +39,13 @@ gem "rack-attack"
 # Translatable content (service names/descriptions, announcements, alerts)
 gem "mobility"
 
+# Two-factor authentication (TOTP) and QR code enrolment (F53)
+gem "rotp"
+gem "rqrcode"
+
+# CSV export of a citizen's requests (F56)
+gem "csv"
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 
