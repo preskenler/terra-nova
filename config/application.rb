@@ -16,9 +16,16 @@ module TerraNova
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
-    # Compress responses (HTML/CSS/JS) with gzip. Heroku does not gzip on its
-    # own, and the eco/asset budgets (F57/F58/F59/F60) assume compressed sizes.
-    config.middleware.use Rack::Deflater
+    # Compress responses with gzip. Placed at the top of the middleware stack so
+    # it also covers the static assets (CSS/JS) served by ActionDispatch::Static
+    # before the app; Heroku's router does not gzip on its own. Only text-like
+    # payloads are compressed.
+    config.middleware.insert_before(
+      0, Rack::Deflater,
+      if: lambda { |_env, _status, headers, _body|
+        headers["Content-Type"].to_s.match?(%r{\A(?:text/|application/(?:json|xml|javascript)|image/svg)})
+      }
+    )
 
     # Configuration for the application, engines, and railties goes here.
     #
