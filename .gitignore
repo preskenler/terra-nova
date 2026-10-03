@@ -4,9 +4,8 @@
 # belong in git's global ignore instead:
 # `$XDG_CONFIG_HOME/git/ignore` or `~/.config/git/ignore`
 
-# Ignore bundler config, except the committed settings that must ship.
-/.bundle/*
-!/.bundle/config
+# Ignore bundler config.
+/.bundle
 
 # Ignore all environment files.
 /.env*
@@ -37,3 +36,4 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+!/app/assets/builds/tailwind.css
