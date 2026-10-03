@@ -23,7 +23,7 @@ workspace where they can be triaged.
 ## Requirements
 
 - Ruby **3.3.12**
-- MySQL **8.0+** (or Docker)
+- PostgreSQL **18.6** (or Docker)
 - No Node.js toolchain required (Tailwind + daisyUI are compiled by `tailwindcss-rails`
   and JavaScript is served through importmaps)
 
@@ -40,15 +40,19 @@ docker compose up --build
 
 Then open <http://localhost:3000>.
 
-### Option B — local Ruby + Dockerised MySQL
+### Option B — local Ruby + Dockerised PostgreSQL
 
 ```sh
-docker compose up -d mysql      # starts MySQL 8.4 on localhost:3306
+docker compose up -d postgres   # starts PostgreSQL 18.6 on localhost:5432
 bin/setup                       # or: bundle install && bin/rails db:prepare
 bin/rails db:seed
 bin/rails tailwindcss:build
 bin/rails server
 ```
+
+> The `pg` gem needs PostgreSQL client libraries to build locally. On macOS:
+> `brew install libpq` then
+> `bundle config build.pg --with-pg-config="$(brew --prefix libpq)/bin/pg_config"`.
 
 ---
 
@@ -59,7 +63,7 @@ Copy `.env.example` to `.env` (gitignored). Every variable is optional; defaults
 
 | Variable | Purpose | Default |
 |---|---|---|
-| `MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_TEST_DATABASE` | Database connection | see `.env.example` |
+| `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DATABASE`, `POSTGRES_TEST_DATABASE` | Database connection | see `.env.example` |
 | `WEBCUP_API_BASE_URL` | External Terra Nova API base URL | `https://24h.webcup.fr/wp-json/webcup/v1` |
 | `WEBCUP_API_KEY` | API key (falls back to Rails credentials `webcup.api_key`) | — |
 | `WEBCUP_POLL_INTERVAL` | Poll interval in seconds | `30` |
@@ -236,14 +240,3 @@ config/
   displays an error banner.
 - Future `D…`/`F…` demands are intentionally unknown in advance; the data-driven design
   absorbs them without a rebuild.
-
----
-
-## Deployment
-
-Production runs on a **cPanel host through Phusion Passenger** (Hodifly,
-glibc 2.28). Step-by-step setup, environment variables and 500-error
-troubleshooting are in [DEPLOY.md](DEPLOY.md).
-
-The `config/deploy.yml` and `.kamal/` files are stock Rails generator scaffolding
-and are **not** used by the production deployment.

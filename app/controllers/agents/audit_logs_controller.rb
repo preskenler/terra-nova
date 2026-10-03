@@ -15,7 +15,7 @@ module Agents
 
       if params[:q].present?
         query = "%#{params[:q].strip}%"
-        scope = scope.where("item_type LIKE :q OR item_id LIKE :q", q: query)
+        scope = scope.where("item_type ILIKE :q OR item_id::text ILIKE :q", q: query)
       end
 
       @versions = paginate(scope).to_a

@@ -4,8 +4,9 @@ require "rails/test_help"
 
 module ActiveSupport
   class TestCase
-    # Run tests in a single process by default: the shared MySQL user cannot
-    # create the extra per-worker databases. Override with PARALLEL_WORKERS.
+    # Run tests in a single process by default for deterministic output. The
+    # PostgreSQL role may create per-worker databases; override with
+    # PARALLEL_WORKERS to run the suite in parallel.
     parallelize(workers: Integer(ENV.fetch("PARALLEL_WORKERS", 1)))
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.

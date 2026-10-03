@@ -74,7 +74,7 @@ module Agents
 
       if params[:q].present?
         query = "%#{params[:q].strip}%"
-        scope = scope.where("request_code LIKE ? OR message_public LIKE ?", query, query)
+        scope = scope.where("request_code ILIKE ? OR message_public ILIKE ?", query, query)
       end
 
       @total_demands = scope.count

@@ -16,7 +16,7 @@ module Agents
       if params[:q].present?
         query = "%#{params[:q].strip}%"
         scope = scope.where(
-          "reference LIKE :q OR subject LIKE :q OR description LIKE :q", q: query
+          "reference ILIKE :q OR subject ILIKE :q OR description ILIKE :q", q: query
         )
       end
 

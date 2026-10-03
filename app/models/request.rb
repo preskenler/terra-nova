@@ -40,7 +40,7 @@ class Request < ApplicationRecord
   scope :recent_first, -> { order(created_at: :desc) }
   scope :open_requests, -> { where(status: OPEN_STATUSES) }
   # Urgent first, then most recent (F80).
-  scope :priority_first, -> { order(Arel.sql("FIELD(priority, 'urgent', 'normal')"), created_at: :desc) }
+  scope :priority_first, -> { order(Arel.sql("priority = 'urgent' DESC"), created_at: :desc) }
 
   # URL-friendly and stable public identifier.
   def to_param

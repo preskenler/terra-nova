@@ -14,7 +14,7 @@ class RequestsController < ApplicationController
 
     if params[:q].present?
       query = "%#{params[:q].strip}%"
-      scope = scope.where("subject LIKE :q OR description LIKE :q", q: query)
+      scope = scope.where("subject ILIKE :q OR description ILIKE :q", q: query)
     end
 
     scope = params[:sort] == "oldest" ? scope.order(created_at: :asc) : scope.recent_first

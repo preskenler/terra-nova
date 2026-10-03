@@ -14,7 +14,7 @@ verify it.
 Start the application:
 
 ```sh
-docker compose up -d mysql
+docker compose up -d postgres
 bin/rails db:prepare db:seed
 bin/rails server
 ```
@@ -1079,7 +1079,7 @@ filter and a “priority first” sort.
 
 # Global implementation notes
 
-- **Stack:** Rails 8.1, MySQL 8.4, Hotwire (Turbo + Stimulus), ViewComponents,
+- **Stack:** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,
   Tailwind + daisyUI (no Node toolchain).
 - **Security:** Devise (two scopes) with passwordless magic links, sign-in by citizen
   identifier, and TOTP two-factor authentication, Pundit, PaperTrail, `rack-attack`,

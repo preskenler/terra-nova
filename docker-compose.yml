@@ -1,28 +1,27 @@
 services:
-  mysql:
-    image: mysql:8.4.11
+  postgres:
+    image: postgres:18.6
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-terra_nova_development}
-      MYSQL_TEST_DATABASE: ${MYSQL_TEST_DATABASE:-terra_nova_test}
-      MYSQL_USER: ${MYSQL_USER:-rails}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
+      POSTGRES_USER: ${POSTGRES_USER:-rails}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DATABASE:-terra_nova_development}
+      POSTGRES_TEST_DATABASE: ${POSTGRES_TEST_DATABASE:-terra_nova_test}
     ports:
-      - "${MYSQL_HOST_PORT:-3306}:3306"
+      - "${POSTGRES_HOST_PORT:-5432}:5432"
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+      - postgres_data:/var/lib/postgresql
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent",
+          "pg_isready -U ${POSTGRES_USER:-rails} -d ${POSTGRES_DATABASE:-terra_nova_development}",
         ]
       interval: 5s
       timeout: 5s
       retries: 20
-      start_period: 30s
+      start_period: 15s
 
   web:
     build:
@@ -35,15 +34,15 @@ services:
       - "3000:3000"
     environment:
       RAILS_ENV: development
-      MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-terra_nova_development}
-      MYSQL_TEST_DATABASE: ${MYSQL_TEST_DATABASE:-terra_nova_test}
-      MYSQL_USER: ${MYSQL_USER:-rails}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE:-terra_nova_development}
+      POSTGRES_TEST_DATABASE: ${POSTGRES_TEST_DATABASE:-terra_nova_test}
+      POSTGRES_USER: ${POSTGRES_USER:-rails}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
     depends_on:
-      mysql:
+      postgres:
         condition: service_healthy
 
 volumes:
-  mysql_data:
+  postgres_data:

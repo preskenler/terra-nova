@@ -6,8 +6,8 @@ gem "rails", "~> 8.1.4"
 gem "propshaft"
 # Bundle and process CSS with Tailwind [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
-# Use MySQL as the database for Active Record
-gem "mysql2", "~> 0.5", ">= 0.5.6"
+# Use PostgreSQL as the database for Active Record
+gem "pg", "~> 1.5"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]

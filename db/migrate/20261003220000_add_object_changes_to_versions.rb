@@ -4,6 +4,6 @@
 # can show exactly what changed (F48).
 class AddObjectChangesToVersions < ActiveRecord::Migration[8.1]
   def change
-    add_column :versions, :object_changes, :text, limit: 1_073_741_823
+    add_column :versions, :object_changes, :text
   end
 end
