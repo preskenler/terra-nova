@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* daisyUI is vendored locally so no Node.js toolchain is required. */
+@source not "./daisyui{,*}.mjs";
+
+@plugin "./daisyui.mjs";
+
+/* Optional: enable for custom daisyUI themes – https://daisyui.com/docs/themes/ */
+/* @plugin "./daisyui-theme.mjs" { } */
