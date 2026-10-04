@@ -16,7 +16,7 @@
       <div class="flex items-center justify-between gap-3">
         <%= f.label :password, t("auth.fields.password"), class: "text-sm font-semibold" %>
         <% if devise_mapping.recoverable? %>
-          <%= link_to t("auth.links.forgot_password"), new_password_path(resource_name), class: "link text-xs text-base-content" %>
+          <%= link_to t("auth.links.forgot_password"), new_password_path(resource_name), class: "link text-xs text-primary" %>
         <% end %>
       </div>
       <%= f.password_field :password, autocomplete: "current-password", class: "input input-bordered w-full" %>
