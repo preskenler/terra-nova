@@ -1,8 +1,8 @@
 <% content_for :title, t("app.name") %>
 
 <section class="grid overflow-hidden rounded-box border border-base-300 bg-base-100 <%= "md:grid-cols-[3fr_2fr]" unless simple_mode? %>">
-  <div class="flex min-h-[25rem] flex-col justify-center border-t-4 border-primary p-8 md:border-l-4 md:border-t-0 md:p-14">
-    <span class="text-xs font-extrabold uppercase tracking-widest text-primary"><%= t("app.name") %></span>
+  <div class="flex min-h-[25rem] flex-col justify-center border-t-4 border-base-content p-8 md:border-l-4 md:border-t-0 md:p-14">
+    <span class="text-xs font-extrabold uppercase tracking-widest text-base-content"><%= t("app.name") %></span>
     <h1 class="mt-4 max-w-xl text-balance text-3xl font-extrabold leading-tight sm:text-4xl"><%= t("home.hero.title") %></h1>
     <p class="mt-4 max-w-xl text-base leading-relaxed text-base-content/75"><%= t("home.hero.subtitle") %></p>
 
@@ -17,15 +17,15 @@
   </div>
 
   <% unless simple_mode? %>
-    <nav class="flex flex-col bg-primary text-primary-content" aria-label="<%= t("home.highlights.title") %>">
+    <nav class="flex flex-col bg-base-content text-base-100" aria-label="<%= t("home.highlights.title") %>">
       <% home_actions = {
            discover: services_path,
            requests: user_signed_in? ? requests_path : new_user_registration_path,
            alerts: alerts_path
          } %>
       <% home_actions.each_with_index do |(key, path), index| %>
-        <%= link_to path, class: "grid flex-1 grid-cols-[auto_1fr_auto] items-start gap-4 border-b border-primary-content/20 p-6 no-underline transition-colors last:border-b-0 hover:bg-primary-content/10" do %>
-          <span class="text-xs font-extrabold tracking-widest text-primary-content/60" aria-hidden="true"><%= format("%02d", index + 1) %></span>
+        <%= link_to path, class: "grid flex-1 grid-cols-[auto_1fr_auto] items-start gap-4 border-b border-base-100/20 p-6 no-underline transition-colors last:border-b-0 hover:bg-base-100/10" do %>
+          <span class="text-xs font-extrabold tracking-widest text-base-100/60" aria-hidden="true"><%= format("%02d", index + 1) %></span>
           <span>
             <strong class="block text-base"><%= t("home.highlights.#{key}.title") %></strong>
             <span class="mt-1 block text-sm opacity-70"><%= t("home.highlights.#{key}.body") %></span>

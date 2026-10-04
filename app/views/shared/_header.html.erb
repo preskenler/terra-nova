@@ -23,15 +23,15 @@
   ]
 %>
 <header class="sticky top-0 z-30 border-b border-base-300 bg-base-100">
-  <div class="relative min-h-26 overflow-hidden bg-neutral text-neutral-content">
+  <div class="relative min-h-26 overflow-hidden bg-base-content text-base-100">
     <%= image_tag "/city.webp", class: "absolute inset-0 size-full object-cover object-[center_56%]",
           alt: "", width: 2161, height: 728, fetchpriority: "high" %>
-    <div class="absolute inset-0 bg-gradient-to-r from-neutral/85 via-neutral/50 to-transparent" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-base-content/85 via-base-content/50 to-transparent" aria-hidden="true"></div>
 
     <div class="relative mx-auto flex min-h-26 w-full max-w-6xl items-center px-4">
       <%= link_to root_path, aria: { label: t("app.name") },
-            class: "flex items-center gap-3 text-neutral-content no-underline [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]" do %>
-        <%= image_tag "/logo.webp", class: "size-17 flex-none rounded-full border-2 border-neutral-content/80 object-cover shadow-lg",
+            class: "flex items-center gap-3 text-base-100 no-underline [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]" do %>
+        <%= image_tag "/logo.webp", class: "size-17 flex-none rounded-full border-2 border-base-100/80 object-cover shadow-lg",
               alt: "", width: 688, height: 688 %>
         <span class="flex flex-col">
           <span class="text-xs font-extrabold uppercase tracking-[0.16em]"><%= t("app.civic_portal") %></span>
@@ -79,23 +79,23 @@
         <summary class="btn btn-primary btn-sm"><%= t("nav.menu") %></summary>
         <div class="dropdown-content z-40 mt-2 min-w-60 rounded-box border border-base-300 bg-base-100 p-2 shadow-lg">
           <nav aria-label="<%= t("a11y.main_nav") %>">
-            <%= link_to t("nav.contact"), new_feedback_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary" %>
+            <%= link_to t("nav.contact"), new_feedback_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-accent hover:text-accent-content" %>
           </nav>
 
           <div class="my-2 border-t border-base-300"></div>
           <% if user_signed_in? %>
-            <%= link_to t("nav.my_space"), citizen_dashboard_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary" %>
-            <%= link_to t("nav.requests"), requests_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary" %>
-            <%= link_to notifications_path, class: "flex items-center justify-between rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary" do %>
+            <%= link_to t("nav.my_space"), citizen_dashboard_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-accent hover:text-accent-content" %>
+            <%= link_to t("nav.requests"), requests_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-accent hover:text-accent-content" %>
+            <%= link_to notifications_path, class: "flex items-center justify-between rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-accent hover:text-accent-content" do %>
               <%= t("nav.notifications") %>
               <% unread = current_user.notifications.unread.count %>
-              <% if unread.positive? %><span class="badge badge-primary badge-sm"><%= unread %></span><% end %>
+              <% if unread.positive? %><span class="badge badge-accent badge-sm"><%= unread %></span><% end %>
             <% end %>
             <%= button_to t("nav.sign_out"), destroy_user_session_path, method: :delete,
                   class: "mt-1 w-full justify-start btn btn-ghost btn-sm" %>
           <% else %>
-            <%= link_to t("nav.sign_in"), new_user_session_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary" %>
-            <%= link_to t("magic_links.link"), users_magic_link_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary" %>
+            <%= link_to t("nav.sign_in"), new_user_session_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-accent hover:text-accent-content" %>
+            <%= link_to t("magic_links.link"), users_magic_link_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-accent hover:text-accent-content" %>
             <%= link_to t("nav.sign_up"), new_user_registration_path, class: "mt-2 w-full btn btn-primary btn-sm" %>
           <% end %>
         </div>
