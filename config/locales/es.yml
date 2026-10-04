@@ -27,6 +27,19 @@ es:
     sign_in: "Iniciar sesión"
     sign_up: "Crear una cuenta"
     sign_out: "Cerrar sesión"
+    discover: "Descubrir"
+    participate: "Participar"
+    news: "Noticias"
+    city: "La ciudad"
+
+  agents:
+    menu:
+      open: "Menú"
+      citizens: "Ciudadanos"
+      operations: "Operaciones"
+      communication: "Comunicación"
+      participation: "Participación"
+      administration: "Administración"
 
   roles:
     citizen: "Ciudadano"

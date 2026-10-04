@@ -27,6 +27,10 @@ en:
     sign_in: "Sign in"
     sign_up: "Create an account"
     sign_out: "Sign out"
+    discover: "Discover"
+    participate: "Take part"
+    news: "News"
+    city: "The city"
 
   auth:
     citizen_space: "Citizen space"
@@ -618,6 +622,13 @@ en:
 
   agents:
     title: "Terra Nova — Agent workspace"
+    menu:
+      open: "Menu"
+      citizens: "Citizens"
+      operations: "Operations"
+      communication: "Communication"
+      participation: "Participation"
+      administration: "Administration"
     nav:
       dashboard: "Dashboard"
       requests: "Citizen requests"

@@ -22,4 +22,12 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     get root_url
     assert_no_match(/modulepreload[^>]*leaflet/, response.body)
   end
+
+  test "the public header uses the grouped megamenu" do
+    get root_url
+
+    assert_select "div.megamenu#public-menu"
+    assert_select "div#public-menu button[popovertarget=?]", "public-menu-discover"
+    assert_select "div#public-menu-discover li a", text: I18n.t("nav.services")
+  end
 end

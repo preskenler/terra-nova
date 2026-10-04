@@ -1279,6 +1279,6 @@ l'espace citoyen avec **Télécharger (CSV)**.
   sur les services (F76) ; détection des doublons pour les agents (F75).
 - **Performance :** la bibliothèque de cartes n'est pas préchargée sur les pages sans carte et
   sa feuille de style n'est chargée que là où une carte est rendue.
-- **Qualité :** 294 tests automatisés passent (287 unitaires/contrôleurs/intégration + 7 tests
+- **Qualité :** 297 tests automatisés passent (290 unitaires/contrôleurs/intégration + 7 tests
   système de type navigateur), dont un test de rendu de toutes les pages ; RuboCop, Brakeman,
   bundler-audit et l'audit des importmaps sont tous propres.

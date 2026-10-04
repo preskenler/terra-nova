@@ -1,3 +1,36 @@
+<%
+  # Grouped navigation for the agent workspace (daisyUI megamenu).
+  agent_groups = [
+    { key: "citizens", items: [
+      [ t("agents.nav.requests"), agents_requests_path ],
+      [ t("agents.nav.appointments"), agents_appointments_path ],
+      [ t("agents.nav.users"), agents_users_path ],
+      [ t("agents.nav.feedbacks"), agents_feedbacks_path ]
+    ] },
+    { key: "operations", items: [
+      [ t("agents.nav.demands"), agents_demands_path ],
+      [ t("agents.nav.services"), agents_services_path ],
+      [ t("agents.nav.audit_logs"), agents_audit_logs_path ]
+    ] },
+    { key: "communication", items: [
+      [ t("agents.nav.announcements"), agents_announcements_path ],
+      [ t("agents.nav.alerts"), agents_alerts_path ]
+    ] },
+    { key: "participation", items: [
+      [ t("agents.nav.projects"), agents_projects_path ],
+      [ t("agents.nav.consultations"), agents_consultations_path ],
+      [ t("agents.nav.ideas"), agents_ideas_path ],
+      [ t("agents.nav.partners"), agents_partners_path ],
+      [ t("agents.nav.reviews"), agents_service_reviews_path ]
+    ] }
+  ]
+  if current_agent.admin?
+    agent_groups << { key: "administration", items: [
+      [ t("agents.nav.security"), agents_security_events_path ],
+      [ t("agents.nav.backup"), agents_exports_requests_path ]
+    ] }
+  end
+%>
 <header class="sticky top-0 z-30 border-b border-base-300 bg-base-100">
   <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
     <%= link_to agents_root_path, class: "flex items-center gap-3 text-lg font-extrabold no-underline" do %>
@@ -5,28 +38,33 @@
       <span><%= t("agents.title") %></span>
     <% end %>
 
+    <%# On small screens the megamenu collapses behind this button. %>
+    <button class="btn btn-ghost btn-sm ml-auto sm:hidden" popovertarget="agents-menu">
+      <%= t("agents.menu.open") %>
+    </button>
+
     <nav aria-label="<%= t("a11y.main_nav") %>" class="flex-1">
-      <ul class="flex flex-wrap items-center gap-4">
-        <li><%= link_to t("agents.nav.dashboard"), agents_root_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.requests"), agents_requests_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.appointments"), agents_appointments_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.demands"), agents_demands_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.announcements"), agents_announcements_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.alerts"), agents_alerts_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.audit_logs"), agents_audit_logs_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.feedbacks"), agents_feedbacks_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.services"), agents_services_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.projects"), agents_projects_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.consultations"), agents_consultations_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.ideas"), agents_ideas_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.partners"), agents_partners_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("agents.nav.reviews"), agents_service_reviews_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <% if current_agent.admin? %>
-          <li><%= link_to t("agents.nav.security"), agents_security_events_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-          <li><%= link_to t("agents.nav.backup"), agents_exports_requests_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
+      <div class="megamenu megamenu-wide max-sm:megamenu-vertical w-full" id="agents-menu" popover>
+        <span class="megamenu-active"></span>
+
+        <button popovertarget="agents-menu-home"><%= t("agents.nav.dashboard") %></button>
+        <div id="agents-menu-home" popover>
+          <ul class="menu">
+            <li><%= link_to t("agents.nav.dashboard"), agents_root_path %></li>
+          </ul>
+        </div>
+
+        <% agent_groups.each do |group| %>
+          <button popovertarget="agents-menu-<%= group[:key] %>"><%= t("agents.menu.#{group[:key]}") %></button>
+          <div id="agents-menu-<%= group[:key] %>" popover>
+            <ul class="menu">
+              <% group[:items].each do |label, path| %>
+                <li><%= link_to label, path %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-        <li><%= link_to t("agents.nav.users"), agents_users_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-      </ul>
+      </div>
     </nav>
 
     <div class="flex flex-wrap items-center gap-2">

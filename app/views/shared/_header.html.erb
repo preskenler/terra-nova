@@ -1,3 +1,27 @@
+<%
+  # Grouped public navigation for citizens (daisyUI megamenu).
+  public_groups = [
+    { key: "discover", items: [
+      [ t("nav.services"), services_path ],
+      [ t("nav.transports"), transports_path ],
+      [ t("nav.glossary"), glossary_path ]
+    ] },
+    { key: "participate", items: [
+      [ t("nav.projects"), projects_path ],
+      [ t("nav.ideas"), ideas_path ]
+    ] },
+    { key: "news", items: [
+      [ t("nav.announcements"), announcements_path ],
+      [ t("nav.alerts"), alerts_path ]
+    ] },
+    { key: "city", items: [
+      [ t("pages.transparency.title"), transparency_path ],
+      [ t("pages.accessibility.title"), accessibility_path ],
+      [ t("pages.eco.title"), eco_path ],
+      [ t("status.title"), status_path ]
+    ] }
+  ]
+%>
 <header class="sticky top-0 z-30 border-b border-base-300 bg-base-100">
   <div class="relative min-h-26 overflow-hidden bg-neutral text-neutral-content">
     <%= image_tag "/city.webp", class: "absolute inset-0 size-full object-cover object-[center_56%]",
@@ -18,16 +42,33 @@
   </div>
 
   <div class="mx-auto flex w-full max-w-6xl items-center gap-4 px-4 py-2">
-    <%= link_to t("nav.home"), root_path, class: "hidden text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary lg:inline" %>
+    <%# On small screens the megamenu collapses behind this button. %>
+    <button class="btn btn-ghost btn-sm sm:hidden" popovertarget="public-menu">
+      <%= t("nav.menu") %>
+    </button>
 
-    <nav aria-label="<%= t("a11y.main_nav") %>" class="hidden flex-1 md:block">
-      <ul class="flex items-center justify-center gap-6">
-        <li><%= link_to t("nav.services"), services_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("nav.transports"), transports_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("nav.projects"), projects_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("nav.ideas"), ideas_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-        <li><%= link_to t("nav.announcements"), announcements_path, class: "px-1 py-2 text-sm font-semibold text-base-content/70 no-underline transition-colors hover:text-primary" %></li>
-      </ul>
+    <nav aria-label="<%= t("a11y.main_nav") %>" class="flex-1">
+      <div class="megamenu megamenu-wide max-sm:megamenu-vertical w-full" id="public-menu" popover>
+        <span class="megamenu-active"></span>
+
+        <button popovertarget="public-menu-home"><%= t("nav.home") %></button>
+        <div id="public-menu-home" popover>
+          <ul class="menu">
+            <li><%= link_to t("nav.home"), root_path %></li>
+          </ul>
+        </div>
+
+        <% public_groups.each do |group| %>
+          <button popovertarget="public-menu-<%= group[:key] %>"><%= t("nav.#{group[:key]}") %></button>
+          <div id="public-menu-<%= group[:key] %>" popover>
+            <ul class="menu">
+              <% group[:items].each do |label, path| %>
+                <li><%= link_to label, path %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
     </nav>
 
     <div class="ml-auto flex items-center gap-2">
@@ -38,14 +79,6 @@
         <summary class="btn btn-primary btn-sm"><%= t("nav.menu") %></summary>
         <div class="dropdown-content z-40 mt-2 min-w-60 rounded-box border border-base-300 bg-base-100 p-2 shadow-lg">
           <nav aria-label="<%= t("a11y.main_nav") %>">
-            <%= link_to t("nav.home"), root_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary md:hidden" %>
-            <%= link_to t("nav.services"), services_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary md:hidden" %>
-            <%= link_to t("nav.transports"), transports_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary md:hidden" %>
-            <%= link_to t("nav.announcements"), announcements_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary md:hidden" %>
-            <%= link_to t("nav.projects"), projects_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary md:hidden" %>
-            <%= link_to t("nav.ideas"), ideas_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary md:hidden" %>
-            <%= link_to t("nav.glossary"), glossary_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary" %>
-            <%= link_to t("nav.alerts"), alerts_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary" %>
             <%= link_to t("nav.contact"), new_feedback_path, class: "block rounded-field px-3 py-2.5 text-sm font-semibold no-underline hover:bg-secondary hover:text-primary" %>
           </nav>
 

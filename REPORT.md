@@ -1218,6 +1218,6 @@ space with **Download (CSV)**.
   reviews (F76); duplicate detection for agents (F75).
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 294 automated tests pass (287 unit/controller/integration + 7 browser-style
+- **Quality:** 297 automated tests pass (290 unit/controller/integration + 7 browser-style
   system tests), including a page-render smoke test; RuboCop, Brakeman, bundler-audit and
   importmap audit are all clean.

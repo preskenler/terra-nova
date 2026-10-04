@@ -173,6 +173,9 @@ No counts or waves are hard-coded: future `D…`/`F…` demands simply appear in
   activity is summarised and unusual volumes are flagged, so protection is perceptible.
 - **Resilience** — paginated lists, cached hot queries, indexed filters and a public
   `/status` page.
+- **Navigation** — the public and agent headers use a responsive daisyUI **megamenu**
+  (grouped popovers, native `popover`/`popovertarget`, no JavaScript) that collapses behind a
+  menu button on small screens.
 - **Request management** — citizens filter/sort their requests; agents rank priority
   requests in the queue. Urgent requests are surfaced first with a prominent callout, agents
   can export the exact filtered selection as CSV, and administrators can download a clear,
