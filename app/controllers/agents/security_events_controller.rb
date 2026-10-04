@@ -10,6 +10,9 @@ module Agents
       scope = scope.where(event: params[:event]) if params[:event].present?
       @events = scope.limit(200).to_a
       @event_types = SecurityEvent.distinct.order(:event).pluck(:event)
+
+      # Recent activity summary that flags unusual volumes (F85).
+      @summary = Security::EventsSummary.new(period: 1.hour).call
     end
   end
 end

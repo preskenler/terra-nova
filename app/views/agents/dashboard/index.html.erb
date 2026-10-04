@@ -10,6 +10,9 @@
     <%= render Ui::StatComponent.new(
           label: t("agents.dashboard.pending_requests"), value: @pending_request_count,
           emphasis: @pending_request_count.positive?) %>
+    <%= render Ui::StatComponent.new(
+          label: t("agents.dashboard.urgent_requests"), value: @urgent_request_count,
+          emphasis: @urgent_request_count.positive?) %>
     <%= render Ui::StatComponent.new(label: t("agents.dashboard.appointments"), value: @upcoming_appointment_count) %>
   </div>
 </section>

@@ -16,6 +16,7 @@ module Agents
       @user_count = User.count
       @request_count = Request.count
       @pending_request_count = Request.open_requests.count
+      @urgent_request_count = Request.urgent.open_requests.count
       @upcoming_appointment_count = Appointment.upcoming.active.count
       @recent_requests = Request.includes(:user).recent_first.limit(5)
     end

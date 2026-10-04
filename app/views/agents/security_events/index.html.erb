@@ -7,7 +7,44 @@
 
 <%= render Ui::PageHeaderComponent.new(title: t("agents.security_events.title"), subtitle: t("agents.security_events.subtitle")) %>
 
-<%= form_with url: agents_security_events_path, method: :get, class: "mb-4 flex flex-wrap items-end gap-3" do %>
+<%# Perceptible monitoring: an unusual volume of events over the last hour is
+    surfaced as a clear signal, without complicating normal use (F85). %>
+<section class="mt-4 grid gap-3 sm:grid-cols-3" aria-labelledby="security-summary-heading">
+  <%= render Ui::SectionHeadingComponent.new(
+        title: t("agents.security_events.summary.title"),
+        id: "security-summary-heading") %>
+  <%= render Ui::StatComponent.new(
+        label: t("agents.security_events.summary.events_last_hour"),
+        value: @summary[:total],
+        hint: t("agents.security_events.summary.window", time: l(@summary[:window_start], format: :short))) %>
+  <%= render Ui::StatComponent.new(
+        label: t("agents.security_events.summary.usual_activity"),
+        value: @summary[:suspicious] ? t("agents.security_events.summary.flagged") : t("agents.security_events.summary.normal"),
+        emphasis: @summary[:suspicious]) %>
+  <%= render Ui::StatComponent.new(
+        label: t("agents.security_events.summary.top_ip"),
+        value: @summary[:top_ips].keys.first || "—") %>
+</section>
+
+<% if @summary[:suspicious] %>
+  <div role="alert" class="alert alert-warning mt-4">
+    <div>
+      <p class="font-semibold"><%= t("agents.security_events.summary.alert_title") %></p>
+      <ul class="mt-1 list-disc pl-5 text-sm">
+        <% @summary[:signals].each do |event, count| %>
+          <li>
+            <%= t("agents.security_events.events.#{event}", default: event) %>
+            : <%= t("agents.security_events.summary.occurrences", count: count) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% else %>
+  <p class="mt-3 text-sm text-base-content/60"><%= t("agents.security_events.summary.normal_hint") %></p>
+<% end %>
+
+<%= form_with url: agents_security_events_path, method: :get, class: "mb-4 mt-4 flex flex-wrap items-end gap-3" do %>
   <div>
     <label for="event" class="mb-1 block text-sm font-medium"><%= t("agents.security_events.event") %></label>
     <%= select_tag :event,

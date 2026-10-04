@@ -1191,6 +1191,72 @@ reçoit une notification/e-mail ; publier une note interne → le citoyen ne la 
 
 ---
 
+## F85 · Expert · 1680 XP — Activité inhabituelle détectée ; protection perceptible
+
+**Ce que nous avons réalisé.** La console de sécurité des administrateurs agrège les événements
+déjà enregistrés (envois automatiques bloqués, connexions échouées, …) sur la dernière heure et
+signale un volume inhabituel par un signal clair, avec la liste des événements concernés et
+l'adresse la plus active. Aucun nouveau sous-système de surveillance : l'activité suspecte
+devient perceptible depuis la trace existante, sans compliquer l'usage normal.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/security_events`
+
+**Comment vérifier.** Ouvrir la console de sécurité : le panneau « Activité récente » affiche le
+volume d'événements de la dernière heure et qualifie l'activité de « Normale » ou
+« Inhabituelle ». Après plusieurs envois bloqués, une alerte « Activité inhabituelle détectée »
+liste les compteurs d'événements concernés.
+
+---
+
+## F86 · Expert · 1680 XP — Les urgences ne sont jamais traitées comme des demandes ordinaires
+
+**Ce que nous avons réalisé.** Les demandes portent déjà une priorité (F80). La file des agents
+trie désormais **« priorité d'abord »** par défaut (y compris lorsque le filtre urgent est
+sélectionné), un encart bien visible apparaît dès que des demandes urgentes sont en attente, et
+le tableau de bord compte les demandes urgentes — ce qui nécessite de l'attention est donc
+immédiatement visible à mesure que le volume augmente, au lieu d'être noyé dans la liste.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests` et `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents`
+
+**Comment vérifier.** Passer une demande en **Urgente**, puis ouvrir la liste des demandes
+agents : un encart « demandes urgentes à traiter » s'affiche et la file place les demandes
+urgentes en premier ; le tableau de bord affiche le compteur de demandes urgentes.
+
+---
+
+## F87 · Difficile · 1260 XP — Vérifier que les données importantes peuvent être sauvegardées
+
+**Ce que nous avons réalisé.** Les administrateurs peuvent télécharger une **sauvegarde claire
+et réutilisable** de toutes les demandes citoyennes (`/agents/exports/requests`). Le fichier
+n'est pas un dump brut : il commence par un résumé lisible (date et auteur de génération, nombre
+total, nombre d'urgentes, période couverte, répartition par statut), suivi des demandes avec
+priorité et citoyen — de quoi confirmer que les données importantes peuvent être sauvegardées et
+réutilisées.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/exports/requests` (administrateurs uniquement, lien « Sauvegarde » dans la navigation agent).
+
+**Comment vérifier.** En tant qu'administrateur, cliquer sur **Sauvegarde** dans la navigation
+agent → un CSV est téléchargé, dont l'en-tête résume l'export avant les enregistrements. Un
+agent non administrateur ne peut pas accéder à la page.
+
+---
+
+## F88 · Moyen · 840 XP — Sélectionner les informations utiles et les exporter simplement
+
+**Ce que nous avons réalisé.** La liste des demandes agents propose une action **« Exporter la
+sélection (CSV) »** qui respecte les filtres actifs (recherche, état, priorité, service) : les
+agents sélectionnent exactement les informations utiles et les téléchargent dans un CSV simple
+et réutilisable (priorité et citoyen inclus). Les citoyens peuvent toujours télécharger
+l'historique de leurs propres demandes.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests` et `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`
+
+**Comment vérifier.** Filtrer la file (par ex. état *Envoyée*) puis cliquer sur **Exporter la
+sélection (CSV)** → le fichier ne contient que les demandes correspondantes. Refaire depuis
+l'espace citoyen avec **Télécharger (CSV)**.
+
+---
+
 # Notes globales d'implémentation
 
 - **Stack :** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -1213,6 +1279,6 @@ reçoit une notification/e-mail ; publier une note interne → le citoyen ne la 
   sur les services (F76) ; détection des doublons pour les agents (F75).
 - **Performance :** la bibliothèque de cartes n'est pas préchargée sur les pages sans carte et
   sa feuille de style n'est chargée que là où une carte est rendue.
-- **Qualité :** 284 tests automatisés passent (277 unitaires/contrôleurs/intégration + 7 tests
+- **Qualité :** 294 tests automatisés passent (287 unitaires/contrôleurs/intégration + 7 tests
   système de type navigateur), dont un test de rendu de toutes les pages ; RuboCop, Brakeman,
   bundler-audit et l'audit des importmaps sont tous propres.

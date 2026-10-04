@@ -8,25 +8,27 @@ module Agents
     def index
       authorize Request
 
-      scope = Request.includes(:user, :service)
-      scope = scope.where(status: params[:status]) if params[:status].present?
-      scope = scope.where(priority: params[:priority]) if params[:priority].present?
-      scope = scope.where(service_id: params[:service_id]) if params[:service_id].present?
-
-      if params[:q].present?
-        query = "%#{params[:q].strip}%"
-        scope = scope.where(
-          "reference ILIKE :q OR subject ILIKE :q OR description ILIKE :q", q: query
-        )
-      end
-
-      scope = params[:sort] == "priority" ? scope.priority_first : scope.recent_first
+      # The "priority first" order surfaces what needs attention, especially as
+      # the volume of daily requests grows (F86). It is also the default when the
+      # agent is specifically looking at urgent requests.
+      filtered_scope = filtered_requests
+      scope = priority_sort? ? filtered_scope.priority_first : filtered_scope.recent_first
 
       @requests = paginate(scope).to_a
       @counts = Request.group(:status).count
       @pending_count = Request.open_requests.count
       @urgent_count = Request.urgent.open_requests.count
       @services = Service.order(:slug)
+
+      respond_to do |format|
+        format.html
+        # Export the current selection (filters honoured) as a reusable CSV (F88).
+        format.csv do
+          send_data Requests::Csv.call(scope, detailed: true),
+                    filename: "demandes-citoyens-#{Date.current}.csv",
+                    type: "text/csv; charset=utf-8"
+        end
+      end
     end
 
     # Sets a request's priority (F80).
@@ -85,6 +87,29 @@ module Agents
     end
 
     private
+
+    # Applies the agent-visible filters shared by the list and the CSV export.
+    def filtered_requests
+      scope = Request.includes(:user, :service)
+      scope = scope.where(status: params[:status]) if params[:status].present?
+      scope = scope.where(priority: params[:priority]) if params[:priority].present?
+      scope = scope.where(service_id: params[:service_id]) if params[:service_id].present?
+
+      if params[:q].present?
+        query = "%#{params[:q].strip}%"
+        scope = scope.where(
+          "reference ILIKE :q OR subject ILIKE :q OR description ILIKE :q", q: query
+        )
+      end
+
+      scope
+    end
+
+    # Urgent requests are put first by default, so what needs attention is
+    # immediately visible as the volume grows (F86).
+    def priority_sort?
+      params[:sort] == "priority" || params[:priority] == "urgent"
+    end
 
     def event_params
       params.require(:request_event).permit(:to_status, :comment, :visible_to_citizen)

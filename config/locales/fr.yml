@@ -634,6 +634,7 @@ fr:
       partners: "Partenaires"
       reviews: "Avis"
       security: "Sécurité"
+      backup: "Sauvegarde"
       users: "Citoyens"
     dashboard:
       title: "Tableau de bord"
@@ -643,6 +644,7 @@ fr:
       citizens: "Citoyens"
       requests: "Demandes"
       pending_requests: "Demandes en attente"
+      urgent_requests: "Demandes urgentes"
       appointments: "Rendez-vous à venir"
       recent_requests: "Dernières demandes reçues"
       no_requests: "Aucune demande pour le moment."
@@ -722,6 +724,13 @@ fr:
       sort: "Trier"
       sort_recent: "Plus récentes"
       sort_priority: "Priorité d'abord"
+      export_csv: "Exporter la sélection (CSV)"
+      attention:
+        title:
+          one: "%{count} demande urgente à traiter"
+          other: "%{count} demandes urgentes à traiter"
+        hint: "Ces demandes ne doivent pas être traitées comme des demandes ordinaires."
+        action: "Voir les demandes urgentes"
       search: "Rechercher"
       status: "État"
       service: "Service"
@@ -1049,6 +1058,17 @@ fr:
       event: "Événement"
       all: "Tous"
       table_caption: "Liste des événements de sécurité"
+      summary:
+        title: "Activité récente"
+        events_last_hour: "Événements (dernière heure)"
+        window: "Depuis %{time}"
+        usual_activity: "Activité habituelle"
+        normal: "Normale"
+        flagged: "Inhabituelle"
+        alert_title: "Activité inhabituelle détectée"
+        occurrences: "%{count} occurrences"
+        normal_hint: "Aucune activité inhabituelle détectée récemment."
+        top_ip: "Adresse la plus active"
       columns:
         date: "Date"
         event: "Événement"
@@ -1060,6 +1080,16 @@ fr:
         two_factor_enabled: "Double authentification activée"
         two_factor_disabled: "Double authentification désactivée"
         account_unlocked: "Compte déverrouillé"
+        form_protection_blocked: "Envoi automatique bloqué"
+    exports:
+      requests:
+        title: "Sauvegarde des demandes citoyennes"
+        generated_at: "Date de génération"
+        generated_by: "Générée par"
+        total: "Nombre de demandes"
+        urgent: "Demandes urgentes"
+        period: "Période"
+        by_status: "Répartition par statut"
     users:
       title: "Comptes citoyens"
       subtitle: "Recherchez et administrez les habitants de Terra Nova."

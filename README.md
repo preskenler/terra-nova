@@ -169,11 +169,14 @@ No counts or waves are hard-coded: future `D…`/`F…` demands simply appear in
 - **Duplicate detection** — agents see likely duplicate requests and can link them.
 - **Guided start** — a “Where to start?” helper on the personal space.
 - **Security monitoring** — an admin-only security-event log; sign-in by email **or**
-  citizen identifier (accounts can be created without an email); Spanish locale added.
+  citizen identifier (accounts can be created without an email); Spanish locale added. Recent
+  activity is summarised and unusual volumes are flagged, so protection is perceptible.
 - **Resilience** — paginated lists, cached hot queries, indexed filters and a public
   `/status` page.
 - **Request management** — citizens filter/sort their requests; agents rank priority
-  requests in the queue.
+  requests in the queue. Urgent requests are surfaced first with a prominent callout, agents
+  can export the exact filtered selection as CSV, and administrators can download a clear,
+  verifiable backup of all requests.
 
 ---
 

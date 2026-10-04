@@ -134,6 +134,11 @@ Rails.application.routes.draw do
       end
       resources :service_reviews, only: [ :index, :update ]
       resources :security_events, only: [ :index ]
+
+      # Administrator data backup (F87).
+      namespace :exports do
+        get :requests
+      end
     end
   end
 end

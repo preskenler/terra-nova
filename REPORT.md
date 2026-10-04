@@ -1135,6 +1135,69 @@ notification/email; post an internal note → the citizen does not.
 
 ---
 
+## F85 · Expert · 1680 XP — Unusual activity detected; perceptible protection
+
+**What we built.** The administrator security console aggregates the events already recorded
+(blocked automated submissions, failed sign-ins, …) over the last hour and flags an unusual
+volume as a clear signal, with a list of the events involved and the most active address. No
+new monitoring subsystem is added: suspicious activity becomes perceptible from the existing
+trail, while normal use is untouched.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/security_events`
+
+**How to verify.** Open the security console: the “Recent activity” panel shows the volume of
+events over the last hour and marks the activity “Normal” or “Unusual”. After several blocked
+submissions, an “Unusual activity detected” alert lists the offending event counts.
+
+---
+
+## F86 · Expert · 1680 XP — Urgent situations are never treated as ordinary
+
+**What we built.** Requests already carry a priority (F80). The agent queue now defaults to
+**“priority first”** (also when the urgent filter is selected), a prominent callout appears
+whenever urgent requests are pending, and the dashboard counts urgent requests — so what needs
+attention is immediately visible as the daily volume grows, rather than being buried in the
+list.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents`
+
+**How to verify.** Set a request to **Urgent**, then open the agent request list: an “urgent
+requests to treat” callout is shown and the queue lists urgent requests first; the dashboard
+shows the urgent-request counter.
+
+---
+
+## F87 · Difficult · 1260 XP — Important data can be verified and backed up
+
+**What we built.** Administrators can download a **clear, reusable backup** of all citizen
+requests (`/agents/exports/requests`). The file is not a raw dump: it opens with a readable
+summary (generation date and author, total count, urgent count, period covered, breakdown by
+status) followed by the request records with priority and citizen — so the teams can confirm
+important data can be saved and reused.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/exports/requests` (administrators only, linked from the agent navigation as “Backup”).
+
+**How to verify.** As an administrator, click **Backup** in the agent navigation → a CSV is
+downloaded whose header summarises the export before the records. A non-administrator agent
+cannot reach the page.
+
+---
+
+## F88 · Medium · 840 XP — Select useful data and export it in a simple format
+
+**What we built.** The agent request list has an **“Export selection (CSV)”** action that
+honours the active filters (search, status, priority, service): the agents select exactly the
+information they need and download it in a simple, reusable CSV (priority and citizen
+included). Citizens can still download their own request history.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`
+
+**How to verify.** Filter the queue (e.g. status *Submitted*) then click **Export selection
+(CSV)** → the downloaded file contains only the matching requests. Repeat from the citizen
+space with **Download (CSV)**.
+
+---
+
 # Global implementation notes
 
 - **Stack:** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -1155,6 +1218,6 @@ notification/email; post an internal note → the citizen does not.
   reviews (F76); duplicate detection for agents (F75).
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 284 automated tests pass (277 unit/controller/integration + 7 browser-style
+- **Quality:** 294 automated tests pass (287 unit/controller/integration + 7 browser-style
   system tests), including a page-render smoke test; RuboCop, Brakeman, bundler-audit and
   importmap audit are all clean.

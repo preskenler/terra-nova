@@ -8,6 +8,23 @@
 
 <%= render Ui::PageHeaderComponent.new(title: t("agents.requests.title"), subtitle: t("agents.requests.subtitle")) %>
 
+<%# Urgent requests need to be noticed immediately, especially as the daily
+    volume grows (F86). The queue defaults to "priority first" and this callout
+    makes the urgent backlog perceptible. %>
+<% if @urgent_count.positive? %>
+  <div role="alert" class="alert alert-warning mt-4">
+    <div>
+      <p class="font-semibold">
+        <%= t("agents.requests.attention.title", count: @urgent_count) %>
+      </p>
+      <p class="text-sm"><%= t("agents.requests.attention.hint") %></p>
+    </div>
+    <%= link_to t("agents.requests.attention.action"),
+          agents_requests_path(priority: "urgent", sort: "priority"),
+          class: "btn btn-sm" %>
+  </div>
+<% end %>
+
 <div class="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-7">
   <%= render Ui::StatComponent.new(label: t("agents.requests.pending"), value: @pending_count, emphasis: @pending_count.positive?) %>
   <%= render Ui::StatComponent.new(label: t("agents.requests.urgent"), value: @urgent_count, emphasis: @urgent_count.positive?) %>
@@ -64,6 +81,9 @@
   </div>
   <%= submit_tag t("actions.filter"), class: "btn btn-primary btn-sm" %>
   <%= link_to t("actions.reset"), agents_requests_path, class: "btn btn-ghost btn-sm" %>
+  <%= link_to t("agents.requests.export_csv"),
+        agents_requests_path(request.query_parameters.merge(format: :csv)),
+        class: "btn btn-ghost btn-sm" %>
 <% end %>
 
 <div class="mt-4 overflow-x-auto rounded-box border border-base-300 bg-base-100">

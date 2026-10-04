@@ -70,5 +70,46 @@ module Agents
 
       assert_response :success
     end
+
+    test "an agent can export the filtered selection as CSV (F88)" do
+      sign_in agents(:agent)
+      request = requests(:streetlight)
+
+      get agents_requests_url(format: :csv, status: "submitted", priority: "normal")
+
+      assert_response :success
+      assert_includes response.media_type, "csv"
+      assert_match request.reference, response.body
+      assert_match I18n.t("requests.priority.normal"), response.body
+    end
+
+    test "the CSV export honours filters and excludes non-matching requests (F88)" do
+      sign_in agents(:agent)
+
+      get agents_requests_url(format: :csv, status: "rejected")
+
+      assert_response :success
+      assert_no_match "NOVA-2026-AAAAA", response.body
+    end
+
+    test "the urgent callout is shown when urgent requests exist (F86)" do
+      sign_in agents(:agent)
+      requests(:streetlight).update!(priority: "urgent")
+
+      get agents_requests_url
+
+      assert_response :success
+      assert_match I18n.t("agents.requests.attention.action"), response.body
+    end
+
+    test "urgent requests are surfaced first by default (F86)" do
+      sign_in agents(:agent)
+      requests(:streetlight).update!(priority: "urgent")
+
+      get agents_requests_url(priority: "urgent")
+
+      assert_response :success
+      assert_match "NOVA-2026-AAAAA", response.body
+    end
   end
 end
