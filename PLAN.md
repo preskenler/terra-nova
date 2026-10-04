@@ -41,7 +41,6 @@ without rebuilding**.
 - **Minitest** with `test:system` (Capybara + Selenium); CI runs tests + Brakeman +
   RuboCop + bundler-audit.
 - **Solid Cache / Solid Queue / Solid Cable** gems present (production).
-- **Kamal** deploy scaffolding present.
 - Empty schema (`version: 0`), only `/up` route, no domain models yet.
 
 ---
