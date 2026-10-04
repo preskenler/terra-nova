@@ -96,6 +96,29 @@ couverture de tests automatisés complète.
    ressources), `/accessibility` (déclaration WCAG 2.2 AA) et `/transparency`.
 
 **Consignes spécifiques :** la protection anti-robots des formulaires est active (un envoi
-suspect est bloqué avec un message clair et journalisé) ; les e-mails sont envoyés vers une
-boîte de test (Mailtrap), donc un lien magique s'affiche côté outil de test et non dans une
-vraie boîte mail.
+suspect est bloqué avec un message clair et journalisé) ; les e-mails sont envoyés via SMTP
+(configuré par variables d'environnement), donc un lien magique arrive dans la boîte configurée.
+
+## Déclaration des fonctionnalités (automatisée)
+
+Les textes de déclaration sont générés **en français** depuis `REPORT.fr.md`, puis envoyés au
+tableau de bord Webcup.
+
+1. **Générer** les déclarations (JSON + `WEB_CUP_DECLARATIONS.md`) :
+
+   ```sh
+   ruby script/generate_webcup_declarations.rb
+   ```
+
+2. **Envoyer** au dashboard (le nonce est récupéré automatiquement ; l'authentification utilise
+   le cookie de session `WEBCUP_ADMIN_COOKIE`, stocké dans `.env`, **non versionné**) :
+
+   ```sh
+   ruby script/webcup_declare.rb                 # dry-run (aperçu, par défaut)
+   ruby script/webcup_declare.rb --only=D05,F91  # cibler des codes
+   ruby script/webcup_declare.rb --submit        # envoi réel
+   ```
+
+   Le cookie WordPress expire régulièrement : le recopier depuis le navigateur dans `.env` en
+   cas de message « Session invalide ».
+
