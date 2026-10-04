@@ -1257,6 +1257,122 @@ l'espace citoyen avec **Télécharger (CSV)**.
 
 ---
 
+## F89 · Moyen · 860 XP — Version en langage clair des informations essentielles
+
+**Ce que nous avons réalisé.** Chaque service porte un **résumé en langage clair** (« En clair »),
+affiché dans un bloc `<details>` repliable sur sa page. Il reformule les informations
+essentielles en phrases courtes et sans jargon, tout en conservant le sens ; la description
+complète reste disponible au-dessus.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+
+**Comment vérifier.** Ouvrir la page d'un service → déplier **« En clair »** pour lire le résumé
+simplifié ; la description détaillée reste affichée au-dessus.
+
+---
+
+## F90 · Facile · 430 XP — Demander une explication plus simple à la demande
+
+**Ce que nous avons réalisé.** Un lien **« Demander une explication plus simple »** sur chaque page
+de service ouvre le formulaire de contact pré-rempli avec le nom du service, afin qu'un citoyen
+puisse demander une explication humaine uniquement quand il en a besoin — sans changer le reste
+de la plateforme.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+
+**Comment vérifier.** Sur une page de service, cliquer sur **« Demander une explication plus
+simple »** → le formulaire de contact s'ouvre avec l'objet pré-rempli pour ce service.
+
+---
+
+## F91 · Expert · 1720 XP — Assistance automatisée orientée vers un service
+
+**Ce que nous avons réalisé.** Un **assistant d'orientation** public (`/assistant`) qui transforme
+un besoin exprimé librement en un service municipal pertinent, même avec une formulation
+imparfaite. Il s'agit d'une heuristique transparente et sans dépendance (score par mots-clés sur
+les noms, descriptions et résumés en langage clair des services) — aucun service d'IA externe
+n'est appelé.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant`
+
+**Comment vérifier.** Saisir par ex. *« je veux signaler un lampadaire cassé »* → l'assistant
+propose le ou les services pertinents et une étape suivante recommandée.
+
+---
+
+## F92 · Moyen · 860 XP — Décrire simplement un besoin et être orienté vers le bon service
+
+**Ce que nous avons réalisé.** Le même assistant permet de décrire un besoin avec ses propres mots
+et d'être orienté vers le service ou la démarche compétente. Lorsqu'il reconnaît une catégorie
+courante, il propose une étape directe (signaler un problème / demander un document / contacter la
+ville), en pré-remplissant une demande le cas échéant.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant`
+
+**Comment vérifier.** Décrire *« fuite d'eau dans la cave »* → le service de l'eau est proposé avec
+une étape recommandée pour créer une demande.
+
+---
+
+## F93 · Expert · 1760 XP — Les fonctions essentielles restent compréhensibles en cas d'incident
+
+**Ce que nous avons réalisé.** Une page dédiée **« Informations essentielles »** (`/essentials`)
+construite à partir d'un instantané mis en cache et défensif (`EssentialInformation`) : numéros
+d'urgence, démarches prioritaires et alertes en cours. Si la base de données est inaccessible, une
+réponse globale sûre rend la même page avec l'essentiel au lieu d'une erreur brute.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/essentials`
+
+**Comment vérifier.** Ouvrir `/essentials` → les numéros d'urgence et les démarches prioritaires sont
+listés ; la page d'état du système y renvoie, et la page reste affichable lorsque les données
+essentielles sont dégradées.
+
+---
+
+## F94 · Moyen · 880 XP — Continuer à consulter les informations essentielles en cas d'incident
+
+**Ce que nous avons réalisé.** La page des informations essentielles et son bandeau compact
+mettent en avant les informations et contacts utiles dont un citoyen a besoin pendant un incident,
+et la page d'état du système affiche le **bandeau d'informations essentielles** dès qu'un composant
+est indisponible, afin que l'essentiel reste accessible sans parcourir toute la plateforme.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/essentials` et `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/status`
+
+**Comment vérifier.** Consulter `/essentials` → contacts d'urgence, démarches prioritaires et alertes
+actives sont affichés ; lorsqu'un composant d'état est indisponible, `/status` met en avant le même
+essentiel.
+
+---
+
+## F95 · Difficile · 1320 XP — Plateforme sobre, sans ressources inutiles
+
+**Ce que nous avons réalisé.** Le mode **économie de données** retire désormais aussi la carte
+interactive lourde des pages de service tout en conservant l'adresse et une alternative statique,
+et le budget environnemental a été resserré (CSS ≤ 40 Ko, JS ≤ 60 Ko gzip), imposé automatiquement
+par le test de budget des ressources afin qu'aucun poids non essentiel ne revienne.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco`
+
+**Comment vérifier.** Activer **Économie de données** dans le menu d'accessibilité → les pages de
+service se chargent sans la carte interactive mais conservent l'adresse. La page `/eco` rapporte le
+poids mesuré dans le budget.
+
+---
+
+## F96 · Moyen · 880 XP — Accéder rapidement à l'essentiel sur mobile ou connexion limitée
+
+**Ce que nous avons réalisé.** Le **mode simple** affiche des pages plus légères ne conservant que
+l'essentiel : sur les pages de service, le bloc de services liés et le formulaire d'avis sont
+omis, et la page d'accueil retire les sections non essentielles. Il fonctionne avec le mode
+économie de données pour les connexions lentes ou mobiles.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+
+**Comment vérifier.** Activer **Mode simple** via les contrôles d'accessibilité → les pages n'affichent
+que le contenu essentiel (ni services liés, ni formulaire d'avis).
+
+---
+
 # Notes globales d'implémentation
 
 - **Stack :** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -1279,6 +1395,6 @@ l'espace citoyen avec **Télécharger (CSV)**.
   sur les services (F76) ; détection des doublons pour les agents (F75).
 - **Performance :** la bibliothèque de cartes n'est pas préchargée sur les pages sans carte et
   sa feuille de style n'est chargée que là où une carte est rendue.
-- **Qualité :** 297 tests automatisés passent (290 unitaires/contrôleurs/intégration + 7 tests
+- **Qualité :** 378 tests automatisés passent (371 unitaires/contrôleurs/intégration + 7 tests
   système de type navigateur), dont un test de rendu de toutes les pages ; RuboCop, Brakeman,
   bundler-audit et l'audit des importmaps sont tous propres.

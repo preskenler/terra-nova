@@ -1198,6 +1198,116 @@ space with **Download (CSV)**.
 
 ---
 
+## F89 · Medium · 860 XP — Plain-language version of essential information
+
+**What we built.** Each service carries a **plain-language summary** (“En clair”), shown in a
+collapsed `<details>` block on its page. It restates the essential information in short,
+jargon-free sentences while preserving the meaning; the full description remains available.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+
+**How to verify.** Open a service page → expand **“En clair”** to read the simplified summary;
+the detailed description is still shown above it.
+
+---
+
+## F90 · Easy · 430 XP — Ask for a simpler explanation on demand
+
+**What we built.** A **“Ask for a simpler explanation”** link on every service page opens the
+contact form pre-filled with the service name, so a citizen can request a human explanation
+only when they need it — without changing the rest of the platform.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+
+**How to verify.** On a service page, click **“Ask for a simpler explanation”** → the contact
+form opens with the subject pre-filled for that service.
+
+---
+
+## F91 · Expert · 1720 XP — Automated assistance oriented to a service
+
+**What we built.** A public **orientation assistant** (`/assistant`) that turns a resident's
+free-text need into a relevant municipal service, even from imperfect wording. It is a
+transparent, dependency-free heuristic (keyword scoring over service names, descriptions and
+plain-language summaries) — no external AI service is called.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant`
+
+**How to verify.** Type e.g. *“je veux signaler un lampadaire cassé”* → the assistant suggests
+the relevant service(s) and a recommended next step.
+
+---
+
+## F92 · Medium · 860 XP — Describe a need simply and be routed to the right service
+
+**What we built.** The same assistant lets a citizen describe a need in their own words and be
+pointed to the competent service or procedure. When it recognises a common category it offers a
+direct next step (report a problem / request a document / contact the city), pre-filling a
+request where relevant.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant`
+
+**How to verify.** Describe *“fuite d’eau dans la cave”* → the water service is suggested with a
+recommended step to create a request.
+
+---
+
+## F93 · Expert · 1760 XP — Essential functions stay understandable during an incident
+
+**What we built.** A dedicated **“Essential information”** page (`/essentials`) built from a
+cached, defensive snapshot (`EssentialInformation`): emergency numbers, priority procedures and
+current alerts. If the database cannot be reached, a global safe response renders the same page
+with the essentials instead of a bare error.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/essentials`
+
+**How to verify.** Open `/essentials` → the emergency numbers and priority procedures are listed;
+the system status page links to it, and the page remains renderable when core data is degraded.
+
+---
+
+## F94 · Medium · 880 XP — Keep consulting essential information during an incident
+
+**What we built.** The essentials page and its compact strip surface the useful information and
+contacts a citizen still needs during an incident, and the system status page shows the
+**essential information strip** whenever a component is down, so the essentials stay reachable
+without browsing the whole platform.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/essentials` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/status`
+
+**How to verify.** Visit `/essentials` → emergency contacts, priority procedures and active alerts
+are shown; when a status component is unavailable, `/status` surfaces the same essentials.
+
+---
+
+## F95 · Difficult · 1320 XP — Sober platform, no unnecessary resources
+
+**What we built.** The **reduced-data** mode now also strips the heavy interactive map from
+service pages while keeping the address and a static alternative, and the environmental budget
+was tightened (CSS ≤ 40 KB, JS ≤ 60 KB gzipped), enforced automatically by the asset-budget test
+so non-essential weight cannot creep back in.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco`
+
+**How to verify.** Enable **Reduced data** in the accessibility menu → service pages load without
+the interactive map but keep the address. The `/eco` page reports the measured weight within budget.
+
+---
+
+## F96 · Medium · 880 XP — Reach the essentials quickly on mobile or a limited connection
+
+**What we built.** **Simple mode** renders lighter pages that keep only what is essential: on
+service pages the related-services block and the review form are omitted, and the homepage
+drops non-essential sections. It works together with reduced-data mode for slow or mobile
+connections.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+
+**How to verify.** Enable **Simple mode** via the accessibility controls → pages render with only
+the essential content (no related services, no review form).
+
+---
+
 # Global implementation notes
 
 - **Stack:** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -1218,6 +1328,6 @@ space with **Download (CSV)**.
   reviews (F76); duplicate detection for agents (F75).
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 297 automated tests pass (290 unit/controller/integration + 7 browser-style
+- **Quality:** 378 automated tests pass (371 unit/controller/integration + 7 browser-style
   system tests), including a page-render smoke test; RuboCop, Brakeman, bundler-audit and
   importmap audit are all clean.

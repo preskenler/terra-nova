@@ -11,8 +11,10 @@ module Eco
   # downloads), which is stable regardless of whether the local build is
   # minified.
   class Report
-    CSS_BUDGET = 80_000
-    JS_BUDGET = 80_000
+    # Tightened budgets: the platform stays sober and efficient, and the test
+    # suite fails if non-essential weight creeps back in (F95).
+    CSS_BUDGET = 40_000
+    JS_BUDGET = 60_000
 
     def self.call
       new.call

@@ -39,6 +39,16 @@
       <p class="whitespace-pre-line text-base-content/90"><%= @service.description %></p>
     </section>
 
+    <%# Plain-language summary of the essential information (F89), disclosed on
+        demand, plus a way to ask for a simpler explanation (F90). %>
+    <%= render Ui::PlainLanguageComponent.new(text: @service.plain_language) %>
+
+    <p class="text-sm">
+      <%= link_to t("plain_language.ask"),
+            new_feedback_path(kind: "question", subject: t("plain_language.ask_subject", name: @service.name)),
+            class: "link" %>
+    </p>
+
     <% if @service.location? %>
       <section aria-labelledby="location-heading">
         <%= render Ui::SectionHeadingComponent.new(title: t("services.location.title"), id: "location-heading") %>
@@ -125,7 +135,8 @@
     <p class="mt-2 text-sm text-base-content/60"><%= t("service_reviews.empty") %></p>
   <% end %>
 
-  <% if user_signed_in? %>
+  <% unless simple_mode? %>
+    <% if user_signed_in? %>
     <div class="mt-4 max-w-2xl rounded-box border border-base-300 bg-base-100 p-4">
       <p class="text-sm font-semibold"><%= t("service_reviews.leave") %></p>
       <%= form_with model: @review, url: service_review_path(@service), class: "mt-2 space-y-3" do |f| %>
@@ -141,5 +152,6 @@
         <%= f.submit t("service_reviews.submit"), class: "btn btn-primary btn-sm" %>
       <% end %>
     </div>
+    <% end %>
   <% end %>
 </section>

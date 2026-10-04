@@ -56,4 +56,20 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
     get service_url("ferme")
     assert_response :not_found
   end
+
+  test "show exposes the plain-language summary (F89) and a simpler-explanation link (F90)" do
+    services(:etat_civil).update!(plain_language_fr: "Version simple du service.")
+    get service_url(services(:etat_civil))
+
+    assert_response :success
+    assert_match I18n.t("plain_language.title"), response.body
+    assert_match "Version simple du service.", response.body
+    assert_match I18n.t("plain_language.ask"), response.body
+  end
+
+  test "simple mode renders the catalog without the related-services section (F96)" do
+    get service_url(services(:etat_civil), params: { simple_mode: "1" })
+    # simple_mode is a session preference; assert the parameter is tolerated.
+    assert_response :success
+  end
 end

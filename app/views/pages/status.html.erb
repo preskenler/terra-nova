@@ -7,6 +7,10 @@
 
 <%= render Ui::PageHeaderComponent.new(title: t("status.title"), subtitle: t("status.subtitle")) %>
 
+<% unless @database_ok && @cache_ok %>
+  <%= render "shared/essentials_strip" %>
+<% end %>
+
 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
   <%= render Ui::StatComponent.new(
         label: t("status.database"),

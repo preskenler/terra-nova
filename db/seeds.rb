@@ -136,9 +136,64 @@ SERVICES = [
   }
 ].freeze
 
+# Plain-language summaries of the essential information (F89): short, simple
+# sentences that keep the meaning without the administrative jargon.
+PLAIN_LANGUAGE = {
+  "etat-civil" => {
+    fr: "Vous avez besoin d'un acte de naissance, de mariage ou de décès ? Ce service les délivre. Pensez à vous munir d'une pièce d'identité.",
+    en: "Need a birth, marriage or death certificate? This service issues them. Please bring an ID document."
+  },
+  "urbanisme" => {
+    fr: "Vous voulez construire, agrandir ou clôturer ? Ce service instruit les demandes d'autorisation et explique les règles locales.",
+    en: "Want to build, extend or fence? This service handles permit applications and explains the local rules."
+  },
+  "sante" => {
+    fr: "Besoin de soins, d'un vaccin ou d'un conseil santé ? Le centre municipal vous accueille.",
+    en: "Need care, a vaccine or health advice? The municipal centre welcomes you."
+  },
+  "urgences" => {
+    fr: "Danger immédiat ? Appelez le 112. Ce service regroupe les numéros d'urgence de la ville.",
+    en: "Immediate danger? Call 112. This service lists the city's emergency numbers."
+  },
+  "collecte-dechets" => {
+    fr: "Vous cherchez les jours de collecte ou un service pour vos encombrants ? C'est ici.",
+    en: "Looking for collection days or a way to dispose of bulky items? This is the place."
+  },
+  "transports" => {
+    fr: "Bus, tram ou navette : horaires, itinéraires et abonnements sont réunis ici.",
+    en: "Bus, tram or shuttle: timetables, routes and passes are gathered here."
+  },
+  "action-sociale" => {
+    fr: "Vous ou un proche avez besoin d'aide ? Ce service accompagne les familles, les personnes âgées et les personnes en difficulté.",
+    en: "Do you or a loved one need help? This service supports families, elderly people and those in difficulty."
+  },
+  "eclairage-public" => {
+    fr: "Un lampadaire ne fonctionne pas ? Signalez-le ici : indiquez la rue et le problème.",
+    en: "A streetlight is out? Report it here: give the street and the problem."
+  },
+  "voirie" => {
+    fr: "Un trottoir abîmé ou un trou dans la chaussée ? Signalez-le ici avec le lieu précis.",
+    en: "Damaged pavement or a pothole? Report it here with the exact location."
+  },
+  "eau-assainissement" => {
+    fr: "Une fuite, une facture d'eau ou une question sur la qualité ? Ce service s'en occupe.",
+    en: "A leak, a water bill or a quality question? This service handles it."
+  },
+  "culture-loisirs" => {
+    fr: "Médiathèque, salles et activités culturelles : retrouvez ici toutes les inscriptions.",
+    en: "Library, halls and cultural activities: find all registrations here."
+  },
+  "espaces-verts" => {
+    fr: "Un parc, un jardin partagé ou un souci sur un espace vert ? Ce service en assure l'entretien.",
+    en: "A park, a shared garden or an issue in a green space? This service maintains them."
+  }
+}.freeze
+
 SERVICES.each do |attrs|
   service = Service.find_or_initialize_by(slug: attrs[:slug])
+  plain = PLAIN_LANGUAGE[attrs[:slug]]
   service.assign_attributes(attrs)
+  service.assign_attributes(plain_language_fr: plain[:fr], plain_language_en: plain[:en]) if plain
   service.save!
 end
 puts "  Services:     #{Service.count}"

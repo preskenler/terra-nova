@@ -5,7 +5,7 @@ class Service < ApplicationRecord
   include Translatable
   has_paper_trail ignore: %i[updated_at]
 
-  translates :name, :description, :maintenance_message
+  translates :name, :description, :maintenance_message, :plain_language
 
   CATEGORIES = %w[
     etat_civil urbanisme sante urgence dechets transports
@@ -35,7 +35,8 @@ class Service < ApplicationRecord
     next all if query.blank?
 
     pattern = "%#{query.strip}%"
-    where("slug ILIKE :q OR name_translations::text ILIKE :q OR description_translations::text ILIKE :q", q: pattern)
+    where("slug ILIKE :q OR name_translations::text ILIKE :q OR description_translations::text ILIKE :q " \
+          "OR category ILIKE :q OR plain_language_translations::text ILIKE :q", q: pattern)
   }
 
   def to_param

@@ -5,7 +5,7 @@
 ![Ruby](https://img.shields.io/badge/Ruby-3.3.12-CC342D?logo=ruby&logoColor=white)
 ![Rails](https://img.shields.io/badge/Rails-8.1-CC0000?logo=rubyonrails&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18.6-4169E1?logo=postgresql&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-360%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-378%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 The digital heart of **Terra Nova**: a production-ready, accessible, multilingual
@@ -188,6 +188,11 @@ No counts or waves are hard-coded: future `D…`/`F…` demands simply appear in
   requests in the queue. Urgent requests are surfaced first with a prominent callout, agents
   can export the exact filtered selection as CSV, and administrators can download a clear,
   verifiable backup of all requests.
+- **Assistance & resilience** — a heuristic **orientation assistant** (`/assistant`) routes a
+  free-text need to the right service; services carry a plain-language summary (F89) and an
+  on-demand “simpler explanation” request (F90); a dependency-light **essential information**
+  page (`/essentials`) keeps emergency numbers, procedures and alerts reachable during an
+  incident, with simple/reduced-data modes keeping pages sober on mobile and limited connections.
 
 ---
 

@@ -1147,3 +1147,111 @@ Notes (vérification) : Filter the queue (e.g. status *Submitted*) then click Ex
 space with Download (CSV).
 ```
 
+## F89 — Plain-language version of essential information
+
+```text
+Fonctionnalité F89 réalisée — Plain-language version of essential information.
+
+Implémentation : Each service carries a plain-language summary (“En clair”), shown in a
+collapsed <details> block on its page. It restates the essential information in short,
+jargon-free sentences while preserving the meaning; the full description remains available.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Open a service page → expand “En clair” to read the simplified summary;
+the detailed description is still shown above it.
+```
+
+## F90 — Ask for a simpler explanation on demand
+
+```text
+Fonctionnalité F90 réalisée — Ask for a simpler explanation on demand.
+
+Implémentation : A “Ask for a simpler explanation” link on every service page opens the
+contact form pre-filled with the service name, so a citizen can request a human explanation
+only when they need it — without changing the rest of the platform.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : On a service page, click “Ask for a simpler explanation” → the contact
+form opens with the subject pre-filled for that service.
+```
+
+## F91 — Automated assistance oriented to a service
+
+```text
+Fonctionnalité F91 réalisée — Automated assistance oriented to a service.
+
+Implémentation : A public orientation assistant (/assistant) that turns a resident's
+free-text need into a relevant municipal service, even from imperfect wording. It is a
+transparent, dependency-free heuristic (keyword scoring over service names, descriptions and
+plain-language summaries) — no external AI service is called.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Type e.g. *“je veux signaler un lampadaire cassé”* → the assistant suggests
+the relevant service(s) and a recommended next step.
+```
+
+## F92 — Describe a need simply and be routed to the right service
+
+```text
+Fonctionnalité F92 réalisée — Describe a need simply and be routed to the right service.
+
+Implémentation : The same assistant lets a citizen describe a need in their own words and be
+pointed to the competent service or procedure. When it recognises a common category it offers a
+direct next step (report a problem / request a document / contact the city), pre-filling a
+request where relevant.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Describe *“fuite d’eau dans la cave”* → the water service is suggested with a
+recommended step to create a request.
+```
+
+## F93 — Essential functions stay understandable during an incident
+
+```text
+Fonctionnalité F93 réalisée — Essential functions stay understandable during an incident.
+
+Implémentation : A dedicated “Essential information” page (/essentials) built from a
+cached, defensive snapshot (EssentialInformation): emergency numbers, priority procedures and
+current alerts. If the database cannot be reached, a global safe response renders the same page
+with the essentials instead of a bare error.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/essentials — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Open /essentials → the emergency numbers and priority procedures are listed;
+the system status page links to it, and the page remains renderable when core data is degraded.
+```
+
+## F94 — Keep consulting essential information during an incident
+
+```text
+Fonctionnalité F94 réalisée — Keep consulting essential information during an incident.
+
+Implémentation : The essentials page and its compact strip surface the useful information and
+contacts a citizen still needs during an incident, and the system status page shows the
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/essentials and https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/status — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Visit /essentials → emergency contacts, priority procedures and active alerts
+are shown; when a status component is unavailable, /status surfaces the same essentials.
+```
+
+## F95 — Sober platform, no unnecessary resources
+
+```text
+Fonctionnalité F95 réalisée — Sober platform, no unnecessary resources.
+
+Implémentation : The reduced-data mode now also strips the heavy interactive map from
+service pages while keeping the address and a static alternative, and the environmental budget
+was tightened (CSS ≤ 40 KB, JS ≤ 60 KB gzipped), enforced automatically by the asset-budget test
+so non-essential weight cannot creep back in.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Enable Reduced data in the accessibility menu → service pages load without
+the interactive map but keep the address. The /eco page reports the measured weight within budget.
+```
+
+## F96 — Reach the essentials quickly on mobile or a limited connection
+
+```text
+Fonctionnalité F96 réalisée — Reach the essentials quickly on mobile or a limited connection.
+
+Implémentation : Simple mode renders lighter pages that keep only what is essential: on
+service pages the related-services block and the review form are omitted, and the homepage
+drops non-essential sections. It works together with reduced-data mode for slow or mobile
+connections.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Enable Simple mode via the accessibility controls → pages render with only
+the essential content (no related services, no review form).
+```
+

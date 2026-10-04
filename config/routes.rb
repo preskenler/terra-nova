@@ -33,6 +33,11 @@ Rails.application.routes.draw do
   get "glossary", to: "glossary#index", as: :glossary
   get "status", to: "pages#status", as: :status
 
+  # Orientation assistant (F91/F92) and essential information during an
+  # incident (F93/F94). Both are public and lightweight.
+  get "assistant",  to: "assistant#show",   as: :assistant
+  get "essentials", to: "pages#essentials", as: :essentials
+
   # Participatory democracy (F65-F68). Ideas new/create and the nested
   # response/support actions require a citizen, enforced in the controllers.
   resources :projects, only: [ :index, :show ]

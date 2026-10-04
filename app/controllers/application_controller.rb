@@ -17,7 +17,18 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  # Degraded-mode safety net: if the database is unavailable, still render a
+  # page that keeps the essential information and emergency contacts reachable
+  # (F93/F94) instead of a bare error.
+  rescue_from ActiveRecord::ConnectionNotEstablished, with: :render_degraded
+
   private
+
+  # Renders the lightweight essentials page when a core dependency is down.
+  def render_degraded
+    @information = EssentialInformation.call
+    render "pages/essentials", status: :service_unavailable
+  end
 
   # Records who made each audited change (F47/F48). Stored as "Agent:<id>" or
   # "User:<id>" so the audit log can resolve the actor.

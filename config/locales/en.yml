@@ -150,6 +150,48 @@ en:
     requests: "Requests"
     demands: "Demands"
 
+  plain_language:
+    title: "In plain language"
+    note: "Simplified version: the meaning and essential information are preserved."
+    ask: "Ask for a simpler explanation"
+    ask_subject: "Simpler explanation: %{name}"
+
+  assistant:
+    title: "Orientation assistant"
+    subtitle: "Describe your need in plain words. We point you to the right service."
+    label: "Your need"
+    placeholder: "E.g.: I want information about bin collection"
+    submit: "Find the right service"
+    hint: "You do not need the exact name of the service: write in your own words."
+    examples: "Examples:"
+    suggested_subject: "Request routed by the assistant"
+    results:
+      heading: "Suggested services"
+      empty: "No obvious service"
+      empty_hint: "Rephrase your request or contact the city directly."
+      next_step: "Recommended step: create a request linked to this service."
+      start: "Create my request"
+
+  essentials:
+    title: "Essential information"
+    subtitle: "Useful information and contacts, even during an incident."
+    emergency:
+      heading: "Emergency numbers"
+      samu: "Medical emergency"
+      police: "Police"
+      fire: "Fire brigade"
+      european: "European emergency"
+    procedures:
+      heading: "Priority procedures"
+      unavailable: "Procedures are temporarily unavailable. Please try again later."
+    alerts:
+      heading: "Current alerts"
+      none: "No current alert."
+    footer_note: "This page stays available even if the rest of the platform is degraded."
+    strip:
+      title: "Essential information available"
+      body: "The service is experiencing an incident. This information and these numbers remain reachable."
+
   requests:
     title: "My requests"
     subtitle: "Find all your requests and follow their progress."

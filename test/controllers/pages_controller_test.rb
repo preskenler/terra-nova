@@ -24,4 +24,12 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "État du système", response.body
   end
+
+  test "essential information page renders during an incident (F93/F94)" do
+    get essentials_url
+
+    assert_response :success
+    assert_match I18n.t("essentials.title"), response.body
+    assert_match "112", response.body
+  end
 end

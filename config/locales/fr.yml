@@ -150,6 +150,48 @@ fr:
     requests: "Demandes"
     demands: "Demandes API"
 
+  plain_language:
+    title: "En clair"
+    note: "Version simplifiée : le sens et les informations essentielles sont conservés."
+    ask: "Demander une explication plus simple"
+    ask_subject: "Explication plus simple : %{name}"
+
+  assistant:
+    title: "Assistant d'orientation"
+    subtitle: "Décrivez votre besoin simplement. Nous vous indiquons le service compétent."
+    label: "Votre besoin"
+    placeholder: "Ex. : je veux des informations sur le ramassage des poubelles"
+    submit: "Trouver le bon service"
+    hint: "Pas besoin de connaître le nom exact du service : écrivez avec vos mots."
+    examples: "Exemples :"
+    suggested_subject: "Demande orientée par l'assistant"
+    results:
+      heading: "Services suggérés"
+      empty: "Aucun service évident"
+      empty_hint: "Reformulez votre demande ou contactez directement la ville."
+      next_step: "Étape recommandée : créer une demande liée à ce service."
+      start: "Créer ma demande"
+
+  essentials:
+    title: "Informations essentielles"
+    subtitle: "Les informations et contacts utiles, même en cas d'incident."
+    emergency:
+      heading: "Numéros d'urgence"
+      samu: "SAMU"
+      police: "Police"
+      fire: "Pompiers"
+      european: "Urgence européenne"
+    procedures:
+      heading: "Démarches prioritaires"
+      unavailable: "Les démarches ne sont pas disponibles pour le moment. Réessayez plus tard."
+    alerts:
+      heading: "Alertes en cours"
+      none: "Aucune alerte en cours."
+    footer_note: "Cette page reste disponible même si le reste de la plateforme est dégradé."
+    strip:
+      title: "Informations essentielles disponibles"
+      body: "Le service connaît un incident. Ces informations et numéros restent accessibles."
+
   requests:
     title: "Mes demandes"
     subtitle: "Retrouvez toutes vos demandes et suivez leur avancement."

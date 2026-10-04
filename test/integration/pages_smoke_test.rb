@@ -9,6 +9,7 @@ class PagesSmokeTest < ActionDispatch::IntegrationTest
     /partners /partners/centre-sante-horizon /status
     /feedback/new /transparency /accessibility /eco /users/magic_link
     /users/sign_in /users/sign_up
+    /assistant /assistant?q=lampadaire /essentials
   ].freeze
 
   CITIZEN_PAGES = %w[

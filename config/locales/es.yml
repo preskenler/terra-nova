@@ -96,3 +96,45 @@ es:
       see_all: "Ver todos los servicios"
     announcements:
       see_all: "Ver todas las noticias"
+
+  plain_language:
+    title: "En claro"
+    note: "Versión simplificada: se conservan el sentido y la información esencial."
+    ask: "Pedir una explicación más sencilla"
+    ask_subject: "Explicación más sencilla: %{name}"
+
+  assistant:
+    title: "Asistente de orientación"
+    subtitle: "Describa su necesidad con palabras sencillas. Le indicamos el servicio adecuado."
+    label: "Su necesidad"
+    placeholder: "Ej.: quiero información sobre la recogida de basura"
+    submit: "Encontrar el servicio"
+    hint: "No necesita el nombre exacto del servicio: escriba con sus palabras."
+    examples: "Ejemplos:"
+    suggested_subject: "Solicitud orientada por el asistente"
+    results:
+      heading: "Servicios sugeridos"
+      empty: "Ningún servicio evidente"
+      empty_hint: "Reformule su solicitud o contacte directamente con la ciudad."
+      next_step: "Paso recomendado: crear una solicitud vinculada a este servicio."
+      start: "Crear mi solicitud"
+
+  essentials:
+    title: "Información esencial"
+    subtitle: "Información y contactos útiles, incluso durante un incidente."
+    emergency:
+      heading: "Números de emergencia"
+      samu: "Emergencias médicas"
+      police: "Policía"
+      fire: "Bomberos"
+      european: "Emergencia europea"
+    procedures:
+      heading: "Trámites prioritarios"
+      unavailable: "Los trámites no están disponibles por ahora. Inténtelo más tarde."
+    alerts:
+      heading: "Alertas actuales"
+      none: "No hay alertas actuales."
+    footer_note: "Esta página sigue disponible aunque el resto de la plataforma esté degradado."
+    strip:
+      title: "Información esencial disponible"
+      body: "El servicio sufre un incidente. Esta información y estos números siguen accesibles."

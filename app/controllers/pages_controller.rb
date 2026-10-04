@@ -13,6 +13,11 @@ class PagesController < ApplicationController
     @report = Eco::Report.call
   end
 
+  # Essential information that stays available during an incident (F93/F94).
+  def essentials
+    @information = EssentialInformation.call
+  end
+
   # Lightweight public system status page (F77/F78).
   def status
     @database_ok = begin
