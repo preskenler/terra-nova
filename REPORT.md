@@ -1308,6 +1308,21 @@ the essential content (no related services, no review form).
 
 ---
 
+## D10 · Difficult · 1290 XP — Find the right service despite imperfect wording
+
+**What we built.** The public **orientation assistant** (`/assistant`, the same engine as
+F91/F92) lets a resident describe a need in their own words and still be routed to a relevant
+service or procedure. It is a transparent, dependency-free heuristic (keyword scoring with
+prefix tolerance over service names, descriptions and plain-language summaries) — no external AI
+service is called.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant`
+
+**How to verify.** Type e.g. *“poubell ramassage”* (deliberately imperfect) → the assistant still
+suggests the relevant service(s) and a recommended next step.
+
+---
+
 # Global implementation notes
 
 - **Stack:** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,

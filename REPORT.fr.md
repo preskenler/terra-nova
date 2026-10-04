@@ -1373,6 +1373,21 @@ que le contenu essentiel (ni services liés, ni formulaire d'avis).
 
 ---
 
+## D10 · Difficile · 1290 XP — Trouver le bon service malgré une formulation imparfaite
+
+**Ce que nous avons réalisé.** L'**assistant d'orientation** public (`/assistant`, même moteur que
+F91/F92) permet à un habitant de décrire un besoin avec ses propres mots et d'être malgré tout
+orienté vers un service ou une démarche pertinent. Il s'agit d'une heuristique transparente et sans
+dépendance (score par mots-clés avec tolérance de préfixe sur les noms, descriptions et résumés en
+langage clair des services) — aucun service d'IA externe n'est appelé.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant`
+
+**Comment vérifier.** Saisir par ex. *« poubell ramassage »* (volontairement imparfait) → l'assistant
+propose quand même le ou les services pertinents et une étape suivante recommandée.
+
+---
+
 # Notes globales d'implémentation
 
 - **Stack :** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,

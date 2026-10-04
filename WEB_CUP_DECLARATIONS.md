@@ -1323,3 +1323,18 @@ Notes (vérification) : Activer Mode simple via les contrôles d'accessibilité 
 que le contenu essentiel (ni services liés, ni formulaire d'avis).
 ```
 
+## D10 — Trouver le bon service malgré une formulation imparfaite
+
+```text
+Fonctionnalité D10 réalisée — Trouver le bon service malgré une formulation imparfaite.
+
+Implémentation : L'assistant d'orientation public (/assistant, même moteur que
+F91/F92) permet à un habitant de décrire un besoin avec ses propres mots et d'être malgré tout
+orienté vers un service ou une démarche pertinent. Il s'agit d'une heuristique transparente et sans
+dépendance (score par mots-clés avec tolérance de préfixe sur les noms, descriptions et résumés en
+langage clair des services) — aucun service d'IA externe n'est appelé.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Saisir par ex. *« poubell ramassage »* (volontairement imparfait) → l'assistant
+propose quand même le ou les services pertinents et une étape suivante recommandée.
+```
+
