@@ -1323,6 +1323,59 @@ suggests the relevant service(s) and a recommended next step.
 
 ---
 
+## F97 · Difficult · 1350 XP — Replacement solution for interrupted transport lines
+
+**What we built.** Transport disruptions now carry a translated **replacement** field. The
+`/transports` page groups the currently disrupted lines (critical first) and shows, for each, the
+message **and a clear replacement solution**, plus a link to the assistant to find an alternative
+route.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/transports`
+
+**How to verify.** Open `/transports` → the **“Disrupted lines”** section lists the interrupted
+line(s) with the replacement solution.
+
+---
+
+## F98 · Difficult · 1350 XP — Which services are the most used
+
+**What we built.** A **usage statistics** page (`/agents/statistics`) ranks services by combined
+use — citizen requests, appointments and reviews — with proportional bars and a plain-language
+summary sentence (**not raw data**). Powered by the `Services::Usage` service object.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/statistics` (agent workspace, “Operations” menu)
+
+**How to verify.** Open the statistics page as an agent → a ranked “Top services” table with a
+summary line naming the most used service.
+
+---
+
+## F99 · Difficult · 1350 XP — Partners: what is available and the next step
+
+**What we built.** Partners now expose an **availability** status and a translated **next step**.
+The partner directory and detail page show a **Available / Unavailable** badge and the next
+possible action (book, contact, reopen…).
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/partners`
+
+**How to verify.** Open the partner directory → each partner shows an availability badge; a
+partner page shows the **next step** (e.g. “reopens Monday”).
+
+---
+
+## F100 · Medium · 900 XP — Latest security events for daily follow-up
+
+**What we built.** The agent dashboard now includes a **“Latest security events”** panel showing
+the most recent security events (type + date, no IP or metadata) and a warning when unusual
+activity is detected. The full detailed log stays administrator-only.
+
+**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents`
+
+**How to verify.** Open `/agents` as an agent → the security panel lists the latest events; an
+administrator can open the full log from there.
+
+---
+
 # Global implementation notes
 
 - **Stack:** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -1343,6 +1396,6 @@ suggests the relevant service(s) and a recommended next step.
   reviews (F76); duplicate detection for agents (F75).
 - **Performance:** the map library is not preloaded on non-map pages and its stylesheet
   loads only where a map renders.
-- **Quality:** 378 automated tests pass (371 unit/controller/integration + 7 browser-style
+- **Quality:** 385 automated tests pass (378 unit/controller/integration + 7 browser-style
   system tests), including a page-render smoke test; RuboCop, Brakeman, bundler-audit and
   importmap audit are all clean.

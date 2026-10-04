@@ -128,6 +128,9 @@ Rails.application.routes.draw do
         end
       end
 
+      # Usage statistics of the service catalog (F98).
+      get "statistics", to: "statistics#index", as: :statistics
+
       # Participatory democracy management (F65-F68)
       resources :projects
       resources :consultations

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_04_023439) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -306,6 +306,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_023439) do
     t.boolean "published", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "available", default: true, null: false
+    t.json "next_action_translations"
     t.index ["category"], name: "index_partners_on_category"
     t.index ["slug"], name: "index_partners_on_slug", unique: true
   end
@@ -629,6 +631,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_023439) do
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "replacement_translations"
     t.index ["transport_line_id"], name: "index_transport_disruptions_on_transport_line_id"
   end
 

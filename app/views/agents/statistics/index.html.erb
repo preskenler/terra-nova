@@ -1,0 +1,59 @@
+<% content_for :title, t("agents.statistics.title") %>
+
+<%= render Ui::BreadcrumbsComponent.new(items: [
+      { label: t("agents.nav.dashboard"), path: agents_root_path },
+      { label: t("agents.statistics.title") }
+    ]) %>
+
+<%= render Ui::PageHeaderComponent.new(title: t("agents.statistics.title"), subtitle: t("agents.statistics.subtitle")) %>
+
+<%# F98 : résultat clair et exploitable — une phrase de synthèse, pas des données brutes. %>
+<% if @usage[:top] && @usage[:top].total.positive? %>
+  <div role="status" class="alert alert-info mt-4">
+    <div>
+      <p class="font-semibold">
+        <%= t("agents.statistics.summary.top",
+              service: @usage[:top].service.name, count: @usage[:top].total) %>
+      </p>
+      <p class="text-sm"><%= t("agents.statistics.summary.total", count: @usage[:total_requests]) %></p>
+    </div>
+  </div>
+<% else %>
+  <p class="mt-4 text-sm text-base-content/60"><%= t("agents.statistics.summary.none") %></p>
+<% end %>
+
+<div class="mt-6 overflow-x-auto rounded-box border border-base-300 bg-base-100">
+  <table class="table table-zebra">
+    <caption class="sr-only"><%= t("agents.statistics.table_caption") %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("agents.statistics.columns.rank") %></th>
+        <th scope="col"><%= t("agents.statistics.columns.service") %></th>
+        <th scope="col"><%= t("agents.statistics.columns.requests") %></th>
+        <th scope="col"><%= t("agents.statistics.columns.appointments") %></th>
+        <th scope="col"><%= t("agents.statistics.columns.reviews") %></th>
+        <th scope="col"><%= t("agents.statistics.columns.total") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @usage[:rows].each_with_index do |row, index| %>
+        <tr>
+          <th scope="row" class="w-12"><%= index + 1 %></th>
+          <td><%= link_to row.service.name, agents_service_path(row.service), class: "link" %></td>
+          <td><%= row.requests %></td>
+          <td><%= row.appointments %></td>
+          <td><%= row.reviews %></td>
+          <td>
+            <div class="flex items-center gap-2">
+              <progress class="progress progress-primary w-24"
+                        value="<%= row.total %>"
+                        max="<%= [ @usage[:max_total], 1 ].max %>"
+                        aria-label="<%= t("agents.statistics.total_for", service: row.service.name) %>"></progress>
+              <span class="font-semibold"><%= row.total %></span>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -37,5 +37,16 @@ module Agents
 
       assert_select "button[popovertarget=?]", "agents-menu-administration"
     end
+
+    test "the dashboard shows the latest security events (F100)" do
+      SecurityEvent.create!(event: "sign_in_failed", ip: "203.0.113.9")
+      sign_in agents(:agent)
+
+      get agents_root_url
+
+      assert_response :success
+      assert_match I18n.t("agents.dashboard.security"), response.body
+      assert_match I18n.t("agents.security_events.events.sign_in_failed"), response.body
+    end
   end
 end

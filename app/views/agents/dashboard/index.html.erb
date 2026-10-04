@@ -77,3 +77,30 @@
     </div>
   <% end %>
 </div>
+
+<%# F100 : aperçu des derniers événements de sécurité pour le suivi quotidien.
+    Sans IP ni métadonnées ; la page détaillée reste réservée aux administrateurs. %>
+<section class="mt-6" aria-labelledby="security-heading">
+  <%= render Ui::SectionHeadingComponent.new(title: t("agents.dashboard.security"), id: "security-heading") %>
+  <% if @security_suspicious %>
+    <p class="mb-2 text-sm font-medium text-error"><%= t("agents.dashboard.security_flagged") %></p>
+  <% end %>
+  <% if @recent_security_events.any? %>
+    <ul class="divide-y divide-base-200 rounded-box border border-base-300 bg-base-100">
+      <% @recent_security_events.each do |event| %>
+        <li class="flex flex-wrap items-center justify-between gap-2 p-3 text-sm">
+          <span class="font-medium"><%= t("agents.security_events.events.#{event.event}", default: event.event) %></span>
+          <time class="text-base-content/60" datetime="<%= event.created_at.iso8601 %>"><%= l(event.created_at, format: :short) %></time>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-sm text-base-content/60"><%= t("agents.dashboard.no_security") %></p>
+  <% end %>
+  <% if current_agent.admin? %>
+    <div class="mt-4">
+      <%= link_to t("agents.nav.security"), agents_security_events_path, class: "btn btn-primary btn-sm" %>
+    </div>
+  <% end %>
+</section>
+

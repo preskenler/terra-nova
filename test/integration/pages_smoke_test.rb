@@ -24,6 +24,7 @@ class PagesSmokeTest < ActionDispatch::IntegrationTest
     /agents/alerts /agents/projects /agents/consultations /agents/ideas
     /agents/feedbacks /agents/audit_logs /agents/appointments /agents/demands
     /agents/availabilities /agents/partners /agents/service_reviews /agents/security_events
+    /agents/statistics
   ].freeze
 
   test "public pages render" do

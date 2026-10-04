@@ -234,14 +234,29 @@ if TransportSchedule.none?
   end
 end
 
-if TransportDisruption.none?
-  bus = TransportLine.find_by(slug: "bus-b2")
-  disruption = bus.transport_disruptions.new(
-    severity: "warning", starts_at: Time.current, ends_at: 3.days.from_now
-  )
+# Idempotent transport disruptions (F36/F97).
+bus = TransportLine.find_by(slug: "bus-b2")
+if bus
+  disruption = bus.transport_disruptions.find_or_initialize_by(severity: "warning")
+  disruption.starts_at ||= Time.current
+  disruption.ends_at ||= 3.days.from_now
   disruption.message_fr = "Arrêt « Place des Arts » non desservi en raison de travaux, jusqu'à vendredi."
   disruption.message_en = "Stop “Place des Arts” not served due to works, until Friday."
+  disruption.replacement_fr = "Reportez-vous à l'arrêt « Mairie » (5 min à pied) : la navette Centre assure la correspondance."
+  disruption.replacement_en = "Use the “Mairie” stop (5 min walk); the City shuttle provides the connection."
   disruption.save!
+end
+
+# F97 : une ligne interrompue avec une solution de remplacement claire.
+tram = TransportLine.find_by(slug: "tram-t1")
+if tram
+  interruption = tram.transport_disruptions.find_or_initialize_by(severity: "critical")
+  interruption.starts_at ||= Time.current
+  interruption.message_fr = "Ligne T1 interrompue entre Gare centrale et Université (incident technique)."
+  interruption.message_en = "Line T1 interrupted between Central station and University (technical incident)."
+  interruption.replacement_fr = "Solution de remplacement : empruntez le Bus B2 jusqu'à « Université », puis la Navette Centre."
+  interruption.replacement_en = "Replacement: take Bus B2 to “Université”, then the City shuttle."
+  interruption.save!
 end
 puts "  Transports:   #{TransportLine.count} lines, #{TransportDisruption.count} disruptions"
 
@@ -366,12 +381,28 @@ if Partner.none?
   partner.name_en = "Horizon Health Centre"
   partner.description_fr = "Consultations sans rendez-vous du lundi au samedi."
   partner.description_en = "Walk-in consultations from Monday to Saturday."
+  partner.available = true
+  partner.next_action_fr = "Prenez rendez-vous en ligne ou présentez-vous sans rendez-vous le matin."
+  partner.next_action_en = "Book online or walk in during the morning."
   partner.save!
   [ 1, 2, 3, 4, 5 ].each do |wday|
-    partner.partner_opening_hours.create!(wday: wday, opens_at: "08:30", closes_at: "18:00")
+    partner.partner_opening_hours.find_or_create_by!(wday: wday) { |h| h.opens_at = "08:30"; h.closes_at = "18:00" }
   end
-  partner.partner_opening_hours.create!(wday: 6, opens_at: "09:00", closes_at: "12:00")
-  partner.partner_opening_hours.create!(wday: 0, closed: true)
+  partner.partner_opening_hours.find_or_create_by!(wday: 6) { |h| h.opens_at = "09:00"; h.closes_at = "12:00" }
+  partner.partner_opening_hours.find_or_create_by!(wday: 0) { |h| h.closed = true }
+end
+
+# F99 : un partenaire temporairement indisponible, avec la prochaine action.
+unless Partner.exists?(slug: "marche-solidaire")
+  closed = Partner.new(category: "commerce", address: "Marché solidaire, 12 rue des Échanges",
+                       published: true, available: false)
+  closed.name_fr = "Marché solidaire"
+  closed.name_en = "Solidarity market"
+  closed.description_fr = "Produits locaux et ateliers d'insertion."
+  closed.description_en = "Local produce and integration workshops."
+  closed.next_action_fr = "Actuellement fermé : inscrivez-vous pour être prévenu de la réouverture."
+  closed.next_action_en = "Currently closed: sign up to be notified when it reopens."
+  closed.save!
 end
 
 if Announcement.exists? && !Announcement.exists?(pinned: true)

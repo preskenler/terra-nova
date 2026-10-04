@@ -444,6 +444,9 @@ fr:
     empty: "Aucun partenaire pour le moment."
     hours: "Horaires d'ouverture"
     closed: "Fermé"
+    available: "Disponible"
+    unavailable: "Indisponible"
+    next_action: "Prochaine action"
     location: "Localisation"
     map_label: "Carte indiquant l'emplacement de %{name}"
     categories:
@@ -627,6 +630,11 @@ fr:
       tram: "Tram"
       metro: "Métro"
       navette: "Navette"
+    disruptions:
+      heading: "Lignes interrompues"
+      replacement_label: "Solution de remplacement :"
+      assistant: "Besoin d'aide pour trouver un itinéraire ? Utiliser l'assistant"
+      assistant_query: "itinéraire de remplacement transport"
     weekdays:
       "0": "Dimanche"
       "1": "Lundi"
@@ -681,6 +689,7 @@ fr:
       audit_logs: "Journal d'audit"
       feedbacks: "Messages"
       services: "Services"
+      statistics: "Statistiques"
       projects: "Projets"
       consultations: "Consultations"
       ideas: "Idées"
@@ -710,6 +719,25 @@ fr:
       recent_demands: "Dernières demandes reçues"
       no_demands: "Aucune demande pour le moment"
       no_demands_hint: "Les demandes diffusées par l'API Terra Nova apparaîtront ici."
+      security: "Derniers événements de sécurité"
+      security_flagged: "Une activité inhabituelle a été détectée récemment."
+      no_security: "Aucun événement de sécurité récent."
+    statistics:
+      title: "Statistiques d'usage"
+      subtitle: "Les services les plus utilisés par les habitants."
+      table_caption: "Classement des services par usage"
+      total_for: "Usage total pour %{service}"
+      columns:
+        rank: "Rang"
+        service: "Service"
+        requests: "Demandes"
+        appointments: "Rendez-vous"
+        reviews: "Avis"
+        total: "Usage total"
+      summary:
+        top: "Le service le plus utilisé est « %{service} » avec %{count} interactions."
+        total: "%{count} demandes citoyennes au total, tous services confondus."
+        none: "Pas encore de données d'usage à afficher."
     demands:
       title: "Demandes de l'API Terra Nova"
       subtitle: "Flux en direct des demandes émises par le Haut Conseil, prêtes à être traitées."

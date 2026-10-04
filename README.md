@@ -5,7 +5,7 @@
 ![Ruby](https://img.shields.io/badge/Ruby-3.3.12-CC342D?logo=ruby&logoColor=white)
 ![Rails](https://img.shields.io/badge/Rails-8.1-CC0000?logo=rubyonrails&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18.6-4169E1?logo=postgresql&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-378%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-385%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 The digital heart of **Terra Nova**: a production-ready, accessible, multilingual
@@ -193,6 +193,10 @@ No counts or waves are hard-coded: future `D…`/`F…` demands simply appear in
   on-demand “simpler explanation” request (F90); a dependency-light **essential information**
   page (`/essentials`) keeps emergency numbers, procedures and alerts reachable during an
   incident, with simple/reduced-data modes keeping pages sober on mobile and limited connections.
+- **Operations insight** — disrupted transport lines show a clear **replacement** solution
+  (F97); agents get a **usage statistics** ranking of the most-used services (F98); partners
+  expose **availability** and their next step (F99); the agent dashboard surfaces the **latest
+  security events** (F100).
 
 ---
 

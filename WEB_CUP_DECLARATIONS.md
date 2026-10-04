@@ -1338,3 +1338,56 @@ Notes (vérification) : Saisir par ex. *« poubell ramassage »* (volontairement
 propose quand même le ou les services pertinents et une étape suivante recommandée.
 ```
 
+## F97 — Solution de remplacement pour les lignes de transport interrompues
+
+```text
+Fonctionnalité F97 réalisée — Solution de remplacement pour les lignes de transport interrompues.
+
+Implémentation : Les perturbations de transport portent désormais un champ traduisible
+de remplacement. La page /transports regroupe les lignes actuellement interrompues (critiques
+en premier) et affiche, pour chacune, le message et une solution de remplacement claire, avec un
+lien vers l'assistant pour trouver un itinéraire alternatif.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/transports — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Ouvrir /transports → la section « Lignes interrompues » liste la ou les
+lignes perturbées avec la solution de remplacement.
+```
+
+## F98 — Quels services sont les plus utilisés
+
+```text
+Fonctionnalité F98 réalisée — Quels services sont les plus utilisés.
+
+Implémentation : Une page de statistiques d'usage (/agents/statistics) classe les
+services par usage combiné — demandes citoyennes, rendez-vous et avis — avec des barres
+proportionnelles et une phrase de synthèse en langage clair (pas des données brutes). Portée par
+le service object Services::Usage.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/statistics (espace agent, menu « Exploitation ») — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Ouvrir la page statistiques en tant qu'agent → un tableau « Top services » classé
+avec une ligne de synthèse nommant le service le plus utilisé.
+```
+
+## F99 — Partenaires : ce qui est disponible et la prochaine action
+
+```text
+Fonctionnalité F99 réalisée — Partenaires : ce qui est disponible et la prochaine action.
+
+Implémentation : Les partenaires exposent désormais un statut de disponibilité et une
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/partners — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Ouvrir l'annuaire des partenaires → chaque partenaire affiche un badge de
+disponibilité ; une fiche montre la prochaine action (par ex. « réouverture lundi »).
+```
+
+## F100 — Derniers événements de sécurité pour le suivi quotidien
+
+```text
+Fonctionnalité F100 réalisée — Derniers événements de sécurité pour le suivi quotidien.
+
+Implémentation : Le tableau de bord agent inclut désormais un panneau « Derniers
+événements de sécurité » affichant les événements les plus récents (type + date, sans IP ni
+métadonnées) et un avertissement lorsqu'une activité inhabituelle est détectée. Le journal détaillé
+complet reste réservé aux administrateurs.
+Preuve : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents — application en ligne : https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/
+Notes (vérification) : Ouvrir /agents en tant qu'agent → le panneau sécurité liste les derniers
+événements ; un administrateur peut ouvrir le journal complet depuis là.
+```
+

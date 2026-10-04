@@ -1388,6 +1388,61 @@ propose quand même le ou les services pertinents et une étape suivante recomma
 
 ---
 
+## F97 · Difficile · 1350 XP — Solution de remplacement pour les lignes de transport interrompues
+
+**Ce que nous avons réalisé.** Les perturbations de transport portent désormais un champ traduisible
+de **remplacement**. La page `/transports` regroupe les lignes actuellement interrompues (critiques
+en premier) et affiche, pour chacune, le message **et une solution de remplacement claire**, avec un
+lien vers l'assistant pour trouver un itinéraire alternatif.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/transports`
+
+**Comment vérifier.** Ouvrir `/transports` → la section **« Lignes interrompues »** liste la ou les
+lignes perturbées avec la solution de remplacement.
+
+---
+
+## F98 · Difficile · 1350 XP — Quels services sont les plus utilisés
+
+**Ce que nous avons réalisé.** Une page de **statistiques d'usage** (`/agents/statistics`) classe les
+services par usage combiné — demandes citoyennes, rendez-vous et avis — avec des barres
+proportionnelles et une phrase de synthèse en langage clair (**pas des données brutes**). Portée par
+le service object `Services::Usage`.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/statistics` (espace agent, menu « Exploitation »)
+
+**Comment vérifier.** Ouvrir la page statistiques en tant qu'agent → un tableau « Top services » classé
+avec une ligne de synthèse nommant le service le plus utilisé.
+
+---
+
+## F99 · Difficile · 1350 XP — Partenaires : ce qui est disponible et la prochaine action
+
+**Ce que nous avons réalisé.** Les partenaires exposent désormais un statut de **disponibilité** et une
+**prochaine action** traduisible. L'annuaire et la fiche partenaire affichent un badge **Disponible /
+Indisponible** et la prochaine action possible (réserver, contacter, réouverture…).
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/partners`
+
+**Comment vérifier.** Ouvrir l'annuaire des partenaires → chaque partenaire affiche un badge de
+disponibilité ; une fiche montre la **prochaine action** (par ex. « réouverture lundi »).
+
+---
+
+## F100 · Moyen · 900 XP — Derniers événements de sécurité pour le suivi quotidien
+
+**Ce que nous avons réalisé.** Le tableau de bord agent inclut désormais un panneau **« Derniers
+événements de sécurité »** affichant les événements les plus récents (type + date, sans IP ni
+métadonnées) et un avertissement lorsqu'une activité inhabituelle est détectée. Le journal détaillé
+complet reste réservé aux administrateurs.
+
+**Où tester.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents`
+
+**Comment vérifier.** Ouvrir `/agents` en tant qu'agent → le panneau sécurité liste les derniers
+événements ; un administrateur peut ouvrir le journal complet depuis là.
+
+---
+
 # Notes globales d'implémentation
 
 - **Stack :** Rails 8.1, PostgreSQL 18.6, Hotwire (Turbo + Stimulus), ViewComponents,
@@ -1410,6 +1465,6 @@ propose quand même le ou les services pertinents et une étape suivante recomma
   sur les services (F76) ; détection des doublons pour les agents (F75).
 - **Performance :** la bibliothèque de cartes n'est pas préchargée sur les pages sans carte et
   sa feuille de style n'est chargée que là où une carte est rendue.
-- **Qualité :** 378 tests automatisés passent (371 unitaires/contrôleurs/intégration + 7 tests
+- **Qualité :** 385 tests automatisés passent (378 unitaires/contrôleurs/intégration + 7 tests
   système de type navigateur), dont un test de rendu de toutes les pages ; RuboCop, Brakeman,
   bundler-audit et l'audit des importmaps sont tous propres.

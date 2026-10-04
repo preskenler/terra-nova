@@ -2,7 +2,7 @@
 
 class TransportDisruption < ApplicationRecord
   include Translatable
-  translates :message
+  translates :message, :replacement
 
   belongs_to :transport_line
 

@@ -5,8 +5,8 @@ This document is the single source of truth for scope, architecture, milestones,
 requirement traceability. It complements `README.md` (which is for setup/usage).
 
 > **Status:** milestones **M0–M8 implemented**. The external Webcup "Terra Nova" API is
-> integrated (live demand feed + triage console). All demands received so far (through F96)
-> are implemented and declared. 378 automated tests pass; RuboCop,
+> integrated (live demand feed + triage console). All demands received so far (through F100)
+> are implemented and declared. 385 automated tests pass; RuboCop,
 > Brakeman, bundler-audit and importmap audit are clean. See `README.md` to run it.
 
 ---

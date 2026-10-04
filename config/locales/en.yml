@@ -444,6 +444,9 @@ en:
     empty: "No partner for now."
     hours: "Opening hours"
     closed: "Closed"
+    available: "Available"
+    unavailable: "Unavailable"
+    next_action: "Next step"
     location: "Location"
     map_label: "Map showing the location of %{name}"
     categories:
@@ -627,6 +630,11 @@ en:
       tram: "Tram"
       metro: "Metro"
       navette: "Shuttle"
+    disruptions:
+      heading: "Disrupted lines"
+      replacement_label: "Replacement:"
+      assistant: "Need help finding a route? Use the assistant"
+      assistant_query: "replacement transport route"
     weekdays:
       "0": "Sunday"
       "1": "Monday"
@@ -681,6 +689,7 @@ en:
       audit_logs: "Audit log"
       feedbacks: "Messages"
       services: "Services"
+      statistics: "Statistics"
       projects: "Projects"
       consultations: "Consultations"
       ideas: "Ideas"
@@ -710,6 +719,25 @@ en:
       recent_demands: "Recently received demands"
       no_demands: "No demands yet"
       no_demands_hint: "Demands broadcast by the Terra Nova API will appear here."
+      security: "Latest security events"
+      security_flagged: "Unusual activity has recently been detected."
+      no_security: "No recent security event."
+    statistics:
+      title: "Usage statistics"
+      subtitle: "The services most used by residents."
+      table_caption: "Services ranked by usage"
+      total_for: "Total usage for %{service}"
+      columns:
+        rank: "Rank"
+        service: "Service"
+        requests: "Requests"
+        appointments: "Appointments"
+        reviews: "Reviews"
+        total: "Total usage"
+      summary:
+        top: "The most used service is “%{service}” with %{count} interactions."
+        total: "%{count} citizen requests in total, across all services."
+        none: "No usage data to display yet."
     demands:
       title: "Demands from the Terra Nova API"
       subtitle: "Live feed of the demands issued by the Haut Conseil, ready to be triaged."

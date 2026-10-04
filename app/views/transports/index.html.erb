@@ -7,6 +7,33 @@
 
 <%= render Ui::PageHeaderComponent.new(title: t("transports.title"), subtitle: t("transports.subtitle")) %>
 
+<%# F97 : les perturbations en cours, avec la solution de remplacement mise en avant. %>
+<% if @disruptions.any? %>
+  <section class="mt-6" aria-labelledby="disruptions-heading">
+    <%= render Ui::SectionHeadingComponent.new(title: t("transports.disruptions.heading"), id: "disruptions-heading") %>
+    <div class="mt-3 space-y-3">
+      <% @disruptions.each do |disruption| %>
+        <div role="status" class="alert <%= disruption.severity == "critical" ? "alert-error" : "alert-warning" %>">
+          <div>
+            <p class="font-semibold"><%= disruption.transport_line.name %></p>
+            <p class="text-sm"><%= disruption.message %></p>
+            <% if disruption.replacement.present? %>
+              <p class="mt-1 text-sm">
+                <span class="font-semibold"><%= t("transports.disruptions.replacement_label") %></span>
+                <%= disruption.replacement %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <p class="mt-2 text-sm">
+      <%= link_to t("transports.disruptions.assistant"),
+            assistant_path(q: t("transports.disruptions.assistant_query")), class: "link" %>
+    </p>
+  </section>
+<% end %>
+
 <div class="mt-6 grid gap-4 md:grid-cols-2">
   <% @lines.each do |line| %>
     <section class="card border border-base-300 bg-base-100" aria-labelledby="line-<%= line.slug %>">

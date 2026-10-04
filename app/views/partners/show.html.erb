@@ -18,8 +18,20 @@
       <% if @partner.category.present? %>
         <%= render Ui::BadgeComponent.new(label: t("partners.categories.#{@partner.category}"), variant: :neutral) %>
       <% end %>
+      <%# F99 : disponible / indisponible, jamais signalé par la couleur seule. %>
+      <%= render Ui::BadgeComponent.new(
+            label: @partner.available? ? t("partners.available") : t("partners.unavailable"),
+            variant: @partner.available? ? :success : :neutral) %>
     </div>
     <p class="whitespace-pre-line text-base-content/90"><%= @partner.description %></p>
+
+    <%# F99 : la prochaine action possible. %>
+    <% if @partner.next_action.present? %>
+      <div class="rounded-box border border-base-300 bg-base-100 p-4">
+        <p class="text-sm font-semibold"><%= t("partners.next_action") %></p>
+        <p class="mt-1 text-sm text-base-content/80"><%= @partner.next_action %></p>
+      </div>
+    <% end %>
 
     <% if @partner.location? %>
       <section aria-labelledby="partner-location-heading">

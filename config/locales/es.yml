@@ -138,3 +138,39 @@ es:
     strip:
       title: "Información esencial disponible"
       body: "El servicio sufre un incidente. Esta información y estos números siguen accesibles."
+
+  partners:
+    available: "Disponible"
+    unavailable: "No disponible"
+    next_action: "Próxima acción"
+
+  transports:
+    disruptions:
+      heading: "Líneas interrumpidas"
+      replacement_label: "Solución alternativa:"
+      assistant: "¿Necesita ayuda para encontrar una ruta? Use el asistente"
+      assistant_query: "ruta alternativa de transporte"
+
+  agents:
+    nav:
+      statistics: "Estadísticas"
+    dashboard:
+      security: "Últimos eventos de seguridad"
+      security_flagged: "Se ha detectado actividad inusual recientemente."
+      no_security: "Ningún evento de seguridad reciente."
+    statistics:
+      title: "Estadísticas de uso"
+      subtitle: "Los servicios más utilizados por los habitantes."
+      table_caption: "Clasificación de servicios por uso"
+      total_for: "Uso total de %{service}"
+      columns:
+        rank: "Puesto"
+        service: "Servicio"
+        requests: "Solicitudes"
+        appointments: "Citas"
+        reviews: "Opiniones"
+        total: "Uso total"
+      summary:
+        top: "El servicio más utilizado es « %{service} » con %{count} interacciones."
+        total: "%{count} solicitudes ciudadanas en total."
+        none: "Aún no hay datos de uso."

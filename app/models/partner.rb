@@ -6,7 +6,7 @@ class Partner < ApplicationRecord
   include Translatable
   has_paper_trail ignore: %i[updated_at]
 
-  translates :name, :description
+  translates :name, :description, :next_action
 
   CATEGORIES = %w[sante commerce culture sport social transport loisirs autres].freeze
 
@@ -20,6 +20,11 @@ class Partner < ApplicationRecord
 
   scope :published, -> { where(published: true) }
   scope :ordered, -> { order(:category, :slug) }
+  scope :available, -> { where(available: true) }
+
+  def available?
+    available
+  end
 
   def to_param
     slug
