@@ -25,5 +25,32 @@ module Agents
 
       assert_equal "09:00", partner.reload.hours_for(1).opens_at
     end
+
+    test "an agent views, updates and deletes a partner" do
+      sign_in agents(:agent)
+      partner = partners(:health)
+
+      get agents_partner_url(partner)
+      assert_response :success
+
+      get edit_agents_partner_url(partner)
+      assert_response :success
+
+      patch agents_partner_url(partner), params: { partner: { phone: "01 00 00 00 00" } }
+      assert_redirected_to agents_partner_url(partner)
+
+      assert_difference -> { Partner.count }, -1 do
+        delete agents_partner_url(partner)
+      end
+    end
+
+    test "an invalid partner re-renders the form" do
+      sign_in agents(:agent)
+
+      assert_no_difference -> { Partner.count } do
+        post agents_partners_url, params: { partner: { name_fr: "", category: "invalide" } }
+      end
+      assert_response :unprocessable_content
+    end
   end
 end

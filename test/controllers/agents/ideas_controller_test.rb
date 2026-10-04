@@ -19,5 +19,16 @@ module Agents
       assert_redirected_to agents_idea_url(idea)
       assert_equal "under_review", idea.reload.status
     end
+
+    test "an agent lists and opens ideas" do
+      sign_in agents(:agent)
+
+      get agents_ideas_url
+      assert_response :success
+      assert_match "IDEA-2026-AAAAA", response.body
+
+      get agents_idea_url(ideas(:compost))
+      assert_response :success
+    end
   end
 end

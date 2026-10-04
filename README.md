@@ -5,7 +5,7 @@
 ![Ruby](https://img.shields.io/badge/Ruby-3.3.12-CC342D?logo=ruby&logoColor=white)
 ![Rails](https://img.shields.io/badge/Rails-8.1-CC0000?logo=rubyonrails&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18.6-4169E1?logo=postgresql&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-297%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-360%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 The digital heart of **Terra Nova**: a production-ready, accessible, multilingual

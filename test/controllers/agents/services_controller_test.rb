@@ -39,5 +39,16 @@ module Agents
       assert_redirected_to agents_services_url
       assert_equal "Panne en cours", service.reload.maintenance_message_fr
     end
+
+    test "an agent opens the edit form and an invalid update re-renders" do
+      sign_in agents(:agent)
+      service = services(:etat_civil)
+
+      get edit_agents_service_url(service)
+      assert_response :success
+
+      patch agents_service_url(service), params: { service: { status: "invalid-status" } }
+      assert_response :unprocessable_content
+    end
   end
 end

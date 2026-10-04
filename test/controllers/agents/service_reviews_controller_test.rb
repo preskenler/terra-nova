@@ -17,5 +17,12 @@ module Agents
       assert_redirected_to agents_service_reviews_url
       assert_equal "hidden", review.reload.status
     end
+
+    test "an agent lists reviews to moderate" do
+      sign_in agents(:agent)
+
+      get agents_service_reviews_url
+      assert_response :success
+    end
   end
 end

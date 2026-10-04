@@ -41,5 +41,29 @@ module Agents
         delete agents_announcement_url(announcements(:draft))
       end
     end
+
+    test "an agent views and updates an announcement" do
+      sign_in agents(:agent)
+      announcement = announcements(:info)
+
+      get agents_announcement_url(announcement)
+      assert_response :success
+
+      get edit_agents_announcement_url(announcement)
+      assert_response :success
+
+      patch agents_announcement_url(announcement), params: { announcement: { title_fr: "Mise à jour" } }
+      assert_redirected_to agents_announcement_url(announcement)
+      assert_equal "Mise à jour", announcement.reload.title
+    end
+
+    test "an invalid announcement re-renders the form" do
+      sign_in agents(:agent)
+
+      assert_no_difference -> { Announcement.count } do
+        post agents_announcements_url, params: { announcement: { title_fr: "" } }
+      end
+      assert_response :unprocessable_content
+    end
   end
 end

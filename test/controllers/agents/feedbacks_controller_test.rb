@@ -26,5 +26,23 @@ module Agents
       assert_redirected_to agents_feedback_url(feedback)
       assert_equal "resolved", feedback.reload.status
     end
+
+    test "an agent opens a message" do
+      sign_in agents(:agent)
+      get agents_feedback_url(feedbacks(:question))
+
+      assert_response :success
+    end
+
+    test "updating a message without an author does not notify" do
+      sign_in agents(:agent)
+      feedback = feedbacks(:data_concern)
+
+      assert_no_difference -> { Notification.count } do
+        patch agents_feedback_url(feedback), params: { feedback: { status: "resolved" } }
+      end
+
+      assert_redirected_to agents_feedback_url(feedback)
+    end
   end
 end

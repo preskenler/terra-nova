@@ -32,4 +32,16 @@ class LoginActivityTest < ActiveSupport::TestCase
       LoginActivity.record!(user: @user, request: RequestDouble.new("1.1.1.1", "Browser A"))
     end
   end
+
+  test "a blank request is ignored" do
+    assert_no_difference -> { @user.login_activities.count } do
+      LoginActivity.record!(user: @user, request: nil)
+    end
+  end
+
+  test "device_label falls back to unknown for blank user agents" do
+    activity = LoginActivity.new(user_agent: "")
+
+    assert_equal I18n.t("account.devices.unknown"), activity.device_label
+  end
 end

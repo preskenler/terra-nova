@@ -77,5 +77,25 @@ module Agents
 
       assert User.find_by(email: "newresident@example.com").login_id.present?
     end
+
+    test "an agent views and edits a citizen account" do
+      sign_in agents(:agent)
+      target = users(:citizen)
+
+      get agents_user_url(target)
+      assert_response :success
+
+      get edit_agents_user_url(target)
+      assert_response :success
+    end
+
+    test "an invalid account creation re-renders the form" do
+      sign_in agents(:agent)
+
+      assert_no_difference -> { User.count } do
+        post agents_users_url, params: { user: { email: "not-an-email", locale: "fr" } }
+      end
+      assert_response :unprocessable_content
+    end
   end
 end

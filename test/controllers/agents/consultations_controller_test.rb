@@ -27,5 +27,33 @@ module Agents
       assert_response :success
       assert_match "Favorable", response.body
     end
+
+    test "an agent views, updates and deletes a consultation" do
+      sign_in agents(:agent)
+      consultation = consultations(:park_opinion)
+
+      get agents_consultation_url(consultation)
+      assert_response :success
+
+      get edit_agents_consultation_url(consultation)
+      assert_response :success
+
+      patch agents_consultation_url(consultation), params: { consultation: { status: "closed" } }
+      assert_redirected_to agents_consultation_url(consultation)
+      assert_equal "closed", consultation.reload.status
+
+      assert_difference -> { Consultation.count }, -1 do
+        delete agents_consultation_url(consultation)
+      end
+    end
+
+    test "an invalid consultation re-renders the form" do
+      sign_in agents(:agent)
+
+      assert_no_difference -> { Consultation.count } do
+        post agents_consultations_url, params: { consultation: { title_fr: "" } }
+      end
+      assert_response :unprocessable_content
+    end
   end
 end
