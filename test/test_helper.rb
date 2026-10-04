@@ -1,4 +1,22 @@
 ENV["RAILS_ENV"] ||= "test"
+
+# Measure coverage before the application is loaded. Enabled in CI or when
+# COVERAGE=1, so the local suite stays fast by default.
+if ENV["CI"] || ENV["COVERAGE"] == "1"
+  require "simplecov"
+  require "simplecov-cobertura"
+
+  SimpleCov.start "rails" do
+    enable_coverage :branch
+    # The report is uploaded to Codecov, which tracks the percentage over time.
+    formatter SimpleCov::Formatter::MultiFormatter.new([
+      SimpleCov::Formatter::CoberturaFormatter,
+      SimpleCov::Formatter::HTMLFormatter
+    ])
+    add_filter %r{^/test/}
+  end
+end
+
 require_relative "../config/environment"
 require "rails/test_help"
 
