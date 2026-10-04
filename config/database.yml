@@ -1,42 +1,43 @@
-# PostgreSQL. Versions 16 and up are supported (targeting PostgreSQL 18.6).
-#
-#   gem install pg
-#
-# Connection details can be provided through environment variables, which is how
-# the docker-compose development stack connects to the `db` service.
+# MySQL 8.4. Connection details are provided through environment variables, so
+# the same configuration works for the local Docker stack, cPanel and CI.
 default: &default
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8mb4
+  collation: utf8mb4_0900_ai_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("POSTGRES_USER", "rails") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD", "password") %>
-  host: <%= ENV.fetch("POSTGRES_HOST", "127.0.0.1") %>
-  port: <%= ENV.fetch("POSTGRES_PORT", 5432) %>
+  username: <%= ENV.fetch("DB_USERNAME", "root") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "") %>
+  host: <%= ENV.fetch("DB_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("DB_PORT", 3306) %>
 
 development:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_DATABASE", "terra_nova_development") %>
+  database: <%= ENV.fetch("DB_DATABASE", "terra_nova_development") %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_TEST_DATABASE", "terra_nova_test") %>
+  database: <%= ENV.fetch("DB_TEST_DATABASE", "terra_nova_test") %>
 
-# Production uses the platform-provided DATABASE_URL (Heroku Postgres, or any
-# PostgreSQL add-on). The Solid Cache/Queue/Cable components share that single
-# database; `bin/rails db:prepare` loads db/schema.rb plus db/cache_schema.rb,
-# db/queue_schema.rb and db/cable_schema.rb into it.
+# Production uses the credentials provided by the host (cPanel/Hostinger) via
+# the DB_* variables (and/or DATABASE_URL). The Solid Cache/Queue/Cable
+# components share the single database; `bin/rails db:prepare` loads db/schema.rb
+# plus db/cache_schema.rb, db/queue_schema.rb and db/cable_schema.rb into it.
 production:
   primary:
-    url: <%= ENV["DATABASE_URL"] %>
+    <<: *default
+    database: <%= ENV.fetch("DB_DATABASE", "terra_nova_production") %>
   cache:
-    url: <%= ENV["DATABASE_URL"] %>
+    <<: *default
+    database: <%= ENV.fetch("DB_DATABASE", "terra_nova_production") %>
     migrations_paths: db/cache_migrate
   queue:
-    url: <%= ENV["DATABASE_URL"] %>
+    <<: *default
+    database: <%= ENV.fetch("DB_DATABASE", "terra_nova_production") %>
     migrations_paths: db/queue_migrate
   cable:
-    url: <%= ENV["DATABASE_URL"] %>
+    <<: *default
+    database: <%= ENV.fetch("DB_DATABASE", "terra_nova_production") %>
     migrations_paths: db/cable_migrate

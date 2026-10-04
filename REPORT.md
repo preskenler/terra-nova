@@ -25,16 +25,16 @@ Demo accounts (all passwords are `password123`):
 
 | Role | Sign-in URL | Credentials |
 | --- | --- | --- |
-| Citizen | `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/users/sign_in` | `citoyen@novaterra.fr` |
-| Agent | `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/sign_in` | `agent@novaterra.fr` |
-| Agent admin | `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/sign_in` | `admin@novaterra.fr` |
-| Citizen admin | `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/users/sign_in` | `admin@novaterra.fr` |
+| Citizen | `https://preskenlair.lareunion.webcup.hodi.cloud/users/sign_in` | `citoyen@novaterra.fr` |
+| Agent | `https://preskenlair.lareunion.webcup.hodi.cloud/agents/sign_in` | `agent@novaterra.fr` |
+| Agent admin | `https://preskenlair.lareunion.webcup.hodi.cloud/agents/sign_in` | `admin@novaterra.fr` |
+| Citizen admin | `https://preskenlair.lareunion.webcup.hodi.cloud/users/sign_in` | `admin@novaterra.fr` |
 
 The external Terra Nova API key must be configured (`WEBCUP_API_KEY`) for the agent
-demand feed (`https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/demands`) to populate.
+demand feed (`https://preskenlair.lareunion.webcup.hodi.cloud/agents/demands`) to populate.
 
 > The live application is deployed at
-> <https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/>. The test links below
+> <https://preskenlair.lareunion.webcup.hodi.cloud/>. The test links below
 > are absolute URLs pointing to it.
 
 ---
@@ -49,27 +49,27 @@ password validation (minimum 8 characters), automatic `Profile` creation, then a
 redirect to onboarding and finally to the personal space. Forms are labelled,
 translated (FR/EN) and accessible, with clear error messages.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/users/sign_up`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/users/sign_up`
 
 **How to verify.**
 
-1. Open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/users/sign_up` and submit an email that already exists → a readable error is shown.
-2. Create a valid account (email + password) → you are redirected to `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/onboarding`.
-3. Complete onboarding (profile, language, accessibility) → you land on `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/espace`.
+1. Open `https://preskenlair.lareunion.webcup.hodi.cloud/users/sign_up` and submit an email that already exists → a readable error is shown.
+2. Create a valid account (email + password) → you are redirected to `https://preskenlair.lareunion.webcup.hodi.cloud/onboarding`.
+3. Complete onboarding (profile, language, accessibility) → you land on `https://preskenlair.lareunion.webcup.hodi.cloud/espace`.
 4. Sign out, then sign back in with the same credentials → you return to your personal space.
 
 ---
 
 ## D03 · Easy · 250 XP — Sign in to a personal space
 
-**What we built.** Devise login for citizens; the personal space `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/espace` aggregates
+**What we built.** Devise login for citizens; the personal space `https://preskenlair.lareunion.webcup.hodi.cloud/espace` aggregates
 the profile and activity (requests, appointments, unread notifications). The session
 persists across visits.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/users/sign_in` → `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/espace`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/users/sign_in` → `https://preskenlair.lareunion.webcup.hodi.cloud/espace`
 
 **How to verify.** Sign in with `citoyen@novaterra.fr` / `password123` → you are
-redirected to `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/espace`, which shows your information and activity.
+redirected to `https://preskenlair.lareunion.webcup.hodi.cloud/espace`, which shows your information and activity.
 
 ---
 
@@ -80,10 +80,10 @@ data concerns. It works signed-in or anonymously (an email is required when anon
 generates a tracked reference (`MSG-…`) and confirms the submission. Agents handle the
 messages in their workspace.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/feedback/new` → agent side: `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/feedbacks`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/feedback/new` → agent side: `https://preskenlair.lareunion.webcup.hodi.cloud/agents/feedbacks`
 
 **How to verify.** 1) Submit a message → a confirmation with a reference is displayed.
-2) Sign in as an agent → `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/feedbacks` lists the message. 3) Change its status →
+2) Sign in as an agent → `https://preskenlair.lareunion.webcup.hodi.cloud/agents/feedbacks` lists the message. 3) Change its status →
 the linked citizen is notified.
 
 ---
@@ -93,7 +93,7 @@ the linked citizen is notified.
 **What we built.** A services catalog with categories, descriptions, contacts and
 priority highlighting; 12 services are seeded.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services`
 
 **How to verify.** Browse the list, search “civil”, open a service → description,
 contact details and a map are shown.
@@ -105,7 +105,7 @@ contact details and a map are shown.
 **What we built.** A public announcements index and detail pages; only published and
 active announcements are visible.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/announcements`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/announcements`
 
 **How to verify.** The seeded announcements are listed; open one to read the full body.
 
@@ -116,20 +116,20 @@ active announcements are visible.
 **What we built.** A homepage with a hero section, active alerts, emergency contacts,
 priority services and the latest news, giving direct access to the main services.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/`
 
 **How to verify.** The priority services are surfaced first and a prominent link leads
-to `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services`.
+to `https://preskenlair.lareunion.webcup.hodi.cloud/services`.
 
 ---
 
 ## D08 · Medium · 500 XP — Distinguish citizen / agent / admin
 
 **What we built.** Two Devise scopes (`User` and `Agent`) with `role` enums
-(`citizen` / `agent` / `admin`) and a separate `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents` workspace with its own
+(`citizen` / `agent` / `admin`) and a separate `https://preskenlair.lareunion.webcup.hodi.cloud/agents` workspace with its own
 navigation and sign-in.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents` versus `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents` versus `https://preskenlair.lareunion.webcup.hodi.cloud/`
 
 **How to verify.** The agent workspace is visually and functionally distinct from the
 citizen space and requires an agent account.
@@ -141,7 +141,7 @@ citizen space and requires an agent account.
 **What we built.** Pundit policies plus route constraints; citizens cannot reach the
 agent workspace or perform sensitive actions.
 
-**Where to test.** Sign in as a citizen, then open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests`
+**Where to test.** Sign in as a citizen, then open `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests`
 
 **How to verify.** You are redirected to the agent sign-in; agent-only pages are
 inaccessible to citizens.
@@ -153,7 +153,7 @@ inaccessible to citizens.
 **What we built.** A citizen request list with status, and a per-request event timeline
 showing the steps already completed.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests` → open a request
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/requests` → open a request
 
 **How to verify.** The status badge and the “Progress” timeline of events are displayed.
 
@@ -161,11 +161,11 @@ showing the steps already completed.
 
 ## D12 · Medium · 540 XP — First-login onboarding
 
-**What we built.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/onboarding` guides the citizen through profile completion, language
+**What we built.** `https://preskenlair.lareunion.webcup.hodi.cloud/onboarding` guides the citizen through profile completion, language
 selection and accessibility settings. First-time citizens are redirected there
-automatically and land in `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/espace` when finished.
+automatically and land in `https://preskenlair.lareunion.webcup.hodi.cloud/espace` when finished.
 
-**Where to test.** Create a new account → `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/onboarding`
+**Where to test.** Create a new account → `https://preskenlair.lareunion.webcup.hodi.cloud/onboarding`
 
 **How to verify.** Complete the guided steps → onboarding is marked complete and you
 reach your personal space.
@@ -176,7 +176,7 @@ reach your personal space.
 
 **What we built.** A plain-language glossary explaining terms used across the platform.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/glossary`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/glossary`
 
 **How to verify.** Seeded terms (“Signalement”, “Démarche”, …) are explained simply.
 
@@ -187,7 +187,7 @@ reach your personal space.
 **What we built.** A French/English interface with a header switcher and a profile
 setting; the choice is persisted to the account.
 
-**Where to test.** Header language selector, or `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/profile/edit`
+**Where to test.** Header language selector, or `https://preskenlair.lareunion.webcup.hodi.cloud/profile/edit`
 
 **How to verify.** Switch to English → navigation and pages update; reload the page →
 the choice persists.
@@ -199,7 +199,7 @@ the choice persists.
 **What we built.** Accessible breadcrumb navigation (with an “aria-label”) on all key
 pages, showing the path back to the previous levels.
 
-**Where to test.** Any inner page, e.g. `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+**Where to test.** Any inner page, e.g. `https://preskenlair.lareunion.webcup.hodi.cloud/services/etat-civil`
 
 **How to verify.** The breadcrumb shows Home / Services / page and links back.
 
@@ -211,10 +211,10 @@ pages, showing the path back to the previous levels.
 opens the request page (which includes the reference and a timeline) and queues a
 confirmation email.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests/new` → submit
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/requests/new` → submit
 
 **How to verify.** 1) You are redirected to the new request with a success message.
-2) The request appears in `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`. 3) The email is queued (asserted by the test
+2) The request appears in `https://preskenlair.lareunion.webcup.hodi.cloud/requests`. 3) The email is queued (asserted by the test
 suite; configure SMTP or a preview tool such as Letter Opener to read it).
 
 ---
@@ -224,7 +224,7 @@ suite; configure SMTP or a preview tool such as Letter Opener to read it).
 **What we built.** The agent dashboard and the request list display how many requests
 still need action.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents` and `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests`
 
 **How to verify.** “Pending requests” counters and per-status statistics are visible.
 
@@ -235,9 +235,9 @@ still need action.
 **What we built.** Agents publish announcements (severity, audience, publication window);
 published announcements appear on the homepage and the news page.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/announcements` → New
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/announcements` → New
 
-**How to verify.** Create an announcement → it appears at `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/announcements`.
+**How to verify.** Create an announcement → it appears at `https://preskenlair.lareunion.webcup.hodi.cloud/` and `https://preskenlair.lareunion.webcup.hodi.cloud/announcements`.
 
 ---
 
@@ -248,7 +248,7 @@ published announcements appear on the homepage and the news page.
 roughly every 30 seconds via Solid Queue, and a live console with session status,
 filters and a triage board (`unseen → reviewing → planned → in progress → done/ignored`).
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/demands`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/demands`
 
 **How to verify.** 1) The feed lists the current demands with XP and difficulty.
 2) “Refresh now” updates it; it also auto-refreshes every 30 seconds. 3) Change a
@@ -262,7 +262,7 @@ demand’s triage status → it persists.
 link, visible keyboard focus, labelled forms with error summaries, high-contrast and
 large-text modes, reduced-motion support and live regions for alerts.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/accessibility` and the header “Accessibility” menu
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/accessibility` and the header “Accessibility” menu
 
 **How to verify.** Toggle high contrast / large text; navigate with the keyboard only;
 the accessibility statement lists every supported feature.
@@ -274,7 +274,7 @@ the accessibility statement lists every supported feature.
 **What we built.** Semantic HTML, correct `lang` attribute, landmark roles, labelled
 controls, `aria-current` breadcrumbs and `role="alert"` / live regions for alerts.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/accessibility` and any form (e.g. `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/feedback/new`)
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/accessibility` and any form (e.g. `https://preskenlair.lareunion.webcup.hodi.cloud/feedback/new`)
 
 **How to verify.** With VoiceOver/NVDA, headings, labels and errors are announced
 correctly, and the skip link jumps to the main content.
@@ -286,7 +286,7 @@ correctly, and the skip link jumps to the main content.
 **What we built.** An agent list of citizen requests with status badges, filters and
 pending counts, so agents can quickly see what still needs action.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests`
 
 **How to verify.** Filter by status and open a request to see its state and details.
 
@@ -321,7 +321,7 @@ choice persists.
 **What we built.** A report form with an optional service, a description, location text
 and an interactive map picker to place the exact spot.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests/new`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/requests/new`
 
 **How to verify.** Fill in the problem, click the map to place the marker (coordinates
 fill the form), submit → the request is created and tracked.
@@ -332,7 +332,7 @@ fill the form), submit → the request is created and tracked.
 
 **What we built.** A personal history of requests with their status and dates.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/requests`
 
 **How to verify.** All previously created requests are listed and can be opened.
 
@@ -343,7 +343,7 @@ fill the form), submit → the request is created and tracked.
 **What we built.** Service names and descriptions are stored per locale and follow the
 selected interface language.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services` after switching the interface to English
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services` after switching the interface to English
 
 **How to verify.** Service names/descriptions display in English; switch back to French.
 
@@ -354,7 +354,7 @@ selected interface language.
 **What we built.** A `priority` flag on services, surfaced in a dedicated “Priority
 services” section on the homepage and catalog.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/` and `https://preskenlair.lareunion.webcup.hodi.cloud/services`
 
 **How to verify.** Priority services appear in a dedicated section with a “Priority” badge.
 
@@ -366,7 +366,7 @@ services” section on the homepage and catalog.
 an area and a schedule; they are shown as prominent banners and announced to screen
 readers.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/alerts`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/` and `https://preskenlair.lareunion.webcup.hodi.cloud/alerts`
 
 **How to verify.** The seeded “flood — south district” alert is displayed prominently on
 the homepage.
@@ -378,7 +378,7 @@ the homepage.
 **What we built.** Publishing an announcement notifies every citizen in-app (and queues
 an email), so nobody misses important information.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/announcements` → New; then `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/notifications`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/announcements` → New; then `https://preskenlair.lareunion.webcup.hodi.cloud/notifications`
 
 **How to verify.** After publishing, the notification appears in the citizen’s
 notification list.
@@ -390,7 +390,7 @@ notification list.
 **What we built.** Alerts carry a target segment (e.g. “vulnerable people”) and
 recommendations, and are displayed as a distinct warning banner.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/alerts`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/alerts`
 
 **How to verify.** The seeded heatwave alert with its recommendations is visible.
 
@@ -401,7 +401,7 @@ recommendations, and are displayed as a distinct warning banner.
 **What we built.** Search and category filters, a dedicated “Health” service and an
 emergency panel so urgent needs are found immediately.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services?q=santé`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services?q=santé`
 
 **How to verify.** The Health service is returned, and the emergency panel is displayed
 alongside the results.
@@ -413,7 +413,7 @@ alongside the results.
 **What we built.** Account deletion protected by password confirmation, so an
 unauthorized person with an open session cannot delete the account.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/account`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/account`
 
 **How to verify.** 1) Enter a wrong password → an error is shown and the account is
 kept. 2) Enter the correct password → the account is deleted and you are redirected
@@ -426,7 +426,7 @@ home. (Use a throwaway account.)
 **What we built.** Agent management of citizen accounts: list, search, view, edit
 (language, onboarding), role change (administrators only) and account unlock.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/users`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/users`
 
 **How to verify.** Search a citizen and open the record; edit fields; an administrator
 can change the role and unlock a locked account.
@@ -438,7 +438,7 @@ can change the role and unlock a locked account.
 **What we built.** The onboarding page guides the new inhabitant step by step through
 profile completion, language, accessibility and a short tour.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/onboarding` (with a new account)
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/onboarding` (with a new account)
 
 **How to verify.** The four guided steps are presented clearly with short hints.
 
@@ -449,7 +449,7 @@ profile completion, language, accessibility and a short tour.
 **What we built.** Transport lines with their mode, per-weekday schedules and active
 disruptions, all in one screen.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/transports`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/transports`
 
 **How to verify.** Seeded lines show their timetables, and an active disruption is
 flagged on one line.
@@ -462,11 +462,11 @@ flagged on one line.
 password resets and sensitive endpoints; Devise `:lockable` for account lockout; agents
 can unlock accounts.
 
-**Where to test.** Repeated failed sign-ins at `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/users/sign_in`
+**Where to test.** Repeated failed sign-ins at `https://preskenlair.lareunion.webcup.hodi.cloud/users/sign_in`
 
 **How to verify.** After several rapid attempts you receive **HTTP 429 (Too Many
 Requests)**; sustained failures lock the account, which an agent can unlock at
-`https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/users/:id`.
+`https://preskenlair.lareunion.webcup.hodi.cloud/agents/users/:id`.
 
 ---
 
@@ -476,7 +476,7 @@ Requests)**; sustained failures lock the account, which an agent can unlock at
 A service under maintenance shows a banner with a message and expected return; inactive
 services are hidden from the public catalog.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/eau-assainissement`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services/eau-assainissement`
 
 **How to verify.** A maintenance banner with the message and the expected return is
 displayed.
@@ -489,11 +489,11 @@ displayed.
 confirm; booking sends a confirmation and an in-app notification. Cancellation is
 supported, and agents manage their schedule and availability.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/appointments/new`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/appointments/new`
 
 **How to verify.** 1) Pick an agent and a date → available slots appear. 2) Choose a slot
 → confirm → the appointment page shows a success message. 3) The appointment appears in
-`https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/appointments`.
+`https://preskenlair.lareunion.webcup.hodi.cloud/appointments`.
 
 ---
 
@@ -528,7 +528,7 @@ focus indicator is always visible.
 `aria-describedby` / `aria-invalid` wiring. Authentication fields allow pasting and
 password managers.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests/new` → submit the empty form
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/requests/new` → submit the empty form
 
 **How to verify.** An error summary appears; fields are marked invalid and associated
 with their messages for assistive technologies.
@@ -540,7 +540,7 @@ with their messages for assistive technologies.
 **What we built.** Status is never conveyed by colour alone — every coloured badge
 carries a readable label — and a high-contrast mode is available.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/alerts`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services`, `https://preskenlair.lareunion.webcup.hodi.cloud/requests`, `https://preskenlair.lareunion.webcup.hodi.cloud/alerts`
 
 **How to verify.** Every coloured badge displays a text label.
 
@@ -551,7 +551,7 @@ carries a readable label — and a high-contrast mode is available.
 **What we built.** Responsive layouts that reflow, plus a large-text mode; content stays
 usable at narrow widths and high zoom.
 
-**Where to test.** Browser zoom at 200–400% on `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services`
+**Where to test.** Browser zoom at 200–400% on `https://preskenlair.lareunion.webcup.hodi.cloud/services`
 
 **How to verify.** Content reflows into a single column without overlap or loss of
 information.
@@ -563,7 +563,7 @@ information.
 **What we built.** A Leaflet/OpenStreetMap map on service pages with the address and an
 “Open in OpenStreetMap” link, plus a text alternative for assistive technologies.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services/etat-civil`
 
 **How to verify.** A map with a marker and the address is displayed; the OpenStreetMap
 link opens the location.
@@ -575,7 +575,7 @@ link opens the location.
 **What we built.** Emergency services (call 112) are surfaced in a dedicated panel on
 the homepage and the catalog, with telephone number and address.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services` (emergency panel) and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/urgences`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services` (emergency panel) and `https://preskenlair.lareunion.webcup.hodi.cloud/services/urgences`
 
 **How to verify.** The emergency panel and the “Emergency services” detail page display
 the number and the location.
@@ -587,7 +587,7 @@ the number and the location.
 **What we built.** PaperTrail records changes on the key models with the acting user and
 a timestamp, and an agent-facing audit log page makes it consultable over time.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/audit_logs`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/audit_logs`
 
 **How to verify.** Past changes are listed with who did them and when.
 
@@ -598,7 +598,7 @@ a timestamp, and an agent-facing audit log page makes it consultable over time.
 **What we built.** Each audit entry shows the actor (`Agent:` / `User:`) and an
 attribute-level before/after diff of the change.
 
-**Where to test.** As an agent, change a request status → `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/audit_logs` → open the
+**Where to test.** As an agent, change a request status → `https://preskenlair.lareunion.webcup.hodi.cloud/agents/audit_logs` → open the
 entry
 
 **How to verify.** The diff shows the changed field with its before and after values.
@@ -610,8 +610,8 @@ entry
 **What we built.** When an agent changes the status of a request, an in-app notification
 is created (and a status email is queued).
 
-**Where to test.** As an agent, update a request at `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests/:reference`; then
-visit `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/notifications`
+**Where to test.** As an agent, update a request at `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests/:reference`; then
+visit `https://preskenlair.lareunion.webcup.hodi.cloud/notifications`
 
 **How to verify.** The citizen receives a notification describing the new status.
 
@@ -623,7 +623,7 @@ visit `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/notifications`
 pending requests, upcoming appointments) alongside the Terra Nova API feed statistics
 and recent items.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents`
 
 **How to verify.** The statistics cards and the recent-activity lists are displayed.
 
@@ -635,10 +635,10 @@ and recent items.
 a dedicated “data concern” contact kind, and a tracked reference so the citizen knows
 the contribution was received. Agents handle these messages in their workspace.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/transparency` → “Report a data concern”
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/transparency` → “Report a data concern”
 
 **How to verify.** Submit a concern → a confirmation with a reference is displayed; the
-message appears in `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/feedbacks`.
+message appears in `https://preskenlair.lareunion.webcup.hodi.cloud/agents/feedbacks`.
 
 ---
 
@@ -647,7 +647,7 @@ message appears in `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/age
 **What we built.** Citizens can co-sign another citizen’s request; the support count is
 tracked, displayed, and can be withdrawn.
 
-**Where to test.** Open a request (e.g. from `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`) → “Support this request”
+**Where to test.** Open a request (e.g. from `https://preskenlair.lareunion.webcup.hodi.cloud/requests`) → “Support this request”
 
 **How to verify.** Clicking records your support and the counter increases; you can
 withdraw your support.
@@ -666,7 +666,7 @@ be replayed. The request response is deliberately generic to avoid revealing whe
 email exists, and the endpoint is rate-limited. The second factor still applies when
 enabled.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/users/magic_link` (link “Sign in without a password” in the header)
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/users/magic_link` (link “Sign in without a password” in the header)
 
 **How to verify.** 1) Enter `citoyen@novaterra.fr` → a generic “link sent” message.
 2) Open the emailed link (configure SMTP or a mail preview to read it) → you are signed
@@ -682,11 +682,11 @@ enrol from their profile (QR code + manual secret), confirm with a 6-digit code,
 account is then gated by a verification challenge after every password or magic-link
 sign-in. It can be disabled from the same page.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/profile/two_factor`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/profile/two_factor`
 
-**How to verify.** 1) Open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/profile/two_factor` and scan the QR code with an
+**How to verify.** 1) Open `https://preskenlair.lareunion.webcup.hodi.cloud/profile/two_factor` and scan the QR code with an
 authenticator app. 2) Enter the current 6-digit code → enabling is confirmed.
-3) Sign out and sign in with your password → you are redirected to `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/users/two_factor`.
+3) Sign out and sign in with your password → you are redirected to `https://preskenlair.lareunion.webcup.hodi.cloud/users/two_factor`.
 4) Enter the code → access is granted. 5) Disable it from the same page.
 
 ---
@@ -697,7 +697,7 @@ authenticator app. 2) Enter the current 6-digit code → enabling is confirmed.
 A sign-in from a device never seen before creates an in-app notification and a security
 email. Recent sign-ins are listed in the personal data page.
 
-**Where to test.** New-device notification at `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/notifications`; history at `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/account/data`
+**Where to test.** New-device notification at `https://preskenlair.lareunion.webcup.hodi.cloud/notifications`; history at `https://preskenlair.lareunion.webcup.hodi.cloud/account/data`
 
 **How to verify.** 1) Sign in normally, then sign in again from a different browser
 (different user agent). 2) A “New sign-in detected” notification appears, and a security
@@ -712,9 +712,9 @@ settings, two-factor status, registration date, activity counts and recent sign-
 plus a portable JSON export covering the account, profile, requests with their steps,
 appointments, notifications, messages and supports.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/account/data` → “Download my data (JSON)”
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/account/data` → “Download my data (JSON)”
 
-**How to verify.** 1) Open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/account/data` → a readable summary is displayed.
+**How to verify.** 1) Open `https://preskenlair.lareunion.webcup.hodi.cloud/account/data` → a readable summary is displayed.
 2) Click the download button → a structured JSON file is returned. 3) Check it reflects
 your real requests and appointments.
 
@@ -726,23 +726,23 @@ your real requests and appointments.
 date, subject, status, service, location, number of steps, supporters and last update —
 ready to open in a spreadsheet.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests` → “Download (CSV)”, or directly `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests.csv`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/requests` → “Download (CSV)”, or directly `https://preskenlair.lareunion.webcup.hodi.cloud/requests.csv`
 
-**How to verify.** 1) Open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`. 2) Click “Download (CSV)” → a data file is
+**How to verify.** 1) Open `https://preskenlair.lareunion.webcup.hodi.cloud/requests`. 2) Click “Download (CSV)” → a data file is
 downloaded. 3) Check the rows match your requests and their statuses.
 
 ---
 
 ## F57 · Medium · 700 XP — Environmental performance diagnosis
 
-**What we built.** An `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco` page reporting the measured size of the application’s own
+**What we built.** An `https://preskenlair.lareunion.webcup.hodi.cloud/eco` page reporting the measured size of the application’s own
 stylesheets and JavaScript against explicit budgets, together with the design choices
 that reduce the footprint. The Leaflet map library is now imported dynamically, so its
 weight is only paid on pages that actually display a map.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/eco`
 
-**How to verify.** Open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco` → measured weights and budgets are shown. Then open a
+**How to verify.** Open `https://preskenlair.lareunion.webcup.hodi.cloud/eco` → measured weights and budgets are shown. Then open a
 page without a map and check the browser Network tab: `leaflet.js` is not downloaded.
 
 ---
@@ -754,10 +754,10 @@ framework (server-rendered Hotwire), no external web fonts or trackers, dynamic 
 the map library, and an **automated asset-size budget** enforced by the test suite so the
 weight cannot regress unnoticed.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco`; test `test/performance/asset_budget_test.rb`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/eco`; test `test/performance/asset_budget_test.rb`
 
 **How to verify.** 1) Run `bin/rails test test/performance/asset_budget_test.rb` → it
-passes and fails if the CSS/JS budgets are exceeded. 2) `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco` documents the policy and
+passes and fails if the CSS/JS budgets are exceeded. 2) `https://preskenlair.lareunion.webcup.hodi.cloud/eco` documents the policy and
 current numbers.
 
 ---
@@ -780,12 +780,12 @@ requests are made.
 
 **What we built.** No external fonts or heavy media; the 2FA QR code is an inline data
 URI; map tiles are only requested when a map is actually shown (and never in low-data
-mode). The media choices and budgets are documented at `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco`.
+mode). The media choices and budgets are documented at `https://preskenlair.lareunion.webcup.hodi.cloud/eco`.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco` and any page’s Network tab
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/eco` and any page’s Network tab
 
 **How to verify.** 1) Browse the main pages → no large media are loaded.
-2) Enable low-data mode → no tile requests. 3) `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco` describes the media choices.
+2) Enable low-data mode → no tile requests. 3) `https://preskenlair.lareunion.webcup.hodi.cloud/eco` describes the media choices.
 
 ---
 
@@ -798,11 +798,11 @@ bundle so it is loaded only on map pages. Pages are server-rendered with no SPA
 framework, `prefers-reduced-motion` is respected, and an automated asset-budget test
 protects the weight from regressions.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/` (no map library), a map page `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`, and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/` (no map library), a map page `https://preskenlair.lareunion.webcup.hodi.cloud/services/etat-civil`, and `https://preskenlair.lareunion.webcup.hodi.cloud/eco`
 
-**How to verify.** 1) Open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/` and check the browser Network tab → `leaflet.js` is not
-preloaded. 2) Open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil` → the map library loads only there.
-3) Open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco` → measured weights are within budget; run
+**How to verify.** 1) Open `https://preskenlair.lareunion.webcup.hodi.cloud/` and check the browser Network tab → `leaflet.js` is not
+preloaded. 2) Open `https://preskenlair.lareunion.webcup.hodi.cloud/services/etat-civil` → the map library loads only there.
+3) Open `https://preskenlair.lareunion.webcup.hodi.cloud/eco` → measured weights are within budget; run
 `bin/rails test test/performance/asset_budget_test.rb` → passes.
 
 ---
@@ -814,27 +814,27 @@ versions of the key pages: the homepage drops decorative blocks, the services ca
 drops the priority highlight, and maps are not loaded — while all essential information
 and actions remain available.
 
-**Where to test.** Accessibility menu → “Simple mode”; then `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services`
+**Where to test.** Accessibility menu → “Simple mode”; then `https://preskenlair.lareunion.webcup.hodi.cloud/` and `https://preskenlair.lareunion.webcup.hodi.cloud/services`
 
 **How to verify.** 1) Enable “Simple mode” from the header Accessibility menu.
 2) The homepage no longer shows the “What you can do” and news blocks.
-3) `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services` no longer shows the priority section and loads no map, but search and the
+3) `https://preskenlair.lareunion.webcup.hodi.cloud/services` no longer shows the priority section and loads no map, but search and the
 full list remain.
 
 ---
 
 ## F63 · Difficult · 1080 XP — Quickly disable a faulty service
 
-**What we built.** A service management area in the agent workspace (`https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/services`)
+**What we built.** A service management area in the agent workspace (`https://preskenlair.lareunion.webcup.hodi.cloud/agents/services`)
 with a **one-click “Disable”** that immediately puts a service under maintenance, a
 one-click “Enable” to restore it, and an edit form for the maintenance message (FR/EN),
 expected return and contacts. Changes are recorded in the audit trail.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/services`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/services`
 
-**How to verify.** 1) Sign in as an agent and open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/services`.
+**How to verify.** 1) Sign in as an agent and open `https://preskenlair.lareunion.webcup.hodi.cloud/agents/services`.
 2) Click “Disable” on a service → it becomes “Under maintenance”, and the citizen side
-(`https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services`) immediately shows the maintenance banner.
+(`https://preskenlair.lareunion.webcup.hodi.cloud/services`) immediately shows the maintenance banner.
 3) Click “Enable” to restore it.
 
 ---
@@ -846,12 +846,12 @@ maintenance / Closed), the service page shows the status prominently with the ma
 banner, and the request form displays a live warning when an unavailable service is
 selected — so citizens know before starting and know what to do next.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services`, a service page (e.g. `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/eau-assainissement`), and
-`https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests/new`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services`, a service page (e.g. `https://preskenlair.lareunion.webcup.hodi.cloud/services/eau-assainissement`), and
+`https://preskenlair.lareunion.webcup.hodi.cloud/requests/new`
 
-**How to verify.** 1) `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services` shows an Open / Under maintenance / Closed badge on each
+**How to verify.** 1) `https://preskenlair.lareunion.webcup.hodi.cloud/services` shows an Open / Under maintenance / Closed badge on each
 card. 2) Open a maintenance service → a banner with the message and expected return is
-shown. 3) In `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests/new`, select a maintenance service → a warning appears before you
+shown. 3) In `https://preskenlair.lareunion.webcup.hodi.cloud/requests/new`, select a maintenance service → a warning appears before you
 submit.
 
 ---
@@ -863,7 +863,7 @@ decision) that citizens can answer. Each answer is recorded with a **traceable r
 and a confirmation notification, and agents can view the aggregated results — so the city
 can justify the participation and the citizen knows the contribution was received.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/projects`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/consultations/:id` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/consultations`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/projects`, `https://preskenlair.lareunion.webcup.hodi.cloud/consultations/:id` and `https://preskenlair.lareunion.webcup.hodi.cloud/agents/consultations`
 
 **How to verify.** 1) Open a consultation from a project page. 2) Submit your opinion →
 the confirmation shows a reference. 3) As an agent, open the consultation → the results
@@ -877,7 +877,7 @@ and the list of responses are displayed.
 No opinion + optional comment). One answer per citizen, recorded instantly, with a
 reference and a confirmation so nothing is ambiguous.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/consultations/:id`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/consultations/:id`
 
 **How to verify.** 1) Sign in and open a consultation → choose an option and submit.
 2) A confirmation with a reference is displayed. 3) Re-open the consultation → your
@@ -890,9 +890,9 @@ recorded answer and reference are shown.
 **What we built.** A public projects area: an index that highlights **ongoing** projects
 and a detail page per project, listing its consultations, timeline and category.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/projects` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/projects/:slug`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/projects` and `https://preskenlair.lareunion.webcup.hodi.cloud/projects/:slug`
 
-**How to verify.** 1) Open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/projects` → ongoing projects appear in a dedicated section.
+**How to verify.** 1) Open `https://preskenlair.lareunion.webcup.hodi.cloud/projects` → ongoing projects appear in a dedicated section.
 2) Open a project → its description, dates, category and related consultations are shown.
 
 ---
@@ -904,10 +904,10 @@ with a reference and a confirmation notification — support others' ideas (co-s
 agents can **moderate** ideas (submitted → under review → accepted/declined) with the
 author notified.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/ideas`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/ideas/new`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/ideas/:reference` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/ideas`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/ideas`, `https://preskenlair.lareunion.webcup.hodi.cloud/ideas/new`, `https://preskenlair.lareunion.webcup.hodi.cloud/ideas/:reference` and `https://preskenlair.lareunion.webcup.hodi.cloud/agents/ideas`
 
 **How to verify.** 1) Propose an idea → confirmation with a reference. 2) Open another
-citizen's idea → support it (the counter increases). 3) As an agent, open `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/ideas`,
+citizen's idea → support it (the counter increases). 3) As an agent, open `https://preskenlair.lareunion.webcup.hodi.cloud/agents/ideas`,
 change the status → the author is notified.
 
 ---
@@ -920,7 +920,7 @@ in an **administrator-only** monitoring page. This complements the existing prot
 (2FA, passwordless links, account lockout, rack-attack throttling, CSP/HSTS, filtered
 parameters).
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/security_events` (administrator account)
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/security_events` (administrator account)
 
 **How to verify.** 1) Sign in and make a failed sign-in → events appear in the list.
 2) A regular agent cannot open the page (redirected). 3) An administrator can.
@@ -933,7 +933,7 @@ parameters).
 (enforced by Pundit), and role changes remain administrator-only. Operational data stays
 available to regular agents.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/audit_logs` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/security_events`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/audit_logs` and `https://preskenlair.lareunion.webcup.hodi.cloud/agents/security_events`
 
 **How to verify.** 1) Sign in as a regular agent → access is denied (redirect + message).
 2) Sign in as an administrator → access is granted.
@@ -947,7 +947,7 @@ create an account **without an email address**: the system generates a placehold
 a citizen identifier and a temporary password, shown once for handover. A third locale
 (Spanish) was added to demonstrate easy language extension.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/users/new`, then `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/users/sign_in`, and the language switcher
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/users/new`, then `https://preskenlair.lareunion.webcup.hodi.cloud/users/sign_in`, and the language switcher
 
 **How to verify.** 1) As an agent, create an account leaving the email blank → credentials
 are displayed. 2) Sign in with the **identifier** and the temporary password.
@@ -961,7 +961,7 @@ are displayed. 2) Sign in with the **identifier** and the temporary password.
 (moving in, waste, streetlight, health, transport, permits, water) → suggested services and
 a one-click pre-filled request. No new registration step.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/espace` (guidance section)
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/espace` (guidance section)
 
 **How to verify.** 1) Choose “Health and emergencies” → suggested services appear.
 2) Choose “A broken streetlight” → “Start a request” opens a pre-filled form.
@@ -973,10 +973,10 @@ a one-click pre-filled request. No new registration step.
 **What we built.** Announcements can be **pinned**, which renders them as a **site-wide
 banner on every page** (citizen and agent layouts), in addition to the news page.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/announcements` (pin) → any page
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/announcements` (pin) → any page
 
 **How to verify.** 1) Create or edit an announcement and tick “Pin as a site-wide banner”.
-2) Open any page (e.g. `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/glossary`) → the message appears at the top.
+2) Open any page (e.g. `https://preskenlair.lareunion.webcup.hodi.cloud/glossary`) → the message appears at the top.
 
 ---
 
@@ -986,9 +986,9 @@ banner on every page** (citizen and agent layouts), in addition to the news page
 Leaflet map and the seven-day opening hours, plus agent management (including a bulk
 hours editor).
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/partners`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/partners/:slug` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/partners`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/partners`, `https://preskenlair.lareunion.webcup.hodi.cloud/partners/:slug` and `https://preskenlair.lareunion.webcup.hodi.cloud/agents/partners`
 
-**How to verify.** 1) `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/partners` lists the partner. 2) Open it → hours table and location
+**How to verify.** 1) `https://preskenlair.lareunion.webcup.hodi.cloud/partners` lists the partner. 2) Open it → hours table and location
 map. 3) As an agent, edit the hours and see them update.
 
 ---
@@ -999,7 +999,7 @@ map. 3) As an agent, edit the hours and see them update.
 same-service/location boost) surfaces **“possible duplicates”** on the agent request page,
 with a one-click action to link the request to the one it duplicates.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests/:reference`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests/:reference`
 
 **How to verify.** 1) Open a request → possible duplicates are listed. 2) Click “Link as
 duplicate” → the link is recorded.
@@ -1012,7 +1012,7 @@ duplicate” → the link is recorded.
 citizen), recorded with a reference and a confirmation notification. Reviews are displayed
 on the service page and agents can **publish/hide** them.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/:slug` (review form) and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/service_reviews`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services/:slug` (review form) and `https://preskenlair.lareunion.webcup.hodi.cloud/agents/service_reviews`
 
 **How to verify.** 1) Sign in, open a service → leave a comment. 2) It appears on the
 service page with the reference confirmation. 3) As an agent, hide/publish it.
@@ -1024,13 +1024,13 @@ service page with the reference confirmation. 3) As an agent, hide/publish it.
 **What we built.** Large lists are now **paginated** (25/page) — agent requests, citizen
 requests, citizen accounts and the audit log — so pages stay bounded. Hot homepage,
 catalog and pinned-message queries are **cached** briefly, and the most-filtered columns
-are **indexed**. A public **`https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/status`** page reports component health, and the existing
+are **indexed**. A public **`https://preskenlair.lareunion.webcup.hodi.cloud/status`** page reports component health, and the existing
 low-data/simple modes and dynamically-imported map already keep pages lightweight.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/status`, and the pagination controls on `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests`,
-`https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/users`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/audit_logs`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/status`, and the pagination controls on `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests`,
+`https://preskenlair.lareunion.webcup.hodi.cloud/requests`, `https://preskenlair.lareunion.webcup.hodi.cloud/agents/users`, `https://preskenlair.lareunion.webcup.hodi.cloud/agents/audit_logs`
 
-**How to verify.** 1) `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/status` shows database/cache state and counts. 2) Lists show
+**How to verify.** 1) `https://preskenlair.lareunion.webcup.hodi.cloud/status` shows database/cache state and counts. 2) Lists show
 “Page X of Y” with previous/next. 3) Filters keep working across pages.
 
 ---
@@ -1042,9 +1042,9 @@ reads, composite indexes for the queue/lists, and lightweight server-rendered pa
 no SPA. Combined with the existing connection pooling, this keeps the platform responsive
 under concurrent access.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/status` and the request lists
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/status` and the request lists
 
-**How to verify.** 1) Lists never load unbounded rows (25/page). 2) `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/status` reports the
+**How to verify.** 1) Lists never load unbounded rows (25/page). 2) `https://preskenlair.lareunion.webcup.hodi.cloud/status` reports the
 database operational and cache writable. 3) Filtering/sorting stay fast.
 
 > Note: a full load-testing harness was out of scope for this pass; the safeguards above
@@ -1058,7 +1058,7 @@ database operational and cache writable. 3) Filtering/sorting stay fast.
 **filter by status**, and **sort** by most recent or oldest. The CSV export follows the
 applied filters.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/requests`
 
 **How to verify.** 1) Enter “lampadaire” → only matching requests remain. 2) Filter by
 “Submitted”. 3) Sort by “Oldest”.
@@ -1067,11 +1067,11 @@ applied filters.
 
 ## F80 · Medium · 800 XP — Rank priority requests
 
-**What we built.** Requests carry a **priority** (`normal`<https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/`urgent`>). Agents can set it on
+**What we built.** Requests carry a **priority** (`normal`<https://preskenlair.lareunion.webcup.hodi.cloud/`urgent`>). Agents can set it on
 the request page; the queue shows a priority badge, an **urgent** counter, a priority
 filter and a “priority first” sort.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests/:reference`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests` and `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests/:reference`
 
 **How to verify.** 1) Open a request and set it to **Urgent** (Save priority).
 2) Back in the list, filter by “Urgent” or sort “Priority first” → it comes first with an
@@ -1087,11 +1087,11 @@ a clear “Envoi bloqué” page. `rack-attack` throttles the request, contact a
 endpoints, and every block is recorded as a `SecurityEvent`, so the protection is
 perceptible from the admin security console without complicating normal use.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/feedback/new`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests/new`, `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/security_events`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/feedback/new`, `https://preskenlair.lareunion.webcup.hodi.cloud/requests/new`, `https://preskenlair.lareunion.webcup.hodi.cloud/agents/security_events`
 
 **How to verify.** 1) The forms show “Formulaire protégé contre les envois automatiques.”
 2) POST without the token (or with the honeypot filled) → “Envoi bloqué”. 3) The blocked
-attempt appears in `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/security_events` as `form_protection_blocked`.
+attempt appears in `https://preskenlair.lareunion.webcup.hodi.cloud/agents/security_events` as `form_protection_blocked`.
 
 ---
 
@@ -1102,7 +1102,7 @@ submitted an identical request (same subject and description) in the last 10 min
 it keeps the first one and redirects the citizen to it with an explicit notice, instead of
 creating a duplicate.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests/new`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/requests/new`
 
 **How to verify.** Submit the same request twice in a row → the second submission lands on
 the existing request and shows “Vous avez déjà envoyé cette demande (…)”.
@@ -1115,7 +1115,7 @@ the existing request and shows “Vous avez déjà envoyé cette demande (…)�
 “Accusé de réception” card on the request page (with received date and a print action) and
 repeated in the confirmation email, so the citizen can find or quote it later.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests/:reference` and the confirmation email.
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/requests/:reference` and the confirmation email.
 
 **How to verify.** Submit a request → the acknowledgement card shows the reference; the
 email subject and body repeat it.
@@ -1128,7 +1128,7 @@ email subject and body repeat it.
 citizen in-app and by email) or internal (agent-only note). Public replies appear on the
 citizen’s request page.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests/:reference` (reply form) and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests/:reference`.
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests/:reference` (reply form) and `https://preskenlair.lareunion.webcup.hodi.cloud/requests/:reference`.
 
 **How to verify.** Post a public reply as an agent → the citizen sees it and receives a
 notification/email; post an internal note → the citizen does not.
@@ -1143,7 +1143,7 @@ volume as a clear signal, with a list of the events involved and the most active
 new monitoring subsystem is added: suspicious activity becomes perceptible from the existing
 trail, while normal use is untouched.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/security_events`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/security_events`
 
 **How to verify.** Open the security console: the “Recent activity” panel shows the volume of
 events over the last hour and marks the activity “Normal” or “Unusual”. After several blocked
@@ -1159,7 +1159,7 @@ whenever urgent requests are pending, and the dashboard counts urgent requests �
 attention is immediately visible as the daily volume grows, rather than being buried in the
 list.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests` and `https://preskenlair.lareunion.webcup.hodi.cloud/agents`
 
 **How to verify.** Set a request to **Urgent**, then open the agent request list: an “urgent
 requests to treat” callout is shown and the queue lists urgent requests first; the dashboard
@@ -1175,7 +1175,7 @@ summary (generation date and author, total count, urgent count, period covered, 
 status) followed by the request records with priority and citizen — so the teams can confirm
 important data can be saved and reused.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/exports/requests` (administrators only, linked from the agent navigation as “Backup”).
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/exports/requests` (administrators only, linked from the agent navigation as “Backup”).
 
 **How to verify.** As an administrator, click **Backup** in the agent navigation → a CSV is
 downloaded whose header summarises the export before the records. A non-administrator agent
@@ -1190,7 +1190,7 @@ honours the active filters (search, status, priority, service): the agents selec
 information they need and download it in a simple, reusable CSV (priority and citizen
 included). Citizens can still download their own request history.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/requests` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/requests`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/requests` and `https://preskenlair.lareunion.webcup.hodi.cloud/requests`
 
 **How to verify.** Filter the queue (e.g. status *Submitted*) then click **Export selection
 (CSV)** → the downloaded file contains only the matching requests. Repeat from the citizen
@@ -1204,7 +1204,7 @@ space with **Download (CSV)**.
 collapsed `<details>` block on its page. It restates the essential information in short,
 jargon-free sentences while preserving the meaning; the full description remains available.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services/etat-civil`
 
 **How to verify.** Open a service page → expand **“En clair”** to read the simplified summary;
 the detailed description is still shown above it.
@@ -1217,7 +1217,7 @@ the detailed description is still shown above it.
 contact form pre-filled with the service name, so a citizen can request a human explanation
 only when they need it — without changing the rest of the platform.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services/etat-civil`
 
 **How to verify.** On a service page, click **“Ask for a simpler explanation”** → the contact
 form opens with the subject pre-filled for that service.
@@ -1231,7 +1231,7 @@ free-text need into a relevant municipal service, even from imperfect wording. I
 transparent, dependency-free heuristic (keyword scoring over service names, descriptions and
 plain-language summaries) — no external AI service is called.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/assistant`
 
 **How to verify.** Type e.g. *“je veux signaler un lampadaire cassé”* → the assistant suggests
 the relevant service(s) and a recommended next step.
@@ -1245,7 +1245,7 @@ pointed to the competent service or procedure. When it recognises a common categ
 direct next step (report a problem / request a document / contact the city), pre-filling a
 request where relevant.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/assistant`
 
 **How to verify.** Describe *“fuite d’eau dans la cave”* → the water service is suggested with a
 recommended step to create a request.
@@ -1259,7 +1259,7 @@ cached, defensive snapshot (`EssentialInformation`): emergency numbers, priority
 current alerts. If the database cannot be reached, a global safe response renders the same page
 with the essentials instead of a bare error.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/essentials`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/essentials`
 
 **How to verify.** Open `/essentials` → the emergency numbers and priority procedures are listed;
 the system status page links to it, and the page remains renderable when core data is degraded.
@@ -1273,7 +1273,7 @@ contacts a citizen still needs during an incident, and the system status page sh
 **essential information strip** whenever a component is down, so the essentials stay reachable
 without browsing the whole platform.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/essentials` and `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/status`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/essentials` and `https://preskenlair.lareunion.webcup.hodi.cloud/status`
 
 **How to verify.** Visit `/essentials` → emergency contacts, priority procedures and active alerts
 are shown; when a status component is unavailable, `/status` surfaces the same essentials.
@@ -1287,7 +1287,7 @@ service pages while keeping the address and a static alternative, and the enviro
 was tightened (CSS ≤ 40 KB, JS ≤ 60 KB gzipped), enforced automatically by the asset-budget test
 so non-essential weight cannot creep back in.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/eco`
 
 **How to verify.** Enable **Reduced data** in the accessibility menu → service pages load without
 the interactive map but keep the address. The `/eco` page reports the measured weight within budget.
@@ -1301,7 +1301,7 @@ service pages the related-services block and the review form are omitted, and th
 drops non-essential sections. It works together with reduced-data mode for slow or mobile
 connections.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/services/etat-civil`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/services/etat-civil`
 
 **How to verify.** Enable **Simple mode** via the accessibility controls → pages render with only
 the essential content (no related services, no review form).
@@ -1316,7 +1316,7 @@ service or procedure. It is a transparent, dependency-free heuristic (keyword sc
 prefix tolerance over service names, descriptions and plain-language summaries) — no external AI
 service is called.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/assistant`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/assistant`
 
 **How to verify.** Type e.g. *“poubell ramassage”* (deliberately imperfect) → the assistant still
 suggests the relevant service(s) and a recommended next step.
@@ -1330,7 +1330,7 @@ suggests the relevant service(s) and a recommended next step.
 message **and a clear replacement solution**, plus a link to the assistant to find an alternative
 route.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/transports`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/transports`
 
 **How to verify.** Open `/transports` → the **“Disrupted lines”** section lists the interrupted
 line(s) with the replacement solution.
@@ -1343,7 +1343,7 @@ line(s) with the replacement solution.
 use — citizen requests, appointments and reviews — with proportional bars and a plain-language
 summary sentence (**not raw data**). Powered by the `Services::Usage` service object.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents/statistics` (agent workspace, “Operations” menu)
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents/statistics` (agent workspace, “Operations” menu)
 
 **How to verify.** Open the statistics page as an agent → a ranked “Top services” table with a
 summary line naming the most used service.
@@ -1356,7 +1356,7 @@ summary line naming the most used service.
 The partner directory and detail page show a **Available / Unavailable** badge and the next
 possible action (book, contact, reopen…).
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/partners`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/partners`
 
 **How to verify.** Open the partner directory → each partner shows an availability badge; a
 partner page shows the **next step** (e.g. “reopens Monday”).
@@ -1369,7 +1369,7 @@ partner page shows the **next step** (e.g. “reopens Monday”).
 the most recent security events (type + date, no IP or metadata) and a warning when unusual
 activity is detected. The full detailed log stays administrator-only.
 
-**Where to test.** `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/agents`
+**Where to test.** `https://preskenlair.lareunion.webcup.hodi.cloud/agents`
 
 **How to verify.** Open `/agents` as an agent → the security panel lists the latest events; an
 administrator can open the full log from there.
@@ -1387,8 +1387,8 @@ administrator can open the full log from there.
 - **Internationalisation:** French default with English fallback and Spanish; translatable
   service, announcement, alert and partner content; locale resolved from parameter →
   profile → session → cookie.
-- **Accessibility:** WCAG 2.2 AA-oriented statement at `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/accessibility`.
-- **Environmental:** measured weight and budgets at `https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/eco`, enforced by an automated
+- **Accessibility:** WCAG 2.2 AA-oriented statement at `https://preskenlair.lareunion.webcup.hodi.cloud/accessibility`.
+- **Environmental:** measured weight and budgets at `https://preskenlair.lareunion.webcup.hodi.cloud/eco`, enforced by an automated
   asset-size test; low-data and simple modes, and a dynamically imported map library.
 - **Participatory democracy:** projects, consultations with recorded opinions (F65/F66),
   citizen ideas with support and moderation (F68).

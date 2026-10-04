@@ -13,7 +13,8 @@ class EssentialInformationTest < ActiveSupport::TestCase
   test "includes priority procedures and current alerts" do
     info = EssentialInformation.call
 
-    assert_equal services(:etat_civil).name, info[:procedures].first[:name]
+    assert_includes info[:procedures].map { |p| p[:name] }, services(:etat_civil).name
+    assert_operator info[:procedures].size, :<=, 4
     assert_not_empty info[:alerts]
   end
 

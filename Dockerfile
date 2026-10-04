@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
+# This Dockerfile is designed for production, not development. Build'n'run by hand:
 # docker build -t terra_nova .
 # docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name terra_nova terra_nova
 
@@ -16,7 +16,7 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips default-mysql-client && \
     ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
@@ -32,7 +32,7 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips libyaml-dev pkg-config libpq-dev && \
+    apt-get install --no-install-recommends -y build-essential git libvips libyaml-dev pkg-config default-libmysqlclient-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
@@ -63,9 +63,9 @@ ENV RAILS_ENV="development" \
     BUNDLE_DEPLOYMENT="0" \
     BUNDLE_WITHOUT=""
 
-# Install packages needed to build gems, including the PostgreSQL client headers.
+# Install packages needed to build gems, including the MySQL client headers.
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips libyaml-dev pkg-config libpq-dev && \
+    apt-get install --no-install-recommends -y build-essential git libvips libyaml-dev pkg-config default-libmysqlclient-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems (full bundle, including development and test).

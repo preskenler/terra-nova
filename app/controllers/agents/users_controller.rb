@@ -12,7 +12,7 @@ module Agents
       scope = User.order(created_at: :desc)
       if params[:q].present?
         query = "%#{params[:q].strip}%"
-        scope = scope.where("email ILIKE ?", query)
+        scope = scope.where("email LIKE ?", query)
       end
       scope = scope.where(role: params[:role]) if params[:role].present?
 

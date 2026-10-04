@@ -35,8 +35,9 @@ class Service < ApplicationRecord
     next all if query.blank?
 
     pattern = "%#{query.strip}%"
-    where("slug ILIKE :q OR name_translations::text ILIKE :q OR description_translations::text ILIKE :q " \
-          "OR category ILIKE :q OR plain_language_translations::text ILIKE :q", q: pattern)
+    where("slug LIKE :q OR CAST(name_translations AS CHAR) LIKE :q " \
+          "OR CAST(description_translations AS CHAR) LIKE :q " \
+          "OR category LIKE :q OR CAST(plain_language_translations AS CHAR) LIKE :q", q: pattern)
   }
 
   def to_param

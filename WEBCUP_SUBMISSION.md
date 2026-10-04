@@ -41,7 +41,7 @@ couverture de tests automatisés complète.
 - **Composants d'interface** : **ViewComponents**
 - **Styles** : **Tailwind CSS** + **daisyUI** (thème, contraste élevé), via
   `tailwindcss-rails`
-- **Base de données** : **PostgreSQL 18.6** (Heroku Postgres)
+- **Base de données** : **MySQL 8.4**
 - **Files d'attente / cache / temps réel** : **Solid Queue**, **Solid Cache**,
   **Solid Cable**
 - **Authentification & autorisation** : **Devise** (deux scopes : citoyen et agent),
@@ -53,12 +53,12 @@ couverture de tests automatisés complète.
 - **Internationalisation** : I18n (FR / EN / ES)
 - **Tests & qualité** : **Minitest** (unitaires, contrôleurs, intégration, système),
   **RuboCop**, **Brakeman**, audit des dépendances et des importmaps
-- **Infrastructure** : **Heroku** (buildpack Ruby, release phase pour les migrations,
-  dyno web unique), **Mailtrap** (SMTP de démonstration), CI **GitHub Actions**
+- **Infrastructure** : **cPanel / Hostinger** (application Ruby, base MySQL 8.4),
+  **SMTP** (envoi d'e-mails via variables d'environnement), CI **GitHub Actions**
 
 ## Informations utiles pour tester votre projet
 
-**URL de l'application :** <https://preskenler-terra-nova-f55b36d739c2.herokuapp.com/>
+**URL de l'application :** <https://preskenlair.lareunion.webcup.hodi.cloud/>
 
 ### Comptes de démonstration (créés pour le jury)
 

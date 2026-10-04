@@ -18,8 +18,7 @@ module TerraNova
 
     # Compress responses with gzip. Placed at the top of the middleware stack so
     # it also covers the static assets (CSS/JS) served by ActionDispatch::Static
-    # before the app; Heroku's router does not gzip on its own. Only text-like
-    # payloads are compressed.
+    # before the app. Only text-like payloads are compressed.
     config.middleware.insert_before(
       0, Rack::Deflater,
       if: lambda { |_env, _status, headers, _body|

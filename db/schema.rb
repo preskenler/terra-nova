@@ -11,10 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
-
-  create_table "agent_availabilities", force: :cascade do |t|
+  create_table "agent_availabilities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.integer "wday", null: false
     t.time "start_time", null: false
@@ -26,7 +23,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["agent_id"], name: "index_agent_availabilities_on_agent_id"
   end
 
-  create_table "agent_time_offs", force: :cascade do |t|
+  create_table "agent_time_offs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.datetime "starts_at", null: false
     t.datetime "ends_at", null: false
@@ -37,7 +34,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["agent_id"], name: "index_agent_time_offs_on_agent_id"
   end
 
-  create_table "agents", force: :cascade do |t|
+  create_table "agents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -61,7 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["unlock_token"], name: "index_agents_on_unlock_token", unique: true
   end
 
-  create_table "alerts", force: :cascade do |t|
+  create_table "alerts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.json "title_translations"
     t.json "body_translations"
     t.string "kind", default: "other", null: false
@@ -80,7 +77,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["kind"], name: "index_alerts_on_kind"
   end
 
-  create_table "announcements", force: :cascade do |t|
+  create_table "announcements", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.json "title_translations"
     t.json "body_translations"
     t.string "severity", default: "info", null: false
@@ -97,7 +94,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["severity"], name: "index_announcements_on_severity"
   end
 
-  create_table "appointments", force: :cascade do |t|
+  create_table "appointments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "agent_id", null: false
     t.bigint "service_id"
@@ -117,7 +114,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
-  create_table "consultation_responses", force: :cascade do |t|
+  create_table "consultation_responses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "consultation_id", null: false
     t.bigint "user_id", null: false
     t.string "choice", null: false
@@ -131,7 +128,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_consultation_responses_on_user_id"
   end
 
-  create_table "consultations", force: :cascade do |t|
+  create_table "consultations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "project_id"
     t.json "title_translations"
     t.json "description_translations"
@@ -145,7 +142,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["status"], name: "index_consultations_on_status"
   end
 
-  create_table "demand_syncs", force: :cascade do |t|
+  create_table "demand_syncs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "fetched_at", null: false
     t.boolean "success", default: false, null: false
     t.integer "http_status"
@@ -166,7 +163,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["success"], name: "index_demand_syncs_on_success"
   end
 
-  create_table "demands", force: :cascade do |t|
+  create_table "demands", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "request_code", null: false
     t.integer "external_id"
     t.string "requester_name"
@@ -203,7 +200,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["wave_number"], name: "index_demands_on_wave_number"
   end
 
-  create_table "feedbacks", force: :cascade do |t|
+  create_table "feedbacks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.string "kind", default: "question", null: false
     t.string "email"
@@ -220,7 +217,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
-  create_table "glossary_terms", force: :cascade do |t|
+  create_table "glossary_terms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "slug", null: false
     t.json "term_translations"
     t.json "definition_translations"
@@ -229,7 +226,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
   end
 
-  create_table "idea_supports", force: :cascade do |t|
+  create_table "idea_supports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "idea_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -239,7 +236,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_idea_supports_on_user_id"
   end
 
-  create_table "ideas", force: :cascade do |t|
+  create_table "ideas", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "reference", null: false
     t.string "title", null: false
@@ -253,10 +250,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_ideas_on_user_id"
   end
 
-  create_table "login_activities", force: :cascade do |t|
+  create_table "login_activities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "ip"
-    t.string "user_agent", limit: 255
+    t.string "user_agent"
     t.string "fingerprint", limit: 64
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -265,7 +262,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_login_activities_on_user_id"
   end
 
-  create_table "notifications", force: :cascade do |t|
+  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "notifiable_type"
     t.bigint "notifiable_id"
@@ -281,7 +278,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
-  create_table "partner_opening_hours", force: :cascade do |t|
+  create_table "partner_opening_hours", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "partner_id", null: false
     t.integer "wday", null: false
     t.string "opens_at"
@@ -293,7 +290,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["partner_id"], name: "index_partner_opening_hours_on_partner_id"
   end
 
-  create_table "partners", force: :cascade do |t|
+  create_table "partners", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "slug", null: false
     t.json "name_translations"
     t.json "description_translations"
@@ -312,7 +309,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["slug"], name: "index_partners_on_slug", unique: true
   end
 
-  create_table "profiles", force: :cascade do |t|
+  create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "address"
     t.string "postal_code"
@@ -324,7 +321,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 
-  create_table "projects", force: :cascade do |t|
+  create_table "projects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "slug", null: false
     t.json "name_translations"
     t.json "description_translations"
@@ -339,7 +336,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["status"], name: "index_projects_on_status"
   end
 
-  create_table "request_events", force: :cascade do |t|
+  create_table "request_events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "request_id", null: false
     t.string "from_status"
     t.string "to_status", null: false
@@ -353,7 +350,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["request_id"], name: "index_request_events_on_request_id"
   end
 
-  create_table "request_replies", force: :cascade do |t|
+  create_table "request_replies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "request_id", null: false
     t.string "created_by_type"
     t.bigint "created_by_id"
@@ -365,7 +362,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["request_id"], name: "index_request_replies_on_request_id"
   end
 
-  create_table "request_supports", force: :cascade do |t|
+  create_table "request_supports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "request_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -375,7 +372,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_request_supports_on_user_id"
   end
 
-  create_table "requests", force: :cascade do |t|
+  create_table "requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "service_id"
     t.string "reference", null: false
@@ -398,12 +395,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
-  create_table "security_events", force: :cascade do |t|
+  create_table "security_events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "event", null: false
     t.string "actor_type"
     t.bigint "actor_id"
     t.string "ip"
-    t.string "user_agent", limit: 255
+    t.string "user_agent"
     t.json "metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -412,7 +409,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["event"], name: "index_security_events_on_event"
   end
 
-  create_table "service_reviews", force: :cascade do |t|
+  create_table "service_reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "service_id", null: false
     t.bigint "user_id", null: false
     t.integer "rating"
@@ -427,7 +424,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["user_id"], name: "index_service_reviews_on_user_id"
   end
 
-  create_table "services", force: :cascade do |t|
+  create_table "services", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "slug", null: false
     t.json "name_translations"
     t.json "description_translations"
@@ -452,7 +449,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["status"], name: "index_services_on_status"
   end
 
-  create_table "solid_cable_messages", force: :cascade do |t|
+  create_table "solid_cable_messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.binary "channel", null: false
     t.binary "payload", null: false
     t.datetime "created_at", null: false
@@ -461,7 +458,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
   end
 
-  create_table "solid_cache_entries", force: :cascade do |t|
+  create_table "solid_cache_entries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.binary "key", null: false
     t.binary "value", null: false
     t.datetime "created_at", null: false
@@ -472,7 +469,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["key_hash"], name: "index_solid_cache_entries_on_key_hash", unique: true
   end
 
-  create_table "solid_queue_batch_executions", force: :cascade do |t|
+  create_table "solid_queue_batch_executions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.bigint "batch_id", null: false
     t.datetime "created_at", null: false
@@ -480,7 +477,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["job_id"], name: "index_solid_queue_batch_executions_on_job_id", unique: true
   end
 
-  create_table "solid_queue_batches", force: :cascade do |t|
+  create_table "solid_queue_batches", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "active_job_batch_id"
     t.string "description"
     t.text "on_finish"
@@ -499,7 +496,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["finished_at"], name: "index_solid_queue_batches_on_finished_at"
   end
 
-  create_table "solid_queue_blocked_executions", force: :cascade do |t|
+  create_table "solid_queue_blocked_executions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.string "queue_name", null: false
     t.integer "priority", default: 0, null: false
@@ -511,7 +508,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["job_id"], name: "index_solid_queue_blocked_executions_on_job_id", unique: true
   end
 
-  create_table "solid_queue_claimed_executions", force: :cascade do |t|
+  create_table "solid_queue_claimed_executions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.bigint "process_id"
     t.datetime "created_at", null: false
@@ -519,14 +516,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["process_id", "job_id"], name: "index_solid_queue_claimed_executions_on_process_id_and_job_id"
   end
 
-  create_table "solid_queue_failed_executions", force: :cascade do |t|
+  create_table "solid_queue_failed_executions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.text "error"
     t.datetime "created_at", null: false
     t.index ["job_id"], name: "index_solid_queue_failed_executions_on_job_id", unique: true
   end
 
-  create_table "solid_queue_jobs", force: :cascade do |t|
+  create_table "solid_queue_jobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "queue_name", null: false
     t.string "class_name", null: false
     t.text "arguments"
@@ -546,13 +543,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["scheduled_at", "finished_at"], name: "index_solid_queue_jobs_for_alerting"
   end
 
-  create_table "solid_queue_pauses", force: :cascade do |t|
+  create_table "solid_queue_pauses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "queue_name", null: false
     t.datetime "created_at", null: false
     t.index ["queue_name"], name: "index_solid_queue_pauses_on_queue_name", unique: true
   end
 
-  create_table "solid_queue_processes", force: :cascade do |t|
+  create_table "solid_queue_processes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "kind", null: false
     t.datetime "last_heartbeat_at", null: false
     t.bigint "supervisor_id"
@@ -566,7 +563,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["supervisor_id"], name: "index_solid_queue_processes_on_supervisor_id"
   end
 
-  create_table "solid_queue_ready_executions", force: :cascade do |t|
+  create_table "solid_queue_ready_executions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.string "queue_name", null: false
     t.integer "priority", default: 0, null: false
@@ -576,7 +573,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["queue_name", "priority", "job_id"], name: "index_solid_queue_poll_by_queue"
   end
 
-  create_table "solid_queue_recurring_executions", force: :cascade do |t|
+  create_table "solid_queue_recurring_executions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.string "task_key", null: false
     t.datetime "run_at", null: false
@@ -585,7 +582,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["task_key", "run_at"], name: "index_solid_queue_recurring_executions_on_task_key_and_run_at", unique: true
   end
 
-  create_table "solid_queue_recurring_tasks", force: :cascade do |t|
+  create_table "solid_queue_recurring_tasks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "key", null: false
     t.string "schedule", null: false
     t.string "command", limit: 2048
@@ -601,7 +598,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["static"], name: "index_solid_queue_recurring_tasks_on_static"
   end
 
-  create_table "solid_queue_scheduled_executions", force: :cascade do |t|
+  create_table "solid_queue_scheduled_executions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.string "queue_name", null: false
     t.integer "priority", default: 0, null: false
@@ -611,7 +608,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["scheduled_at", "priority", "job_id"], name: "index_solid_queue_dispatch_all"
   end
 
-  create_table "solid_queue_semaphores", force: :cascade do |t|
+  create_table "solid_queue_semaphores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "key", null: false
     t.integer "value", default: 1, null: false
     t.datetime "expires_at", null: false
@@ -622,7 +619,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
-  create_table "transport_disruptions", force: :cascade do |t|
+  create_table "transport_disruptions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "transport_line_id", null: false
     t.json "message_translations"
     t.string "severity", default: "info", null: false
@@ -635,7 +632,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["transport_line_id"], name: "index_transport_disruptions_on_transport_line_id"
   end
 
-  create_table "transport_lines", force: :cascade do |t|
+  create_table "transport_lines", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "slug", null: false
     t.json "name_translations"
     t.json "description_translations"
@@ -647,7 +644,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["slug"], name: "index_transport_lines_on_slug", unique: true
   end
 
-  create_table "transport_schedules", force: :cascade do |t|
+  create_table "transport_schedules", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "transport_line_id", null: false
     t.integer "wday", null: false
     t.string "first_departure"
@@ -658,7 +655,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["transport_line_id"], name: "index_transport_schedules_on_transport_line_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -694,7 +691,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_035013) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  create_table "versions", force: :cascade do |t|
+  create_table "versions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "whodunnit"
     t.datetime "created_at"
     t.bigint "item_id", null: false

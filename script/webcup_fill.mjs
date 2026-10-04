@@ -4,8 +4,8 @@
 // time (the session is stored in tmp/webcup-browser, git-ignored), then it fills
 // each declaration. Nothing is submitted unless you pass --submit.
 //
-// Setup (do NOT add a package.json at the repo root — Heroku's Ruby buildpack
-// would then install Node):
+// Setup (do NOT add a package.json at the repo root — the Ruby build step
+// would then try to install Node):
 //   mkdir -p /tmp/webcup-automation && cd /tmp/webcup-automation
 //   npm i playwright && npx playwright install chromium
 //   NODE_PATH=/tmp/webcup-automation/node_modules node \

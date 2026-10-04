@@ -35,7 +35,7 @@ without rebuilding**.
 
 ## 2. Current state (verified)
 
-- Fresh **Rails 8.1.4**, Ruby **3.3.12**, **PostgreSQL 18.6**.
+- Fresh **Rails 8.1.4**, Ruby **3.3.12**, **MySQL 8.4**.
 - Asset pipeline: **Propshaft + Tailwind CSS + vendored daisyUI** (no Node toolchain).
 - **importmap-rails + Hotwire (Turbo + Stimulus)** already wired.
 - **Minitest** with `test:system` (Capybara + Selenium); CI runs tests + Brakeman +

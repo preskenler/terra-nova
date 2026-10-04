@@ -63,8 +63,8 @@ Rails.application.configure do
     protocol: "https"
   }
 
-  # Deliver mail through an SMTP provider configured entirely via ENV, so the
-  # same slug works with Heroku Mailtrap, SendGrid, Mailgun or any SMTP server.
+  # Deliver mail through an SMTP provider configured entirely via ENV, so any
+  # provider works (SendGrid, Mailgun, Gmail, the host's SMTP...).
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.smtp_settings = {
@@ -86,7 +86,7 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 
-  # Allow the deployed host (set APP_HOST on Heroku/other platforms).
+  # Allow the deployed host (set APP_HOST to the production domain).
   if ENV["APP_HOST"].present?
     config.hosts = Array(config.hosts) | [ ENV["APP_HOST"] ]
   end

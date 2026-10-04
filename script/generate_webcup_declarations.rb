@@ -14,7 +14,7 @@ require "fileutils"
 
 ROOT = File.expand_path("..", __dir__)
 REPORT = File.join(ROOT, "REPORT.fr.md")
-APP_URL = "https://preskenler-terra-nova-f55b36d739c2.herokuapp.com"
+APP_URL = "https://preskenlair.lareunion.webcup.hodi.cloud"
 
 report = File.read(REPORT)
 

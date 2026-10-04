@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/preskenler/terra-nova/branch/main/graph/badge.svg)](https://codecov.io/gh/preskenler/terra-nova)
 ![Ruby](https://img.shields.io/badge/Ruby-3.3.12-CC342D?logo=ruby&logoColor=white)
 ![Rails](https://img.shields.io/badge/Rails-8.1-CC0000?logo=rubyonrails&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18.6-4169E1?logo=postgresql&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1?logo=mysql&logoColor=white)
 ![Tests](https://img.shields.io/badge/tests-385%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
@@ -31,7 +31,7 @@ workspace where they can be triaged.
 ## Requirements
 
 - Ruby **3.3.12**
-- PostgreSQL **18.6** (or Docker)
+- MySQL **8.4** (or Docker)
 - No Node.js toolchain required (Tailwind + daisyUI are compiled by `tailwindcss-rails`
   and JavaScript is served through importmaps)
 
@@ -48,19 +48,19 @@ docker compose up --build
 
 Then open <http://localhost:3000>.
 
-### Option B — local Ruby + Dockerised PostgreSQL
+### Option B — local Ruby + Dockerised MySQL
 
 ```sh
-docker compose up -d postgres   # starts PostgreSQL 18.6 on localhost:5432
+docker compose up -d mysql      # starts MySQL 8.4 on localhost:3306
 bin/setup                       # or: bundle install && bin/rails db:prepare
 bin/rails db:seed
 bin/rails tailwindcss:build
 bin/rails server
 ```
 
-> The `pg` gem needs PostgreSQL client libraries to build locally. On macOS:
-> `brew install libpq` then
-> `bundle config build.pg --with-pg-config="$(brew --prefix libpq)/bin/pg_config"`.
+> The `mysql2` gem needs the MySQL client libraries to build locally. On macOS:
+> `brew install mysql-client` then
+> `bundle config build.mysql2 --with-mysql-config="$(brew --prefix mysql-client)/bin/mysql_config"`.
 
 ---
 
@@ -71,7 +71,7 @@ Copy `.env.example` to `.env` (gitignored). Every variable is optional; defaults
 
 | Variable | Purpose | Default |
 |---|---|---|
-| `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DATABASE`, `POSTGRES_TEST_DATABASE` | Database connection | see `.env.example` |
+| `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`, `DB_DATABASE`, `DB_TEST_DATABASE` | Database connection | see `.env.example` |
 | `WEBCUP_API_BASE_URL` | External Terra Nova API base URL | `https://24h.webcup.fr/wp-json/webcup/v1` |
 | `WEBCUP_API_KEY` | API key (falls back to Rails credentials `webcup.api_key`) | — |
 | `WEBCUP_POLL_INTERVAL` | Poll interval in seconds | `30` |
@@ -81,31 +81,35 @@ Copy `.env.example` to `.env` (gitignored). Every variable is optional; defaults
 
 ---
 
-## Deploying to Heroku
+## Deploying to cPanel (Hostinger)
 
-The app is Heroku-ready: the `Procfile` runs `db:prepare` and `db:load_solid_schemas`
-in the release phase, and `config/database.yml` production uses the platform
-`DATABASE_URL` for the primary database **and** the Solid Cache/Queue/Cable components
-(they share the single Heroku Postgres instance).
+The app runs on a cPanel Ruby application (Passenger or Puma) with a MySQL 8.4 database.
+All connection details and secrets come from environment variables set in the cPanel
+panel — nothing is hard-coded.
 
-```sh
-heroku create <app-name>
-heroku addons:create heroku-postgresql:essential-0
-heroku addons:create mailtrap:unpaid          # or any SMTP provider
-heroku config:set RAILS_MASTER_KEY="$(cat config/master.key)" \
-  WEBCUP_API_KEY=<key> \
-  SOLID_QUEUE_IN_PUMA=true \
-  APP_HOST=<app-name>.herokuapp.com \
-  MAILER_FROM=no-reply@example.com \
-  SMTP_ADDRESS=... SMTP_PORT=587 SMTP_USER_NAME=... SMTP_PASSWORD=...
-git push heroku main                          # release phase migrates + loads schemas
-heroku run bin/rails db:seed                  # demo data (idempotent)
-```
+1. **Create the database and user** in cPanel (MySQL Databases), then set the
+   environment variables on the Ruby application:
+   `DB_HOST` (usually `localhost`), `DB_PORT` (`3306`), `DB_DATABASE`, `DB_USERNAME`,
+   `DB_PASSWORD`, `RAILS_MASTER_KEY`, `APP_HOST=preskenlair.lareunion.webcup.hodi.cloud`,
+   `WEBCUP_API_KEY`, the `SMTP_*` values and `SOLID_QUEUE_IN_PUMA=true`.
+2. **Install and prepare**:
 
-- `SOLID_QUEUE_IN_PUMA=true` runs the job supervisor (demand sync, appointment
-  reminders, mailers) inside the web dyno — no separate worker dyno required.
-- Mail goes out through the `SMTP_*` variables, so any provider works (Mailtrap,
-  SendGrid, Mailgun, …). `APP_HOST` is used for mailer links and host authorization.
+   ```sh
+   bundle config set --local without 'development:test'
+   bundle install
+   bin/rails db:prepare
+   bin/rails db:load_solid_schemas   # loads Solid Cache/Queue/Cable tables
+   bin/rails db:seed                 # demo data (idempotent)
+   bin/rails assets:precompile
+   ```
+
+3. **Run the app** with Puma so the Solid Queue supervisor (demand sync, appointment
+   reminders, mailers) runs in-process: set `SOLID_QUEUE_IN_PUMA=true` and start
+   `bundle exec puma -C config/puma.rb`. If the host forces Passenger, run a separate
+   worker with `bin/jobs` (add a cron entry, e.g. `*/5 * * * * bin/jobs`).
+
+- `APP_HOST` is used for mailer links and host authorization.
+- Mail goes out through the `SMTP_*` variables, so any provider works.
 
 ---
 
